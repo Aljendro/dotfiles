@@ -1,0 +1,43 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: authmfa <profile>"
+}
+
+display_summary() {
+    echo -e "Authenticate using MFA device for AWS CLI Access.\n"
+}
+
+if [ $# -eq 1 ]; then
+    MFASERIAL=$(aws configure get mfa_serial --profile $1)
+    EXPIRATION=$(aws configure get session_expiration --profile $1 || echo "1970-01-01")
+
+    now=$(date +%s)
+    expires=$(date -d $EXPIRATION +%s)
+
+    if [[ $? -eq 0 && now -ge expires ]]; then
+        printf "Enter MFA code for %s: " $1
+        read MFACODE
+
+        # Get temporary credentials for 6 hours
+        result="$(aws sts get-session-token --serial-number $MFASERIAL --token-code $MFACODE --duration-seconds 21600)"
+
+        if [[ "$result" ]]; then
+            access_key_id=$(jq -r '.Credentials.AccessKeyId' <<<$result)
+            secret_access_key=$(jq -r '.Credentials.SecretAccessKey' <<<$result)
+            session_token=$(jq -r '.Credentials.SessionToken' <<<$result)
+            session_expiration=$(jq -r '.Credentials.Expiration' <<<$result)
+
+            aws configure set session_expiration $session_expiration --profile $1
+            aws configure set aws_access_key_id $access_key_id --profile $1
+            aws configure set aws_secret_access_key $secret_access_key --profile $1
+            aws configure set aws_session_token $session_token --profile $1
+            echo -e "Token now set."
+        fi
+    else
+        echo -e "Token is still valid."
+    fi
+else
+    display_summary
+    display_usage
+fi
