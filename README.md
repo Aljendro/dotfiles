@@ -1,12 +1,14 @@
 # Dotfiles
 
-**NOTE: This README file describes an ideal state for the project, currently dotfiles is a WIP**
+**NOTE**: This README file describes an ideal state for the project, it may talk
+about things that are not there (but certainly will be in the future). My intention is
+to mold the interaction I want to have with the project.
 
 ## Summary
 
 The intention of these dotfiles is to make the configuration of my machine/vm 
-an easy endeavor for development purposes. However, they may also be helpful for you
-if you are configuring your own setup.
+an easy endeavor for development purposes; we want the least amount of manual
+intervention as possible.
 
 ## Environments
 
@@ -17,16 +19,25 @@ if you are configuring your own setup.
 
 ## Quickstart
 
-This is the only interaction a user has to use with the script
-with one prompt asking for privileges.
+Assuming this is a new system, install [Git](https://git-scm.com/)
+and clone this repository.
+
+Upload secrets using AWS Secrets Manager. The help menu should explain more
+thoroughly and is only run once per secret profile.
 
 ```
-./install.sh
+./secrets.sh --help
+```
+
+This script will setup your machine/vm. The help menu should
+explain more thoroughly and is only run once per deployment.
+
+```
+./install.sh --help
 ```
 
 ## Development Installations
 
-* [Git](https://git-scm.com/)
 * [Zsh](https://www.zsh.org/)
 * [Oh My Zsh](https://ohmyz.sh/)
 * [Vim](https://www.vim.org/)
