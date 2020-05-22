@@ -2,7 +2,7 @@
 
 **NOTE**: This README file describes an ideal state for the project, it may talk
 about things that are not there (but certainly will be in the future). My intention is
-to mold the interaction I want to have with the project.
+to mold the interface.
 
 ## Summary
 
