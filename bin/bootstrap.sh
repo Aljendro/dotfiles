@@ -19,6 +19,6 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-ansible-playbook --inventory $DOTFILES_DIR/hosts $DOTFILES_DIR/play.yml --ask-become-pass --tags "$@"
+ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags "$@"
 
 echo "Finishing Install"
