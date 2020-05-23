@@ -26,14 +26,14 @@ Upload secrets using AWS Secrets Manager. The help menu should explain more
 thoroughly and is only run once per secret profile.
 
 ```
-./secrets.sh --help
+bin/secrets.sh --help
 ```
 
 This script will setup your machine/vm. The help menu should
 explain more thoroughly and is only run once per deployment.
 
 ```
-./install.sh --help
+bin/install.sh --help
 ```
 
 ## Development Installations
