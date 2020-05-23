@@ -10,3 +10,7 @@ if [ "$OSTYPE" == "linux-gnu" ]; then
 elif [ "$OSTYPE" == "darwin" ]; then
   echo "Loading MacOS Profile"
 fi
+
+DOTFILES_DIR=$(pwd)
+echo $DOTFILES_DIR
+echo "Finishing Install"
