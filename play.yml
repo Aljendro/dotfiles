@@ -1,0 +1,7 @@
+- name: Development Machine Setup
+  hosts: local
+  roles:
+    - role: vim
+      tags:
+        - vim
+        - editor

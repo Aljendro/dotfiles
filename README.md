@@ -22,18 +22,10 @@ intervention as possible.
 Assuming this is a new system, install [Git](https://git-scm.com/)
 and clone this repository.
 
-Upload secrets using AWS Secrets Manager. The help menu should explain more
-thoroughly and is only run once per secret profile.
+This script will setup your machine/vm. 
 
 ```
-bin/secrets.sh --help
-```
-
-This script will setup your machine/vm. The help menu should
-explain more thoroughly and is only run once per deployment.
-
-```
-bin/install.sh --help
+./install all
 ```
 
 ## Development Installations

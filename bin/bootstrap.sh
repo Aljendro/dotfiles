@@ -5,12 +5,20 @@ if [ "$OSTYPE" == "linux-gnu" ]; then
   DISTRIBUTION=$(uname -v)
   if [[ "$DISTRIBUTION" == *"Ubuntu"* ]]; then
     sudo apt -y update && sudo apt -y upgrade
+    sudo apt -y autoremove
     sudo apt -y install ansible
+  else
+    echo "Distribution ($DISTRIBUTION) not supported at the moment"
   fi
 elif [ "$OSTYPE" == "darwin" ]; then
-  echo "Loading MacOS Profile"
+  echo "MacOS is not supported at this moment"
 fi
 
-DOTFILES_DIR=$(pwd)
-echo $DOTFILES_DIR
+if ! [ -x "$(command -v ansible-playbook)" ]; then
+  echo 'Error: ansible was not installed.' >&2
+  exit 1
+fi
+
+ansible-playbook --inventory $DOTFILES_DIR/hosts $DOTFILES_DIR/play.yml --ask-become-pass --tags "$@"
+
 echo "Finishing Install"
