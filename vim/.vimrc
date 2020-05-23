@@ -1,6 +1,6 @@
 " Settings vimrc file.
 "
-" Maintainer:	Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+" Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
 " Bail out if something that ran earlier, e.g. a system wide vimrc, does not
@@ -102,7 +102,7 @@ if has("autocmd")
   " Put these in an autocmd group, so that you can revert them with:
   " ":augroup vimStartup | au! | augroup END"
   augroup vimStartup
-    au!
+    autocmd!
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid, when inside an event handler
@@ -133,14 +133,28 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-" ABBREVIATIONS START
+""""""""""""""""""""" Abbreviations 
+
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 
-" MAPPING START 
+
+""""""""""""""""""""" Mappings 
+
 nnoremap <space> <Nop>
 let mapleader = " "
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <leader>ev :vsplit $DOTFILES_DIR/.vim/vimrc<cr>:!ls<cr><cr>G
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
 
+
+"""""""""""""""""""" Plugins 
+
+" Installing vim-plug package manager
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
