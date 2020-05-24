@@ -2,6 +2,7 @@
   hosts: local
   vars:
     google_pubkey_location: /tmp/google_pubkey.pub
+    firefox_location: /tmp/firefox_developer_edition.tar.bz2
   tasks:
     - name: "Ansible | List all known variables and facts"
       debug:
@@ -23,9 +24,24 @@
       become: true
       shell: echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
-    - name: Add Firefox Dev PPA
+    - name: Downloading Firefox Developer Edition
+      get_url:
+        url: https://download-installer.cdn.mozilla.net/pub/devedition/releases/77.0b9/linux-x86_64/en-US/firefox-77.0b9.tar.bz2
+        dest: "{{ firefox_location }}"
+        checksum: sha256:53bdc1301bf0a4c9c8204d5893bf951afd3c5a8ec0870c356fc6e789e934c1b3
+
+    - name: Extracting Firefox Developer Edition
       become: true
-      command: add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
+      unarchive:
+        src: "{{ firefox_location }}"
+        dest: /opt
+
+    - name: Adding Firefox Developer Edition to List
+      file:
+        src: "{{ dotfiles_dir }}/firefox/firefox_dev.desktop"
+        dest: ~/.local/share/applications/firefox_dev.desktop
+        state: link
+        mode: +x
 
     - name: Update and upgrade apt packages
       become: true
@@ -44,7 +60,6 @@
         - vim
         - inkscape
         - google-chrome-stable
-        - firefox
 
     - name: Installing Snap Packages
       become: yes
@@ -54,6 +69,14 @@
       loop:
         - bitwarden
         - spotify
+
+    - name: Uninstalling Packages
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - firefox
 
     #####
     # Vim Profile
