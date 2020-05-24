@@ -147,14 +147,10 @@ let mapleader = " "
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
 
+" Block Quote
+nnoremap <leader>cb :set formatoptions-=cro<cr>O#####<cr>#<cr>#####<esc>:set formatoptions+=cro<cr>kg_a<space>
 
 """""""""""""""""""" Plugins 
 
-" Installing vim-plug package manager
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('~/.vim/plugged')
+

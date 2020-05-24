@@ -1,7 +1,66 @@
 - name: Development Machine Setup
   hosts: local
-  roles:
-    - role: vim
-      tags:
+  vars:
+    google_pubkey_location: /tmp/google_pubkey.pub
+  tasks:
+    - name: "Ansible | List all known variables and facts"
+      debug:
+        var: hostvars[inventory_hostname]
+
+    #####
+    # Install dependencies
+    #####
+    - name: Downloading Google Public Key
+      get_url:
+        url: https://dl.google.com/linux/linux_signing_key.pub
+        dest: "{{ google_pubkey_location }}"
+
+    - name: Loading Google Public Key into Apt
+      become: true
+      command: apt-key add {{ google_pubkey_location }}
+
+    - name: Adding Google Chrome Stable
+      become: true
+      shell: echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
+    - name: Add Firefox Dev PPA
+      become: true
+      command: add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
+
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Installing Apt Packages
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - tree
+        - curl
         - vim
-        - editor
+        - inkscape
+        - google-chrome-stable
+        - firefox
+
+    - name: Installing Snap Packages
+      become: yes
+      snap:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - bitwarden
+        - spotify
+
+    #####
+    # Vim Profile
+    #####
+    - name: Install Vim-Plug package manager
+      command:
+        cmd: curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        creates: ~/.vim/autoload/plug.vim
+

@@ -7,11 +7,14 @@ if [ "$OSTYPE" == "linux-gnu" ]; then
     sudo apt -y update && sudo apt -y upgrade
     sudo apt -y autoremove
     sudo apt -y install ansible
+    sudo apt -y install software-properties-common
   else
     echo "Distribution ($DISTRIBUTION) not supported at the moment"
   fi
 elif [ "$OSTYPE" == "darwin" ]; then
   echo "MacOS is not supported at this moment"
+else
+  echo "$OSTYPE is not supported"
 fi
 
 if ! [ -x "$(command -v ansible-playbook)" ]; then
@@ -19,6 +22,6 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags "$@"
+ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags "$@" --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
 echo "Finishing Install"
