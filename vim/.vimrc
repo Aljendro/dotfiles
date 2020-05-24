@@ -3,6 +3,8 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
+"""""""""""""""""""" Defaults
+
 " Bail out if something that ran earlier, e.g. a system wide vimrc, does not
 " want Vim to use these default values.
 if exists('skip_defaults_vim')
@@ -15,12 +17,6 @@ endif
 if &compatible
   set nocompatible
 endif
-
-" When the +eval feature is missing, the set command above will be skipped.
-" Use a trick to reset compatible only when the +eval feature is missing.
-silent! while 0
-  set nocompatible
-silent! endwhile
 
 " Set the font
 if has("gui_running")
@@ -74,12 +70,10 @@ endif
 set nrformats-=octal
 
 " Don't use Ex mode, use Q for formatting.
-" Revert with ":unmap Q".
 map Q gq
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
-" Revert with ":iunmap <C-U>".
 inoremap <C-U> <C-G>u<C-U>
 
 " Switch syntax highlighting on when the terminal has colors or when using the
@@ -115,6 +109,11 @@ if has("autocmd")
 
   augroup END
 
+  augroup vimWrite
+    autocmd!
+    autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
+  augroup END
+
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -133,12 +132,21 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-""""""""""""""""""""" Abbreviations 
+"""""""""""""""""""" Plugins
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+
+call plug#end()
+
+""""""""""""""""""""" Abbreviations
 
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 
-
-""""""""""""""""""""" Mappings 
+""""""""""""""""""""" Mappings
 
 nnoremap <space> <Nop>
 let mapleader = " "
@@ -150,7 +158,4 @@ nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
 " Block Quote
 nnoremap <leader>cb :set formatoptions-=cro<cr>O#####<cr>#<cr>#####<esc>:set formatoptions+=cro<cr>kg_a<space>
 
-"""""""""""""""""""" Plugins 
-
-call plug#begin('~/.vim/plugged')
 
