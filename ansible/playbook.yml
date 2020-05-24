@@ -105,7 +105,7 @@
 
     - name: Linking .vimrc
       file:
-        src: "{{ dotfiles_dir }}/vim/.vimrc"
+        src: "{{ dotfiles_dir }}/vim/vimrc"
         dest: ~/.vimrc
         state: link
         mode: u+rwx,g+rx,o+rx
