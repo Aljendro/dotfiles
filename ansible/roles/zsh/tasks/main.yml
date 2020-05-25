@@ -54,3 +54,10 @@
     dest: ~/.zshrc
     state: link
     mode: u+rwx,g+rx,o+rx
+
+- name: Linking .zshrc_local template
+  template:
+    src: "{{ dotfiles_dir }}/zsh/zshrc_local.j2"
+    dest: ~/.zshrc_local
+    mode: u+rwx
+
