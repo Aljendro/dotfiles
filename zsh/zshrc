@@ -1,0 +1,40 @@
+# If you come from bash you might have to change your $PATH.
+# TODO Set Path
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/$USER/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+DISABLE_MAGIC_FUNCTIONS=true
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Add wisely, as too many plugins slow down shell startup.
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws cargo node npm nvm wd encode64)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Set file/directory creation permissions
+umask 077
+
+alias v='vim'
+alias vz='vim ~/.zshrc'
+alias sz='source ~/.zshrc'
+
+# Remap the right shift key to send Escape signal
+xmodmap -e "keycode 62 = Escape"
+# Remap caps lock to send the Control_L signal
+xmodmap -e "keycode 66 = Control_L" 
