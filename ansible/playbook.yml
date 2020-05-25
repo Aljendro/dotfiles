@@ -1,3 +1,4 @@
+---
 - name: Development Machine Setup
   hosts: local
   vars:
@@ -8,117 +9,18 @@
       debug:
         var: hostvars[inventory_hostname]
 
-    #####
-    # Install dependencies
-    #####
-    - name: Downloading Google Public Key
-      get_url:
-        url: https://dl.google.com/linux/linux_signing_key.pub
-        dest: "{{ google_pubkey_location }}"
+    - import_role:
+        name: dependencies
+      tags:
+        - dependencies
 
-    - name: Loading Google Public Key into Apt
-      become: true
-      command: apt-key add {{ google_pubkey_location }}
-
-    - name: Adding Google Chrome Stable
-      become: true
-      shell: echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-
-    - name: Downloading Firefox Developer Edition
-      get_url:
-        url: https://download-installer.cdn.mozilla.net/pub/devedition/releases/77.0b9/linux-x86_64/en-US/firefox-77.0b9.tar.bz2
-        dest: "{{ firefox_location }}"
-        checksum: sha256:53bdc1301bf0a4c9c8204d5893bf951afd3c5a8ec0870c356fc6e789e934c1b3
-
-    - name: Extracting Firefox Developer Edition
-      become: true
-      unarchive:
-        src: "{{ firefox_location }}"
-        dest: /opt
-
-
-    - name: Adding Firefox Developer Edition to List
-      file:
-        src: "{{ dotfiles_dir }}/firefox/firefox_dev.desktop"
-        dest: ~/.local/share/applications/firefox_dev.desktop
-        state: link
-        mode: +x
-
-    - name: Update and upgrade apt packages
-      become: true
-      apt:
-        upgrade: yes
-        update_cache: yes
-
-    - name: Installing Apt Packages
-      become: yes
-      apt:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - jq
-        - tree
-        - curl
-        - vim
-        - inkscape
-        - google-chrome-stable
+    - import_role:
+        name: zsh
+      tags:
         - zsh
 
-    - name: Installing Snap Packages
-      become: yes
-      snap:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - bitwarden
-        - spotify
-
-    - name: Uninstalling Packages
-      become: yes
-      apt:
-        name: "{{ item }}"
-        state: absent
-      loop:
-        - firefox
-
-    #####
-    # ZSH Profile
-    #####
-    - name: Register ZSH executable location
-      command: which zsh
-      register: which_zsh
-
-    - name: Change the current shell to ZSH
-      become: true
-      user:
-        name: "{{ lookup('env', 'USER') }}"
-        shell: "{{ which_zsh.stdout }}"
-
-    - name: Check Oh My Zsh Installation
-      stat:
-        path: ~/.oh-my-zsh
-      register: ohmyzsh_dir
-
-    - name: Installing Oh My Zsh
-      shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-      when: ohmyzsh_dir.stat.exists == false
-
-    #####
-    # Vim Profile
-    #####
-    - name: Install Vim-Plug package manager
-      command:
-        cmd: curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-               https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        creates: ~/.vim/autoload/plug.vim
-
-    - name: Linking .vimrc
-      file:
-        src: "{{ dotfiles_dir }}/vim/vimrc"
-        dest: ~/.vimrc
-        state: link
-        mode: u+rwx,g+rx,o+rx
-
-    - name: Install plugins
-      command: vim +PlugInstall +qall
+    - import_role:
+        name: vim
+      tags:
+        - vim
 
