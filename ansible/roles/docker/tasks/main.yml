@@ -5,11 +5,14 @@
     upgrade: yes
     update_cache: yes
 
-- name: Installing Curl
+- name: Installing Apt Packages
   become: yes
   apt:
-    name: curl
+    name: "{{ item }}"
     state: present
+  loop:
+    - curl
+    - software-properties-common
 
 - name: Downloading Docker Public Key
   get_url:
@@ -37,7 +40,6 @@
     state: present
   loop:
     - apt-transport-https
-    - software-properties-common
     - ca-certificates
     - docker-ce
 

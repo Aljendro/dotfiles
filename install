@@ -13,7 +13,6 @@ if [ "$OSTYPE" == "linux-gnu" ]; then
     sudo apt -y update && sudo apt -y upgrade
     sudo apt -y autoremove
     sudo apt -y install ansible
-    sudo apt -y install software-properties-common
   else
     echo "Distribution ($DISTRIBUTION) not supported at the moment"
   fi
