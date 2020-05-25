@@ -34,7 +34,8 @@ alias v='vim'
 alias vz='vim ~/.zshrc'
 alias sz='source ~/.zshrc'
 
-# Remap the right shift key to send Escape signal
-xmodmap -e "keycode 62 = Escape"
-# Remap caps lock to send the Control_L signal
-xmodmap -e "keycode 66 = Control_L" 
+setxkbmap -option ctrl:swapcaps     # Swap Left Control and Caps Lock
+setxkbmap -option ctrl:nocaps       # Make Caps Lock a Control key
+
+xmodmap -e "keycode 62 = Escape" # Remap the right shift key to send Escape signal
+
