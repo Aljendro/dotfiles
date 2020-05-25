@@ -1,0 +1,34 @@
+---
+- name: Installing Curl
+  become: yes
+  apt:
+    name: curl
+    state: present
+
+- name: Downloading Firefox Developer Edition
+  get_url:
+    url: https://download-installer.cdn.mozilla.net/pub/devedition/releases/77.0b9/linux-x86_64/en-US/firefox-77.0b9.tar.bz2
+    dest: "{{ firefox_location }}"
+    checksum: sha256:53bdc1301bf0a4c9c8204d5893bf951afd3c5a8ec0870c356fc6e789e934c1b3
+
+- name: Extracting Firefox Developer Edition
+  become: true
+  unarchive:
+    src: "{{ firefox_location }}"
+    dest: /opt
+
+- name: Adding Firefox Developer Edition to List
+  file:
+    src: "{{ role_path }}/files/firefox_dev.desktop"
+    dest: ~/.local/share/applications/firefox_dev.desktop
+    state: link
+    mode: +x
+
+- name: Uninstalling vanilla Firefox
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - firefox
+

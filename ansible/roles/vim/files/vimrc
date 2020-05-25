@@ -166,7 +166,7 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 """""""""""""""""""" Extra Customizations
 
 let NERDTreeShowLineNumbers = 1
-let NERDTreeQuitOnOpen = 3
+let NERDTreeQuitOnOpen = 0
 
 augroup customNERDTree
   autocmd!

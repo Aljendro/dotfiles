@@ -7,9 +7,24 @@
         var: hostvars[inventory_hostname]
 
     - import_role:
-        name: dependencies
+        name: packages
       tags:
-        - dependencies
+        - packages
+
+    - import_role:
+        name: vim
+      tags:
+        - vim
+
+    - import_role:
+        name: chrome
+      tags:
+        - chrome
+
+    - import_role:
+        name: firefox
+      tags:
+        - firefox
 
     - import_role:
         name: zsh
@@ -17,7 +32,7 @@
         - zsh
 
     - import_role:
-        name: vim
+        name: docker
       tags:
-        - vim
+        - docker
 

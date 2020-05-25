@@ -1,0 +1,32 @@
+---
+- name: Installing Curl
+  become: yes
+  apt:
+    name: curl
+    state: present
+
+- name: Downloading Google Public Key
+  get_url:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    dest: "{{ google_pubkey_location }}"
+
+- name: Loading Google Public Key into Apt
+  become: true
+  command: apt-key add {{ google_pubkey_location }}
+
+- name: Adding Google Chrome Stable to List
+  become: true
+  shell: echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Chrome
+  become: yes
+  apt:
+    name: google-chrome-stable
+    state: present
+

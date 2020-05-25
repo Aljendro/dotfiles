@@ -2,6 +2,23 @@
 #####
 # ZSH Profile
 #####
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - zsh
+    - powerline
+    - fonts-powerline
+
 - name: Register Zsh executable location
   command: which zsh
   register: which_zsh
@@ -37,27 +54,38 @@
   file:
     path: ~/.zshrc
     state: absent
+  when: zshrc_file.stat.exists == true
 
 - name: Adding Autosuggest plugin to zsh
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
+- name: Make Autosuggest plugin executable
+  file:
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    mode: +x
+
 - name: Adding Syntax Highlighting plugin to zsh
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
+- name: Make Syntax Highlighting plugin executable
+  file:
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    mode: +x
+
 - name: Linking .zshrc
   file:
-    src: "{{ dotfiles_dir }}/zsh/zshrc"
+    src: "{{ role_path }}/files/zshrc"
     dest: ~/.zshrc
     state: link
     mode: u+rwx,g+rx,o+rx
 
 - name: Linking .zshrc_local template
   template:
-    src: "{{ dotfiles_dir }}/zsh/zshrc_local.j2"
+    src: "{{ role_path }}/templates/zshrc_local.j2"
     dest: ~/.zshrc_local
     mode: u+rwx
 

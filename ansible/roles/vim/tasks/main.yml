@@ -2,6 +2,21 @@
 #####
 # Vim Profile
 #####
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Vim and Curl
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - vim
+
 - name: Install Vim-Plug package manager
   command:
     cmd: curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -10,7 +25,7 @@
 
 - name: Linking .vimrc
   file:
-    src: "{{ dotfiles_dir }}/vim/vimrc"
+    src: "{{ role_path }}/files/vimrc"
     dest: ~/.vimrc
     state: link
     mode: u+rwx,g+rx,o+rx

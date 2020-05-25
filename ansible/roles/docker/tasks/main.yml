@@ -1,0 +1,58 @@
+---
+- name: Installing Curl
+  become: yes
+  apt:
+    name: curl
+    state: present
+
+- name: Downloading Docker Public Key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: "{{ docker_pubkey_location }}"
+
+- name: Loading Docker Public Key into Apt
+  become: true
+  command: apt-key add {{ docker_pubkey_location }}
+
+- name: Adding Docker to List
+  become: true
+  shell: echo 'deb [arch=amd64] http://download.docker.com/linux/ubuntu bionic stable' | sudo tee /etc/apt/sources.list.d/docker.list
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Docker Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apt-transport-https
+    - software-properties-common
+    - ca-certificates
+    - docker-ce
+
+- name: Add user to the docker group
+  become: true
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    group: docker
+
+- name: Get Machine Hardware Name
+  shell: uname -m
+  register: hardware_name
+
+- name: Get Kernel Name
+  shell: uname -s
+  register: kernel_name
+
+- name: Install Docker Compose
+  become: yes
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-{{ kernel_name.stdout }}-{{ hardware_name.stdout }}"
+    dest: /usr/local/bin/docker-compose
+    mode: +x
+
