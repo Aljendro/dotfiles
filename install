@@ -6,5 +6,28 @@ set -e
 # See https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 export DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-$DOTFILES_DIR/bin/bootstrap.sh "$@"
+# Install ansible
+if [ "$OSTYPE" == "linux-gnu" ]; then
+  DISTRIBUTION=$(uname -v)
+  if [[ "$DISTRIBUTION" == *"Ubuntu"* ]]; then
+    sudo apt -y update && sudo apt -y upgrade
+    sudo apt -y autoremove
+    sudo apt -y install ansible
+    sudo apt -y install software-properties-common
+  else
+    echo "Distribution ($DISTRIBUTION) not supported at the moment"
+  fi
+elif [ "$OSTYPE" == "darwin" ]; then
+  echo "MacOS is not supported at this moment"
+else
+  echo "$OSTYPE is not supported"
+fi
 
+if ! [ -x "$(command -v ansible-playbook)" ]; then
+  echo 'Error: ansible was not installed.' >&2
+  exit 1
+fi
+
+ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags "$@" --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+
+echo "Finishing Install"

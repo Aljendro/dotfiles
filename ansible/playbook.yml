@@ -94,6 +94,9 @@
         name: "{{ lookup('env', 'USER') }}"
         shell: "{{ which_zsh.stdout }}"
 
+    - name: Installing Oh My Zsh
+      shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
     #####
     # Vim Profile
     #####
