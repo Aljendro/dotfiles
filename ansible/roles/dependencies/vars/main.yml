@@ -1,0 +1,5 @@
+---
+docker_pubkey_location: /tmp/docker_pubkey.pub
+google_pubkey_location: /tmp/google_pubkey.pub
+firefox_location: /tmp/firefox_developer_edition.tar.bz2
+

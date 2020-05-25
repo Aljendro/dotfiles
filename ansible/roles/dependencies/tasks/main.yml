@@ -2,6 +2,19 @@
 #####
 # Install dependencies
 #####
+- name: Downloading Docker Public Key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: "{{ docker_pubkey_location }}"
+
+- name: Loading Docker Public Key into Apt
+  become: true
+  command: apt-key add {{ docker_pubkey_location }}
+
+- name: Adding Docker to List
+  become: true
+  shell: echo 'deb [arch=amd64] http://download.docker.com/linux/ubuntu bionic stable' | sudo tee /etc/apt/sources.list.d/docker.list
+
 - name: Downloading Google Public Key
   get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
@@ -11,9 +24,9 @@
   become: true
   command: apt-key add {{ google_pubkey_location }}
 
-- name: Adding Google Chrome Stable
+- name: Adding Google Chrome Stable to List
   become: true
-  shell: echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+  shell: echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
 - name: Downloading Firefox Developer Edition
   get_url:
@@ -56,6 +69,9 @@
     - zsh
     - powerline
     - fonts-powerline
+    - apt-transport-https
+    - ca-certificates
+    - docker-ce
 
 - name: Installing Snap Packages
   become: yes
@@ -73,4 +89,25 @@
     state: absent
   loop:
     - firefox
+
+- name: Add user to the docker group
+  become: true
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    group: docker
+
+- name: Get Machine Hardware Name
+  shell: uname -m
+  register: hardware_name
+
+- name: Get Kernel Name
+  shell: uname -s
+  register: kernel_name
+
+- name: Install Docker Compose
+  become: yes
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-{{ kernel_name.stdout }}-{{ hardware_name.stdout }}"
+    dest: /usr/local/bin/docker-compose
+    mode: +x
 

@@ -1,9 +1,6 @@
 ---
 - name: Development Machine Setup
   hosts: local
-  vars:
-    google_pubkey_location: /tmp/google_pubkey.pub
-    firefox_location: /tmp/firefox_developer_edition.tar.bz2
   tasks:
     - name: "Ansible | List all known variables and facts"
       debug:
