@@ -1,7 +1,4 @@
 ---
-#####
-# ZSH Profile
-#####
 - name: Update and upgrade apt packages
   become: true
   apt:
