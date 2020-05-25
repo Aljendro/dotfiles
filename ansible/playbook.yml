@@ -94,8 +94,14 @@
         name: "{{ lookup('env', 'USER') }}"
         shell: "{{ which_zsh.stdout }}"
 
+    - name: Check Oh My Zsh Installation
+      stat:
+        path: ~/.oh-my-zsh
+      register: ohmyzsh_dir
+
     - name: Installing Oh My Zsh
       shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      when: ohmyzsh_dir.stat.exists == false
 
     #####
     # Vim Profile
