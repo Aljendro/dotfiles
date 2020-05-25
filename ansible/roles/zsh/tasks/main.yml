@@ -64,7 +64,7 @@
 - name: Make Autosuggest plugin executable
   file:
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    mode: +x
+    mode: '0700'
 
 - name: Adding Syntax Highlighting plugin to zsh
   git:
@@ -74,7 +74,7 @@
 - name: Make Syntax Highlighting plugin executable
   file:
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    mode: +x
+    mode: '0700'
 
 - name: Linking .zshrc
   file:
