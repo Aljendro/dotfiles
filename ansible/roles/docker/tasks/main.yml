@@ -13,6 +13,8 @@
   loop:
     - curl
     - software-properties-common
+    - apt-transport-https
+    - ca-certificates
 
 - name: Downloading Docker Public Key
   get_url:
@@ -39,8 +41,6 @@
     name: "{{ item }}"
     state: present
   loop:
-    - apt-transport-https
-    - ca-certificates
     - docker-ce
 
 - name: Add user to the docker group

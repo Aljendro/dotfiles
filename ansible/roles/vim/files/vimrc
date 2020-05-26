@@ -51,7 +51,7 @@ set showcmd		" display incomplete commands
 set wildmenu		" display completion matches in a status line
 
 set timeout " time out for mappings
-set timeoutlen=500
+set timeoutlen=1000
 set ttimeout		" time out for key codes
 set ttimeoutlen=100	" wait up to 100ms after Esc for special key
 
@@ -109,6 +109,8 @@ if has("autocmd")
       \ |   exe "normal! g`\""
       \ | endif
 
+    " Removing the o option removes adding a comment when open new line
+    autocmd Filetype * set formatoptions-=o
   augroup END
 
   augroup vimWrite
@@ -157,20 +159,18 @@ let mapleader = " "
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
 
-" Block Quote
-nnoremap <leader>cb :set formatoptions-=cro<cr>O#####<cr>#<cr>#####<esc>:set formatoptions+=cro<cr>kg_a<space>
-
 " Open Nerdtree
 nnoremap <leader>n :NERDTreeToggle<cr>
 
 """""""""""""""""""" Extra Customizations
 
 let NERDTreeShowLineNumbers = 1
-let NERDTreeQuitOnOpen = 0
+let NERDTreeQuitOnOpen = 3
 
 augroup customNERDTree
   autocmd!
-  autocmd FileType nerdtree nmap <buffer> <space> <cr>
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
+nnoremap <leader>tn :tabn<cr>
+nnoremap <leader>tb :tabp<cr>
