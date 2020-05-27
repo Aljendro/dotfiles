@@ -140,19 +140,22 @@ nnoremap <space> <Nop>
 let mapleader = " "
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>:!ls<cr><cr>G
-nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
+nnoremap <leader>ev :vsplit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+nnoremap <leader>sv :w<cr>:source ~/.vimrc<cr>
+nnoremap <leader>sve :w<cr>:source ~/.vimrc<cr>:q<cr>:!ls<cr><cr>
 
 " Move around tabs easily
 
-" CTRL-Tab is next tab
-noremap <C-Tab> :<C-U>tabnext<CR>
-inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
-cnoremap <C-Tab> <C-C>:tabnext<CR>
-" CTRL-SHIFT-Tab is previous tab
-noremap <C-S-Tab> :<C-U>tabprevious<CR>
-inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
-cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+" Go to the previous tab
+nnoremap <C-S-Tab> :<C-U>tabprevious<cr>
+" Go to the next tab
+nnoremap <C-Tab> :<C-U>tabnext<cr>
+" Go to some tab ([count]<leader>t, where count is the tab number)
+nnoremap <expr> <leader>tg ':<C-U>tabnext ' . v:count . '<cr>'
+" Create a new tab at the end
+nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
+" Close the tab
+nnoremap <leader>tc :<C-U>tabclose<cr>
 
 """"""""""""""""""""
 """""""""""""""""""" Plugins
@@ -171,15 +174,24 @@ call plug#end()
 """""""""""""""""""" Plugin Customizations
 """"""""""""""""""""
 
-"""""""""""""""""""" NERDTree
+"""""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>n :<C-U>NERDTreeToggle<cr>
 
 let NERDTreeShowLineNumbers = 1
 let NERDTreeQuitOnOpen = 3
 
 augroup customNERDTree
   autocmd!
+  " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
+
+"""""""""""""""""""" Fugitive (Git Plugin)
+
+" Open diffs of all the different changed files in tabs
+nnoremap <leader>gd :<C-U>Git difftool -y<cr>
+
+" Open merge conflicts in different tabs
+nnoremap <leader>gmc :<C-U>Git mergetool<cr>
 
