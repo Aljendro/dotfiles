@@ -3,7 +3,9 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
+""""""""""""""""""""
 """""""""""""""""""" Defaults Customizations
+""""""""""""""""""""
 
 " Bail out if something that ran earlier, e.g. a system wide vimrc, does not
 " want Vim to use these default values.
@@ -85,49 +87,36 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+" Revert with ":filetype off".
+filetype plugin indent on
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  " Revert with ":filetype off".
-  filetype plugin indent on
+" Put these in an autocmd group, so that you can revert them with:
+" ":augroup vimStartup | au! | augroup END"
+augroup vimStartup
+  autocmd!
 
-  " Put these in an autocmd group, so that you can revert them with:
-  " ":augroup vimStartup | au! | augroup END"
-  augroup vimStartup
-    autocmd!
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid, when inside an event handler
+  " (happens when dropping a file on gvim) and for a commit message (it's
+  " likely a different one than last time).
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
 
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid, when inside an event handler
-    " (happens when dropping a file on gvim) and for a commit message (it's
-    " likely a different one than last time).
-    autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
+  " Removing the o option removes adding a comment when open new line
+  autocmd Filetype * set formatoptions-=o
+augroup END
 
-    " Removing the o option removes adding a comment when open new line
-    autocmd Filetype * set formatoptions-=o
-  augroup END
-
-  augroup vimWrite
-    autocmd!
-    autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
-  augroup END
-
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-" Revert with: ":delcommand DiffOrig".
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
+" Whenever Vim writes things to a buffer
+augroup vimWrite
+  autocmd!
+  autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
+augroup END
 
 if has('langmap') && exists('+langremap')
   " Prevent that the langmap option applies to characters that result from a
@@ -136,21 +125,16 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-"""""""""""""""""""" Plugins
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-
-call plug#end()
-
+""""""""""""""""""""
 """""""""""""""""""" Abbreviations
+""""""""""""""""""""
 
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+iabbrev """ """"""""""""""""""""
 
-"""""""""""""""""""" Mappings
+""""""""""""""""""""
+"""""""""""""""""""" Misc. Mappings
+""""""""""""""""""""
 
 nnoremap <space> <Nop>
 let mapleader = " "
@@ -159,10 +143,37 @@ let mapleader = " "
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:source %<cr>:q<cr>:!ls<cr><cr>
 
-" Open Nerdtree
-nnoremap <leader>n :NERDTreeToggle<cr>
+" Move around tabs easily
 
-"""""""""""""""""""" Extra Customizations
+" CTRL-Tab is next tab
+noremap <C-Tab> :<C-U>tabnext<CR>
+inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
+cnoremap <C-Tab> <C-C>:tabnext<CR>
+" CTRL-SHIFT-Tab is previous tab
+noremap <C-S-Tab> :<C-U>tabprevious<CR>
+inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
+cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+
+""""""""""""""""""""
+"""""""""""""""""""" Plugins
+""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+
+call plug#end()
+
+""""""""""""""""""""
+"""""""""""""""""""" Plugin Customizations
+""""""""""""""""""""
+
+"""""""""""""""""""" NERDTree
+
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 let NERDTreeShowLineNumbers = 1
 let NERDTreeQuitOnOpen = 3
@@ -172,5 +183,3 @@ augroup customNERDTree
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
-nnoremap <leader>tn :tabn<cr>
-nnoremap <leader>tb :tabp<cr>

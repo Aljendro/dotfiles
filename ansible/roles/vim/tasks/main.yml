@@ -13,6 +13,7 @@
   loop:
     - curl
     - vim
+    - vim-gtk3
 
 - name: Install Vim-Plug package manager
   command:
