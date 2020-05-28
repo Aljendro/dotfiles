@@ -25,8 +25,9 @@ if has("gui_running")
   set guifont=Ubuntu\ Mono\ Bold\ 14
 endif
 
-" Set the theme
-colorscheme desert
+" Stop flashing
+set visualbell
+set t_vb=
 
 " Add line numbers
 set number
@@ -47,15 +48,22 @@ set autoindent
 " Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
 
-set history=1000		" keep 1000 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set wildmenu		" display completion matches in a status line
+" keep 1000 lines of command line history
+set history=1000
+" show the cursor position all the time
+set ruler
+" display incomplete commands
+set showcmd
+" display completion matches in a status line
+set wildmenu
 
-set timeout " time out for mappings
+" time out for mappings
+set timeout
 set timeoutlen=1000
-set ttimeout		" time out for key codes
-set ttimeoutlen=100	" wait up to 100ms after Esc for special key
+
+" time out for key codes
+set ttimeout
+set ttimeoutlen=100
 
 " Show @@@ in the last line if it is truncated.
 set display=truncate
@@ -157,22 +165,43 @@ nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :<C-U>tabclose<cr>
 
+" Move between windows easily
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Better splitting
+set splitright
+set splitbelow
+
 """"""""""""""""""""
 """""""""""""""""""" Plugins
 """"""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'itchyny/lightline.vim'
+Plug 'tomasr/molokai'
+Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
 """"""""""""""""""""
 """""""""""""""""""" Plugin Customizations
 """"""""""""""""""""
+
+"""""""""""""""""""" Molokai Theme
+
+colorscheme molokai
+
+"""""""""""""""""""" Lightline
+
+set laststatus=2
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
@@ -190,13 +219,34 @@ augroup END
 """""""""""""""""""" Fugitive (Git Plugin)
 
 " Open diffs of all the different changed files in tabs
-nnoremap <leader>gd :<C-U>Git difftool -y<cr>
+nnoremap <leader>dt :<C-U>Git difftool -y<cr>
+" Choose left buffer
+nnoremap <leader>dl :<C-U>diffget //2<cr>
+" Choose the right buffer
+nnoremap <leader>dr :<C-U>diffget //3<cr>
 " Refresh difftool
-nnoremap <leader>gdu :<C-U>diffupdate
+nnoremap <leader>du :<C-U>diffupdate
 " Open merge conflicts in different tabs
 nnoremap <leader>gmc :<C-U>Git mergetool<cr>
-" Choose left buffer
-nnoremap <leader>gmcl :<C-U>diffget //2<cr>
-" Choose the right buffer
-nnoremap <leader>gmcr :<C-U>diffget //3<cr>
+" Open git blame with commit and author
+nmap <leader>gb :<C-U>Git blame<cr>A
 
+cabbrev gco Git checkout
+cabbrev gcb Git checkout -b
+cabbrev gac Git commit -a -m
+cabbrev gsta Git stash push -u
+cabbrev gstd Git stash drop
+cabbrev gstl Git stash list
+cabbrev gstp Git stash pop
+
+"""""""""""""""""""" Snippets
+
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<C-f>"
+let g:UltiSnipsListSnippets="<C-S-f>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
+" Directories to search for snippets
+let snippetPath=$DOTFILES_DIR.'/ansible/roles/vim/files/snippets/'
+let g:UltiSnipsSnippetDirectories=[snippetPath]
