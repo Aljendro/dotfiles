@@ -191,7 +191,12 @@ augroup END
 
 " Open diffs of all the different changed files in tabs
 nnoremap <leader>gd :<C-U>Git difftool -y<cr>
-
+" Refresh difftool
+nnoremap <leader>gdu :<C-U>diffupdate
 " Open merge conflicts in different tabs
 nnoremap <leader>gmc :<C-U>Git mergetool<cr>
+" Choose left buffer
+nnoremap <leader>gmcl :<C-U>diffget //2<cr>
+" Choose the right buffer
+nnoremap <leader>gmcr :<C-U>diffget //3<cr>
 
