@@ -14,6 +14,7 @@
     - jq
     - tree
     - inkscape
+    - xclip
 
 - name: Installing Snap Packages
   become: yes
