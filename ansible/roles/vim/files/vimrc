@@ -155,11 +155,11 @@ nnoremap <leader>sve :w<cr>:source ~/.vimrc<cr>:q<cr>:!ls<cr><cr>
 " Move around tabs easily
 
 " Go to the previous tab
-nnoremap <C-S-Tab> :<C-U>tabprevious<cr>
+nnoremap <leader>h :<C-U>tabprevious<cr>
 " Go to the next tab
-nnoremap <C-Tab> :<C-U>tabnext<cr>
+nnoremap <leader>l :<C-U>tabnext<cr>
 " Go to some tab ([count]<leader>t, where count is the tab number)
-nnoremap <expr> <leader>tg ':<C-U>tabnext ' . v:count . '<cr>'
+nnoremap <expr> <leader>tt ':<C-U>tabnext ' . v:count . '<cr>'
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
