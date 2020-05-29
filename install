@@ -27,6 +27,9 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags "$@" --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+# Creates a ',' separated string from the given array elements
+TAG_STR=$(sed 's/ /,/g' <<<"$@")
+
+ansible-playbook --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags $TAG_STR --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
 echo "Finishing Install"

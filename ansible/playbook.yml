@@ -36,3 +36,8 @@
       tags:
         - docker
 
+    - import_role:
+        name: javascript
+      tags:
+        - js
+        - web
