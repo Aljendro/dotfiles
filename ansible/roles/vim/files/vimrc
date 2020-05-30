@@ -56,6 +56,8 @@ set ruler
 set showcmd
 " display completion matches in a status line
 set wildmenu
+" Set the amount of time vim waits to write to the swap file
+set updatetime=100
 
 " time out for mappings
 set timeout
@@ -181,13 +183,15 @@ set splitbelow
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'itchyny/lightline.vim'
 Plug 'tomasr/molokai'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-fugitive'
 Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -215,6 +219,17 @@ augroup customNERDTree
   " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
+
+"""""""""""""""""""" NERDComenter
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 0
 
 """""""""""""""""""" Fugitive (Git Plugin)
 
