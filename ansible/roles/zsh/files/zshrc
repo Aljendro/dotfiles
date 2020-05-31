@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# TODO Set Path
+export PATH=~/.vim/plugged/fzf/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
@@ -25,6 +25,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export LANG=en_US.UTF-8
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --exclude .git'
 
 # Set file/directory creation permissions
 umask 077
@@ -32,6 +33,7 @@ umask 077
 alias v='vim'
 alias vz='vim ~/.zshrc'
 alias sz='source ~/.zshrc'
+alias fd='fdfind'
 
 setxkbmap -option caps:ctrl_modifier    # Swap Left Control and Caps Lock
 
@@ -43,4 +45,8 @@ source ~/.zshrc_local
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export FZF_DIR="$HOME/.vim/plugged/fzf"
+[ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
+[ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
 

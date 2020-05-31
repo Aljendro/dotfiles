@@ -15,6 +15,9 @@
     - tree
     - inkscape
     - xclip
+    - ripgrep
+    - fd-find
+    - ctags
 
 - name: Installing Snap Packages
   become: yes
