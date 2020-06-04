@@ -17,7 +17,6 @@
     - xclip
     - ripgrep
     - fd-find
-    - ctags
 
 - name: Installing Snap Packages
   become: yes
@@ -27,4 +26,4 @@
   loop:
     - bitwarden
     - spotify
-
+    - universal-ctags
