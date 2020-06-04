@@ -1,0 +1,13 @@
+---
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install awscli
+  become: true
+  apt:
+    name: awscli
+    state: present
+
