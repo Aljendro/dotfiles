@@ -11,3 +11,20 @@
     name: awscli
     state: present
 
+- name: Create the .aws directory
+  file:
+    path: ~/.aws
+    state: directory
+    mode: '0700'
+
+- name: Copy Credentials File to Filesystem
+  copy:
+    src: "{{ dotfiles_dir }}/ansible/roles/aws/files/credentials"
+    dest: ~/.aws/credentials
+    mode: '0700'
+
+- name: Copy Config File to Filesystem
+  copy:
+    src: "{{ dotfiles_dir }}/ansible/roles/aws/files/config"
+    dest: ~/.aws/config
+    mode: '0700'

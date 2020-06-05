@@ -201,7 +201,7 @@ set laststatus=2
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
-nnoremap <leader>n :<C-U>NERDTreeToggle<cr>
+nnoremap <leader>n :<C-U>NERDTreeFind<cr>
 
 let NERDTreeShowLineNumbers = 1
 let NERDTreeQuitOnOpen = 3
@@ -210,6 +210,7 @@ augroup customNERDTree
   autocmd!
   " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd FileType nerdtree nnoremap <buffer> <leader>n :<C-U>NERDTreeToggle<cr>
 augroup END
 
 """""""""""""""""""" NERDComenter
