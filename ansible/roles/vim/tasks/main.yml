@@ -28,6 +28,13 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
+- name: Linking coc-settings.json
+  file:
+    src: "{{ role_path }}/files/coc-settings.json"
+    dest: ~/.vim/coc-settings.json
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
 - name: Install plugins
   command: vim +PlugInstall +qall
 

@@ -19,12 +19,12 @@
 
 - name: Copy Credentials File to Filesystem
   copy:
-    src: "{{ dotfiles_dir }}/ansible/roles/aws/files/credentials"
+    src: "{{ role_path }}/files/credentials"
     dest: ~/.aws/credentials
     mode: '0700'
 
 - name: Copy Config File to Filesystem
   copy:
-    src: "{{ dotfiles_dir }}/ansible/roles/aws/files/config"
+    src: "{{ role_path }}/files/config"
     dest: ~/.aws/config
     mode: '0700'
