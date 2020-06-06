@@ -122,6 +122,12 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
+function! SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+
 """"""""""""""""""""
 """""""""""""""""""" Abbreviations
 """"""""""""""""""""
@@ -315,4 +321,7 @@ nnoremap <silent> <leader>ao  :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>as  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <silent> <leader>alr  :<C-u>CocListResume<CR>
+
+" Use C to open coc config
+call SetupCommandAbbrs('C', 'CocConfig')
 

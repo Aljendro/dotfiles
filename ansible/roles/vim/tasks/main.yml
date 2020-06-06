@@ -49,3 +49,6 @@
 - name: Install plugins
   command: vim +PlugInstall +qall
 
+- name: Install Coc Extensions
+  shell: "{{ role_path }}/files/coc-extensions.sh"
+
