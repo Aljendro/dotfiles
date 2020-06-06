@@ -30,8 +30,9 @@ export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --exclude .git'
 # Set file/directory creation permissions
 umask 077
 
-alias v='vim'
-alias vz='vim ~/.zshrc'
+alias n='nvim'
+alias nf='VAL=$(fzf); [ ! -z $VAL ] && nvim $VAL'
+alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
 alias fd='fdfind'
 

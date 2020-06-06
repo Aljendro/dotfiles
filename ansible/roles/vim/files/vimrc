@@ -70,6 +70,11 @@ endif
 " confusing.
 set nrformats-=octal
 
+let g:python3_host_prog = "/usr/bin/python3"
+let g:loaded_python_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
+
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
@@ -160,6 +165,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Native Neovim LSP
+nnoremap <silent> ;dc    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> ;df <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> ;h     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> ;i    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> ;sh <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> ;td   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> ;r    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> ;ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> ;ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
 """"""""""""""""""""
 """""""""""""""""""" Plugins
 """"""""""""""""""""
@@ -170,6 +186,7 @@ Plug 'tomasr/molokai'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -177,8 +194,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'sirver/ultisnips'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'terryma/vim-multiple-cursors'
+Plug 'neovim/nvim-lsp'
 
 call plug#end()
 
@@ -258,70 +274,4 @@ let g:UltiSnipsSnippetDirectories=[snippetPath]
 " Quick Edit the snippets
 nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
 
-
-"""""""""""""""""""" Coc (Completion Plugin)
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> <leader><leader>d <Plug>(coc-definition)
-nmap <silent> <leader><leader>td <Plug>(coc-type-definition)
-nmap <silent> <leader><leader>i  <Plug>(coc-implementation)
-nmap <silent> <leader><leader>r <Plug>(coc-references)
-
-" Use show documentation in preview window.
-nnoremap <silent> <leader><leader>D :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <leader>ad  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <leader>ae  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <leader>ac  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <leader>ao  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <leader>as  :<C-u>CocList -I symbols<cr>
-" Resume latest coc list.
-nnoremap <silent> <leader>alr  :<C-u>CocListResume<CR>
-
-" Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
 

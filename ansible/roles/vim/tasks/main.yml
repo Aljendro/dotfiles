@@ -46,8 +46,12 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
-- name: Install plugins
-  command: vim +PlugInstall +qall
+# - name: Install plugins
+  # command: vim +PlugInstall +qall
 
 - name: Installing Node.js provider
-  command: npm install -g neovim
+  shell: "{{ role_path }}/files/install-lsp.sh"
+  args:
+    executable: /bin/bash
+
+
