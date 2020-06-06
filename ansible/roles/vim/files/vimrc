@@ -7,27 +7,10 @@
 """""""""""""""""""" Defaults Customizations
 """"""""""""""""""""
 
-" Bail out if something that ran earlier, e.g. a system wide vimrc, does not
-" want Vim to use these default values.
-if exists('skip_defaults_vim')
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-" Avoid side effects when it was already reset.
-if &compatible
-  set nocompatible
-endif
-
 " Set the font
 if has("gui_running")
   set guifont=Ubuntu\ Mono\ Bold\ 14
 endif
-
-" Stop flashing
-set visualbell
-set t_vb=
 
 " Add line numbers
 set number
@@ -45,11 +28,6 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
-" Allow backspacing over everything in insert mode.
-set backspace=indent,eol,start
-
-" keep 1000 lines of command line history
-set history=1000
 " show the cursor position all the time
 set ruler
 " display incomplete commands

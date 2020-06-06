@@ -12,14 +12,12 @@
     state: present
   loop:
     - curl
-    - vim
-    - vim-gtk3
+    - neovim
 
 - name: Install Vim-Plug package manager
   command:
-    cmd: curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    creates: ~/.vim/autoload/plug.vim
+    cmd: sh -c 'curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    creates: ~/.local/share/nvim/site/autoload/plug.vim
 
 - name: Linking .vimrc
   file:
@@ -28,10 +26,23 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
+- name: Creating neovim directories
+  file:
+    path: ~/.config/nvim
+    state: directory
+    mode: '0700'
+
+- name: Linking init.vim for neovim
+  file:
+    src: "{{ role_path }}/files/init.vim"
+    dest: ~/.config/nvim/init.vim
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
 - name: Linking coc-settings.json
   file:
     src: "{{ role_path }}/files/coc-settings.json"
-    dest: ~/.vim/coc-settings.json
+    dest: ~/.config/nvim/coc-settings.json
     state: link
     mode: u+rwx,g+rx,o+rx
 
