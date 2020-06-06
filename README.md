@@ -1,9 +1,5 @@
 # Dotfiles
 
-**NOTE**: This README file describes an ideal state for the project, it may talk
-about things that are not there (but certainly will be in the future). My intention is
-to mold the interface.
-
 ## Summary
 
 The intention of these dotfiles is to make the configuration of my machine/vm 
@@ -13,9 +9,10 @@ intervention as possible.
 ## Environments
 
 * Strongly Supported
-  * Ubuntu 18.04/20.04
+  * Ubuntu 20.04
 * Supported
-  * MacOS 10.13/10.14/10.15
+  * Ubuntu 18.04
+  * MacOS 10.14 (WIP)
 
 ## Quickstart
 
@@ -32,7 +29,7 @@ This script will setup your machine/vm.
 
 * [Zsh](https://www.zsh.org/)
 * [Oh My Zsh](https://ohmyz.sh/)
-* [Vim](https://www.vim.org/)
+* [Neovim](https://neovim.io/)
 * [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
 * [Rust](https://www.rust-lang.org/)
 * [AWS CLI](https://aws.amazon.com/cli/)
