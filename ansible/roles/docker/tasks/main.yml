@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes
@@ -22,15 +22,15 @@
     dest: "{{ docker_pubkey_location }}"
 
 - name: Loading Docker Public Key into Apt
-  become: true
+  become: yes
   command: apt-key add {{ docker_pubkey_location }}
 
 - name: Adding Docker to List
-  become: true
+  become: yes
   shell: echo 'deb [arch=amd64] http://download.docker.com/linux/ubuntu bionic stable' | sudo tee /etc/apt/sources.list.d/docker.list
 
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes
@@ -44,7 +44,7 @@
     - docker-ce
 
 - name: Add user to the docker group
-  become: true
+  become: yes
   user:
     name: "{{ lookup('env', 'USER') }}"
     group: docker

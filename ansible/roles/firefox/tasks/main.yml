@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes
@@ -18,7 +18,7 @@
     checksum: sha256:53bdc1301bf0a4c9c8204d5893bf951afd3c5a8ec0870c356fc6e789e934c1b3
 
 - name: Extracting Firefox Developer Edition
-  become: true
+  become: yes
   unarchive:
     src: "{{ firefox_location }}"
     dest: /opt

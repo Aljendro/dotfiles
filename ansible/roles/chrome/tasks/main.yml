@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes
@@ -17,15 +17,15 @@
     dest: "{{ google_pubkey_location }}"
 
 - name: Loading Google Public Key into Apt
-  become: true
+  become: yes
   command: apt-key add {{ google_pubkey_location }}
 
 - name: Adding Google Chrome Stable to List
-  become: true
+  become: yes
   shell: echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes

@@ -12,11 +12,6 @@
         - packages
 
     - import_role:
-        name: vim
-      tags:
-        - vim
-
-    - import_role:
         name: chrome
       tags:
         - chrome
@@ -41,6 +36,11 @@
       tags:
         - js
         - web
+
+    - import_role:
+        name: vim
+      tags:
+        - vim
 
     - import_role:
         name: aws

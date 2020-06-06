@@ -1,6 +1,6 @@
 ---
 - name: Update and upgrade apt packages
-  become: true
+  become: yes
   apt:
     upgrade: yes
     update_cache: yes
@@ -21,7 +21,7 @@
   register: which_zsh
 
 - name: Change the current shell to Zsh
-  become: true
+  become: yes
   user:
     name: "{{ lookup('env', 'USER') }}"
     shell: "{{ which_zsh.stdout }}"
