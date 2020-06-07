@@ -166,15 +166,16 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Native Neovim LSP
-nnoremap <silent> ;dc    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> ;dc <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ;df <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> ;h     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> ;i    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> ;sh <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> ;td   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> ;r    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ;ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> ;ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> ;h  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> ;i  <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> ;s  <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> ;t  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> ;r  <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> ;ds <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> ;ws <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
 
 """"""""""""""""""""
 """""""""""""""""""" Plugins
@@ -195,6 +196,8 @@ Plug 'sirver/ultisnips'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lsp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
 
 call plug#end()
 
@@ -274,4 +277,24 @@ let g:UltiSnipsSnippetDirectories=[snippetPath]
 " Quick Edit the snippets
 nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
 
+"""""""""""""""""""" FZF (Fuzzy Finder)
 
+nnoremap <leader>ff :<C-U>GFiles<cr>
+nnoremap <leader>fg :<C-U>Rg<cr>
+nnoremap <leader>fh :<C-U>History:<cr>
+nnoremap <leader>fl :<C-U>Lines<cr>
+nnoremap <leader>fs :<C-U>History/<cr>
+
+"""""""""""""""""""" Neovim LSP
+
+" setup analyzer LSP
+lua require'nvim_lsp'.tsserver.setup{}
+lua require'nvim_lsp'.vimls.setup{}
+
+" Enable deoplete autocompletion in Rust files
+let g:deoplete#enable_at_startup = 1
+
+" use omni completion provided by lsp
+augroup customLSP
+  autocmd Filetype javascript,vim setlocal omnifunc=v:lua.vim.lsp.omnifunc
+augroup END
