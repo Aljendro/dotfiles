@@ -22,7 +22,13 @@
   args:
     executable: /bin/bash
 
+- name: Install fixed Nodejs version for stable use
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 12.18.0
+  args:
+    executable: /bin/bash
+
 - name: Use LTS Nodejs version
   shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm alias default node
   args:
     executable: /bin/bash
+

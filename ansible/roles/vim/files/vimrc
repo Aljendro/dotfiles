@@ -28,6 +28,7 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
+set splitbelow
 " show the cursor position all the time
 set ruler
 " display incomplete commands
@@ -38,10 +39,13 @@ set wildmenu
 set updatetime=100
 " TextEdit might fail if hidden is not set
 set hidden
-" Give more space for displaying messages.
-set cmdheight=2
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+" Some servers have issues with backup files (see #649 Coc.nvim)
+set nobackup
+set nowritebackup
+" Give more space for displaying messages.
+set cmdheight=2
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
@@ -165,18 +169,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Native Neovim LSP
-nnoremap <silent> ;dc <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ;df <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> ;h  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> ;i  <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> ;s  <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> ;t  <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> ;r  <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ;ds <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> ;ws <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-
 """"""""""""""""""""
 """""""""""""""""""" Plugins
 """"""""""""""""""""
@@ -195,9 +187,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'sirver/ultisnips'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neovim/nvim-lsp'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -285,16 +275,75 @@ nnoremap <leader>fh :<C-U>History:<cr>
 nnoremap <leader>fl :<C-U>Lines<cr>
 nnoremap <leader>fs :<C-U>History/<cr>
 
-"""""""""""""""""""" Neovim LSP
+"""""""""""""""""""" Coc (LSP Client)
 
-" setup analyzer LSP
-lua require'nvim_lsp'.tsserver.setup{}
-lua require'nvim_lsp'.vimls.setup{}
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-" Enable deoplete autocompletion in Rust files
-let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
-" use omni completion provided by lsp
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+" use the following to cycle and choose completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 augroup customLSP
-  autocmd Filetype javascript,vim setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " Close the pop up menu after completion
+  autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
+
+" Use C to open coc config
+call SetupCommandAbbrs('C', 'CocConfig')
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap ;d <Plug>(coc-definition)
+nmap ;t <Plug>(coc-type-definition)
+nmap ;i <Plug>(coc-implementation)
+nmap ;r <Plug>(coc-references)
+nmap ;R <Plug>(coc-rename)
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> ;cd  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> ;ce  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> ;cc  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> ;co  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> ;cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> ;j   :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> ;k   :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> ;lr  :<C-u>CocListResume<CR>
+

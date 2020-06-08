@@ -12,14 +12,7 @@
     state: present
   loop:
     - curl
-    - python3-neovim
-
-- name: Download latest Neovim
-  become: yes
-  get_url:
-    url: "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"
-    dest: /usr/bin/nvim
-    mode: u+rx,g+rx,o+rx
+    - neovim
 
 - name: Install Vim-Plug package manager
   command:
@@ -46,10 +39,17 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
-# - name: Install plugins
-  # command: vim +PlugInstall +qall
+- name: Linking coc-settings for neovim
+  file:
+    src: "{{ role_path }}/files/coc-settings.json"
+    dest: ~/.config/nvim/coc-settings.json
+    state: link
+    mode: u+rwx,g+rx,o+rx
 
-- name: Installing Node.js provider
+- name: Install plugins
+  command: vim +PlugInstall +qall
+
+- name: Installing Node.js provider and LSP plugins
   shell: "{{ role_path }}/files/install-lsp.sh"
   args:
     executable: /bin/bash
