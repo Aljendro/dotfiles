@@ -118,10 +118,15 @@ augroup vimStartup
   autocmd Filetype * set formatoptions-=o
 augroup END
 
+function DeleteTrailingSpacesSilent()
+  %s/\s\+$//e
+  call histdel('search', -1)
+endfunction
+
 " Whenever Vim writes things to a buffer
-augroup vimWrite
+augroup vimWritege
   autocmd!
-  autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
+  autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
 augroup END
 
 if has('langmap') && exists('+langremap')
@@ -168,6 +173,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Close highlighting
+nnoremap <leader>h :noh<cr>
 
 """"""""""""""""""""
 """""""""""""""""""" Plugins
@@ -319,31 +327,31 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Navigate diagnostics
+nmap <leader>ap <Plug>(coc-diagnostic-prev)
+nmap <leader>an <Plug>(coc-diagnostic-next)
 
-nmap ;d <Plug>(coc-definition)
-nmap ;t <Plug>(coc-type-definition)
-nmap ;i <Plug>(coc-implementation)
-nmap ;r <Plug>(coc-references)
-nmap ;R <Plug>(coc-rename)
+nmap <leader>ad <Plug>(coc-definition)
+nmap <leader>at <Plug>(coc-type-definition)
+nmap <leader>ai <Plug>(coc-implementation)
+nmap <leader>ar <Plug>(coc-references)
+nmap <leader>aR <Plug>(coc-rename)
 
 " Mappings using CoCList:
 " Show all diagnostics.
-nnoremap <silent> ;cd  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader><leader>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> ;ce  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader><leader>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> ;cc  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader><leader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent> ;co  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader><leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent> ;cs  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader><leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> ;j   :<C-u>CocNext<CR>
+nnoremap <silent> <leader><leader>j   :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> ;k   :<C-u>CocPrev<CR>
+nnoremap <silent> <leader><leader>k   :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> ;lr  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader><leader>r :<C-u>CocListResume<CR>
 
