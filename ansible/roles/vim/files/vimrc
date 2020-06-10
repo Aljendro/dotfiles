@@ -328,8 +328,8 @@ else
 endif
 
 " Navigate diagnostics
-nmap <leader>ap <Plug>(coc-diagnostic-prev)
-nmap <leader>an <Plug>(coc-diagnostic-next)
+nmap ]g <Plug>(coc-diagnostic-prev)
+nmap [g <Plug>(coc-diagnostic-next)
 
 nmap <leader>ad <Plug>(coc-definition)
 nmap <leader>at <Plug>(coc-type-definition)

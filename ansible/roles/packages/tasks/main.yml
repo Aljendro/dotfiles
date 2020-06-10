@@ -17,6 +17,12 @@
     - xclip
     - ripgrep
     - fd-find
+    - libssl-dev
+    - autoconf
+    - automake
+    - libtool
+    - python-setuptools
+    - python-dev
 
 - name: Installing Snap Packages
   become: yes
@@ -27,3 +33,32 @@
     - bitwarden
     - spotify
     - universal-ctags
+
+- name: Downloading watchman
+  git:
+    repo: 'https://github.com/facebook/watchman.git'
+    dest: /tmp/watchman
+    version: v4.9.0
+    depth: 1
+
+- name: Run autogen.sh for watchman
+  shell: ./autogen.sh
+  args:
+    chdir: /tmp/watchman
+
+- name: Run configure for watchman
+  shell: ./configure --enable-lenient
+  args:
+    chdir: /tmp/watchman
+
+- name: Run make for watchman
+  shell: make
+  args:
+    chdir: /tmp/watchman
+
+- name: Install watchman
+  become: yes
+  shell: make install
+  args:
+    chdir: /tmp/watchman
+
