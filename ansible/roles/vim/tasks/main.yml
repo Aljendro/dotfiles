@@ -5,7 +5,7 @@
     upgrade: yes
     update_cache: yes
 
-- name: Installing and Curl
+- name: Installing Apt Packages
   become: yes
   apt:
     name: "{{ item }}"

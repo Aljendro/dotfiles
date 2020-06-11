@@ -12,7 +12,6 @@ intervention as possible.
   * Ubuntu 20.04
 * Supported
   * Ubuntu 18.04
-  * MacOS 10.14 (WIP)
 
 ## Quickstart
 
