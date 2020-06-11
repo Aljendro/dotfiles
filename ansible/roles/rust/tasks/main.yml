@@ -1,0 +1,23 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Curl Package
+  become: yes
+  apt:
+    name: curl
+    state: present
+
+- name: Downloading Rust Installer
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rust_installer
+    mode: '0700'
+
+- name: Install Rust
+  shell: ./rust_installer -y
+  args:
+    chdir: /tmp

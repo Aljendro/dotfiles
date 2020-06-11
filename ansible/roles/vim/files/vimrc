@@ -277,6 +277,7 @@ nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
 
 """""""""""""""""""" FZF (Fuzzy Finder)
 
+nnoremap <leader>fa :<C-U>Files<cr>
 nnoremap <leader>ff :<C-U>GFiles<cr>
 nnoremap <leader>fg :<C-U>Rg<cr>
 nnoremap <leader>fh :<C-U>History:<cr>

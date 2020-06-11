@@ -47,3 +47,8 @@
       tags:
         - aws
         - web
+
+    - import_role:
+        name: rust
+      tags:
+        - rust
