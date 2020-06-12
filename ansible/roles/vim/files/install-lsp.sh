@@ -7,5 +7,5 @@ then
   echo '{"dependencies":{}}'> package.json
 fi
 # Change extension names to the extensions you need
-npm install coc-json coc-tsserver coc-vimlsp --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+npm install coc-json coc-tsserver coc-vimlsp coc-rls --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
