@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Make sure node and npm are loaded
+source ~/.nvm/nvm.sh
+
 # Install extensions
 mkdir -p ~/.config/coc/extensions
 cd ~/.config/coc/extensions

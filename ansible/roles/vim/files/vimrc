@@ -126,7 +126,7 @@ endfunction
 " Whenever Vim writes things to a buffer
 augroup vimWritege
   autocmd!
-  autocmd FileType c,cpp,java,javascript,vim,python,yaml autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
+  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
 augroup END
 
 if has('langmap') && exists('+langremap')
