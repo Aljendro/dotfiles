@@ -251,6 +251,7 @@ nnoremap <leader>gmc :<C-U>Git mergetool<cr>
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
 
+cabbrev gcp Git push
 cabbrev gco Git checkout
 cabbrev gcb Git checkout -b
 cabbrev gac Git commit -a -m
