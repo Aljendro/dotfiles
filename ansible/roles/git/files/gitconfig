@@ -1,3 +1,6 @@
 [user]
-  name = Alejandro Alvarado
-  email = alejandro.alvarado0650144@gmail.com
+  name   = Alejandro Alvarado
+  email  = alejandro.alvarado0650144@gmail.com
+  editor = nvim
+[core]
+  excludesfile = ~/.gitignore_global

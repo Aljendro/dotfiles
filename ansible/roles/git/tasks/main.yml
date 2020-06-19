@@ -11,3 +11,10 @@
     dest: ~/.gitconfig
     state: link
     mode: '0700'
+
+- name: Linking .gitignore_global
+  file:
+    src: "{{ role_path }}/files/gitignore_global"
+    dest: ~/.gitignore_global
+    state: link
+    mode: '0700'
