@@ -3,108 +3,91 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
-""""""""""""""""""""
-"""""""""""""""""""" Defaults Customizations
-""""""""""""""""""""
+"""""""""""""""""""" Plugins
 
-" Set the font
-if has("gui_running")
-  set guifont=Ubuntu\ Mono\ Bold\ 14
-endif
+call plug#begin('~/.vim/plugged')
 
-" Add line numbers
-set number
-set relativenumber
-" Toggle in insert mode
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+Plug 'airblade/vim-gitgutter'
+Plug 'godlygeek/tabular'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pangloss/vim-javascript'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'sirver/ultisnips'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 
-" Default to spaces
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set autoindent
+call plug#end()
 
-set splitbelow
-" show the cursor position all the time
-set ruler
-" display incomplete commands
-set showcmd
-" display completion matches in a status line
-set wildmenu
-" Set the amount of time vim waits to write to the swap file
-set updatetime=100
-" TextEdit might fail if hidden is not set
-set hidden
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-" Some servers have issues with backup files (see #649 Coc.nvim)
-set nobackup
-set nowritebackup
-" Give more space for displaying messages.
-set cmdheight=2
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
+"""""""""""""""""""" Settings
 
-" time out for mappings
-set timeout
-set timeoutlen=1000
-
-" time out for key codes
-set ttimeout
-set ttimeoutlen=100
-
-" Show @@@ in the last line if it is truncated.
-set display=truncate
-
-" Show a few lines of context around the cursor.  Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
-set scrolloff=5
-
-" Do incremental searching when it's possible to timeout.
-if has('reltime')
-  set incsearch
-endif
-
-" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-" confusing.
-set nrformats-=octal
-
-let g:python3_host_prog = "/usr/bin/python3"
+let g:loaded_perl_provider   = 0
 let g:loaded_python_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_ruby_provider = 0
+let g:loaded_ruby_provider   = 0
+let g:node_host_prog         = expand("~/.nvm/versions/node/v12.18.0/bin/neovim-node-host")
+let g:python3_host_prog      = expand("/usr/bin/python3")
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" Switch syntax highlighting on when the terminal has colors or when using the
-" GUI (which always has colors).
-if &t_Co > 2 || has("gui_running")
-  " Revert with ":syntax off".
-  syntax on
-endif
-
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-" Revert with ":filetype off".
 filetype plugin indent on
+syntax enable
 
-" Put these in an autocmd group, so that you can revert them with:
-" ":augroup vimStartup | au! | augroup END"
+set autoindent                     " Copy indentation from current line when opening new line
+set cmdheight=2                    " Give more space for displaying messages.
+set display=truncate               " Show @@@ in the last line if it is truncated.
+set expandtab                      " Default to spaces
+set guifont=Ubuntu\ Mono\ Bold\ 14 " Set default font
+set hidden                         " TextEdit might fail if hidden is not set
+set incsearch                      " Do incremental searching when it's possible to timeout.
+set nobackup                       " Some servers have issues with backup files (see #649 Coc.nvim)
+set nolangremap
+set nowritebackup
+set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
+set number                         " Add line numbers
+set relativenumber                 " Add line numbers relative to the current line
+set ruler                          " show the cursor position all the time
+set scrolloff=5                    " Show a few lines of context around the cursor.  Note that this makes the
+set shiftwidth=2
+set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
+set showcmd                        " display incomplete commands
+set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
+set splitbelow                     " Open a window below the current window
+set splitright                     " Open a window right of the current window
+set tabstop=2                      " Number of spaces that a <Tab> counts for
+set timeout                        " time out for mappings
+set timeoutlen=1000
+set ttimeout                       " time out for key codes
+set ttimeoutlen=100
+set updatetime=100                 " Set the amount of time vim waits to write to the swap file
+set wildmenu                       " display completion matches in a status line
+
+"""""""""""""""""""" Functions
+
+function DeleteTrailingSpacesSilent()
+  %s/\s\+$//e
+  call histdel('search', -1)
+endfunction
+
+function! SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+"""""""""""""""""""" Autocommands
+
 augroup vimStartup
   autocmd!
-
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid, when inside an event handler
   " (happens when dropping a file on gvim) and for a commit message (it's
@@ -118,50 +101,35 @@ augroup vimStartup
   autocmd Filetype * set formatoptions-=o
 augroup END
 
-function DeleteTrailingSpacesSilent()
-  %s/\s\+$//e
-  call histdel('search', -1)
-endfunction
-
 " Whenever Vim writes things to a buffer
-augroup vimWritege
+augroup vimWrite
   autocmd!
   autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
 augroup END
 
-if has('langmap') && exists('+langremap')
-  " Prevent that the langmap option applies to characters that result from a
-  " mapping.  If set (default), this may break plugins (but it's backward
-  " compatible).
-  set nolangremap
-endif
+" Toggle in insert mode
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
-function! SetupCommandAbbrs(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfunction
+"""""""""""""""""""" Vim
 
-""""""""""""""""""""
-"""""""""""""""""""" Abbreviations
-""""""""""""""""""""
+nnoremap <space> <Nop>
+let mapleader = " "
 
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
 
-""""""""""""""""""""
-"""""""""""""""""""" Misc. Mappings
-""""""""""""""""""""
-
-nnoremap <space> <Nop>
-let mapleader = " "
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <leader>ev :vsplit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:source ~/.vimrc<cr>
 nnoremap <leader>sve :w<cr>:source ~/.vimrc<cr>:q<cr>:!ls<cr><cr>
-
-" Move around tabs easily
 
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
@@ -176,33 +144,6 @@ nnoremap <C-H> <C-W><C-H>
 
 " Close highlighting
 nnoremap <leader>h :noh<cr>
-
-""""""""""""""""""""
-"""""""""""""""""""" Plugins
-""""""""""""""""""""
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'tomasr/molokai'
-Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-surround'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-repeat'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
-Plug 'sirver/ultisnips'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'pangloss/vim-javascript'
-
-call plug#end()
-
-""""""""""""""""""""
-"""""""""""""""""""" Plugin Customizations
-""""""""""""""""""""
 
 """""""""""""""""""" Molokai Theme
 
@@ -226,7 +167,7 @@ augroup customNERDTree
   autocmd FileType nerdtree nnoremap <buffer> <leader>n :<C-U>NERDTreeToggle<cr>
 augroup END
 
-"""""""""""""""""""" NERDComenter
+"""""""""""""""""""" NERDCommenter
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -287,12 +228,6 @@ nnoremap <leader>fl :<C-U>Lines<cr>
 nnoremap <leader>fs :<C-U>History/<cr>
 
 """""""""""""""""""" Coc (LSP Client)
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
