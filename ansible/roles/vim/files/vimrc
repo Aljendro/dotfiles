@@ -10,8 +10,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
@@ -27,43 +30,53 @@ call plug#end()
 
 """""""""""""""""""" Settings
 
+colorscheme molokai
+filetype plugin indent on
+syntax enable
+
 let g:loaded_perl_provider   = 0
 let g:loaded_python_provider = 0
 let g:loaded_ruby_provider   = 0
 let g:node_host_prog         = expand("~/.nvm/versions/node/v12.18.0/bin/neovim-node-host")
 let g:python3_host_prog      = expand("/usr/bin/python3")
-
-filetype plugin indent on
-syntax enable
+let loaded_matchparen        = 1
 
 set autoindent                     " Copy indentation from current line when opening new line
+set background=dark                " Indicated the type of background
 set cmdheight=2                    " Give more space for displaying messages.
+set cursorline                     " Highlights the current line
 set display=truncate               " Show @@@ in the last line if it is truncated.
-set expandtab                      " Default to spaces
-set guifont=Ubuntu\ Mono\ Bold\ 14 " Set default font
-set hidden                         " TextEdit might fail if hidden is not set
+set encoding=utf-8
+set expandtab                      " Convert tab to spaces
+set fileencoding=utf-8
+set guifont=Ubuntu\ Mono\ Bold\ 14
+set hidden                         " Buffer becomes hidden when it is abandoned
 set incsearch                      " Do incremental searching when it's possible to timeout.
+set mouse=a                        " Allows mouse click on vim
 set nobackup                       " Some servers have issues with backup files (see #649 Coc.nvim)
-set nolangremap
-set nowritebackup
+set nolangremap                    " Do not remap characters
+set nowrap                         " Do not wrap lines
+set nowritebackup                  " Do not make backup when overwriting a file
 set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
 set number                         " Add line numbers
-set relativenumber                 " Add line numbers relative to the current line
-set ruler                          " show the cursor position all the time
-set scrolloff=5                    " Show a few lines of context around the cursor.  Note that this makes the
-set shiftwidth=2
+set relativenumber                 " Relativize line numbers from current line
+set ruler                          " Show the cursor position all the time
+set scrolloff=5                    " Show a few lines of context around the cursor.
+set shiftwidth=2                   " Number of spaces used for autoindent
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
-set showcmd                        " display incomplete commands
+set showcmd                        " Display incomplete commands
 set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
+set smartindent                    " Indents when creating a newline
+set smarttab                       " Discerns between 2 vs. 4 when tabbing
 set splitbelow                     " Open a window below the current window
 set splitright                     " Open a window right of the current window
 set tabstop=2                      " Number of spaces that a <Tab> counts for
-set timeout                        " time out for mappings
-set timeoutlen=1000
-set ttimeout                       " time out for key codes
+set timeout                        " Time out for mappings
+set timeoutlen=500
+set ttimeout                       " Time out for key codes
 set ttimeoutlen=100
 set updatetime=100                 " Set the amount of time vim waits to write to the swap file
-set wildmenu                       " display completion matches in a status line
+set wildmenu                       " Display completion matches in a status line
 
 """""""""""""""""""" Functions
 
@@ -142,12 +155,18 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Resize windows
+nnoremap <silent> <M-j> :resize -8<cr>
+nnoremap <silent> <M-k> :resize +8<cr>
+nnoremap <silent> <M-h> :vertical resize +8<cr>
+nnoremap <silent> <M-l> :vertical resize -8<cr>
+
 " Close highlighting
 nnoremap <leader>h :noh<cr>
 
-"""""""""""""""""""" Molokai Theme
-
-colorscheme molokai
+" Better tabbing alignment
+vnoremap < <gv
+vnoremap > >gv
 
 """""""""""""""""""" Lightline
 
@@ -220,14 +239,26 @@ nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
 
 """""""""""""""""""" FZF (Fuzzy Finder)
 
-nnoremap <leader>fa :<C-U>Files<cr>
-nnoremap <leader>ff :<C-U>GFiles<cr>
-nnoremap <leader>fg :<C-U>Rg<cr>
+nnoremap <leader>ff :<C-U>Files<cr>
+nnoremap <leader>fg :<C-U>GFiles<cr>
+nnoremap <leader>fw :<C-U>Rg<cr>
 nnoremap <leader>fh :<C-U>History:<cr>
-nnoremap <leader>fl :<C-U>Lines<cr>
+nnoremap <leader>fb :<C-U>Lines<cr>
 nnoremap <leader>fs :<C-U>History/<cr>
 
 """""""""""""""""""" Coc (LSP Client)
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use C to open coc config
+call SetupCommandAbbrs('C', 'CocConfig')
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -240,30 +271,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-augroup customLSP
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  " Close the pop up menu after completion
-  autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-  " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup END
-
-" Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
 
 " Navigate diagnostics
 nmap ]g <Plug>(coc-diagnostic-prev)
@@ -292,4 +299,26 @@ nnoremap <silent> <leader><leader>j   :<C-u>CocNext<CR>
 nnoremap <silent> <leader><leader>k   :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <leader><leader>r :<C-u>CocListResume<CR>
+
+augroup customLSP
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " Close the pop up menu after completion
+  autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
+"""""""""""""""""""" Rainbow Delimeters
+
+augroup customDelimeters
+  autocmd!
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 
