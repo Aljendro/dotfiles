@@ -3,8 +3,6 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
-"""""""""""""""""""" Plugins
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
@@ -51,7 +49,10 @@ set expandtab                      " Convert tab to spaces
 set fileencoding=utf-8
 set guifont=Ubuntu\ Mono\ Bold\ 14
 set hidden                         " Buffer becomes hidden when it is abandoned
+set hlsearch                       " Highlight searches
+set ignorecase                     " Ignore case when searching
 set incsearch                      " Do incremental searching when it's possible to timeout.
+set laststatus=2                   " Always have a status line
 set mouse=a                        " Allows mouse click on vim
 set nobackup                       " Some servers have issues with backup files (see #649 Coc.nvim)
 set nolangremap                    " Do not remap characters
@@ -61,11 +62,12 @@ set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A a
 set number                         " Add line numbers
 set relativenumber                 " Relativize line numbers from current line
 set ruler                          " Show the cursor position all the time
-set scrolloff=5                    " Show a few lines of context around the cursor.
+set scrolloff=999                  " Keep cursor in the center of the screen when scrolling
 set shiftwidth=2                   " Number of spaces used for autoindent
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
 set showcmd                        " Display incomplete commands
 set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
+set smartcase                      " If search contains uppercase characters, disobey ignorecase
 set smartindent                    " Indents when creating a newline
 set smarttab                       " Discerns between 2 vs. 4 when tabbing
 set splitbelow                     " Open a window below the current window
@@ -97,36 +99,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-"""""""""""""""""""" Autocommands
-
-augroup vimStartup
-  autocmd!
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid, when inside an event handler
-  " (happens when dropping a file on gvim) and for a commit message (it's
-  " likely a different one than last time).
-  autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
-
-  " Removing the o option removes adding a comment when open new line
-  autocmd Filetype * set formatoptions-=o
-augroup END
-
-" Whenever Vim writes things to a buffer
-augroup vimWrite
-  autocmd!
-  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
-augroup END
-
-" Toggle in insert mode
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
-
 """""""""""""""""""" Vim
 
 nnoremap <space> <Nop>
@@ -141,13 +113,14 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <leader>ev :vsplit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
-nnoremap <leader>sv :w<cr>:source ~/.vimrc<cr>
-nnoremap <leader>sve :w<cr>:source ~/.vimrc<cr>:q<cr>:!ls<cr><cr>
 
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :<C-U>tabclose<cr>
+" Go to last visited tab
+let g:lastTab = 1
+nnoremap <leader>tl :exec "tabn " . g:lastTab<cr>
 
 " Move between windows easily
 nnoremap <C-J> <C-W><C-J>
@@ -168,9 +141,25 @@ nnoremap <leader>h :noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
-"""""""""""""""""""" Lightline
-
-set laststatus=2
+augroup customVim
+  autocmd!
+  " When editing a file, always jump to the last known cursor position.
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
+  " Removing the o option removes adding a comment when open new line
+  autocmd Filetype * set formatoptions-=o
+  " Set the last known tab when switching tabs
+  autocmd TabLeave * let g:lastTab = tabpagenr()
+  " Source vimrc when saving the file
+  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc source ~/.vimrc
+  " Delete trailing spaces
+  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
+  " Toggle relative line number mode when inserting
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
@@ -183,6 +172,7 @@ augroup customNERDTree
   autocmd!
   " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  " When nerdtree is open, just toggle it off
   autocmd FileType nerdtree nnoremap <buffer> <leader>n :<C-U>NERDTreeToggle<cr>
 augroup END
 
