@@ -56,6 +56,7 @@ set laststatus=2                   " Always have a status line
 set mouse=a                        " Allows mouse click on vim
 set nobackup                       " Some servers have issues with backup files (see #649 Coc.nvim)
 set nolangremap                    " Do not remap characters
+set noshowmode                     " Don't show the -- Insert -- anymore
 set nowrap                         " Do not wrap lines
 set nowritebackup                  " Do not make backup when overwriting a file
 set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
@@ -72,6 +73,7 @@ set smartindent                    " Indents when creating a newline
 set smarttab                       " Discerns between 2 vs. 4 when tabbing
 set splitbelow                     " Open a window below the current window
 set splitright                     " Open a window right of the current window
+set t_Co=256
 set tabstop=2                      " Number of spaces that a <Tab> counts for
 set timeout                        " Time out for mappings
 set timeoutlen=500
@@ -82,7 +84,7 @@ set wildmenu                       " Display completion matches in a status line
 
 """""""""""""""""""" Functions
 
-function DeleteTrailingSpacesSilent()
+function! DeleteTrailingSpacesSilent()
   %s/\s\+$//e
   call histdel('search', -1)
 endfunction
@@ -153,7 +155,7 @@ augroup customVim
   " Set the last known tab when switching tabs
   autocmd TabLeave * let g:lastTab = tabpagenr()
   " Source vimrc when saving the file
-  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc source ~/.vimrc
+  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc nested source $MYVIMRC
   " Delete trailing spaces
   autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
   " Toggle relative line number mode when inserting

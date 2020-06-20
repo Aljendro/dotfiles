@@ -24,6 +24,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --exclude .git'
 
