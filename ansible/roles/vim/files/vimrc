@@ -63,7 +63,7 @@ set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A a
 set number                         " Add line numbers
 set relativenumber                 " Relativize line numbers from current line
 set ruler                          " Show the cursor position all the time
-set scrolloff=999                  " Keep cursor in the center of the screen when scrolling
+set scrolloff=5                    " Keep context around cursor
 set shiftwidth=2                   " Number of spaces used for autoindent
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
 set showcmd                        " Display incomplete commands
@@ -101,6 +101,41 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" Unload current buffer and close window
+function! s:delete_current_buffer() abort
+  let current_buffer = bufnr("%")
+  exec ":bw!" . current_buffer
+endfunction
+
+" Toggle Terminal
+let g:terminal_toggle_pos = winsaveview()
+function! s:toggle_terminal() abort
+  " Make sure the current buffer isn't a terminal buffer
+  if bufname("%") !~# "^term"
+    " Search for any terminal buffers in the current tab
+    let term_buffer = -1
+    for elem in tabpagebuflist()
+      if bufname(elem) =~# "^term"
+        let term_buffer = elem
+      endif
+    endfor
+    if term_buffer >= 0
+      " Terminal buffer found
+      " Find the window that is showing this terminal buffer
+      let window_id = bufwinnr(term_buffer)
+      if window_id >= 0
+        " Window is found, put cursor in that window
+        exec window_id "wincmd w"
+        startinsert
+      endif
+    else
+      " No buffer found, create a new one in this tab
+      exec ":botright 4split"
+      exec ":terminal"
+    endif
+  endif
+endfunction
+
 """""""""""""""""""" Vim
 
 nnoremap <space> <Nop>
@@ -130,11 +165,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Move windows easily
+nnoremap <C-W>j <C-W>J
+nnoremap <C-W>k <C-W>K
+nnoremap <C-W>l <C-W>L
+nnoremap <C-W>h <C-W>H
+
 " Resize windows
-nnoremap <silent> <M-j> :resize -8<cr>
-nnoremap <silent> <M-k> :resize +8<cr>
-nnoremap <silent> <M-h> :vertical resize +8<cr>
-nnoremap <silent> <M-l> :vertical resize -8<cr>
+nnoremap <silent> <M-j> :resize -4<cr>
+nnoremap <silent> <M-k> :resize +4<cr>
+nnoremap <silent> <M-h> :vertical resize +12<cr>
+nnoremap <silent> <M-l> :vertical resize -12<cr>
 
 " Close highlighting
 nnoremap <leader>h :noh<cr>
@@ -142,6 +183,18 @@ nnoremap <leader>h :noh<cr>
 " Better tabbing alignment
 vnoremap < <gv
 vnoremap > >gv
+
+" Terminal
+nnoremap <silent> <leader>tt :call <SID>toggle_terminal()<cr>
+
+" Terminal Mode
+tnoremap <Esc> <C-\><C-n>
+
+" Terminal window movements
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
 
 augroup customVim
   autocmd!
@@ -161,6 +214,11 @@ augroup customVim
   " Toggle relative line number mode when inserting
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+  " Enter insert mode for terminal upon entering
+  autocmd TermOpen * startinsert
+  " Immediately destroy the terminal buffer and close the window when terminal
+  " closes
+  autocmd TermClose * :call <SID>delete_current_buffer()
 augroup END
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
@@ -235,7 +293,8 @@ nnoremap <leader>ff :<C-U>Files<cr>
 nnoremap <leader>fg :<C-U>GFiles<cr>
 nnoremap <leader>fw :<C-U>Rg<cr>
 nnoremap <leader>fh :<C-U>History:<cr>
-nnoremap <leader>fb :<C-U>Lines<cr>
+nnoremap <leader>fl :<C-U>Lines<cr>
+nnoremap <leader>fb :<C-U>Buffers<cr>
 nnoremap <leader>fs :<C-U>History/<cr>
 
 """""""""""""""""""" Coc (LSP Client)
