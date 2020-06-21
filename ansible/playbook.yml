@@ -57,3 +57,8 @@
         name: git
       tags:
         - git
+
+    - import_role:
+        name: tmux
+      tags:
+        - tmux

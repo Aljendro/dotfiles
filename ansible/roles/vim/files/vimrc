@@ -107,35 +107,6 @@ function! s:delete_current_buffer() abort
   exec ":bw!" . current_buffer
 endfunction
 
-" Toggle Terminal
-let g:terminal_toggle_pos = winsaveview()
-function! s:toggle_terminal() abort
-  " Make sure the current buffer isn't a terminal buffer
-  if bufname("%") !~# "^term"
-    " Search for any terminal buffers in the current tab
-    let term_buffer = -1
-    for elem in tabpagebuflist()
-      if bufname(elem) =~# "^term"
-        let term_buffer = elem
-      endif
-    endfor
-    if term_buffer >= 0
-      " Terminal buffer found
-      " Find the window that is showing this terminal buffer
-      let window_id = bufwinnr(term_buffer)
-      if window_id >= 0
-        " Window is found, put cursor in that window
-        exec window_id "wincmd w"
-        startinsert
-      endif
-    else
-      " No buffer found, create a new one in this tab
-      exec ":botright 4split"
-      exec ":terminal"
-    endif
-  endif
-endfunction
-
 """""""""""""""""""" Vim
 
 nnoremap <space> <Nop>
@@ -184,18 +155,6 @@ nnoremap <leader>h :noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
-" Terminal
-nnoremap <silent> <leader>tt :call <SID>toggle_terminal()<cr>
-
-" Terminal Mode
-tnoremap <Esc> <C-\><C-n>
-
-" Terminal window movements
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-
 augroup customVim
   autocmd!
   " When editing a file, always jump to the last known cursor position.
@@ -210,7 +169,7 @@ augroup customVim
   " Source vimrc when saving the file
   autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc nested source $MYVIMRC
   " Delete trailing spaces
-  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
+  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh,tmux autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
   " Toggle relative line number mode when inserting
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
@@ -219,6 +178,8 @@ augroup customVim
   " Immediately destroy the terminal buffer and close the window when terminal
   " closes
   autocmd TermClose * :call <SID>delete_current_buffer()
+  " Easier exiting
+  autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
 augroup END
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
@@ -296,6 +257,11 @@ nnoremap <leader>fh :<C-U>History:<cr>
 nnoremap <leader>fl :<C-U>Lines<cr>
 nnoremap <leader>fb :<C-U>Buffers<cr>
 nnoremap <leader>fs :<C-U>History/<cr>
+
+augroup customFZF
+  autocmd!
+  autocmd FileType fzf tunmap <buffer> <Esc>
+augroup END
 
 """""""""""""""""""" Coc (LSP Client)
 

@@ -1,0 +1,31 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - tmux
+
+- name: Linking tmux config
+  file:
+    src: "{{ role_path }}/files/tmux.conf"
+    dest: ~/.tmux.conf
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
+- name: Adding Themes for tmux
+  git:
+    repo: https://github.com/jimeh/tmux-themepack.git
+    dest: ~/.tmux-themepack
+
+- name: Make Themes readable
+  file:
+    dest: ~/.tmux-themepack
+    mode: '0700'
