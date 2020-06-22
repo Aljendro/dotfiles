@@ -23,6 +23,7 @@ Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 call plug#end()
 
@@ -155,6 +156,16 @@ nnoremap <leader>h :noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
+" Adding extra tab traversal
+nnoremap ]r :tabnext<cr>
+nnoremap [r :tabprevious<cr>
+nnoremap ]R :tablast<cr>
+nnoremap [R :tabfirst<cr>
+
+" Recursively load argslist with all files
+" Recursively load argslist with all files
+nnoremap <leader>la :args `fdfind -t f --hidden --exclude .git`<cr><C-^>
+
 augroup customVim
   autocmd!
   " When editing a file, always jump to the last known cursor position.
@@ -217,7 +228,7 @@ nnoremap <leader>dl :<C-U>diffget //2<cr>
 " Choose the right buffer
 nnoremap <leader>dr :<C-U>diffget //3<cr>
 " Refresh difftool
-nnoremap <leader>du :<C-U>diffupdate
+nnoremap <leader>du :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
 nnoremap <leader>gmc :<C-U>Git mergetool<cr>
 " Open git blame with commit and author
