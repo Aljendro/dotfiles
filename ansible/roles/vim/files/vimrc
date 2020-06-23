@@ -198,6 +198,18 @@ augroup customVim
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
 augroup END
 
+"""""""""""""""""""""" Lightline
+
+let g:lightline = {
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'FugitiveHead'
+  \ },
+  \ }
+
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
 nnoremap <leader>n :<C-U>NERDTreeFind<cr>
