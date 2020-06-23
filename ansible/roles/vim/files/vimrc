@@ -17,6 +17,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
@@ -84,7 +85,7 @@ set splitright                     " Open a window right of the current window
 set t_Co=256
 set tabstop=2                      " Number of spaces that a <Tab> counts for
 set timeout                        " Time out for mappings
-set timeoutlen=500
+set timeoutlen=1000
 set ttimeout                       " Time out for key codes
 set ttimeoutlen=100
 set updatetime=100                 " Set the amount of time vim waits to write to the swap file
@@ -128,7 +129,8 @@ iabbrev """ """"""""""""""""""""
 inoremap <C-U> <C-G>u<C-U>
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <leader>ev :vsplit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+nnoremap <leader>ev :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+nnoremap <leader>sv :w<cr>:tabclose<cr>
 
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
@@ -382,3 +384,6 @@ augroup customDelimeters
   autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 
+"""""""""""""""""""""" Prettier
+
+cnoremap <silent> <leader>p :PrettierAsync<cr>
