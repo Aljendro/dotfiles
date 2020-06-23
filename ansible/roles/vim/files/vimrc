@@ -14,6 +14,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
@@ -21,7 +22,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -31,7 +31,11 @@ call plug#end()
 
 """""""""""""""""""" Settings
 
-colorscheme molokai
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_hls_cursor    = 'blue'
+
+colorscheme gruvbox
+
 filetype plugin indent on
 syntax enable
 
@@ -42,6 +46,7 @@ let g:node_host_prog         = expand("~/.nvm/versions/node/v12.18.0/bin/neovim-
 let g:python3_host_prog      = expand("/usr/bin/python3")
 let loaded_matchparen        = 1
 
+set termguicolors
 set autoindent                     " Copy indentation from current line when opening new line
 set background=dark                " Indicated the type of background
 set cmdheight=2                    " Give more space for displaying messages.
@@ -261,6 +266,7 @@ cabbrev gstl Git stash list
 cabbrev gstp Git stash pop
 
 """""""""""""""""""" Snippets
+
 
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger="<C-g>"
