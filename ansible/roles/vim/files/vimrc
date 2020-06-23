@@ -9,6 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
@@ -18,6 +19,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
@@ -163,8 +165,11 @@ nnoremap ]R :tablast<cr>
 nnoremap [R :tabfirst<cr>
 
 " Recursively load argslist with all files
-" Recursively load argslist with all files
 nnoremap <leader>la :args `fdfind -t f --hidden --exclude .git`<cr><C-^>
+
+" Quick open the quickfix list
+nnoremap <leader>qo :botright copen<cr>
+nnoremap <leader>qc :cclose<cr>
 
 augroup customVim
   autocmd!
@@ -259,15 +264,24 @@ let g:UltiSnipsSnippetDirectories=[snippetPath]
 " Quick Edit the snippets
 nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
 
+"""""""""""""""""""" Ripgrep
+
+let g:rg_command = 'rg --vimgrep -S'
+let g:rg_highlight = v:true
+
 """""""""""""""""""" FZF (Fuzzy Finder)
 
-nnoremap <leader>ff :<C-U>Files<cr>
-nnoremap <leader>fg :<C-U>GFiles<cr>
-nnoremap <leader>fw :<C-U>Rg<cr>
-nnoremap <leader>fh :<C-U>History:<cr>
-nnoremap <leader>fl :<C-U>Lines<cr>
-nnoremap <leader>fb :<C-U>Buffers<cr>
-nnoremap <leader>fs :<C-U>History/<cr>
+let g:fzf_command_prefix = 'F'
+
+nnoremap <leader>ff :<C-U>FFiles<cr>
+nnoremap <leader>fg :<C-U>FGFiles?<cr>
+nnoremap <leader>fr :<C-U>FRg<cr>
+nnoremap <leader>fh :<C-U>FHistory:<cr>
+nnoremap <leader>fb :<C-U>FBLines<cr>
+nnoremap <leader>fl :<C-U>FLines<cr>
+nnoremap <leader>fs :<C-U>FHistory/<cr>
+nnoremap <leader>fm :<C-U>FMarks<cr>
+nnoremap <leader>fc :<C-U>FCommands<cr>
 
 augroup customFZF
   autocmd!
