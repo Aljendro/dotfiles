@@ -17,7 +17,6 @@ Plug 'junegunn/gv.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -133,6 +132,9 @@ inoremap <C-U> <C-G>u<C-U>
 nnoremap <leader>ev :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
 nnoremap <leader>sv :w<cr>:tabclose<cr>
 
+" Easy quit
+nnoremap <leader>q :<C-U>q<cr>
+
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
@@ -171,9 +173,6 @@ nnoremap ]r :tabnext<cr>
 nnoremap [r :tabprevious<cr>
 nnoremap ]R :tablast<cr>
 nnoremap [R :tabfirst<cr>
-
-" Recursively load argslist with all files
-nnoremap <leader>la :args `fdfind -t f --hidden --exclude .git`<cr><C-^>
 
 " Quick open the quickfix list
 nnoremap <leader>qo :botright copen<cr>
@@ -304,6 +303,7 @@ nnoremap <leader>fs :<C-U>FHistory/<cr>
 nnoremap <leader>fm :<C-U>FMarks<cr>
 nnoremap <leader>fc :<C-U>FCommands<cr>
 nnoremap <leader>ft :<C-U>FTags<cr>
+nnoremap <leader>fo :<C-U>FBuffers<cr>
 
 augroup customFZF
   autocmd!
@@ -337,8 +337,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Navigate diagnostics
-nmap ]g <Plug>(coc-diagnostic-prev)
-nmap [g <Plug>(coc-diagnostic-next)
+nmap [g <Plug>(coc-diagnostic-prev)
+nmap ]g <Plug>(coc-diagnostic-next)
+" Naviate Coc List
+nmap ]d :<C-U>CocNext<cr>
+nmap [d :<C-U>CocPrev<cr>
 
 nmap <leader>ad <Plug>(coc-definition)
 nmap <leader>at <Plug>(coc-type-definition)
@@ -346,23 +349,20 @@ nmap <leader>ai <Plug>(coc-implementation)
 nmap <leader>ar <Plug>(coc-references)
 nmap <leader>aR <Plug>(coc-rename)
 
-" Mappings using CoCList:
+" Mappings using CoCList
+
 " Show all diagnostics.
-nnoremap <silent> <leader><leader>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ld  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <leader><leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> <leader><leader>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <leader><leader>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <leader><leader>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <leader><leader>j   :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <leader><leader>k   :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
+" Find symbol of current outline
+nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <silent> <leader><leader>r :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>lr :<C-u>CocListResume<CR>
 
 augroup customLSP
   autocmd!
@@ -388,4 +388,9 @@ augroup END
 
 """""""""""""""""""""" Prettier
 
-nnoremap <silent> <leader>p :PrettierAsync<cr>
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+nnoremap <silent> <leader>pp :Prettier<cr>
+vnoremap <leader>pf <Plug>(coc-format-selected)
+nnoremap <leader>pf <Plug>(coc-format-selected)
+
