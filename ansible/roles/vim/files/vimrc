@@ -6,6 +6,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'craigemery/vim-autotag'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -16,10 +17,10 @@ Plug 'junegunn/gv.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -302,6 +303,7 @@ nnoremap <leader>fl :<C-U>FLines<cr>
 nnoremap <leader>fs :<C-U>FHistory/<cr>
 nnoremap <leader>fm :<C-U>FMarks<cr>
 nnoremap <leader>fc :<C-U>FCommands<cr>
+nnoremap <leader>ft :<C-U>FTags<cr>
 
 augroup customFZF
   autocmd!
@@ -386,4 +388,4 @@ augroup END
 
 """""""""""""""""""""" Prettier
 
-cnoremap <silent> <leader>p :PrettierAsync<cr>
+nnoremap <silent> <leader>p :PrettierAsync<cr>
