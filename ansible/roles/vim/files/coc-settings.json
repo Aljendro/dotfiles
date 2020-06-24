@@ -1,3 +1,9 @@
 {
-  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.18.0/bin/npm"
+  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.18.0/bin/npm",
+  "tsserver.enableJavascript": true,
+  "prettier.semi": true,
+  "prettier.arrowParens": "always",
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true,
+  "prettier.tabWidth": 2
 }
