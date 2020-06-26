@@ -288,7 +288,7 @@ nnoremap <leader>dr :<C-U>diffget //3<cr>
 " Refresh difftool
 nnoremap <leader>du :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
-nnoremap <leader>gmc :<C-U>Git mergetool<cr>
+nnoremap <leader>gmc :<C-U>Git mergetool -y<cr>
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
 " Create diffsplit

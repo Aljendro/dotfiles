@@ -27,12 +27,8 @@
   args:
     executable: /bin/bash
 
-- name: Install neovim provider
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g neovim
+- name: Install globals
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g neovim prettier serverless
   args:
     executable: /bin/bash
 
-- name: Install prettier
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g prettier
-  args:
-    executable: /bin/bash
