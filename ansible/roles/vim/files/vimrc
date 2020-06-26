@@ -328,6 +328,13 @@ let g:rg_highlight = v:true
 
 let g:fzf_command_prefix = 'F'
 
+" Do not search the file path with rip grep
+" (using with_preview 'options' parameter)
+command! -bang -nargs=* FRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
+
 nnoremap <leader>ff :<C-U>FFiles<cr>
 nnoremap <leader>fg :<C-U>FGFiles?<cr>
 nnoremap <leader>fr :<C-U>FRg<cr>
