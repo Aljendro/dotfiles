@@ -6,11 +6,16 @@ snippet mc "Multiline JSDoc Comment"
 /**
  * $1
  */
-$0
 endsnippet
 
-snippet fna "Async function"
-async ($1) => {
-  $2
-}
+snippet fna "Async Lambda Function"
+async ($1) => { $2 }
+endsnippet
+
+snippet fn "Lambda Function"
+($1) => { $2 }
+endsnippet
+
+snippet me "Module exports"
+module.exports.$1 = $2
 endsnippet

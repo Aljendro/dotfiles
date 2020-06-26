@@ -13,8 +13,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/gv.vim'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdcommenter'
@@ -22,7 +21,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
 Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -32,6 +30,7 @@ call plug#end()
 
 """""""""""""""""""" Settings
 
+let g:rainbow_active        = 1
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_hls_cursor    = 'blue'
 
@@ -130,11 +129,19 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <leader>ev :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
-nnoremap <leader>sv :w<cr>:tabclose<cr>
+nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
 
 " Easy quit
 nnoremap <leader>q :<C-U>q<cr>
 
+" Adding extra tab traversal
+nnoremap ]t :tabnext<cr>
+nnoremap [t :tabprevious<cr>
+nnoremap ]T :tablast<cr>
+nnoremap [T :tabfirst<cr>
+
+" Expand split in new tab
+nnoremap <leader>ts :tab split<cr>
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
@@ -168,12 +175,6 @@ nnoremap <leader>h :noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
-" Adding extra tab traversal
-nnoremap ]r :tabnext<cr>
-nnoremap [r :tabprevious<cr>
-nnoremap ]R :tablast<cr>
-nnoremap [R :tabfirst<cr>
-
 " Quick open the quickfix list
 nnoremap <leader>qo :botright copen<cr>
 nnoremap <leader>qc :cclose<cr>
@@ -182,9 +183,9 @@ augroup customVim
   autocmd!
   " When editing a file, always jump to the last known cursor position.
   autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
   " Removing the o option removes adding a comment when open new line
   autocmd Filetype * set formatoptions-=o
   " Set the last known tab when switching tabs
@@ -207,29 +208,60 @@ augroup END
 
 """""""""""""""""""""" Lightline
 
+function! LightlineBranch()
+  return winwidth(0) > 70 ? FugitiveHead() : ''
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? &fileencoding : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
 let g:lightline = {
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-  \   'gitbranch': 'FugitiveHead'
-  \ },
-  \ }
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'LightlineBranch',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileencoding'
+      \ },
+      \ }
 
 """""""""""""""""""" NERDTree (File Tree Viewer Plugin)
 
-nnoremap <leader>n :<C-U>NERDTreeFind<cr>
+nnoremap <leader>n     :<C-U>NERDTreeToggle<cr>
+nnoremap <leader><C-n> :<C-U>NERDTreeFind<cr>
 
 let NERDTreeShowLineNumbers = 1
-let NERDTreeQuitOnOpen = 3
+let NERDTreeQuitOnOpen = 0
+let NERDTreeMinimalUI = 1
+let NERDTreeArrows = 1
+let NERDTreeCustomOpenArgs = {
+      \ 'file': {
+      \   'reuse': 'currenttab',
+      \   'where': 'v',
+      \   'stay': 1
+      \ },
+      \ 'dir': {
+      \   'where': 't',
+      \   'keepopen': 1,
+      \ }
+      \ }
 
 augroup customNERDTree
   autocmd!
   " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-  " When nerdtree is open, just toggle it off
-  autocmd FileType nerdtree nnoremap <buffer> <leader>n :<C-U>NERDTreeToggle<cr>
 augroup END
 
 """""""""""""""""""" NERDCommenter
@@ -246,7 +278,9 @@ let g:NERDToggleCheckAllLines = 0
 """""""""""""""""""" Fugitive (Git Plugin)
 
 " Open diffs of all the different changed files in tabs
-nnoremap <leader>dt :<C-U>Git difftool -y<cr>
+nnoremap <silent> <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
+" Restore previous session
+nnoremap <silent> <leader>de :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
 " Choose left buffer
 nnoremap <leader>dl :<C-U>diffget //2<cr>
 " Choose the right buffer
@@ -257,6 +291,8 @@ nnoremap <leader>du :<C-U>diffupdate<cr>
 nnoremap <leader>gmc :<C-U>Git mergetool<cr>
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
+" Create diffsplit
+nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gdiffsplit<cr>
 
 cabbrev gcp Git push
 cabbrev gco Git checkout
@@ -269,10 +305,9 @@ cabbrev gstp Git stash pop
 
 """""""""""""""""""" Snippets
 
-
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger="<C-g>"
-let g:UltiSnipsListSnippets="<S-C-g>"
+let g:UltiSnipsListSnippets="<C-S-g>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsEditSplit="vertical"
@@ -374,16 +409,6 @@ augroup customLSP
   autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup END
-
-"""""""""""""""""""" Rainbow Delimeters
-
-augroup customDelimeters
-  autocmd!
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 
 """""""""""""""""""""" Prettier
