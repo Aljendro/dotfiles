@@ -19,3 +19,22 @@ endsnippet
 snippet me "Module exports"
 module.exports.$1 = $2
 endsnippet
+
+snippet td "Jest Describe"
+describe('$1', () => {
+  $2
+});
+endsnippet
+
+snippet ta "Jest Async Test Case"
+it('$1', async () => {
+  expect.assertions(${2:1});
+  $3
+});
+endsnippet
+
+snippet ts "Jest Sync Test Case"
+it('$1', () => {
+  $2
+});
+endsnippet
