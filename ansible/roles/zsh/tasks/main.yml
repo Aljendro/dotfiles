@@ -86,3 +86,14 @@
     dest: ~/.zshrc_local
     mode: u+rwx
 
+- name: Stat .zshrc_vm_local file
+  stat:
+    path: ~/.zshrc_vm_local
+  register: vm_local
+
+- name: Copying .zshrc_vm_local
+  copy:
+    src: "{{ role_path }}/files/zshrc_vm_local"
+    dest: ~/.zshrc_vm_local
+    mode: '0700'
+  when: vm_local.stat.exists == false
