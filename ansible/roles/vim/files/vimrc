@@ -166,10 +166,10 @@ nnoremap <C-W>l <C-W>L
 nnoremap <C-W>h <C-W>H
 
 " Resize windows
-nnoremap <silent> <M-j> :resize -4<cr>
-nnoremap <silent> <M-k> :resize +4<cr>
-nnoremap <silent> <M-h> :vertical resize +12<cr>
-nnoremap <silent> <M-l> :vertical resize -12<cr>
+nnoremap <M-j> :resize -4<cr>
+nnoremap <M-k> :resize +4<cr>
+nnoremap <M-h> :vertical resize +12<cr>
+nnoremap <M-l> :vertical resize -12<cr>
 
 " Close highlighting
 nnoremap <leader>h :noh<cr>
@@ -398,17 +398,17 @@ nmap <leader>aR <Plug>(coc-rename)
 " Mappings using CoCList
 
 " Show all diagnostics.
-nnoremap <silent> <leader>ld  :<C-u>CocList diagnostics<cr>
+nnoremap <leader>ld  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
+nnoremap <leader>le  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
+nnoremap <leader>lc  :<C-u>CocList commands<cr>
 " Find symbol of current outline
-nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
+nnoremap <leader>lo  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
+nnoremap <leader>ls  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <silent> <leader>lr :<C-u>CocListResume<CR>
+nnoremap <leader>lr :<C-u>CocListResume<CR>
 
 augroup customLSP
   autocmd!
@@ -426,7 +426,25 @@ augroup END
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-nnoremap <silent> <leader>pp :Prettier<cr>
+nnoremap <leader>pp :Prettier<cr>
 vnoremap <leader>pf <Plug>(coc-format-selected)
 nnoremap <leader>pf <Plug>(coc-format-selected)
+
+"""""""""""""""""""""" Easy Motion
+
+let g:EasyMotion_do_mapping       = 0
+let g:EasyMotion_smartcase        = 1
+let g:EasyMotion_use_smartsign_us = 1
+
+map <leader>j <Plug>(easymotion-s)
+map <leader>k <Plug>(easymotion-bd-w)
+map <leader>l <Plug>(easymotion-bd-e)
+
+nmap <Leader><C-j> <Plug>(easymotion-overwin-f)
+xmap <Leader><C-j> <Plug>(easymotion-bd-f)
+omap <Leader><C-j> <Plug>(easymotion-bd-f)
+
+nmap <Leader><C-k> <Plug>(easymotion-overwin-w)
+xmap <Leader><C-k> <Plug>(easymotion-bd-w)
+omap <Leader><C-k> <Plug>(easymotion-bd-w)
 
