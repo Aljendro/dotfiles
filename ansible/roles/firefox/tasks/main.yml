@@ -11,11 +11,12 @@
     name: curl
     state: present
 
+# Sums - https://download-installer.cdn.mozilla.net/pub/devedition/releases/<version>/SHA256SUMS
 - name: Downloading Firefox Developer Edition
   get_url:
-    url: https://download-installer.cdn.mozilla.net/pub/devedition/releases/77.0b9/linux-x86_64/en-US/firefox-77.0b9.tar.bz2
+    url: https://download-installer.cdn.mozilla.net/pub/devedition/releases/79.0b2/linux-x86_64/en-US/firefox-79.0b2.tar.bz2
     dest: "{{ firefox_location }}"
-    checksum: sha256:53bdc1301bf0a4c9c8204d5893bf951afd3c5a8ec0870c356fc6e789e934c1b3
+    checksum: sha256:317964a88f1c085f2a261ca4aef00574abfcfe66d67fb6d4cbe96c2e43a36ac0
 
 - name: Extracting Firefox Developer Edition
   become: yes
