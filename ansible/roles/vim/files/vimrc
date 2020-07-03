@@ -285,9 +285,9 @@ let g:AutoPairsMapCR = 1
 """""""""""""""""""" Fugitive (Git Plugin)
 
 " Open diffs of all the different changed files in tabs
-nnoremap <silent> <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
+nnoremap <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
 " Restore previous session
-nnoremap <silent> <leader>de :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
+nnoremap <leader>de :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
 " Choose left buffer
 nnoremap <leader>dl :<C-U>diffget //2<cr>
 " Choose the right buffer
@@ -312,19 +312,17 @@ cabbrev gstp Git stash pop
 
 """""""""""""""""""" Snippets
 
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger="<C-g>"
-let g:UltiSnipsListSnippets="<C-S-g>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsEditSplit="vertical"
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
 
-" Directories to search for snippets
-let g:snippetPath=$DOTFILES_DIR.'/ansible/roles/vim/files/snippets/'
-let g:UltiSnipsSnippetDirectories=[snippetPath]
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
 
-" Quick Edit the snippets
-nnoremap <expr> <leader>es ':<C-U>tabedit ' . g:snippetPath
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 """""""""""""""""""" Ripgrep
 
@@ -436,15 +434,13 @@ let g:EasyMotion_do_mapping       = 0
 let g:EasyMotion_smartcase        = 1
 let g:EasyMotion_use_smartsign_us = 1
 
-map <leader>j <Plug>(easymotion-s)
-map <leader>k <Plug>(easymotion-bd-w)
 map <leader>l <Plug>(easymotion-bd-e)
 
-nmap <Leader><C-j> <Plug>(easymotion-overwin-f)
-xmap <Leader><C-j> <Plug>(easymotion-bd-f)
-omap <Leader><C-j> <Plug>(easymotion-bd-f)
+nmap <leader>j <Plug>(easymotion-overwin-f)
+xmap <leader>j <Plug>(easymotion-bd-f)
+omap <leader>j <Plug>(easymotion-bd-f)
 
-nmap <Leader><C-k> <Plug>(easymotion-overwin-w)
-xmap <Leader><C-k> <Plug>(easymotion-bd-w)
-omap <Leader><C-k> <Plug>(easymotion-bd-w)
+nmap <leader>k <Plug>(easymotion-overwin-w)
+xmap <leader>k <Plug>(easymotion-bd-w)
+omap <leader>k <Plug>(easymotion-bd-w)
 

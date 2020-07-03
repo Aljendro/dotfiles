@@ -46,6 +46,13 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
+- name: Linking snippets directory for neovim
+  file:
+    src: "{{ role_path }}/files/snippets"
+    dest: ~/.config/coc/ultisnips
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
 - name: Install plugins
   command: nvim +PlugInstall +qall
 
