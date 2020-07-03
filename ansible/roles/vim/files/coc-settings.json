@@ -1,5 +1,5 @@
 {
-  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.18.0/bin/npm",
+  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.13.0/bin/npm",
   "tsserver.enableJavascript": true,
   "tsserver.log": "terse",
   "prettier.semi": true,

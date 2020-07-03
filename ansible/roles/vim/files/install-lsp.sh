@@ -2,7 +2,7 @@
 
 # Make sure node and npm are loaded
 source ~/.nvm/nvm.sh
-nvm use stable-default
+nvm use default
 
 # Install extensions
 mkdir -p ~/.config/coc/extensions

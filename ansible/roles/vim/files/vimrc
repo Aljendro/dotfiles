@@ -207,6 +207,8 @@ augroup customVim
   autocmd TermClose * :call <SID>delete_current_buffer()
   " Easier exiting
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+  " Debugger expand for js files
+  autocmd FileType javascript iabbrev d; debugger;
 augroup END
 
 """""""""""""""""""""" Lightline
