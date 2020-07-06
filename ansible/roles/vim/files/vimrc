@@ -285,7 +285,9 @@ let g:NERDToggleCheckAllLines = 0
 
 let g:AutoPairsMapCR = 1
 
-"""""""""""""""""""" Fugitive (Git Plugin)
+"""""""""""""""""""" Git Plugins (Fugitive, Gitgutter, etc.)
+
+let g:gitgutter_map_keys = 0
 
 " Open diffs of all the different changed files in tabs
 nnoremap <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
