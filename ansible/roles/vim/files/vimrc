@@ -180,8 +180,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Quick open the quickfix list
-nnoremap <leader>qo :botright copen<cr>
-nnoremap <leader>qc :cclose<cr>
+nnoremap <leader>oq :botright copen<cr>
 
 augroup customVim
   autocmd!
@@ -210,6 +209,9 @@ augroup customVim
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
   " Debugger expand for js files
   autocmd FileType javascript iabbrev d; debugger;
+  " TODO: Put this in js filetype file
+  " Run tests with vimux using npm
+  map <leader>ub :call VimuxRunCommand("clear; jest " . bufname("%"))<CR>
 augroup END
 
 """""""""""""""""""""" Lightline
@@ -287,25 +289,24 @@ let g:AutoPairsMapCR = 1
 
 """""""""""""""""""" Git Plugins (Fugitive, Gitgutter, etc.)
 
-let g:gitgutter_map_keys = 0
-
 " Open diffs of all the different changed files in tabs
 nnoremap <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
 " Restore previous session
 nnoremap <leader>de :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
 " Choose left buffer
-nnoremap <leader>dl :<C-U>diffget //2<cr>
+nnoremap <leader>dj :<C-U>diffget //2<cr>
 " Choose the right buffer
-nnoremap <leader>dr :<C-U>diffget //3<cr>
+nnoremap <leader>dk :<C-U>diffget //3<cr>
 " Refresh difftool
 nnoremap <leader>du :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
-nnoremap <leader>gmc :<C-U>Git mergetool -y<cr>
+nnoremap <leader>dc :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git mergetool -y \| tabclose 1<cr>
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
 " Create diffsplit
 nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gdiffsplit<cr>
 
+cabbrev gb Git branch
 cabbrev gcp Git push
 cabbrev gco Git checkout
 cabbrev gcb Git checkout -b
@@ -334,28 +335,32 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 let g:rg_command = 'rg --vimgrep -S'
 let g:rg_highlight = v:true
 
+" Search for word under cursor
+nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<cr><cr>
+
 """""""""""""""""""" FZF (Fuzzy Finder)
 
 let g:fzf_command_prefix = 'F'
 
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
-command! -bang -nargs=* FRg
+command! -bang -nargs=* FARg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
-nnoremap <leader>ff :<C-U>FFiles<cr>
-nnoremap <leader>fg :<C-U>FGFiles?<cr>
-nnoremap <leader>fr :<C-U>FRg<cr>
-nnoremap <leader>fh :<C-U>FHistory:<cr>
-nnoremap <leader>fb :<C-U>FBLines<cr>
-nnoremap <leader>fl :<C-U>FLines<cr>
-nnoremap <leader>fs :<C-U>FHistory/<cr>
-nnoremap <leader>fm :<C-U>FMarks<cr>
-nnoremap <leader>fc :<C-U>FCommands<cr>
-nnoremap <leader>ft :<C-U>FTags<cr>
-nnoremap <leader>fo :<C-U>FBuffers<cr>
+nnoremap <leader>ff  :<C-U>FFiles<cr>
+nnoremap <leader>fg  :<C-U>FGFiles?<cr>
+nnoremap <leader>fra :<C-U>FRg<cr>
+nnoremap <leader>frr :<C-U>FARg<cr>
+nnoremap <leader>fh  :<C-U>FHistory      : <cr>
+nnoremap <leader>fb  :<C-U>FBLines<cr>
+nnoremap <leader>fl  :<C-U>FLines<cr>
+nnoremap <leader>fs  :<C-U>FHistory/<cr>
+nnoremap <leader>fm  :<C-U>FMarks<cr>
+nnoremap <leader>fc  :<C-U>FCommands<cr>
+nnoremap <leader>ft  :<C-U>FTags<cr>
+nnoremap <leader>fo  :<C-U>FBuffers<cr>
 
 augroup customFZF
   autocmd!
@@ -411,7 +416,7 @@ nnoremap <leader>lo  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <leader>ls  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <leader>lr :<C-u>CocListResume<CR>
+nnoremap <leader>lr :<C-u>CocListResume<cr>
 
 augroup customLSP
   autocmd!
