@@ -127,22 +127,45 @@ let mapleader = " "
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <leader>ev :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+
+" Move between windows easily
+nnoremap <C-e> <C-w><C-k>
+nnoremap <C-d> <C-w><C-j>
+nnoremap <C-f> <C-w><C-l>
+nnoremap <C-s> <C-w><C-h>
+
+" Move in windows easily
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+nnoremap <M-j> <C-f>
+nnoremap <M-k> <C-b>
+
+" Move between tabs easily
+noremap <C-h> :tabprevious<cr>
+noremap <C-l> :tabnext<cr>
+
+" Move windows easily
+nnoremap <C-w>j <C-w>J
+nnoremap <C-w>k <C-w>K
+nnoremap <C-w>l <C-w>L
+nnoremap <C-w>h <C-w>H
+
+" Resize windows
+nnoremap <M-Down> :resize -4<cr>
+nnoremap <M-Up> :resize +4<cr>
+nnoremap <M-Left> :vertical resize +12<cr>
+nnoremap <M-Right> :vertical resize -12<cr>
+
+" Close highlighting
+nnoremap <leader>h :noh<cr>
+
+" Better tabbing alignment
+vnoremap < <gv
+vnoremap > >gv
+
 nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
-
-" Easy quit
-nnoremap <leader>q :<C-U>q<cr>
-
-" Adding extra tab traversal
-nnoremap ]t :tabnext<cr>
-nnoremap [t :tabprevious<cr>
-nnoremap ]T :tablast<cr>
-nnoremap [T :tabfirst<cr>
 
 " Expand split in new tab
 nnoremap <leader>ts :tab split<cr>
@@ -153,31 +176,6 @@ nnoremap <leader>tc :<C-U>tabclose<cr>
 " Go to last visited tab
 let g:lastTab = 1
 nnoremap <leader>tl :exec "tabn " . g:lastTab<cr>
-
-" Move between windows easily
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Move windows easily
-nnoremap <C-W>j <C-W>J
-nnoremap <C-W>k <C-W>K
-nnoremap <C-W>l <C-W>L
-nnoremap <C-W>h <C-W>H
-
-" Resize windows
-nnoremap <M-j> :resize -4<cr>
-nnoremap <M-k> :resize +4<cr>
-nnoremap <M-h> :vertical resize +12<cr>
-nnoremap <M-l> :vertical resize -12<cr>
-
-" Close highlighting
-nnoremap <leader>h :noh<cr>
-
-" Better tabbing alignment
-vnoremap < <gv
-vnoremap > >gv
 
 " Quick open the quickfix list
 nnoremap <leader>oq :botright copen<cr>
@@ -304,7 +302,7 @@ nnoremap <leader>dc :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git me
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
 " Create diffsplit
-nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gdiffsplit<cr>
+nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 
 cabbrev gb Git branch
 cabbrev gcp Git push
