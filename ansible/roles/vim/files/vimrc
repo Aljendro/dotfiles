@@ -143,8 +143,8 @@ nnoremap <M-j> <C-f>
 nnoremap <M-k> <C-b>
 
 " Move between tabs easily
-noremap <C-h> :tabprevious<cr>
-noremap <C-l> :tabnext<cr>
+noremap <C-h> :<C-U>tabprevious<cr>
+noremap <C-l> :<C-U>tabnext<cr>
 
 " Move windows easily
 nnoremap <C-w>j <C-w>J
@@ -153,13 +153,13 @@ nnoremap <C-w>l <C-w>L
 nnoremap <C-w>h <C-w>H
 
 " Resize windows
-nnoremap <M-Down> :resize -4<cr>
-nnoremap <M-Up> :resize +4<cr>
-nnoremap <M-Left> :vertical resize +12<cr>
-nnoremap <M-Right> :vertical resize -12<cr>
+nnoremap <M-Down>  :<C-U>resize -4<cr>
+nnoremap <M-Up>    :<C-U>resize +4<cr>
+nnoremap <M-Left>  :<C-U>vertical resize +12<cr>
+nnoremap <M-Right> :<C-U>vertical resize -12<cr>
 
 " Close highlighting
-nnoremap <leader>h :noh<cr>
+nnoremap <leader>h :<C-U>noh<cr>
 
 " Better tabbing alignment
 vnoremap < <gv
@@ -168,17 +168,17 @@ vnoremap > >gv
 nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
 
 " Expand split in new tab
-nnoremap <leader>ts :tab split<cr>
+nnoremap <leader>ts :<C-U>tab split<cr>
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :<C-U>tabclose<cr>
 " Go to last visited tab
 let g:lastTab = 1
-nnoremap <leader>tl :exec "tabn " . g:lastTab<cr>
+nnoremap <leader>tl :<C-U>exec "tabn " . g:lastTab<cr>
 
 " Quick open the quickfix list
-nnoremap <leader>oq :botright copen<cr>
+nnoremap <leader>oq :<C-U>botright copen<cr>
 
 augroup customVim
   autocmd!
@@ -208,8 +208,8 @@ augroup customVim
   " Debugger expand for js files
   autocmd FileType javascript iabbrev d; debugger;
   " TODO: Put this in js filetype file
-  " Run tests with vimux using npm
-  map <leader>ub :call VimuxRunCommand("clear; jest " . bufname("%"))<CR>
+  " Run tests with vimux using jest
+  autocmd FileType javascript map <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
 augroup END
 
 """""""""""""""""""""" Lightline
@@ -288,9 +288,9 @@ let g:AutoPairsMapCR = 1
 """""""""""""""""""" Git Plugins (Fugitive, Gitgutter, etc.)
 
 " Open diffs of all the different changed files in tabs
-nnoremap <leader>dt :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
+nnoremap <leader>dd :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git difftool -y \| tabclose 1<cr>
 " Restore previous session
-nnoremap <leader>de :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
+nnoremap <leader>dr :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
 " Choose left buffer
 nnoremap <leader>dj :<C-U>diffget //2<cr>
 " Choose the right buffer
@@ -404,17 +404,17 @@ nmap <leader>aR <Plug>(coc-rename)
 " Mappings using CoCList
 
 " Show all diagnostics.
-nnoremap <leader>ld  :<C-u>CocList diagnostics<cr>
+nnoremap <leader>ld  :<C-U>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <leader>le  :<C-u>CocList extensions<cr>
+nnoremap <leader>le  :<C-U>CocList extensions<cr>
 " Show commands.
-nnoremap <leader>lc  :<C-u>CocList commands<cr>
-" Find symbol of current outline
-nnoremap <leader>lo  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <leader>ls  :<C-u>CocList -I symbols<cr>
+nnoremap <leader>lc  :<C-U>CocList commands<cr>
+" Find symbol of current Outline
+nnoremap <leader>lo  :<C-U>CocList outline<cr>
+" Search workspace symbolS
+nnoremap <leader>ls  :<C-U>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <leader>lr :<C-u>CocListResume<cr>
+nnoremap <leader>lr :<C-U>CocListResume<cr>
 
 augroup customLSP
   autocmd!
@@ -455,17 +455,17 @@ omap <leader>k <Plug>(easymotion-bd-w)
 """""""""""""""""""""" Vimux
 
 " Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vp :<C-U>VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vl :<C-U>VimuxRunLastCommand<CR>
 " Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
+map <Leader>vi :<C-U>VimuxInspectRunner<CR>
 " Close vim tmux runner opened by VimuxRunCommand
-map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vq :<C-U>VimuxCloseRunner<CR>
 " Interrupt any command running in the runner pane
-map <Leader>vx :VimuxInterruptRunner<CR>
+map <Leader>vx :<C-U>VimuxInterruptRunner<CR>
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
-map <Leader>vz :call VimuxZoomRunner()<CR>
+map <Leader>vz :<C-U>call VimuxZoomRunner()<CR>
 " Clear the tmux history of the runner pane
-map <Leader>vc :call VimuxRunCommand("clear;")<CR>
+map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
 
