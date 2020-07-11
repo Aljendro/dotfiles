@@ -351,7 +351,7 @@ nnoremap <leader>ff  :<C-U>FFiles<cr>
 nnoremap <leader>fg  :<C-U>FGFiles?<cr>
 nnoremap <leader>fra :<C-U>FRg<cr>
 nnoremap <leader>frr :<C-U>FARg<cr>
-nnoremap <leader>fh  :<C-U>FHistory      : <cr>
+nnoremap <leader>fh  :<C-U>FHistory: <cr>
 nnoremap <leader>fb  :<C-U>FBLines<cr>
 nnoremap <leader>fl  :<C-U>FLines<cr>
 nnoremap <leader>fs  :<C-U>FHistory/<cr>
