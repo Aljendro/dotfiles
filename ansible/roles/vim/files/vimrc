@@ -249,10 +249,11 @@ nnoremap <leader>n     :<C-U>NERDTreeToggle<cr>
 nnoremap <leader><C-n> :<C-U>NERDTreeFind<cr>
 
 let NERDTreeShowLineNumbers = 1
-let NERDTreeQuitOnOpen = 0
-let NERDTreeMinimalUI = 1
-let NERDTreeArrows = 1
-let NERDTreeCustomOpenArgs = {
+let NERDTreeShowHidden      = 1
+let NERDTreeQuitOnOpen      = 0
+let NERDTreeMinimalUI       = 1
+let NERDTreeArrows          = 1
+let NERDTreeCustomOpenArgs  = {
       \ 'file': {
       \   'reuse': 'currenttab',
       \   'where': 'v',
