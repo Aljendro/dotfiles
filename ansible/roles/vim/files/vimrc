@@ -146,6 +146,10 @@ nnoremap <M-k> <C-b>
 noremap <C-h> :<C-U>tabprevious<cr>
 noremap <C-l> :<C-U>tabnext<cr>
 
+" Move between quickfix items easily
+nnoremap <M-h> :<C-U>cprevious<cr>
+nnoremap <M-l> :<C-U>cnext<cr>
+
 " Move windows easily
 nnoremap <C-w>j <C-w>J
 nnoremap <C-w>k <C-w>K
@@ -153,10 +157,10 @@ nnoremap <C-w>l <C-w>L
 nnoremap <C-w>h <C-w>H
 
 " Resize windows
-nnoremap <M-Down>  :<C-U>resize -4<cr>
-nnoremap <M-Up>    :<C-U>resize +4<cr>
-nnoremap <M-Left>  :<C-U>vertical resize +12<cr>
-nnoremap <M-Right> :<C-U>vertical resize -12<cr>
+nnoremap <M-d> :<C-U>resize -4<cr>
+nnoremap <M-e> :<C-U>resize +4<cr>
+nnoremap <M-s> :<C-U>vertical resize +12<cr>
+nnoremap <M-f> :<C-U>vertical resize -12<cr>
 
 " Close highlighting
 nnoremap <leader>h :<C-U>noh<cr>
