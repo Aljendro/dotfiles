@@ -6,6 +6,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
 Plug 'benmills/vimux'
 Plug 'craigemery/vim-autotag'
 Plug 'easymotion/vim-easymotion'
@@ -16,8 +17,10 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'luochen1990/rainbow'
+Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rstacruz/sparkup'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -214,6 +217,7 @@ augroup customVim
   " TODO: Put this in js filetype file
   " Run tests with vimux using jest
   autocmd FileType javascript map <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
+  autocmd FileType typescriptreact runtime ftplugin/html/sparkup.vim
 augroup END
 
 """""""""""""""""""""" Lightline
@@ -253,6 +257,7 @@ nnoremap <leader>n     :<C-U>NERDTreeToggle<cr>
 nnoremap <leader><C-n> :<C-U>NERDTreeFind<cr>
 
 let NERDTreeShowLineNumbers = 1
+let NERDTreeMouseMode       = 3
 let NERDTreeShowHidden      = 1
 let NERDTreeQuitOnOpen      = 0
 let NERDTreeMinimalUI       = 1
@@ -473,4 +478,8 @@ map <Leader>vx :<C-U>VimuxInterruptRunner<CR>
 map <Leader>vz :<C-U>call VimuxZoomRunner()<CR>
 " Clear the tmux history of the runner pane
 map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
+
+"""""""""""""""""""""" Sparkup
+
+let g:sparkupExecuteMapping = '<c-b>'
 
