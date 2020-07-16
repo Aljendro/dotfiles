@@ -1,1 +1,13 @@
 extends javascript
+
+snippet rc "React functional component"
+import React from 'react';
+
+function `!p snip.rv = snip.basename`($1) {
+  return (
+    $2
+  );
+}
+
+export default `!p snip.rv = snip.basename`;
+endsnippet
