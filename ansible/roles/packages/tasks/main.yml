@@ -13,7 +13,6 @@
   loop:
     - jq
     - tree
-    - inkscape
     - xclip
     - ripgrep
     - fd-find
@@ -23,6 +22,7 @@
     - libtool
     - python-setuptools
     - python-dev
+    - firefox
 
 - name: Installing Snap Packages
   become: yes
@@ -31,7 +31,6 @@
     state: present
   loop:
     - bitwarden
-    - spotify
     - universal-ctags
 
 - name: Check watchman installation
