@@ -302,9 +302,9 @@ nnoremap <leader>dd :<C-U>wall \| mks! /tmp/diffsession.vim \| tabonly \| Git di
 " Restore previous session
 nnoremap <leader>dr :<C-U>wall \| tabonly \| source /tmp/diffsession.vim<cr>
 " Choose left buffer
-nnoremap <leader>dj :<C-U>diffget //2<cr>
+nnoremap <expr> <leader>dj ':<C-U>diffget //2/' . bufname('') . '<cr>'
 " Choose the right buffer
-nnoremap <leader>dk :<C-U>diffget //3<cr>
+nnoremap <expr> <leader>dk ':<C-U>diffget //3/' . bufname('') . '<cr>'
 " Refresh difftool
 nnoremap <leader>du :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
@@ -455,7 +455,7 @@ let g:EasyMotion_use_smartsign_us = 1
 map <leader>l <Plug>(easymotion-bd-e)
 
 nmap <leader>j <Plug>(easymotion-overwin-f)
-xmap <leader>j <Plug>(easymotion-bd-f)
+xmap <leader>j <Plug>(easymotion-bd-f
 omap <leader>j <Plug>(easymotion-bd-f)
 
 nmap <leader>k <Plug>(easymotion-overwin-w)
