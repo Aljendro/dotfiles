@@ -32,6 +32,12 @@
     state: directory
     mode: '0700'
 
+- name: Creating coc directories
+  file:
+    path: ~/.config/coc
+    state: directory
+    mode: '0700'
+
 - name: Linking init.vim for neovim
   file:
     src: "{{ role_path }}/files/init.vim"
