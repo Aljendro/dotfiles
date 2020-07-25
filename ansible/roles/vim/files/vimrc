@@ -219,7 +219,7 @@ augroup customVim
   " Easier exiting
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
   " Debugger expand for js files
-  autocmd FileType javascript iabbrev d; debugger;
+  autocmd FileType javascript,typescriptreact,typescript iabbrev d; debugger;
   " TODO: Put this in js filetype file
   " Run tests with vimux using jest
   autocmd FileType javascript map <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
