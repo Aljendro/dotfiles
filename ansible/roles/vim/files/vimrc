@@ -172,6 +172,12 @@ nnoremap <leader>h :<C-U>noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
+" Faster shifting
+nnoremap <C-u> 3<C-y>
+nnoremap <C-y> 3<C-e>
+nnoremap <M-u> zL
+nnoremap <M-y> zH
+
 nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
 
 " Expand split in new tab
