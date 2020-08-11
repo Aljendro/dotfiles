@@ -172,6 +172,10 @@ nnoremap <leader>h :<C-U>noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
+" Better Vertical block movement
+vmap [v [egv
+vmap ]v ]egv
+
 " Faster shifting
 nnoremap <C-u> 3<C-y>
 nnoremap <C-y> 3<C-e>
@@ -321,7 +325,9 @@ nmap <leader>gb :<C-U>Git blame<cr>A
 nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 
 cabbrev gb Git branch
-cabbrev gcp Git push
+cabbrev gbd Git branch -d
+cabbrev gbdr Git push origin --delete
+cabbrev gp Git push
 cabbrev gco Git checkout
 cabbrev gcb Git checkout -b
 cabbrev gac Git commit -a -m
