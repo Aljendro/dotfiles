@@ -12,6 +12,28 @@ snippet mc "Multiline JSDoc Comment"
  */
 endsnippet
 
+snippet if "If statement (highlighted in if block)"
+if ($1) {
+  ${VISUAL}$2
+}
+endsnippet
+
+snippet ife "If Else statment (highlighted in if block)"
+if ($1) {
+  ${VISUAL}$2
+} else {
+  $3
+}
+endsnippet
+
+snippet ifee "If Else statement (highlighted in else block)"
+if ($1) {
+  $2
+} else {
+  ${VISUAL}$3
+}
+endsnippet
+
 snippet fna "Async Lambda Function"
 async ($1) => { $2 }
 endsnippet
