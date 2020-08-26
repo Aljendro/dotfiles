@@ -177,10 +177,10 @@ vmap [v [egv
 vmap ]v ]egv
 
 " Faster shifting
-nnoremap <C-u> 3<C-y>
-nnoremap <C-y> 3<C-e>
-nnoremap <M-u> zL
-nnoremap <M-y> zH
+nnoremap <C-u> 5<C-e>
+nnoremap <C-i> 5<C-y>
+nnoremap <M-u> zH
+nnoremap <M-i> zL
 
 nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
 
@@ -375,8 +375,8 @@ command! -bang -nargs=* FARg
 
 nnoremap <leader>ff  :<C-U>FFiles<cr>
 nnoremap <leader>fg  :<C-U>FGFiles?<cr>
-nnoremap <leader>fra :<C-U>FRg<cr>
-nnoremap <leader>frr :<C-U>FARg<cr>
+nnoremap <leader>fr  :<C-U>FRg<cr>
+nnoremap <leader>fa  :<C-U>FARg<cr>
 nnoremap <leader>fh  :<C-U>FHistory: <cr>
 nnoremap <leader>fb  :<C-U>FBLines<cr>
 nnoremap <leader>fl  :<C-U>FLines<cr>
@@ -471,7 +471,7 @@ let g:EasyMotion_use_smartsign_us = 1
 map <leader>l <Plug>(easymotion-bd-e)
 
 nmap <leader>j <Plug>(easymotion-overwin-f)
-xmap <leader>j <Plug>(easymotion-bd-f
+xmap <leader>j <Plug>(easymotion-bd-f)
 omap <leader>j <Plug>(easymotion-bd-f)
 
 nmap <leader>k <Plug>(easymotion-overwin-w)
