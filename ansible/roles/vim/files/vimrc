@@ -449,7 +449,7 @@ augroup customLSP
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   " Close the pop up menu after completion
-  autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
