@@ -162,8 +162,8 @@ nnoremap <C-w>h <C-w>H
 " Resize windows
 nnoremap <M-d> :<C-U>resize -4<cr>
 nnoremap <M-e> :<C-U>resize +4<cr>
-nnoremap <M-s> :<C-U>vertical resize +12<cr>
-nnoremap <M-f> :<C-U>vertical resize -12<cr>
+nnoremap <M-s> :<C-U>vertical resize +16<cr>
+nnoremap <M-f> :<C-U>vertical resize -16<cr>
 
 " Close highlighting
 nnoremap <leader>h :<C-U>noh<cr>
