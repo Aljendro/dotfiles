@@ -177,10 +177,10 @@ vmap [v [egv
 vmap ]v ]egv
 
 " Faster shifting
-nnoremap <C-u> 5<C-e>
-nnoremap <C-i> 5<C-y>
-nnoremap <M-u> zH
-nnoremap <M-i> zL
+nnoremap <Down> 5<C-e>
+nnoremap <Up> 5<C-y>
+nnoremap <Left> zH
+nnoremap <Right> zL
 
 nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
 
