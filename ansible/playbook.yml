@@ -49,6 +49,11 @@
         - rust
 
     - import_role:
+        name: java
+      tags:
+        - java
+
+    - import_role:
         name: git
       tags:
         - git

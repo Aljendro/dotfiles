@@ -1,0 +1,14 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - openjdk-11-jre
