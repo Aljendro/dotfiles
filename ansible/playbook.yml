@@ -44,6 +44,12 @@
         - web
 
     - import_role:
+        name: gcp
+      tags:
+        - gcp
+        - web
+
+    - import_role:
         name: rust
       tags:
         - rust
