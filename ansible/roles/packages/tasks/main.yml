@@ -14,6 +14,7 @@
     - jq
     - tree
     - xclip
+    - bat
     - ripgrep
     - fd-find
     - libssl-dev

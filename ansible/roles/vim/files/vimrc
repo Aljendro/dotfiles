@@ -116,12 +116,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-" Unload current buffer and close window
-function! s:delete_current_buffer() abort
-  let current_buffer = bufnr("%")
-  exec ":bw!" . current_buffer
-endfunction
-
 """""""""""""""""""" Vim
 
 nnoremap <space> <Nop>
@@ -217,9 +211,6 @@ augroup customVim
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
   " Enter insert mode for terminal upon entering
   autocmd TermOpen * startinsert
-  " Immediately destroy the terminal buffer and close the window when terminal
-  " closes
-  autocmd TermClose * :call <SID>delete_current_buffer()
   " Easier exiting
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
   " Debugger expand for js files
