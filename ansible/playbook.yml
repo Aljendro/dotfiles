@@ -60,6 +60,11 @@
         - java
 
     - import_role:
+        name: clojure
+      tags:
+        - clojure
+
+    - import_role:
         name: git
       tags:
         - git
