@@ -459,8 +459,8 @@ augroup END
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 nnoremap <leader>pp :Prettier<cr>
-vnoremap <leader>pf <Plug>(coc-format-selected)
-nnoremap <leader>pf <Plug>(coc-format-selected)
+vmap <leader>pf <Plug>(coc-format-selected)
+nmap <leader>pf <Plug>(coc-format-selected)
 
 """""""""""""""""""""" Easy Motion
 
