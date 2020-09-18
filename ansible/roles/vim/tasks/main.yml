@@ -26,13 +26,19 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
-- name: Creating neovim directories
+- name: Creating neovim directory
   file:
     path: ~/.config/nvim
     state: directory
     mode: '0700'
 
-- name: Creating coc directories
+- name: Creating neovim after directory
+  file:
+    path: ~/.config/nvim/after
+    state: directory
+    mode: '0700'
+
+- name: Creating coc directory
   file:
     path: ~/.config/coc
     state: directory
@@ -48,14 +54,14 @@
 - name: Linking ftplugin for neovim
   file:
     src: "{{ role_path }}/files/ftplugin"
-    dest: ~/.config/nvim/ftplugin
+    dest: ~/.config/nvim/after/ftplugin
     state: link
     mode: u+rwx,g+rx,o+rx
 
 - name: Linking ftdetect for neovim
   file:
     src: "{{ role_path }}/files/ftdetect"
-    dest: ~/.config/nvim/ftdetect
+    dest: ~/.config/nvim/after/ftdetect
     state: link
     mode: u+rwx,g+rx,o+rx
 

@@ -2,9 +2,14 @@
   "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.13.0/bin/npm",
   "tsserver.enableJavascript": true,
   "tsserver.log": "terse",
-  "prettier.semi": true,
-  "prettier.arrowParens": "always",
-  "prettier.trailingComma": "all",
-  "prettier.singleQuote": true,
-  "prettier.tabWidth": 2
+  "languageserver": {
+    "clojure-lsp": {
+      "command": "bash",
+      "args": ["-c", "clojure-lsp"],
+      "filetypes": ["clojure.lispfamily"],
+      "rootPatterns": ["project.clj"],
+      "additionalSchemes": ["jar", "zipfile"],
+      "trace.server": "verbose"
+    }
+  }
 }

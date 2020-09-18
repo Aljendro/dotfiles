@@ -14,6 +14,7 @@
     - curl
     - rlwrap
     - openjdk-11-jre
+    - leiningen
 
 - name: Downloading Clojure Cli Installer
   get_url:

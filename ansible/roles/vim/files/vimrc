@@ -12,7 +12,6 @@ Plug 'craigemery/vim-autotag'
 Plug 'easymotion/vim-easymotion'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -20,6 +19,8 @@ Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'raimondi/delimitmate'
 Plug 'rstacruz/sparkup'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -30,9 +31,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/paredit.vim'
 
 call plug#end()
-
 
 """""""""""""""""""" Settings
 
@@ -78,7 +79,6 @@ set number                         " Add line numbers
 set relativenumber                 " Relativize line numbers from current line
 set ruler                          " Show the cursor position all the time
 set scrolloff=5                    " Keep context around cursor
-set shiftwidth=2                   " Number of spaces used for autoindent
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
 set showcmd                        " Display incomplete commands
 set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
@@ -88,7 +88,6 @@ set smarttab                       " Discerns between 2 vs. 4 when tabbing
 set splitbelow                     " Open a window below the current window
 set splitright                     " Open a window right of the current window
 set t_Co=256
-set tabstop=2                      " Number of spaces that a <Tab> counts for
 set termguicolors
 set timeout                        " Time out for mappings
 set timeoutlen=1000
@@ -160,7 +159,7 @@ nnoremap <M-s> :<C-U>vertical resize +16<cr>
 nnoremap <M-f> :<C-U>vertical resize -16<cr>
 
 " Close highlighting
-nnoremap <leader>h :<C-U>noh<cr>
+nnoremap <Bslash>h :<C-U>noh<cr>
 
 " Better tabbing alignment
 vnoremap < <gv
@@ -213,12 +212,6 @@ augroup customVim
   autocmd TermOpen * startinsert
   " Easier exiting
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
-  " Debugger expand for js files
-  autocmd FileType javascript,typescriptreact,typescript iabbrev d; debugger;
-  " TODO: Put this in js filetype file
-  " Run tests with vimux using jest
-  autocmd FileType javascript map <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
-  autocmd FileType typescriptreact runtime ftplugin/html/sparkup.vim
 augroup END
 
 """""""""""""""""""""" Lightline
@@ -291,10 +284,6 @@ let g:NERDCommentEmptyLines = 1
 
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 0
-
-"""""""""""""""""""" Auto Pairs
-
-let g:AutoPairsMapCR = 1
 
 """""""""""""""""""" Git Plugins (Fugitive, Gitgutter, etc.)
 
@@ -388,9 +377,9 @@ augroup END
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>\<C-R>=AutoPairsReturn()\<CR>"
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<C-R>=AutoPairsReturn()\<CR>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 " Use C to open coc config
@@ -435,8 +424,6 @@ nnoremap <leader>lr :<C-U>CocListResume<cr>
 
 augroup customLSP
   autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   " Close the pop up menu after completion
@@ -444,14 +431,6 @@ augroup customLSP
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
-
-"""""""""""""""""""""" Prettier
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-nnoremap <leader>pp :Prettier<cr>
-vmap <leader>pf <Plug>(coc-format-selected)
-nmap <leader>pf <Plug>(coc-format-selected)
 
 """""""""""""""""""""" Easy Motion
 
@@ -486,14 +465,13 @@ map <Leader>vz :<C-U>call VimuxZoomRunner()<CR>
 " Clear the tmux history of the runner pane
 map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
 
-"""""""""""""""""""""" Sparkup
-
-let g:sparkupExecuteMapping = '<c-b>'
-
 """""""""""""""""""""" Closetag
 
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
-"
-let g:closetag_filetypes = 'html,typescriptreact'
+
+let g:closetag_filetypes = 'html,jsfamily'
+
+" Delimitmate
+let delimitMate_excluded_ft = "lispfamily"
 
