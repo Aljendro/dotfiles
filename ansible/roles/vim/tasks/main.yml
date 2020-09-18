@@ -45,6 +45,20 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
+- name: Linking ftplugin for neovim
+  file:
+    src: "{{ role_path }}/files/ftplugin"
+    dest: ~/.config/nvim/ftplugin
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
+- name: Linking ftdetect for neovim
+  file:
+    src: "{{ role_path }}/files/ftdetect"
+    dest: ~/.config/nvim/ftdetect
+    state: link
+    mode: u+rwx,g+rx,o+rx
+
 - name: Linking coc-settings for neovim
   file:
     src: "{{ role_path }}/files/coc-settings.json"
