@@ -2,16 +2,20 @@
 
 let g:conjure#mapping#def_word = "d"
 
-" Opening the log buffer
-nmap <leader>cv <localleader>lv<cr>
-nmap <leader>cq <localleader>lq<cr>
+" Opening the REPL
+nmap <leader>cv <localleader>lv
+nmap <leader>cq <localleader>lq
 
 " Evaluations (take cursor back to original postion)
-nmap <leader>cc mz<localleader>ee<cr>`z
-nmap <leader>cr mz<localleader>er<cr>`z
-nmap <leader>co mz<localleader>e!<cr>`z
-nmap <leader>cw mz<localleader>ew<cr>`z
-nmap <leader>cf mz<localleader>ef<cr>`z
-nmap <leader>cb mz<localleader>eb<cr>`z
-nmap <leader>cd <localleader>d<cr>
+nmap <leader>cc <localleader>ee
+nmap <leader>cr <localleader>er
+nmap <leader>cl <S-v><localleader>E
+nmap <leader>co <localleader>e!
+nmap <leader>cw <localleader>ew
+nmap <leader>cf <localleader>ef
+nmap <leader>cb <localleader>eb
+nmap <leader>cd <localleader>d
+
+" Working with REPL
+nnoremap <leader>ci Go
 
