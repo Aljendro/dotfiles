@@ -76,8 +76,6 @@ set noshowmode                     " Don't show the -- Insert -- anymore
 set nowrap                         " Do not wrap lines
 set nowritebackup                  " Do not make backup when overwriting a file
 set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-set number                         " Add line numbers
-set relativenumber                 " Relativize line numbers from current line
 set ruler                          " Show the cursor position all the time
 set scrolloff=5                    " Keep context around cursor
 set shiftwidth=2
@@ -122,6 +120,7 @@ endfunction
 
 nnoremap <space> <Nop>
 let mapleader = " "
+let maplocalleader= ","
 
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
@@ -211,6 +210,8 @@ augroup customVim
   autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc nested source $MYVIMRC
   " Delete trailing spaces
   autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh,tmux autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
+  " Add line numbers
+  autocmd BufEnter * set number
   " Toggle relative line number mode when inserting
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber

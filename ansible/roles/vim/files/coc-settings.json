@@ -6,7 +6,7 @@
     "clojure-lsp": {
       "command": "bash",
       "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure.lispfamily"],
+      "filetypes": ["clojure"],
       "rootPatterns": ["project.clj"],
       "additionalSchemes": ["jar", "zipfile"],
       "trace.server": "verbose"
