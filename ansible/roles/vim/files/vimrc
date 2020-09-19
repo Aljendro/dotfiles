@@ -19,6 +19,7 @@ Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'olical/conjure'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'raimondi/delimitmate'
 Plug 'rstacruz/sparkup'
@@ -79,6 +80,7 @@ set number                         " Add line numbers
 set relativenumber                 " Relativize line numbers from current line
 set ruler                          " Show the cursor position all the time
 set scrolloff=5                    " Keep context around cursor
+set shiftwidth=2
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
 set showcmd                        " Display incomplete commands
 set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
@@ -88,6 +90,7 @@ set smarttab                       " Discerns between 2 vs. 4 when tabbing
 set splitbelow                     " Open a window below the current window
 set splitright                     " Open a window right of the current window
 set t_Co=256
+set tabstop=2
 set termguicolors
 set timeout                        " Time out for mappings
 set timeoutlen=1000
@@ -190,6 +193,9 @@ nnoremap <leader>tl :<C-U>exec "tabn " . g:lastTab<cr>
 " Quick open the quickfix list
 nnoremap <leader>oq :<C-U>botright copen<cr>
 
+" Default Prettify Indententation
+nnoremap <leader>pp gg=G''
+
 augroup customVim
   autocmd!
   " When editing a file, always jump to the last known cursor position.
@@ -212,6 +218,25 @@ augroup customVim
   autocmd TermOpen * startinsert
   " Easier exiting
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+augroup END
+
+"""""""""""""""""""""" Javascript Family
+
+augroup customJavascriptFamily
+  autocmd!
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl tabstop=2 | setl shiftwidth=2
+  " User prettier
+  autocmd FileType graphql,html,json,javascript,javascriptreact,typescript,typescriptreact nnoremap <buffer> <leader>pp :Prettier<cr>
+  " Debugger expand for js files
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact iabbrev <buffer> d; debugger;
+  " Run tests with vimux using jest
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <buffer> <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
+augroup END
+
+"""""""""""""""""""""" Clojure
+
+augroup customClojure
+  " au BufNewFile,BufRead *.clj,*.cljs,*.cljx,*.cljc set filetype=clojure.lispfamily
 augroup END
 
 """""""""""""""""""""" Lightline
@@ -349,9 +374,9 @@ let g:fzf_command_prefix = 'F'
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
 command! -bang -nargs=* FARg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
 nnoremap <leader>ff  :<C-U>FFiles<cr>
 nnoremap <leader>fg  :<C-U>FGFiles?<cr>
@@ -470,8 +495,9 @@ map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 
-let g:closetag_filetypes = 'html,jsfamily'
+let g:closetag_filetypes = "html,javascriptreact,typescriptreact"
 
 " Delimitmate
-let delimitMate_excluded_ft = "lispfamily"
+let delimitMate_excluded_ft = "clojure"
+
 
