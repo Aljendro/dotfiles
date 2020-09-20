@@ -6,7 +6,7 @@ let g:conjure#mapping#def_word = "d"
 nmap <leader>cv <localleader>lv
 nmap <leader>cq <localleader>lq
 
-" Evaluations (take cursor back to original postion)
+" Evaluations
 nmap <leader>cc <localleader>ee
 nmap <leader>cr <localleader>er
 nmap <leader>cl <S-v><localleader>E
