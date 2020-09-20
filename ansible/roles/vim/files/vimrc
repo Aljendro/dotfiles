@@ -234,12 +234,6 @@ augroup customJavascriptFamily
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <buffer> <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
 augroup END
 
-"""""""""""""""""""""" Clojure
-
-augroup customClojure
-  " au BufNewFile,BufRead *.clj,*.cljs,*.cljx,*.cljc set filetype=clojure.lispfamily
-augroup END
-
 """""""""""""""""""""" Lightline
 
 function! LightlineBranch()
