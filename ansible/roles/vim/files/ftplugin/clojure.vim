@@ -15,6 +15,7 @@ nmap <leader>cw <localleader>ew
 nmap <leader>cf <localleader>ef
 nmap <leader>cb <localleader>eb
 nmap <leader>cd <localleader>d
+nmap <expr> <leader>cm '<localleader>em' . nr2char(getchar())
 
 " Working with REPL
 nnoremap <leader>ci Go
