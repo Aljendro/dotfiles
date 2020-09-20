@@ -21,5 +21,5 @@ nmap <expr> <leader>cm '<localleader>em' . nr2char(getchar())
 nnoremap <leader>ci Go
 
 " Formatting
-
 nmap <leader>pp :call CocActionAsync('format')<cr>
+
