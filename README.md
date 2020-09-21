@@ -26,18 +26,42 @@ This script will setup your machine/vm.
 
 ## Development Installations
 
-* [Zsh](https://www.zsh.org/)
-* [Oh My Zsh](https://ohmyz.sh/)
-* [Neovim](https://neovim.io/)
-* [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
-* [Rust](https://www.rust-lang.org/)
 * [AWS CLI](https://aws.amazon.com/cli/)
+* [Bat](https://github.com/sharkdp/bat)
+* [Bitwarden](https://bitwarden.com/download/)
+* [Chrome](https://www.google.com/chrome/index.html)
+* [Clojure](https://www.mozilla.org/en-US/firefox/new/https://clojure.org/)
 * [Docker](https://www.docker.com/)
+* [FZF](https://github.com/junegunn/fzf)
+* [Fd](https://github.com/sharkdp/fd)
+* [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+* [GCP CLI](https://www.mozilla.org/en-US/firefox/new/https://cloud.google.com/sdk/gcloud)
+* [Git](https://git-scm.com/)
+* [Java](https://openjdk.java.net/)
+* [Jq](https://stedolan.github.io/jq/)
+* [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
+* [Neovim](https://neovim.io/)
+* [Oh My Zsh](https://ohmyz.sh/)
+* [Python](https://www.python.org/)
+* [Ripgrep](https://github.com/BurntSushi/ripgrep)
+* [Rust](https://www.rust-lang.org/)
+* [Tmux](https://github.com/tmux/tmux)
+* [Watchman](https://facebook.github.io/watchman/)
+* [Zsh](https://www.zsh.org/)
 
 ## Customizations
 
 * Set PATH to pick up utility scripts
 * Soft link dotfiles to $HOME
+* Global .gitignore and configuration
+* Nvim
+    * LSP Integrations
+    * Keybindings
+    * Theme
+    * Plugins
+* Tmux
+    * Keybindings
+    * Theme
 * Create development directories
 * Add environment variables
 * Make the CAPS LOCK send the CTRL signal
@@ -47,3 +71,30 @@ This script will setup your machine/vm.
 * Load the customized .vimrc file 
   * Customizes keybindings and install plugins for git, file tree, fuzzy search, language support
 
+## Partial installs
+
+Instead of installing all the dependencies, you can install a partial set
+of dependencies by explicitly listing the parts you need.
+
+I have tried my best to keep all installs self contained, so they don't rely on
+each other.
+
+```
+./install <space separated tags> (i.e packages chrome clojure)
+```
+
+Where tag can come from:
+
+* aws
+* chrome
+* clojure
+* docker
+* gcp
+* git
+* java
+* javascript
+* packages
+* rust
+* tmux
+* vim
+* zsh
