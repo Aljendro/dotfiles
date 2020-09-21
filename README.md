@@ -24,7 +24,7 @@ This script will setup your machine/vm.
 ./install all
 ```
 
-## Development Installations
+## Development Installations/Configurations
 
 * [AWS CLI](https://aws.amazon.com/cli/)
 * [Bat](https://github.com/sharkdp/bat)
@@ -69,7 +69,7 @@ This script will setup your machine/vm.
 * Change the default Shell to Zsh
 * Install Oh My Zsh plugins for themes, history, completions, etc.
 
-## Partial installs/configurations
+## Partial Installs/Configurations
 
 Instead of installing all the dependencies, you can install a partial set
 of dependencies by explicitly listing the parts you need.
