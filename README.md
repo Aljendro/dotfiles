@@ -68,8 +68,6 @@ This script will setup your machine/vm.
 * Make the right SHIFT send the ESC signal
 * Change the default Shell to Zsh
 * Install Oh My Zsh plugins for themes, history, completions, etc.
-* Load the customized .vimrc file 
-  * Customizes keybindings and install plugins for git, file tree, fuzzy search, language support
 
 ## Partial installs
 
