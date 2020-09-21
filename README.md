@@ -69,7 +69,7 @@ This script will setup your machine/vm.
 * Change the default Shell to Zsh
 * Install Oh My Zsh plugins for themes, history, completions, etc.
 
-## Partial installs
+## Partial installs/configurations
 
 Instead of installing all the dependencies, you can install a partial set
 of dependencies by explicitly listing the parts you need.
