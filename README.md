@@ -78,7 +78,7 @@ I have tried my best to keep all installs self contained, so they don't rely on
 each other.
 
 ```
-./install <space separated tags> (i.e packages chrome clojure)
+./install <tags> (i.e ./install packages chrome clojure)
 ```
 
 Where tag can come from:
