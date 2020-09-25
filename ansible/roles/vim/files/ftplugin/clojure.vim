@@ -1,6 +1,6 @@
 """"""""""""""""""" Conjure
 
-let g:conjure#mapping#def_word = "d"
+let g:conjure#mapping#def_word="d"
 
 " Opening the REPL
 nmap <leader>cv <localleader>lv
@@ -23,3 +23,7 @@ nnoremap <leader>ci Go
 " Formatting
 nmap <leader>pp :call CocActionAsync('format')<cr>
 
+""""""""""""""""""" Paredit
+
+let g:paredit_smartjump=1
+let g:paredit_electric_return=1
