@@ -10,6 +10,7 @@ Plug 'alvan/vim-closetag'
 Plug 'benmills/vimux'
 Plug 'craigemery/vim-autotag'
 Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -55,6 +56,7 @@ let g:node_host_prog         = expand("~/.nvm/versions/node/v12.13.0/bin/neovim-
 let g:python3_host_prog      = expand("/usr/bin/python3")
 
 set autoindent                     " Copy indentation from current line when opening new line
+set autowrite
 set background=dark                " Indicated the type of background
 set clipboard=unnamedplus          " Yank to the system clipboard
 set cmdheight=2                    " Give more space for displaying messages.

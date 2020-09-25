@@ -55,6 +55,11 @@
         - rust
 
     - import_role:
+        name: go
+      tags:
+        - go
+
+    - import_role:
         name: java
       tags:
         - java

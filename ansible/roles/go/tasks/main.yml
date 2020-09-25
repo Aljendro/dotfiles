@@ -1,0 +1,34 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+
+- name: Downloading Go tar file
+  get_url:
+    url: https://dl.google.com/go/go1.15.2.linux-amd64.tar.gz
+    dest: /tmp/go_installer
+    mode: '0700'
+    checksum: sha256:b49fda1ca29a1946d6bb2a5a6982cf07ccd2aba849289508ee0f9918f6bb4552
+
+- name: Creating go directory
+  become: yes
+  file:
+    path: /usr/local/go
+    state: directory
+    mode: '0755'
+
+- name: Install Go
+  become: yes
+  unarchive:
+    src: /tmp/go_installer
+    dest: /usr/local/
