@@ -13,7 +13,7 @@
   loop:
     - curl
     - rlwrap
-    - openjdk-11-jre
+    - openjdk-11-jdk
     - leiningen
 
 - name: Downloading Clojure Cli Installer
@@ -27,4 +27,15 @@
   command: ./clojure_installer
   args:
     chdir: /tmp
+
+- name: Delete auto generated .clojure directory
+  file:
+    state: absent
+    path: ~/.clojure
+
+- name: Adding Clojure deps user local
+  git:
+    repo: git@github.com:Aljendro/clojure-deps-edn.git
+    dest: ~/.clojure/
+    depth: 1
 

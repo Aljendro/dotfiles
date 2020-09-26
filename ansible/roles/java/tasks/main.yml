@@ -11,4 +11,4 @@
     name: "{{ item }}"
     state: present
   loop:
-    - openjdk-11-jre
+    - openjdk-11-jdk
