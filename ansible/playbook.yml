@@ -2,9 +2,9 @@
 - name: Development Machine Setup
   hosts: local
   tasks:
-    - name: "Ansible | List all known variables and facts"
-      debug:
-        var: hostvars[inventory_hostname]
+    # - name: "Ansible | List all known variables and facts"
+      # debug:
+        # var: hostvars[inventory_hostname]
 
     - import_role:
         name: aws
