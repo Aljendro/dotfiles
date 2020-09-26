@@ -20,15 +20,9 @@
     mode: '0700'
     checksum: sha256:b49fda1ca29a1946d6bb2a5a6982cf07ccd2aba849289508ee0f9918f6bb4552
 
-- name: Creating go directory
-  become: yes
-  file:
-    path: /usr/local/go
-    state: directory
-    mode: '0755'
-
 - name: Install Go
   become: yes
   unarchive:
     src: /tmp/go_installer
     dest: /usr/local/
+    mode: '0700'

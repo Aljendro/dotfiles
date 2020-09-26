@@ -118,6 +118,13 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" Paste at mark from the last yank, mark position after yank, move back to
+" original position
+function! s:paste_at_mark() abort
+  let target_mark = nr2char(getchar())
+  exec "normal! mZ'" . target_mark . "P`Z"
+endfunction
+
 """""""""""""""""""" Vim
 
 nnoremap <space> <Nop>
@@ -172,6 +179,9 @@ vnoremap > >gv
 " Better Vertical block movement
 vmap [v [egv
 vmap ]v ]egv
+
+" Paste at mark
+nnoremap <Bslash>p :<C-U>call <SID>paste_at_mark()<cr>
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
@@ -494,7 +504,8 @@ map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
 
 let g:closetag_filetypes = "html,javascriptreact,typescriptreact"
 
-" Delimitmate
+"""""""""""""""""""""" Delimitmate
+
 let delimitMate_excluded_ft = "clojure"
 
 

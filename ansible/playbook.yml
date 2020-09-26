@@ -7,9 +7,9 @@
         var: hostvars[inventory_hostname]
 
     - import_role:
-        name: packages
+        name: aws
       tags:
-        - packages
+        - aws
 
     - import_role:
         name: chrome
@@ -17,9 +17,9 @@
         - chrome
 
     - import_role:
-        name: zsh
+        name: clojure
       tags:
-        - zsh
+        - clojure
 
     - import_role:
         name: docker
@@ -27,32 +27,14 @@
         - docker
 
     - import_role:
-        name: javascript
-      tags:
-        - js
-        - web
-
-    - import_role:
-        name: vim
-      tags:
-        - vim
-
-    - import_role:
-        name: aws
-      tags:
-        - aws
-        - web
-
-    - import_role:
         name: gcp
       tags:
         - gcp
-        - web
 
     - import_role:
-        name: rust
+        name: git
       tags:
-        - rust
+        - git
 
     - import_role:
         name: go
@@ -65,16 +47,32 @@
         - java
 
     - import_role:
-        name: clojure
+        name: javascript
       tags:
-        - clojure
+        - js
 
     - import_role:
-        name: git
+        name: packages
       tags:
-        - git
+        - packages
+
+    - import_role:
+        name: rust
+      tags:
+        - rust
 
     - import_role:
         name: tmux
       tags:
         - tmux
+
+    - import_role:
+        name: vim
+      tags:
+        - vim
+
+    - import_role:
+        name: zsh
+      tags:
+        - zsh
+
