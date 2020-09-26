@@ -97,3 +97,11 @@
     dest: ~/.zshrc_vm_local
     mode: '0700'
   when: vm_local.stat.exists == false
+
+- name: Copying custom theme
+  file:
+    src: "{{ role_path }}/files/aljendro.zsh-theme"
+    dest: ~/.oh-my-zsh/themes/aljendro.zsh-theme
+    state: link
+    mode: '0700'
+
