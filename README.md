@@ -37,6 +37,7 @@ This script will setup your machine/vm.
 * [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 * [GCP CLI](https://www.mozilla.org/en-US/firefox/new/https://cloud.google.com/sdk/gcloud)
 * [Git](https://git-scm.com/)
+* [Go](https://golang.org/)
 * [Java](https://openjdk.java.net/)
 * [Jq](https://stedolan.github.io/jq/)
 * [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
@@ -51,8 +52,8 @@ This script will setup your machine/vm.
 
 ## Customizations
 
-* Set PATH to pick up utility scripts
-* Soft link dotfiles to $HOME
+* Set PATH to pick up utility scripts and development paths
+* Soft link dotfiles in $HOME
 * Global .gitignore and configuration
 * Nvim
     * LSP Integrations
@@ -89,6 +90,7 @@ Where tag can come from:
 * docker
 * gcp
 * git
+* go
 * java
 * javascript
 * packages
