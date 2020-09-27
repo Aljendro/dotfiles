@@ -12,7 +12,8 @@ function box_name {
 local node_env='Node%{$FG[243]%} $(node -v)'
 local git_info='$(git_prompt_info)'
 
-PROMPT="╭─%{$FG[040]%}%n%{$reset_color%}%{$FG[239]%}@%{$reset_color%}%{$FG[033]%}$(box_name)%{$reset_color%}
+PROMPT="
+╭─%{$FG[040]%}%n%{$reset_color%}%{$FG[239]%}@%{$reset_color%}%{$FG[033]%}$(box_name)%{$reset_color%}
 │ %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}
 │ %{$FG[239]%}${node_env} ${git_info}
 ╰─%(?:%{$fg_bold[green]%}λ:%{$fg_bold[red]%}λ)%{$reset_color%} "

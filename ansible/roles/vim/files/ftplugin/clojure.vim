@@ -1,6 +1,7 @@
 """"""""""""""""""" Conjure
 
 let g:conjure#mapping#def_word="d"
+let conjure#log#wrap = v:true
 
 " Opening the REPL
 nmap <leader>cv <localleader>lv
