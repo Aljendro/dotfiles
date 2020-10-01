@@ -5,6 +5,7 @@ let conjure#log#wrap = v:true
 
 " Opening the REPL
 nmap <leader>cv <localleader>lv
+nmap <leader>ct <localleader>lt
 nmap <leader>cq <localleader>lq
 
 " Evaluations
