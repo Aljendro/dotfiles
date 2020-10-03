@@ -472,15 +472,10 @@ let g:EasyMotion_do_mapping       = 0
 let g:EasyMotion_smartcase        = 1
 let g:EasyMotion_use_smartsign_us = 1
 
-map <leader>l <Plug>(easymotion-bd-e)
-
-nmap <leader>j <Plug>(easymotion-overwin-f)
-xmap <leader>j <Plug>(easymotion-bd-f)
-omap <leader>j <Plug>(easymotion-bd-f)
-
-nmap <leader>k <Plug>(easymotion-overwin-w)
-xmap <leader>k <Plug>(easymotion-bd-w)
-omap <leader>k <Plug>(easymotion-bd-w)
+map <leader>j <Plug>(easymotion-bd-f)
+map <leader><C-j> <Plug>(easymotion-bd-jk)
+map <leader>k <Plug>(easymotion-bd-w)
+map <leader><C-k> <Plug>(easymotion-bd-e)
 
 """""""""""""""""""""" Vimux
 
