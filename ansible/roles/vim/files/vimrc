@@ -185,16 +185,22 @@ nnoremap <Bslash>p :<C-U>call <SID>paste_at_mark()<cr>
 " Open mark in vertical split
 nnoremap <expr> <Bslash>o '<C-w>v`' . nr2char(getchar())
 
+" Easier search and/or replace (TODO: figure how to position cursor properly)
+nnoremap <leader>rr :<C-U>%s//gI<Left><Left><Left>
+nnoremap <leader>ri :<C-U>%s//gi<Left><Left><Left>
+nnoremap <leader>rc :<C-U>%s//gc<Left><Left><Left>
+nnoremap <leader>rh cgn
+
 " Faster shifting
 nnoremap <Down> 5<C-e>
 nnoremap <Up> 5<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
-nnoremap <leader>st :<C-U>windo w<cr>:tabclose<cr>
+nnoremap <leader>ts :<C-U>windo w<cr>:tabclose<cr>
 
 " Expand split in new tab
-nnoremap <leader>ts :<C-U>tab split<cr>
+nnoremap <leader>tt :<C-U>tab split<cr>
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
 " Close the tab
