@@ -9,7 +9,13 @@
       "filetypes": ["clojure"],
       "rootPatterns": ["project.clj"],
       "additionalSchemes": ["jar", "zipfile"],
-      "trace.server": "verbose"
+      "trace.server": "verbose",
+      "project-specs": [
+        {
+          "project-path": "deps.edn",
+          "classpath-cmd": ["clj", "-Spath"]
+        }
+      ]
     },
     "golang": {
       "command": "gopls",
