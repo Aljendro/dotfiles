@@ -4,14 +4,71 @@ endsnippet
 
 snippet defn "Defines a function"
 (defn $1
-  "$2"
-  [$3]
-  $4)
+  [$2]
+  $3
+)
+endsnippet
+
+snippet let "Let statement"
+(let [$1]
+  $2
+)
+endsnippet
+
+snippet if "If Statement"
+(if$1
+  $2
+  $3
+)
+endsnippet
+
+snippet if "When Statement"
+(when$1
+  $2
+)
 endsnippet
 
 snippet defp "Defines a protocol"
 (defprotocol $1
-  "$2"
-  ($3))
+  ($2)
+  $3
+)
 endsnippet
+
+snippet dk "Destructure keys"
+{:keys [$1]}$2
+endsnippet
+
+snippet lr "Loop Recur"
+(loop [$1]
+  $2
+  (recur $3))
+endsnippet
+
+snippet tc "Try Catch"
+(try
+  $1
+  (catch $2 e
+	  $3)
+  $4
+)
+endsnippet
+
+snippet tc "Try Finally"
+(try
+  $1
+  (finally
+	  $2))
+endsnippet
+
+snippet tcf "Try Catch Finally"
+(try
+  $1
+  (catch $2 e
+	  $3)
+  $4
+  (finally
+	  $5))
+endsnippet
+
 
