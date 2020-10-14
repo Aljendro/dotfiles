@@ -9,6 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'benmills/vimux'
 Plug 'craigemery/vim-autotag'
+Plug 'daveyarwood/vim-alda'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
