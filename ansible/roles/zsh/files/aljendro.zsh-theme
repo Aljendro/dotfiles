@@ -11,7 +11,20 @@ function box_name {
 
 function tdtk_env_name {
   if [[ ! -z "$TDTK_ENV" ]]; then
-    echo "TDTK_ENV%{$FG[243]%} ($(echo $TDTK_ENV)) "
+    if [[ "$TDTK_ENV" = "prod" || "$TDTK_ENV" = "preprod" ]]; then
+      THEME_PROFILE_NAME=$THEME_PROFILE_PROD_NAME
+    else
+      THEME_PROFILE_NAME=$THEME_PROFILE_NONPROD_NAME
+    fi
+
+    EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
+    NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then
+      IS_SIGNED_IN="✔"
+    else
+      IS_SIGNED_IN="✘"
+    fi
+    echo "TDTK_ENV%{$FG[243]%} ($(echo $TDTK_ENV) $IS_SIGNED_IN) "
   else
     echo ''
   fi
