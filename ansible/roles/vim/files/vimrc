@@ -23,7 +23,7 @@ Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'olical/conjure'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'prettier/vim-prettier', { 'do': 'npm -s install' }
 Plug 'raimondi/delimitmate'
 Plug 'rstacruz/sparkup'
 Plug 'scrooloose/nerdcommenter'
