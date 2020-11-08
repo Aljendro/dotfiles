@@ -16,9 +16,9 @@
     - openjdk-11-jdk
     - leiningen
 
-- name: Downloading Clojure Cli Installer
+- name: Downloading Clojure Cli
   get_url:
-    url: https://download.clojure.org/install/linux-install-1.10.1.697.sh
+    url: https://download.clojure.org/install/linux-install-1.10.1.727.sh
     dest: /tmp/clojure_installer
     mode: '0700'
 
