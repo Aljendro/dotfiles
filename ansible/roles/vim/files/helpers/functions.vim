@@ -1,3 +1,8 @@
+" Helper functions
+"
+" Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+"
+
 function! DeleteTrailingSpacesSilent()
   %s/\s\+$//e
   call histdel('search', -1)

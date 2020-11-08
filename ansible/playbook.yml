@@ -52,6 +52,11 @@
         - packages
 
     - import_role:
+        name: python
+      tags:
+        - python
+
+    - import_role:
         name: rust
       tags:
         - rust

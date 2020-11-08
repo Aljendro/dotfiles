@@ -1,0 +1,21 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python3
+    - python3-pip
+
+- name: Install pip packages
+  pip:
+    name: pynvim
+    version: 0.4.2
+
