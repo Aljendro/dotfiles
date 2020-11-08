@@ -3,6 +3,8 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
+source $DOTFILES_DIR/ansible/roles/vim/files/helpers/functions.vim
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
@@ -99,32 +101,6 @@ set ttimeout                       " Time out for key codes
 set ttimeoutlen=100
 set updatetime=100                 " Set the amount of time vim waits to write to the swap file
 set wildmenu                       " Display completion matches in a status line
-
-"""""""""""""""""""" Functions
-
-function! DeleteTrailingSpacesSilent()
-  %s/\s\+$//e
-  call histdel('search', -1)
-endfunction
-
-function! SetupCommandAbbrs(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfunction
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" Paste at mark from the last yank, mark position after yank, move back to
-" original position
-function! s:paste_at_mark() abort
-  let target_mark = nr2char(getchar())
-  exec "normal! mZ'" . target_mark . "P`Z"
-endfunction
 
 """""""""""""""""""" Vim
 

@@ -38,7 +38,6 @@ This script will setup your machine/vm.
 * [GCP CLI](https://www.mozilla.org/en-US/firefox/new/https://cloud.google.com/sdk/gcloud)
 * [Git](https://git-scm.com/)
 * [Go](https://golang.org/)
-* [Java](https://openjdk.java.net/)
 * [Jq](https://stedolan.github.io/jq/)
 * [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
 * [Neovim](https://neovim.io/)
@@ -66,7 +65,6 @@ This script will setup your machine/vm.
 * Create development directories
 * Add environment variables
 * Make the CAPS LOCK send the CTRL signal
-* Make the right SHIFT send the ESC signal
 * Change the default Shell to Zsh
 * Install Oh My Zsh plugins for themes, history, completions, etc.
 
@@ -91,7 +89,6 @@ Where tag can come from:
 * gcp
 * git
 * go
-* java
 * javascript
 * packages
 * rust
