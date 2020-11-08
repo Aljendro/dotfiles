@@ -41,8 +41,6 @@ alias bat='batcat'
 
 setxkbmap -option caps:ctrl_modifier    # Swap Left Control and Caps Lock
 
-xmodmap -e "keycode 62 = Escape" # Remap the right shift key to send Escape signal
-
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
 # VM specific variables
