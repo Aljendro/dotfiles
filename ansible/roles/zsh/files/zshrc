@@ -38,6 +38,7 @@ alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
 alias fd='fdfind'
 alias bat='batcat'
+alias e='exit'
 
 setxkbmap -option caps:ctrl_modifier    # Swap Left Control and Caps Lock
 

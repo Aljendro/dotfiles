@@ -202,7 +202,7 @@ call SetupCommandAbbrs('C', 'CocConfig')
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
+      \ CheckBackSpace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -236,6 +236,9 @@ nnoremap <leader>lo  :<C-U>CocList outline<cr>
 nnoremap <leader>ls  :<C-U>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <leader>lr :<C-U>CocListResume<cr>
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 augroup customLSP
   autocmd!

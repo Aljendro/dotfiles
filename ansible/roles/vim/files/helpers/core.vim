@@ -111,7 +111,7 @@ vmap [v [egv
 vmap ]v ]egv
 
 " Paste at mark
-nnoremap <Bslash>p :<C-U>call <SID>paste_at_mark()<cr>
+nnoremap <Bslash>p :<C-U>call PasteAtMark()<cr>
 " Open mark in vertical split
 nnoremap <expr> <Bslash>o '<C-w>v`' . nr2char(getchar())
 

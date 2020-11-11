@@ -15,14 +15,24 @@ function! SetupCommandAbbrs(from, to)
 endfunction
 
 " use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
+function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 " Paste at mark from the last yank, mark position after yank, move back to
 " original position
-function! s:paste_at_mark() abort
+function! PasteAtMark() abort
   let target_mark = nr2char(getchar())
   exec "normal! mZ'" . target_mark . "P`Z"
+endfunction
+
+function! ShowDocumentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
 endfunction
