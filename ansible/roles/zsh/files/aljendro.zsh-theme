@@ -30,14 +30,20 @@ function tdtk_env_name {
   fi
 }
 
+function java_env_name {
+  EXTRACTED_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+  echo "Java%{$FG[243]%} ($EXTRACTED_VERSION)"
+}
+
 local tdtk_env='$(tdtk_env_name)'
 local node_env='Node%{$FG[243]%} ($(node -v))'
+local java_env='$(java_env_name)'
 local git_info='$(git_prompt_info)'
 
 PROMPT="
 ╭─%{$FG[040]%}%n%{$reset_color%}%{$FG[239]%}@%{$reset_color%}%{$FG[033]%}$(box_name)%{$reset_color%}
 │ %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}
-│ %{$FG[239]%}${tdtk_env}%{$FG[239]%}${node_env} ${git_info}
+│ %{$FG[239]%}${tdtk_env}%{$FG[239]%}${node_env} %{$FG[239]%}${java_env} ${git_info}
 %{$FG[255]%}╰─%{$reset_color%}%(?:%{$fg_bold[green]%}λ:%{$fg_bold[red]%}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
@@ -48,3 +54,5 @@ ZSH_THEME_NODE_PROMPT_PREFIX="‹"
 ZSH_THEME_NODE_PROMPT_SUFFIX="›%{$reset_color%}"
 ZSH_THEME_TDTK_PROMPT_PREFIX="‹"
 ZSH_THEME_TDTK_PROMPT_SUFFIX="›%{$reset_color%}"
+ZSH_THEME_JAVA_PROMPT_PREFIX="‹"
+ZSH_THEME_JAVA_PROMPT_SUFFIX="›%{$reset_color%}"
