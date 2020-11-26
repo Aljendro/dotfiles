@@ -150,8 +150,6 @@ let g:rg_highlight = v:true
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<cr><cr>
 " Search for highlighted word in project
 vnoremap <leader>fw y:<C-U>Rg <C-R>=escape(@",'/\')<cr><cr>
-" Search for visually selected word in buffer
-vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" FZF
