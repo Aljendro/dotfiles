@@ -33,7 +33,7 @@ set nowrap                         " Do not wrap lines
 set nowritebackup                  " Do not make backup when overwriting a file
 set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
 set ruler                          " Show the cursor position all the time
-set scrolloff=5                    " Keep context around cursor
+set scrolloff=1                    " Keep context around cursor
 set shiftwidth=2
 set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
 set showcmd                        " Display incomplete commands
