@@ -29,6 +29,8 @@ nmap <leader>pp :call CocActionAsync('format')<cr>
 
 " Default
 let g:sexp_mappings = {}
+let g:sexp_enable_insert_mode_mappings = 0
+
 " vim-sexp internal mappings
 let g:sexp_mappings = {
   \ 'sexp_outer_list':                'af',

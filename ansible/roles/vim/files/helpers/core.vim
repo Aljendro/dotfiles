@@ -91,7 +91,7 @@ nnoremap <M-l> :<C-U>cnext<cr>
 nnoremap <C-w>j <C-w>J
 nnoremap <C-w>k <C-w>K
 nnoremap <C-w>l <C-w>L
-nnoremap <C-w>h <C-w>H
+noremap <C-w>h <C-w>H
 
 " Resize windows
 nnoremap <M-d> :<C-U>resize -4<cr>
@@ -122,20 +122,22 @@ vnoremap <silent> * :call setreg("/",
     \ '\\_s\\+', 'g')
     \ )<cr>:set hls<cr>
 
-vnoremap <silent> # :call setreg("?",
-    \ substitute(GetSelectedText(),
-    \ '\_s\+',
-    \ '\\_s\\+', 'g')
-    \ )<cr>:set hls<cr>
+nnoremap * :keepjumps normal! mi*`i<cr>
+nnoremap g* :keepjumps normal! mig*`i<cr>
 
-nnoremap * :keepjumps normal! mi*`i<CR>
+" Count the number of possible replacements (occurrences and lines)
+nnoremap <leader>rco :<C-U>%s///gn<cr>
+nnoremap <leader>rcl :<C-U>%s///n<cr>
 
 " Easier search and/or replace (TODO: figure how to position cursor properly)
-nnoremap <leader>rr :<C-U>%s//gI<Left><Left><Left>
-nnoremap <leader>ri :<C-U>%s//gi<Left><Left><Left>
-nnoremap <leader>rc :<C-U>%s//gc<Left><Left><Left>
-vmap <leader>rh *cgn
-nmap <leader>rh *cgn
+nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
+nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
+vmap <leader>rw *cgn
+nmap <leader>rw g*cgn
+
+" Selections
+" Whole Buffer
+nnoremap <leader>sa ggVG
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
@@ -173,7 +175,7 @@ augroup customVim
   " Set the last known tab when switching tabs
   autocmd TabLeave * let g:lastTab = tabpagenr()
   " Source vimrc when saving the file
-  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc nested source $MYVIMRC
+  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc,$DOTFILES_DIR/ansible/roles/vim/files/*.vim nested source $MYVIMRC
   " Delete trailing spaces
   autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh,tmux autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
   " Add line numbers

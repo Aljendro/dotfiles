@@ -11,7 +11,7 @@ Plug 'benmills/vimux'
 Plug 'craigemery/vim-autotag'
 Plug 'daveyarwood/vim-alda'
 Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp'
 Plug 'itchyny/lightline.vim'
