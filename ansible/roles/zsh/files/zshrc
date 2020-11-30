@@ -26,7 +26,7 @@ source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
-export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --exclude .git'
+export FZF_DEFAULT_COMMAND="fdfind --type f --hidden -E .git"
 
 # Set file/directory creation permissions
 umask 077
@@ -39,8 +39,6 @@ alias sz='source ~/.zshrc'
 alias fd='fdfind'
 alias bat='batcat'
 alias e='exit'
-
-setxkbmap -option caps:ctrl_modifier    # Swap Left Control and Caps Lock
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local

@@ -115,11 +115,27 @@ nnoremap <Bslash>p :<C-U>call PasteAtMark()<cr>
 " Open mark in vertical split
 nnoremap <expr> <Bslash>o '<C-w>v`' . nr2char(getchar())
 
+" Search for visually selected word in buffer
+vnoremap <silent> * :call setreg("/",
+    \ substitute(GetSelectedText(),
+    \ '\_s\+',
+    \ '\\_s\\+', 'g')
+    \ )<cr>:set hls<cr>
+
+vnoremap <silent> # :call setreg("?",
+    \ substitute(GetSelectedText(),
+    \ '\_s\+',
+    \ '\\_s\\+', 'g')
+    \ )<cr>:set hls<cr>
+
+nnoremap * :keepjumps normal! mi*`i<CR>
+
 " Easier search and/or replace (TODO: figure how to position cursor properly)
 nnoremap <leader>rr :<C-U>%s//gI<Left><Left><Left>
 nnoremap <leader>ri :<C-U>%s//gi<Left><Left><Left>
 nnoremap <leader>rc :<C-U>%s//gc<Left><Left><Left>
-nnoremap <leader>rh cgn
+vmap <leader>rh *cgn
+nmap <leader>rh *cgn
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
