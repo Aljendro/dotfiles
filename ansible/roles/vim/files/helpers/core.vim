@@ -99,6 +99,11 @@ nnoremap <M-e> :<C-U>resize +4<cr>
 nnoremap <M-s> :<C-U>vertical resize +16<cr>
 nnoremap <M-f> :<C-U>vertical resize -16<cr>
 
+" Vertical split a file path
+nnoremap gvf <C-w>vgf
+" Reset keybinding for reselecting visual
+nnoremap gvv gv
+
 " Close highlighting
 nnoremap <Bslash>h :<C-U>noh<cr>
 
@@ -109,6 +114,10 @@ vnoremap > >gv
 " Better Vertical block movement
 vmap [v [egv
 vmap ]v ]egv
+
+" Quick Session
+nnoremap <leader>ss :<C-U>wall \| mks! /tmp/current_session<cr>
+nnoremap <leader>sr :<C-U>wall \| source /tmp/current_session<cr>
 
 " Paste at mark
 nnoremap <Bslash>p :<C-U>call PasteAtMark()<cr>
@@ -126,7 +135,7 @@ nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
 
 " Count the number of possible replacements (occurrences and lines)
-nnoremap <leader>rca :<C-U>%s///gn<cr>
+nnoremap <leader>rco :<C-U>%s///gn<cr>
 nnoremap <leader>rcl :<C-U>%s///n<cr>
 
 " Easier search and/or replace (TODO: figure how to position cursor properly)
@@ -135,9 +144,12 @@ nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
 vmap <leader>rw *cgn
 nmap <leader>rw g*cgn
 
+" Easier macro execution
+nnoremap <expr> <leader>m '@' . nr2char(getchar())
+
 " Selections
 " Whole Buffer
-nnoremap <leader>sa ggVG
+nnoremap <leader>va ggVG
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
