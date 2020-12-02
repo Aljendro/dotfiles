@@ -126,7 +126,7 @@ nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
 
 " Count the number of possible replacements (occurrences and lines)
-nnoremap <leader>rco :<C-U>%s///gn<cr>
+nnoremap <leader>rca :<C-U>%s///gn<cr>
 nnoremap <leader>rcl :<C-U>%s///n<cr>
 
 " Easier search and/or replace (TODO: figure how to position cursor properly)
