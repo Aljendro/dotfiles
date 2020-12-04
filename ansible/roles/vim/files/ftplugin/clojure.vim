@@ -46,7 +46,7 @@ let g:sexp_mappings = {
   \ 'sexp_move_to_prev_element_head': '<M-b>',
   \ 'sexp_move_to_next_element_head': '<M-w>',
   \ 'sexp_move_to_prev_element_tail': 'g<M-e>',
-  \ 'sexp_move_to_next_element_tail': '<M-e>',
+  \ 'sexp_move_to_next_element_tail': '',
   \ 'sexp_flow_to_prev_close':        '<M-{>',
   \ 'sexp_flow_to_next_open':         '<M-]>',
   \ 'sexp_flow_to_prev_open':         '<M-[>',
