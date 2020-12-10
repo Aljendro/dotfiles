@@ -169,8 +169,9 @@ nnoremap <leader>tc :<C-U>tabclose<cr>
 let g:lastTab = 1
 nnoremap <leader>tl :<C-U>exec "tabn " . g:lastTab<cr>
 
-" Quick open the quickfix list
-nnoremap <leader>oq :<C-U>botright copen<cr>
+" Open line directly above/below cursor
+nnoremap <expr> <leader>O 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
+nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Default Prettify Indententation
 nnoremap <leader>pp gg=G''
