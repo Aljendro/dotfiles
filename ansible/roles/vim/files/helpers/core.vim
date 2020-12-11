@@ -19,7 +19,6 @@ set display=truncate               " Show @@@ in the last line if it is truncate
 set encoding=utf-8
 set expandtab                      " Convert tab to spaces
 set fileencoding=utf-8
-set guifont=Ubuntu\ Mono\ Bold\ 14
 set hidden                         " Buffer becomes hidden when it is abandoned
 set hlsearch                       " Highlight searches
 set ignorecase                     " Ignore case when searching

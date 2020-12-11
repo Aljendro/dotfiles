@@ -42,6 +42,11 @@
         - go
 
     - import_role:
+        name: java
+      tags:
+        - java
+
+    - import_role:
         name: javascript
       tags:
         - js
