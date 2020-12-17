@@ -20,11 +20,11 @@ function tdtk_env_name {
     EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then
-      IS_SIGNED_IN="✔"
+      IS_SIGNED_IN="%F{green}✔%F"
     else
-      IS_SIGNED_IN="✘"
+      IS_SIGNED_IN="%F{red}✘%F"
     fi
-    echo "TDTK_ENV%{$FG[243]%} ($(echo $TDTK_ENV) $IS_SIGNED_IN) "
+    echo "%F{250}TDTK_ENV%F %F{245}($(echo $TDTK_ENV) $IS_SIGNED_IN%F{245} )%F"
   else
     echo ''
   fi
@@ -32,27 +32,25 @@ function tdtk_env_name {
 
 function java_env_name {
   EXTRACTED_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
-  echo "Java%{$FG[243]%} ($EXTRACTED_VERSION)"
+  echo "%F{250}Java%F %F{245}($EXTRACTED_VERSION)%F"
+}
+
+function node_env_name {
+  echo "%F{250}Node%F %F{245}($(node -v))%F"
 }
 
 local tdtk_env='$(tdtk_env_name)'
-local node_env='Node%{$FG[243]%} ($(node -v))'
+local node_env='$(node_env_name)'
 local java_env='$(java_env_name)'
 local git_info='$(git_prompt_info)'
 
 PROMPT="
-╭─%{$FG[040]%}%n%{$reset_color%}%{$FG[239]%}@%{$reset_color%}%{$FG[033]%}$(box_name)%{$reset_color%}
-│ %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}
-│ %{$FG[239]%}${tdtk_env}%{$FG[239]%}${node_env} %{$FG[239]%}${java_env} ${git_info}
-%{$FG[255]%}╰─%{$reset_color%}%(?:%{$fg_bold[green]%}λ:%{$fg_bold[red]%}λ)%{$reset_color%} "
+╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%}
+│ %B%F{226}%~%{$reset_color%}
+│ ${tdtk_env} ${node_env} ${java_env} ${git_info}%{$reset_color%}
+╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[202]%}✘"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$FG[040]%}✔"
-ZSH_THEME_NODE_PROMPT_PREFIX="‹"
-ZSH_THEME_NODE_PROMPT_SUFFIX="›%{$reset_color%}"
-ZSH_THEME_TDTK_PROMPT_PREFIX="‹"
-ZSH_THEME_TDTK_PROMPT_SUFFIX="›%{$reset_color%}"
-ZSH_THEME_JAVA_PROMPT_PREFIX="‹"
-ZSH_THEME_JAVA_PROMPT_SUFFIX="›%{$reset_color%}"
