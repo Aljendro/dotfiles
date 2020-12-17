@@ -53,23 +53,15 @@ let g:lightline = {
 nnoremap <leader>n     :<C-U>NERDTreeToggle<cr>
 nnoremap <leader><C-n> :<C-U>NERDTreeFind<cr>
 
-let NERDTreeShowLineNumbers = 1
-let NERDTreeMouseMode       = 3
-let NERDTreeShowHidden      = 1
-let NERDTreeQuitOnOpen      = 0
-let NERDTreeMinimalUI       = 1
-let NERDTreeArrows          = 1
-let NERDTreeCustomOpenArgs  = {
-      \ 'file': {
-      \   'reuse': 'currenttab',
-      \   'where': 'v',
-      \   'stay': 1
-      \ },
-      \ 'dir': {
-      \   'where': 't',
-      \   'keepopen': 1,
-      \ }
-      \ }
+let NERDTreeShowLineNumbers  = 1
+let NERDTreeMouseMode        = 3
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeShowHidden       = 1
+let NERDTreeQuitOnOpen       = 0
+let NERDTreeMinimalUI        = 1
+let g:webdevicons_conceal_nerdtree_brackets = 0
+let g:NERDTreeDirArrowExpandable = ""
+let g:NERDTreeDirArrowCollapsible = ""
 
 augroup customNERDTree
   autocmd!

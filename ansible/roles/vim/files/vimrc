@@ -5,6 +5,7 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'benmills/vimux'
@@ -26,6 +27,7 @@ Plug 'olical/conjure'
 Plug 'prettier/vim-prettier', { 'do': 'npm -s install' }
 Plug 'raimondi/delimitmate'
 Plug 'rstacruz/sparkup'
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
