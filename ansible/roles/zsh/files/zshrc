@@ -28,9 +28,6 @@ export LANG=en_US.UTF-8
 export EDITOR=nvim
 export FZF_DEFAULT_COMMAND="fdfind --type f --hidden -E .git"
 
-# Set file/directory creation permissions
-umask 077
-
 alias n='nvim'
 alias nf='VAL=$(fzf --preview "batcat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim $VAL'
 alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-case . | fzf --ansi); [ ! -z $VAL ] && nvim +$(cut -d":" -f2 <<<$VAL) $(cut -d":" -f1 <<<$VAL)'

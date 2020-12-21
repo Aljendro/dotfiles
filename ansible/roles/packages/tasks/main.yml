@@ -25,6 +25,7 @@
     - python-dev
     - firefox
     - pandoc
+    - universal-ctags
 
 - name: Installing Snap Packages
   become: yes
@@ -33,7 +34,6 @@
     state: present
   loop:
     - bitwarden
-    - universal-ctags
 
 - name: Check watchman installation
   shell: which watchman

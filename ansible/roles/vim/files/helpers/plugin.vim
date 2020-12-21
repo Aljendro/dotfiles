@@ -14,6 +14,17 @@ let g:rainbow_active           = 1
 colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+"" Ctags
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:gutentags_file_list_command = 'rg --files'
+let g:gutentags_ctags_exclude = [
+      \ 'package-lock.json',
+      \ 'package.json',
+      \ 'tsconfig.json',
+      \]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Vim Smoothie
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -179,6 +190,8 @@ nnoremap <leader>fl  :<C-U>FLines<cr>
 nnoremap <leader>fs  :<C-U>FHistory/<cr>
 nnoremap <leader>fm  :<C-U>FMarks<cr>
 nnoremap <leader>ft  :<C-U>FTags<cr>
+nnoremap <leader>fj  :<C-U>FBTags<cr>
+
 nnoremap <leader>fo  :<C-U>FBuffers<cr>
 
 augroup customFZF
@@ -193,7 +206,7 @@ augroup END
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use C to open coc config
 call SetupCommandAbbrs('C', 'CocConfig')
