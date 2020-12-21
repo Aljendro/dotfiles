@@ -15,6 +15,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-sexp'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }

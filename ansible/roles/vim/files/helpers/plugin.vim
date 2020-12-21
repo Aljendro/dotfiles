@@ -178,14 +178,10 @@ augroup END
 "" Coc (LSP Client)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use C to open coc config
 call SetupCommandAbbrs('C', 'CocConfig')
@@ -215,17 +211,17 @@ nmap <leader>aR <Plug>(coc-rename)
 " Mappings using CoCList
 
 " Show all diagnostics.
-nnoremap <leader>ld  :<C-U>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>ld  :<C-U>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <leader>le  :<C-U>CocList extensions<cr>
+nnoremap <silent><nowait> <leader>le  :<C-U>CocList extensions<cr>
 " Show commands.
-nnoremap <leader>lc  :<C-U>CocList commands<cr>
+nnoremap <silent><nowait> <leader>lc  :<C-U>CocList commands<cr>
 " Find symbol of current Outline
-nnoremap <leader>lo  :<C-U>CocList outline<cr>
+nnoremap <silent><nowait> <leader>lo  :<C-U>CocList outline<cr>
 " Search workspace symbolS
-nnoremap <leader>ls  :<C-U>CocList -I symbols<cr>
+nnoremap <silent><nowait> <leader>ls  :<C-U>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <leader>lr :<C-U>CocListResume<cr>
+nnoremap <silent><nowait> <leader>lr :<C-U>CocListResume<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
