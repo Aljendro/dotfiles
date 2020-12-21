@@ -24,7 +24,7 @@ function tdtk_env_name {
     else
       IS_SIGNED_IN="%F{red}✘%F"
     fi
-    echo "%F{250}TDTK_ENV%F %F{245}($(echo $TDTK_ENV) $IS_SIGNED_IN%F{245} )%F"
+    echo "%F{250}TDTK_ENV%F %F{245}($(echo $TDTK_ENV) $IS_SIGNED_IN%F{245} )%F "
   else
     echo ''
   fi
@@ -47,7 +47,7 @@ local git_info='$(git_prompt_info)'
 PROMPT="
 ╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%}
 │ %B%F{226}%~%{$reset_color%}
-│ ${tdtk_env} ${node_env} ${java_env} ${git_info}%{$reset_color%}
+│ ${tdtk_env}${node_env} ${java_env} ${git_info}%{$reset_color%}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
