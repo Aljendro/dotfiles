@@ -89,7 +89,7 @@ Where tag can come from:
 * gcp
 * git
 * go
-* javascript
+* js
 * packages
 * rust
 * tmux
