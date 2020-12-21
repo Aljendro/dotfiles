@@ -72,12 +72,6 @@ nnoremap <C-d> <C-w><C-j>
 nnoremap <C-f> <C-w><C-l>
 nnoremap <C-s> <C-w><C-h>
 
-" Move in windows easily
-nnoremap <C-j> <C-d>
-nnoremap <C-k> <C-u>
-nnoremap <M-j> <C-f>
-nnoremap <M-k> <C-b>
-
 " Move between tabs easily
 noremap <C-h> :<C-U>tabprevious<cr>
 noremap <C-l> :<C-U>tabnext<cr>
