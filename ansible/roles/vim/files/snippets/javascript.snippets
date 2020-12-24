@@ -20,6 +20,16 @@ try {
 }
 endsnippet
 
+snippet tryf "try catch finally block"
+try {
+  ${VISUAL}$1
+} catch (err) {
+  $2
+} finally {
+  $3
+}
+endsnippet
+
 snippet for "For each statement (highlighted in for block)"
 for (const item of $1) {
   ${VISUAL}$2
@@ -80,11 +90,11 @@ it('$1', () => {
 endsnippet
 
 snippet clg "Console log"
-console.log($1);
+console.log(${VISUAL});
 endsnippet
 
 snippet cle "Console error"
-console.error($1);
+console.error(${VISUAL});
 endsnippet
 
 snippet bc "Block comment"

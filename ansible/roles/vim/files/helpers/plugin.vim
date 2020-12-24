@@ -6,6 +6,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Config
 """""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:gruvbox_contrast_dark    = 'hard'
 let g:gruvbox_hls_cursor       = 'blue'
 let g:gruvbox_invert_selection = 0
@@ -35,6 +36,8 @@ nmap <C-j> <Plug>(SmoothieDownwards)
 nmap <C-k> <Plug>(SmoothieUpwards)
 nmap <M-j> <Plug>(SmoothieForwards)
 nmap <M-k> <Plug>(SmoothieBackwards)
+vmap <M-j> <Plug>(SmoothieForwards)
+vmap <M-k> <Plug>(SmoothieBackwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
