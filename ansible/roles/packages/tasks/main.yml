@@ -5,27 +5,32 @@
     upgrade: yes
     update_cache: yes
 
+- name: Get Kernel Release
+  shell: uname -r
+  register: kernel_release
+
 - name: Installing Apt Packages
   become: yes
   apt:
     name: "{{ item }}"
     state: present
   loop:
-    - jq
-    - tree
-    - xclip
-    - bat
-    - ripgrep
-    - fd-find
-    - libssl-dev
     - autoconf
     - automake
-    - libtool
-    - python-setuptools
-    - python-dev
+    - bat
+    - fd-find
     - firefox
+    - jq
+    - libssl-dev
+    - libtool
+    - linux-tools-{{ kernel_release.stdout }}
     - pandoc
+    - python-dev
+    - python-setuptools
+    - ripgrep
+    - tree
     - universal-ctags
+    - xclip
 
 - name: Installing Snap Packages
   become: yes
