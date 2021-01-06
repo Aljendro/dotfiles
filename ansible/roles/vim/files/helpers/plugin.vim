@@ -188,9 +188,11 @@ nnoremap <leader>fc  :<C-U>FCommits<cr>
 nnoremap <leader>fr  :<C-U>FRg<cr>
 nnoremap <leader>fa  :<C-U>FARg<cr>
 nnoremap <leader>fh  :<C-U>FHistory:<cr>
+vnoremap <leader>fh  :<C-U>FHistory:<cr>
 nnoremap <leader>fb  :<C-U>FBLines<cr>
 nnoremap <leader>fl  :<C-U>FLines<cr>
 nnoremap <leader>fs  :<C-U>FHistory/<cr>
+vnoremap <leader>fs  :<C-U>FHistory/<cr>
 nnoremap <leader>fm  :<C-U>FMarks<cr>
 nnoremap <leader>ft  :<C-U>FTags<cr>
 nnoremap <leader>fj  :<C-U>FBTags<cr>

@@ -13,8 +13,6 @@
   loop:
     - curl
     - neovim
-    - clang
-    - libclang-dev
 
 - name: Install Vim-Plug package manager
   command:
