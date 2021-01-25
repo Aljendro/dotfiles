@@ -12,6 +12,11 @@
         - aws
 
     - import_role:
+        name: c
+      tags:
+        - c
+
+    - import_role:
         name: chrome
       tags:
         - chrome

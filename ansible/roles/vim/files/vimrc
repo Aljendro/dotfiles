@@ -9,7 +9,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'benmills/vimux'
-Plug 'craigemery/vim-autotag'
 Plug 'daveyarwood/vim-alda'
 Plug 'easymotion/vim-easymotion'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}

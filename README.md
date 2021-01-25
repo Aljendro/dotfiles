@@ -38,6 +38,7 @@ This script will setup your machine/vm.
 * [GCP CLI](https://www.mozilla.org/en-US/firefox/new/https://cloud.google.com/sdk/gcloud)
 * [Git](https://git-scm.com/)
 * [Go](https://golang.org/)
+* [Java](https://openjdk.java.net/)
 * [Jq](https://stedolan.github.io/jq/)
 * [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
 * [Neovim](https://neovim.io/)
@@ -54,7 +55,7 @@ This script will setup your machine/vm.
 * Set PATH to pick up utility scripts and development paths
 * Soft link dotfiles in $HOME
 * Global .gitignore and configuration
-* Nvim
+* Neovim
     * LSP Integrations
     * Keybindings
     * Theme
@@ -86,11 +87,28 @@ Where tag can come from:
 * chrome
 * clojure
 * docker
-* gcp
+* gcp (Google Cloud CLI)
 * git
 * go
+* java
 * js
 * packages
+    * All Installed
+        * autoconf
+        * automake
+        * bat
+        * bitwarden
+        * fd
+        * firefox
+        * jq
+        * linux-tools (perf)
+        * pandoc
+        * ripgrep
+        * tree
+        * universal-ctags
+        * watchman
+        * xclip
+* python
 * rust
 * tmux
 * vim

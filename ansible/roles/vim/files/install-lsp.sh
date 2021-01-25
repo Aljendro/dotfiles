@@ -13,15 +13,16 @@ then
 fi
 # Change extension names to the extensions you need
 npm install \
+  coc-clangd \
   coc-conjure \
-  coc-json \
-  coc-html \
   coc-css \
-  coc-yaml \
+  coc-eslint \
+  coc-html \
+  coc-json \
+  coc-rls \
   coc-snippets \
   coc-tsserver \
-  coc-eslint \
   coc-vimlsp \
-  coc-rls \
+  coc-yaml \
   --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
