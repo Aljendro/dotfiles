@@ -169,6 +169,9 @@ nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 " Default Prettify Indententation
 nnoremap <leader>pp gg=G''
 
+" Make Ctrl-c exactly like esc (trigger InsertLeave)
+inoremap <C-c> <esc>
+
 augroup customVim
   autocmd!
   " When editing a file, always jump to the last known cursor position.
@@ -205,7 +208,7 @@ augroup customJavascriptFamily
   " Debugger expand for js files
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact iabbrev <buffer> d; debugger;
   " Run tests with vimux using jest
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <buffer> <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch " . bufname("%"))<CR>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <buffer> <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch --runInBand" . bufname("%"))<CR>
 augroup END
 
 
