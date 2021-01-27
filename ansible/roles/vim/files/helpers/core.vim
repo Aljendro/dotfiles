@@ -109,8 +109,8 @@ vmap [v [egv
 vmap ]v ]egv
 
 " Quick Session
-nnoremap <leader>ss :<C-U>wall \| mks! /tmp/current_session<cr>
-nnoremap <leader>sr :<C-U>wall \| source /tmp/current_session<cr>
+nnoremap <expr> <leader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <leader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
 
 " Paste at mark
 nnoremap <Bslash>p :<C-U>call PasteAtMark()<cr>

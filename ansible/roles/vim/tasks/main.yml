@@ -38,6 +38,12 @@
     state: directory
     mode: '0700'
 
+- name: Creating session directory
+  file:
+    path: ~/.config/nvim/session
+    state: directory
+    mode: '0700'
+
 - name: Creating coc directory
   file:
     path: ~/.config/coc
