@@ -198,18 +198,3 @@ augroup customVim
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
 augroup END
 
-"""""""""""""""""""""" Javascript Family
-
-augroup customJavascriptFamily
-  autocmd!
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl tabstop=2 | setl shiftwidth=2
-  " User prettier
-  autocmd FileType graphql,html,json,javascript,javascriptreact,typescript,typescriptreact nnoremap <buffer> <leader>pp :Prettier<cr>
-  " Debugger expand for js files
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact iabbrev <buffer> d; debugger;
-  " Run tests with vimux using jest
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact map <buffer> <Bslash>t :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch --runInBand" . bufname("%"))<CR>
-augroup END
-
-
-

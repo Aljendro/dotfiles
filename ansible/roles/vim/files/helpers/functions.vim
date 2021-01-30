@@ -49,20 +49,20 @@ function! GetSelectedText()
 endfunction
 
 function! MakeSession(...)
-  let session_char = a:0 >= 1 ? a:1 : 'default'
+  let session_name = a:0 >= 1 ? a:1 : 'default'
   let sessiondir = $HOME . "/.config/nvim/sessions/"
   if (filewritable(sessiondir) != 2)
     exe 'silent !mkdir -p ' b:sessiondir
     redraw!
   endif
-  let filename = sessiondir . '/session-' . session_char . '.vim'
+  let filename = sessiondir . '/session-' . session_name . '.vim'
   exe "tabdo NERDTreeClose | mksession! " . filename
 endfunction
 
 function! LoadSession(...)
-  let session_char = a:0 >= 1 ? a:1 : 'default'
+  let session_name = a:0 >= 1 ? a:1 : 'default'
   let sessiondir = $HOME . "/.config/nvim/sessions/"
-  let filename = sessiondir . '/session-' . session_char . '.vim'
+  let filename = sessiondir . '/session-' . session_name . '.vim'
   if (filereadable(filename))
     exe 'source ' filename
   else
