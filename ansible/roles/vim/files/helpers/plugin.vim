@@ -112,22 +112,22 @@ let g:NERDToggleCheckAllLines = 0
 "" Git Plugins (Fugitive, Gitgutter, etc.)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+" Create diffsplit
+nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 " Open diffs of all the different changed files in tabs
 nnoremap <leader>dd :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git difftool -y \| tabclose 1<cr>
 " Restore previous session
 nnoremap <leader>dr :<C-U>wall \| tabonly \| call LoadSession('diff')<cr>
+" Refresh difftool
+nnoremap <leader>du :<C-U>diffupdate<cr>
+" Open merge conflicts in different tabs
+nnoremap <leader>dc :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git mergetool -y \| tabclose 1<cr>
 " Choose left buffer
 nnoremap <expr> <leader>dj ':<C-U>diffget //2/' . bufname('') . '<cr>'
 " Choose the right buffer
 nnoremap <expr> <leader>dk ':<C-U>diffget //3/' . bufname('') . '<cr>'
-" Refresh difftool
-nnoremap <leader>du :<C-U>diffupdate<cr>
-" Open merge conflicts in different tabs
-nnoremap <leader>dc :<C-U>tabdo NERDTreeClose \| wall \| mks! /tmp/diffsession.vim \| tabonly \| Git mergetool -y \| tabclose 1<cr>
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
-" Create diffsplit
-nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 
 cabbrev gb Git branch
 cabbrev gbd Git branch -d
