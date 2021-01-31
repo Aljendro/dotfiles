@@ -55,14 +55,14 @@ function! MakeSession(...)
     exe 'silent !mkdir -p ' b:sessiondir
     redraw!
   endif
-  let filename = sessiondir . '/session-' . session_name . '.vim'
+  let filename = sessiondir . 'session-' . session_name . '.vim'
   exe "tabdo NERDTreeClose | mksession! " . filename
 endfunction
 
 function! LoadSession(...)
   let session_name = a:0 >= 1 ? a:1 : 'default'
   let sessiondir = $HOME . "/.config/nvim/sessions/"
-  let filename = sessiondir . '/session-' . session_name . '.vim'
+  let filename = sessiondir . 'session-' . session_name . '.vim'
   if (filereadable(filename))
     exe 'source ' filename
   else

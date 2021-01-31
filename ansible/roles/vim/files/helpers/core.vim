@@ -9,48 +9,35 @@
 filetype plugin indent on
 syntax enable
 
-set autoindent                     " Copy indentation from current line when opening new line
 set autowrite
-set background=dark                " Indicated the type of background
-set clipboard=unnamedplus          " Yank to the system clipboard
-set cmdheight=2                    " Give more space for displaying messages.
-set cursorline                     " Highlights the current line
-set display=truncate               " Show @@@ in the last line if it is truncated.
-set encoding=utf-8
-set expandtab                      " Convert tab to spaces
+set clipboard=unnamed,unnamedplus " Yank to the system clipboard and selection clipboard
+set cursorline                    " Highlights the current line
+set display=truncate              " Show @@@ in the last line if it is truncated.
+set expandtab                     " Convert tab to spaces
 set fileencoding=utf-8
-set hidden                         " Buffer becomes hidden when it is abandoned
-set hlsearch                       " Highlight searches
-set ignorecase                     " Ignore case when searching
-set incsearch                      " Do incremental searching when it's possible to timeout.
-set laststatus=2                   " Always have a status line
-set mouse=a                        " Allows mouse click on vim
-set nobackup                       " Some servers have issues with backup files (see #649 Coc.nvim)
-set nolangremap                    " Do not remap characters
-set noshowmode                     " Don't show the -- Insert -- anymore
-set nowrap                         " Do not wrap lines
-set nowritebackup                  " Do not make backup when overwriting a file
-set nrformats-=octal               " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-set ruler                          " Show the cursor position all the time
-set scrolloff=1                    " Keep context around cursor
-set shiftwidth=2
-set shortmess+=c                   " Don't pass messages to |ins-completion-menu|.
-set showcmd                        " Display incomplete commands
-set signcolumn=yes                 " Always show the signcolumn, otherwise it would shift the text each time
-set smartcase                      " If search contains uppercase characters, disobey ignorecase
-set smartindent                    " Indents when creating a newline
-set smarttab                       " Discerns between 2 vs. 4 when tabbing
-set splitbelow                     " Open a window below the current window
-set splitright                     " Open a window right of the current window
+set hidden                        " Buffer becomes hidden when it is abandoned
+set ignorecase                    " Ignore case when searching
+set mouse=a                       " Allows mouse click on vim
+set nobackup                      " Some servers have issues with backup files (see #649 Coc.nvim)
+set nolangremap                   " Do not remap characters
+set noshowmode                    " Don't show the -- Insert -- anymore
+set nowrap                        " Do not wrap lines
+set nowritebackup                 " Do not make backup when overwriting a file
+set nrformats-=octal              " Do not recognize octal numbers for Ctrl-A and Ctrl-X
+set number                        " Turn on line numbers
+set ruler                         " Show the cursor position all the time
+set scrolloff=1                   " Keep context around cursor
+set shortmess+=c                  " Don't pass messages to |ins-completion-menu|.
+set signcolumn=yes                " Always show the signcolumn, otherwise it would shift the text each time
+set smartcase                     " If search contains uppercase characters, disobey ignorecase
+set smartindent                   " Indents when creating a newline
+set splitbelow                    " Open a window below the current window
+set splitright                    " Open a window right of the current window
+set termguicolors                 " Enables 24-bit RGB color in the TUI
 set t_Co=256
-set tabstop=2
-set termguicolors
-set timeout                        " Time out for mappings
-set timeoutlen=1000
-set ttimeout                       " Time out for key codes
-set ttimeoutlen=100
-set updatetime=100                 " Set the amount of time vim waits to write to the swap file
-set wildmenu                       " Display completion matches in a status line
+set updatetime=100                " Faster CursorHold refresh to highlight matching vars
+set virtualedit=block,onemore     " Allow putting cursor on non-characters past the end of the line
+set wildmenu                      " Display completion matches in a status line
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Keybindings
@@ -98,7 +85,7 @@ nnoremap gvf <C-w>vgf
 nnoremap gvv gv
 
 " Close highlighting
-nnoremap <Bslash>h :<C-U>noh<cr>
+nnoremap <leader>th :<C-U>noh<cr>
 
 " Better tabbing alignment
 vnoremap < <gv
@@ -119,10 +106,10 @@ nnoremap <expr> <Bslash>o '<C-w>v`' . nr2char(getchar())
 
 " Search for visually selected word in buffer
 vnoremap <silent> * :call setreg("/",
-    \ substitute(GetSelectedText(),
-    \ '\_s\+',
-    \ '\\_s\\+', 'g')
-    \ )<cr>:set hls<cr>
+                  \ substitute(GetSelectedText(),
+                  \ '\_s\+',
+                  \ '\\_s\\+', 'g')
+                  \ )<cr>:set hls<cr>
 
 nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
@@ -131,7 +118,7 @@ nnoremap g* :keepjumps normal! mig*`i<cr>
 nnoremap <leader>rco :<C-U>%s///gn<cr>
 nnoremap <leader>rcl :<C-U>%s///n<cr>
 
-" Easier search and/or replace (TODO: figure how to position cursor properly)
+" Easier search and/or replace
 nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
 nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
 vmap <leader>rw *cgn
@@ -150,8 +137,6 @@ nnoremap <Up> 5<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
-nnoremap <leader>ts :<C-U>windo w<cr>:tabclose<cr>
-
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Create a new tab at the end
@@ -167,34 +152,34 @@ nnoremap <expr> <leader>O 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Default Prettify Indententation
-nnoremap <leader>pp gg=G''
+nnoremap <localleader>f gg=G''
 
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
 
 augroup customVim
-  autocmd!
-  " When editing a file, always jump to the last known cursor position.
-  autocmd BufReadPost *
-        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-        \ |   exe "normal! g`\""
-        \ | endif
-  " Removing the o option removes adding a comment when open new line
-  autocmd Filetype * set formatoptions-=o
-  " Set the last known tab when switching tabs
-  autocmd TabLeave * let g:lastTab = tabpagenr()
-  " Source vimrc when saving the file
-  autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc,$DOTFILES_DIR/ansible/roles/vim/files/*.vim nested source $MYVIMRC
-  " Delete trailing spaces
-  autocmd FileType c,cpp,java,javascript,vim,python,yaml,sh,tmux autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
-  " Add line numbers
-  autocmd BufEnter * set number
-  " Toggle relative line number mode when inserting
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-  " Enter insert mode for terminal upon entering
-  autocmd TermOpen * startinsert
-  " Easier exiting
-  autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+      autocmd!
+      " When editing a file, always jump to the last known cursor position.
+      autocmd BufReadPost *
+                        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+                        \ |   exe "normal! g`\""
+                        \ | endif
+      " Removing the o option removes adding a comment when open new line
+      autocmd Filetype * set formatoptions-=o
+      " Set the last known tab when switching tabs
+      autocmd TabLeave * let g:lastTab = tabpagenr()
+      " Source vimrc when saving the file
+      autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc,$DOTFILES_DIR/ansible/roles/vim/files/*.vim nested source $MYVIMRC
+      " Delete trailing spaces
+      autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
+      " Add line numbers
+      autocmd BufEnter * set number
+      " Toggle relative line number mode when inserting
+      autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+      autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+      " Enter insert mode for terminal upon entering
+      autocmd TermOpen * startinsert
+      " Easier exiting
+      autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
 augroup END
 
