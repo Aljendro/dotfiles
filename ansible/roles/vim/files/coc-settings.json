@@ -2,6 +2,26 @@
   "tsserver.npm": "/home/alejandro/.nvm/versions/node/v12.13.0/bin/npm",
   "tsserver.enableJavascript": true,
   "tsserver.log": "terse",
+  "yaml.customTags": [
+    "!And sequence",
+    "!Base64",
+    "!Cidr sequence",
+    "!Equals sequence",
+    "!FindInMap sequence",
+    "!GetAZs",
+    "!GetAtt scalar",
+    "!GetAtt sequence",
+    "!If sequence",
+    "!ImportValue",
+    "!Join sequence",
+    "!Not sequence",
+    "!Or sequence",
+    "!Ref scalar",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub scalar",
+    "!Sub sequence"
+  ],
   "languageserver": {
     "clojure-lsp": {
       "command": "bash",
