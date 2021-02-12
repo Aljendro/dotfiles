@@ -30,6 +30,27 @@ function tdtk_env_name {
   fi
 }
 
+function tcm_env_name {
+  if [[ ! -z "$TCM_ENV" ]]; then
+    if [[ "$TCM_ENV" = "prod" ]]; then
+      THEME_PROFILE_NAME=$THEME_TCM_PROFILE_PROD_NAME
+    else
+      THEME_PROFILE_NAME=$THEME_TCM_PROFILE_NONPROD_NAME
+    fi
+
+    EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
+    NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then
+      IS_SIGNED_IN="%F{green}✔%F"
+    else
+      IS_SIGNED_IN="%F{red}✘%F"
+    fi
+    echo "%F{250}TCM_ENV%F %F{245}($(echo $TCM_ENV) $IS_SIGNED_IN%F{245} )%F "
+  else
+    echo ''
+  fi
+}
+
 function java_env_name {
   EXTRACTED_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
   echo "%F{250}Java%F %F{245}($EXTRACTED_VERSION)%F"
@@ -40,6 +61,7 @@ function node_env_name {
 }
 
 local tdtk_env='$(tdtk_env_name)'
+local tcm_env='$(tcm_env_name)'
 local node_env='$(node_env_name)'
 local java_env='$(java_env_name)'
 local git_info='$(git_prompt_info)'
@@ -47,7 +69,7 @@ local git_info='$(git_prompt_info)'
 PROMPT="
 ╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%}
 │ %B%F{226}%~%{$reset_color%}
-│ ${tdtk_env}${node_env} ${java_env} ${git_info}%{$reset_color%}
+│ ${tdtk_env}${tcm_env}${node_env} ${java_env} ${git_info}%{$reset_color%}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
