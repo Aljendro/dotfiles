@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$DOTFILES_DIR/bin:~/.vim/plugged/fzf/bin:~/.cargo/bin:/usr/local/go/bin:$PATH
+export PATH=$DOTFILES_DIR/bin:~/.vim/plugged/fzf/bin:~/.cargo/bin:/usr/local/go/bin:~/.yarn/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
@@ -24,6 +24,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+## Use vim bindings
+bindkey -v
+
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export FZF_DEFAULT_COMMAND="fdfind --type f --hidden -E .git"
@@ -37,9 +40,9 @@ alias fd='fdfind'
 alias bat='batcat'
 alias e='exit'
 
-# Some local env variables and secrets must live locally (away from VCS)
+## Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
-# VM specific variables
+## VM specific variables
 source ~/.zshrc_vm_local
 
 export NVM_DIR="$HOME/.nvm"
