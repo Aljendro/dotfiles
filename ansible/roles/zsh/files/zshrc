@@ -27,6 +27,23 @@ source $ZSH/oh-my-zsh.sh
 ## Use vim bindings
 bindkey -v
 
+### Remove mode switching delay.
+KEYTIMEOUT=5
+
+zle-keymap-select () {
+  case $KEYMAP in
+    vicmd) echo -ne '\e[1 q';; # block cursor
+    *    ) echo -ne '\e[5 q';; # beam cursor
+  esac
+}
+
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+
+precmd_functions+=(_fix_cursor)
+zle -N zle-keymap-select
+
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export FZF_DEFAULT_COMMAND="fdfind --type f --hidden -E .git"
