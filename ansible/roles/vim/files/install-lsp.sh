@@ -19,6 +19,7 @@ npm install \
   coc-eslint \
   coc-html \
   coc-json \
+  coc-python \
   coc-rls \
   coc-snippets \
   coc-tsserver \

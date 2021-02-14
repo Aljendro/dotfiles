@@ -16,6 +16,6 @@
 
 - name: Install pip packages
   pip:
-    name: pynvim
-    version: 0.4.2
-
+    name:
+      - pynvim==0.4.2
+      - jedi
