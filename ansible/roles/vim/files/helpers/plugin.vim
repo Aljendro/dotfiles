@@ -123,9 +123,9 @@ nnoremap <leader>du :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
 nnoremap <leader>dc :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git mergetool -y \| tabclose 1<cr>
 " Choose left buffer
-nnoremap <expr> <leader>dj ':<C-U>diffget //2/' . bufname('') . '<cr>'
+nnoremap <expr> <leader>dj ':<C-U>diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Choose the right buffer
-nnoremap <expr> <leader>dk ':<C-U>diffget //3/' . bufname('') . '<cr>'
+nnoremap <expr> <leader>dk ':<C-U>diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
 

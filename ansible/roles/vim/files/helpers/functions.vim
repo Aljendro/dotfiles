@@ -70,3 +70,8 @@ function! LoadSession(...)
   endif
 endfunction
 
+function! GetFilePathFromGitRoot(filename)
+  let git_path = system('git rev-parse --show-toplevel')
+  let final_str = substitute(a:filename, git_path, '', '')
+  return final_str
+endfunction
