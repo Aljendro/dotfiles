@@ -59,11 +59,15 @@ if ($1) {
 endsnippet
 
 snippet fna "Async Lambda Function"
-async ($1) => {$2}
+async ($1) => {
+  ${VISUAL}$2
+}
 endsnippet
 
 snippet fn "Lambda Function"
-($1) => {$2}
+($1) => {
+  ${VISUAL}$2
+}
 endsnippet
 
 snippet me "Module exports"

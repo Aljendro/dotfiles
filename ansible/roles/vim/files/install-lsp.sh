@@ -20,6 +20,7 @@ npm install \
   coc-html \
   coc-json \
   coc-python \
+  coc-prettier \
   coc-rls \
   coc-snippets \
   coc-tsserver \
