@@ -43,9 +43,10 @@ set wildmenu                      " Display completion matches in a status line
 "" Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+nnoremap <Bslash> <Nop>
 nnoremap <space> <Nop>
 let mapleader = " "
-let maplocalleader= ","
+let maplocalleader= "\\"
 
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
@@ -92,17 +93,15 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Better Vertical block movement
-vmap [v [egv
-vmap ]v ]egv
+vmap [v [egvv
+vmap ]v ]egvv
 
 " Quick Session
 nnoremap <expr> <leader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <expr> <leader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
 
 " Paste at mark
-nnoremap <Bslash>p :<C-U>call PasteAtMark()<cr>
-" Open mark in vertical split
-nnoremap <expr> <Bslash>o '<C-w>v`' . nr2char(getchar())
+nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
 
 " Search for visually selected word in buffer
 vnoremap <silent> * :call setreg("/",

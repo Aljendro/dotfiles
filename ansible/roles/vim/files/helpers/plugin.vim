@@ -76,8 +76,8 @@ let g:lightline = {
 "" NERDTree (File Tree Viewer Plugin)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>n     :<C-U>NERDTreeToggle<cr>
-nnoremap <leader><C-n> :<C-U>NERDTreeFind<cr>
+nnoremap <leader>dd :<C-U>NERDTreeToggle<cr>
+nnoremap <leader>df :<C-U>NERDTreeFind<cr>
 
 let NERDTreeShowLineNumbers  = 1
 let NERDTreeMouseMode        = 3
@@ -113,21 +113,25 @@ let g:NERDToggleCheckAllLines = 0
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Create diffsplit
-nnoremap <leader>ds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
+nnoremap <leader>gds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 " Open diffs of all the different changed files in tabs
-nnoremap <leader>dd :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git difftool -y \| tabclose 1<cr>
+nnoremap <leader>gdd :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git difftool -y \| tabclose 1<cr>
 " Restore previous session
-nnoremap <leader>dr :<C-U>wall \| tabonly \| call LoadSession('diff')<cr>
+nnoremap <leader>gdr :<C-U>wall \| tabonly \| call LoadSession('diff')<cr>
 " Refresh difftool
-nnoremap <leader>du :<C-U>diffupdate<cr>
+nnoremap <leader>gdu :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
-nnoremap <leader>dc :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git mergetool -y \| tabclose 1<cr>
+nnoremap <leader>gdc :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git mergetool -y \| tabclose 1<cr>
 " Choose left buffer
-nnoremap <expr> <leader>dj ':<C-U>diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
+nnoremap <expr> <leader>gj ':<C-U>diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Choose the right buffer
-nnoremap <expr> <leader>dk ':<C-U>diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
+nnoremap <expr> <leader>gk ':<C-U>diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
+" Open changes in quickfix list
+nnoremap <leader>gq :<C-U>GitGutterQuickFix<cr>:copen<cr>
+" Undo hunk change
+nnoremap <leader>gu :<C-U>GitGutterUndoHunk<cr>
 
 cabbrev gb Git branch
 cabbrev gbd Git branch -d
@@ -165,9 +169,9 @@ let g:rg_command = 'rg --vimgrep -S'
 let g:rg_highlight = v:true
 
 " Search for word under cursor in project
-nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<cr><cr>
+nnoremap <leader>/w :Rg <C-R>=expand("<cword>")<cr><cr>
 " Search for highlighted word in project
-vnoremap <leader>fw y:<C-U>Rg <C-R>=escape(@",'/\')<cr><cr>
+vnoremap <leader>/w y:<C-U>Rg <C-R>=escape(@",'/\')<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" FZF
@@ -182,22 +186,23 @@ command! -bang -nargs=* FARg
       \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
-nnoremap <leader>ff  :<C-U>FFiles<cr>
-nnoremap <leader>fg  :<C-U>FGFiles?<cr>
-nnoremap <leader>fc  :<C-U>FCommits<cr>
-nnoremap <leader>fr  :<C-U>FRg<cr>
-nnoremap <leader>fa  :<C-U>FARg<cr>
-nnoremap <leader>fh  :<C-U>FHistory:<cr>
-vnoremap <leader>fh  :<C-U>FHistory:<cr>
-nnoremap <leader>fb  :<C-U>FBLines<cr>
-nnoremap <leader>fl  :<C-U>FLines<cr>
-nnoremap <leader>fs  :<C-U>FHistory/<cr>
-vnoremap <leader>fs  :<C-U>FHistory/<cr>
-nnoremap <leader>fm  :<C-U>FMarks<cr>
-nnoremap <leader>ft  :<C-U>FTags<cr>
-nnoremap <leader>fj  :<C-U>FBTags<cr>
-
-nnoremap <leader>fo  :<C-U>FBuffers<cr>
+nnoremap <leader>sf  :<C-U>FFiles<cr>
+nnoremap <leader>sw  :<C-U>FWindows<cr>
+nnoremap <leader>sgg :<C-U>FGFiles<cr>
+nnoremap <leader>sgm :<C-U>FGFiles?<cr>
+nnoremap <leader>sc  :<C-U>FCommits<cr>
+nnoremap <leader>sr  :<C-U>FRg<cr>
+nnoremap <leader>sa  :<C-U>FARg<cr>
+nnoremap <leader>s:  :<C-U>FHistory:<cr>
+vnoremap <leader>s:  :<C-U>FHistory:<cr>
+nnoremap <leader>sb  :<C-U>FBLines<cr>
+nnoremap <leader>sl  :<C-U>FLines<cr>
+nnoremap <leader>s/  :<C-U>FHistory/<cr>
+vnoremap <leader>s/  :<C-U>FHistory/<cr>
+nnoremap <leader>sm  :<C-U>FMarks<cr>
+nnoremap <leader>stt :<C-U>FTags<cr>
+nnoremap <leader>stb :<C-U>FBTags<cr>
+nnoremap <leader>so  :<C-U>FBuffers<cr>
 
 augroup customFZF
   autocmd!
@@ -232,26 +237,26 @@ nmap ]g <Plug>(coc-diagnostic-next)
 nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
-nmap <leader>ad <Plug>(coc-definition)
-nmap <leader>at <Plug>(coc-type-definition)
-nmap <leader>ai <Plug>(coc-implementation)
-nmap <leader>ar <Plug>(coc-references)
-nmap <leader>aR <Plug>(coc-rename)
+nmap <leader>ld <Plug>(coc-definition)
+nmap <leader>lt <Plug>(coc-type-definition)
+nmap <leader>li <Plug>(coc-implementation)
+nmap <leader>lr <Plug>(coc-references)
+nmap <leader>lR <Plug>(coc-rename)
 
 " Mappings using CoCList
 
 " Show all diagnostics.
-nnoremap <silent><nowait> <leader>ld  :<C-U>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>lld  :<C-U>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <leader>le  :<C-U>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <leader>lc  :<C-U>CocList commands<cr>
-" Find symbol of current Outline
-nnoremap <silent><nowait> <leader>lo  :<C-U>CocList outline<cr>
-" Search workspace symbolS
-nnoremap <silent><nowait> <leader>ls  :<C-U>CocList -I symbols<cr>
+nnoremap <silent><nowait> <leader>lle  :<C-U>CocList extensions<cr>
 " Resume latest coc list.
-nnoremap <silent><nowait> <leader>lr :<C-U>CocListResume<cr>
+nnoremap <silent><nowait> <leader>llr :<C-U>CocListResume<cr>
+" Show commands.
+nnoremap <silent><nowait> <leader>llc  :<C-U>CocList commands<cr>
+" Find symbol of current Outline
+nnoremap <silent><nowait> <leader>llo  :<C-U>CocList outline<cr>
+" Search workspace symbolS
+nnoremap <silent><nowait> <leader>lls  :<C-U>CocList -I symbols<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
