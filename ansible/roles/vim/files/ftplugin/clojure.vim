@@ -23,7 +23,7 @@ nmap <expr> <leader>cm '<localleader>em' . nr2char(getchar())
 nnoremap <leader>ci Go
 
 " Formatting
-nmap <leader>pp :call CocActionAsync('format')<cr>
+nmap <leader>ff :call CocActionAsync('format')<cr>
 
 """""""""""""""""" sexp
 
@@ -73,12 +73,12 @@ let g:sexp_mappings = {
   \ 'sexp_square_tail_wrap_element':  '',
   \ 'sexp_curly_head_wrap_element':   '',
   \ 'sexp_curly_tail_wrap_element':   '',
-  \ 'sexp_insert_at_list_head':       '<LocalLeader>i',
-  \ 'sexp_insert_at_list_tail':       '<LocalLeader>a',
-  \ 'sexp_splice_list':               '<LocalLeader>@',
-  \ 'sexp_convolute':                 '<LocalLeader>?',
-  \ 'sexp_raise_list':                '<LocalLeader>o',
-  \ 'sexp_raise_element':             '<LocalLeader>O',
+  \ 'sexp_insert_at_list_head':       '<localleader>i',
+  \ 'sexp_insert_at_list_tail':       '<localleader>a',
+  \ 'sexp_splice_list':               '<localleader>@',
+  \ 'sexp_convolute':                 '<localleader>?',
+  \ 'sexp_raise_list':                '<localleader>o',
+  \ 'sexp_raise_element':             '<localleader>O',
   \ 'sexp_swap_list_backward':        '<M-k>',
   \ 'sexp_swap_list_forward':         '<M-j>',
   \ 'sexp_swap_element_backward':     '<M-h>',

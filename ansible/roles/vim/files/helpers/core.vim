@@ -97,8 +97,8 @@ vmap [v [egvv
 vmap ]v ]egvv
 
 " Quick Session
-nnoremap <expr> <leader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
-nnoremap <expr> <leader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <localleader>s ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
 
 " Paste at mark
 nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
