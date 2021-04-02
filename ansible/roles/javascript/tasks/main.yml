@@ -1,15 +1,10 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
-- name: Installing Curl Package
+- name: Installing Apt Packages
   become: yes
   apt:
     name: curl
     state: present
+    update_cache: yes
 
 - name: Install nvm
   shell: >

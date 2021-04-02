@@ -1,15 +1,11 @@
 ---
-- name: Update and upgrade apt packages
+- name: Installing Apt Packages
   become: yes
   apt:
-    upgrade: yes
-    update_cache: yes
-
-- name: Installing Curl Package
-  become: yes
-  apt:
-    name: curl
+    name:
+      - curl
     state: present
+    update_cache: yes
 
 - name: Downloading Google Public Key
   get_url:
@@ -24,15 +20,10 @@
   become: yes
   shell: echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Chrome
   become: yes
   apt:
     name: google-chrome-stable
     state: present
+    update_cache: yes
 

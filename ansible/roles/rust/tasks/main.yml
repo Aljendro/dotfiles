@@ -1,15 +1,11 @@
 ---
-- name: Update and upgrade apt packages
+- name: Installing Apt Packages
   become: yes
   apt:
-    upgrade: yes
-    update_cache: yes
-
-- name: Installing Curl Package
-  become: yes
-  apt:
-    name: curl
+    name: 
+      - curl
     state: present
+    update_cache: yes
 
 - name: Downloading Rust Installer
   get_url:

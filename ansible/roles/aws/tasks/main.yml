@@ -1,15 +1,11 @@
 ---
-- name: Update and upgrade apt packages
+- name: Installing Apt Packages
   become: yes
   apt:
-    upgrade: yes
-    update_cache: yes
-
-- name: Install awscli
-  become: yes
-  apt:
-    name: awscli
+    name:
+      - awscli
     state: present
+    update_cache: yes
 
 - name: Create the .aws directory
   file:

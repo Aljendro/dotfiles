@@ -1,17 +1,11 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - tmux
     state: present
-  loop:
-    - tmux
+    update_cache: yes
 
 - name: Linking tmux config
   file:
