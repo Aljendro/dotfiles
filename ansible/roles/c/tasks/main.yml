@@ -1,23 +1,17 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - autoconf
+      - automake
+      - libtool
+      - clangd
+      - clang
+      - libclang-dev
+      - bear
     state: present
-  loop:
-    - autoconf
-    - automake
-    - libtool
-    - clangd
-    - clang
-    - libclang-dev
-    - bear
+    update_cache: yes
 
 - name: Installing cmake
   become: yes

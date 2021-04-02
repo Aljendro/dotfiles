@@ -1,20 +1,14 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - curl
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
     state: present
-  loop:
-    - curl
-    - software-properties-common
-    - apt-transport-https
-    - ca-certificates
+    update_cache: yes
 
 - name: Downloading Docker Public Key
   get_url:
@@ -29,19 +23,13 @@
   become: yes
   shell: echo 'deb [arch=amd64] http://download.docker.com/linux/ubuntu bionic stable' | sudo tee /etc/apt/sources.list.d/docker.list
 
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Docker Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - docker-ce
     state: present
-  loop:
-    - docker-ce
+    update_cache: yes
 
 - name: Add user to the docker group
   become: yes

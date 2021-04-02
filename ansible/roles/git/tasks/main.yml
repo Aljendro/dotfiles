@@ -1,10 +1,4 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Linking .gitconfig
   file:
     src: "{{ role_path }}/files/gitconfig"

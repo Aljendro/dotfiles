@@ -1,10 +1,4 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Get Kernel Release
   shell: uname -r
   register: kernel_release
@@ -12,33 +6,31 @@
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - autoconf
+      - automake
+      - bat
+      - fd-find
+      - firefox
+      - jq
+      - libssl-dev
+      - libtool
+      - linux-tools-{{ kernel_release.stdout }}
+      - pandoc
+      - python-dev
+      - python-setuptools
+      - ripgrep
+      - tree
+      - universal-ctags
+      - xclip
     state: present
-  loop:
-    - autoconf
-    - automake
-    - bat
-    - fd-find
-    - firefox
-    - jq
-    - libssl-dev
-    - libtool
-    - linux-tools-{{ kernel_release.stdout }}
-    - pandoc
-    - python-dev
-    - python-setuptools
-    - ripgrep
-    - tree
-    - universal-ctags
-    - xclip
+    update_cache: yes
 
 - name: Installing Snap Packages
   become: yes
   snap:
-    name: "{{ item }}"
+    name: bitwarden
     state: present
-  loop:
-    - bitwarden
 
 - name: Check watchman installation
   shell: which watchman

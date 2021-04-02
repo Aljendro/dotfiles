@@ -1,20 +1,14 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - curl
+      - rlwrap
+      - openjdk-11-jdk
+      - leiningen
     state: present
-  loop:
-    - curl
-    - rlwrap
-    - openjdk-11-jdk
-    - leiningen
+    update_cache: yes
 
 - name: Downloading Clojure Cli
   get_url:
@@ -37,5 +31,5 @@
   git:
     repo: git@github.com:Aljendro/clojure-deps-edn.git
     dest: ~/.clojure/
-    depth: 1
+    depth: "1"
 

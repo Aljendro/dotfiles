@@ -1,15 +1,10 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - openjdk-11-jdk
+      - openjdk-8-jdk
     state: present
-  loop:
-    - openjdk-11-jdk
-    - openjdk-8-jdk
+    update_cache: yes
+

@@ -1,18 +1,12 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - curl
+      - neovim
     state: present
-  loop:
-    - curl
-    - neovim
+    update_cache: yes
 
 - name: Install Vim-Plug package manager
   command:

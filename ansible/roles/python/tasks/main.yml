@@ -1,18 +1,12 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - python3
+      - python3-pip
     state: present
-  loop:
-    - python3
-    - python3-pip
+    update_cache: yes
 
 - name: Install pip packages
   pip:

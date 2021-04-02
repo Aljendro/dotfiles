@@ -1,20 +1,18 @@
 ---
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name: 
+      - curl
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
     state: present
-  loop:
-    - curl
-    - apt-transport-https
-    - ca-certificates
-    - gnupg
+    update_cache: yes
+
+- name: Adding Google Cloud SDK to List
+  become: yes
+  shell: echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list
 
 - name: Downloading Google Cloud Public Key
   get_url:
@@ -25,19 +23,11 @@
   become: yes
   command: apt-key --keyring /usr/share/keyrings/cloud.google.gpg add {{ gcp_pubkey_location }}
 
-- name: Adding Google Cloud SDK to List
-  become: yes
-  shell: echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list
-
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
 
 - name: Installing Google SDK
   become: yes
   apt:
     name: google-cloud-sdk
     state: present
+    update_cache: yes
 
