@@ -284,6 +284,13 @@ map <leader><C-j> <Plug>(easymotion-bd-jk)
 map <leader>k <Plug>(easymotion-bd-w)
 map <leader><C-k> <Plug>(easymotion-bd-e)
 
+augroup customEasyMotion
+  autocmd!
+  " Disable CoC when easymotion is active
+  autocmd User EasyMotionPromptBegin silent! CocDisable
+  autocmd User EasyMotionPromptEnd silent! CocEnable
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
 """""""""""""""""""""""""""""""""""""""""""""""""

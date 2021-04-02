@@ -173,9 +173,6 @@ augroup customVim
       autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
       " Add line numbers
       autocmd BufEnter * set number
-      " Toggle relative line number mode when inserting
-      autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-      autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
       " Enter insert mode for terminal upon entering
       autocmd TermOpen * startinsert
       " Easier exiting
