@@ -13,14 +13,15 @@ then
 fi
 # Change extension names to the extensions you need
 npm install \
+  coc-cfn-lint \
   coc-clangd \
   coc-conjure \
   coc-css \
   coc-eslint \
   coc-html \
   coc-json \
-  coc-python \
   coc-prettier \
+  coc-python \
   coc-rls \
   coc-snippets \
   coc-tsserver \

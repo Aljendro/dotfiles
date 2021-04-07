@@ -11,5 +11,6 @@
 - name: Install pip packages
   pip:
     name:
-      - pynvim==0.4.2
+      - pynvim==0.4.3
+      - cfn-lint
       - jedi
