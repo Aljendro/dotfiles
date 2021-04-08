@@ -10,34 +10,36 @@ filetype plugin indent on
 syntax enable
 
 set autowrite
-set clipboard=unnamed,unnamedplus " Yank to the system clipboard and selection clipboard
-set cursorline                    " Highlights the current line
-set display=truncate              " Show @@@ in the last line if it is truncated.
-set expandtab                     " Convert tab to spaces
+set clipboard=unnamed,unnamedplus                     " Yank to the system clipboard and selection clipboard
+set cursorline                                        " Highlights the current line
+set display=truncate                                  " Show @@@ in the last line if it is truncated.
+set expandtab                                         " Convert tab to spaces
 set fileencoding=utf-8
-set hidden                        " Buffer becomes hidden when it is abandoned
-set ignorecase                    " Ignore case when searching
-set mouse=a                       " Allows mouse click on vim
-set nobackup                      " Some servers have issues with backup files (see #649 Coc.nvim)
-set nolangremap                   " Do not remap characters
-set noshowmode                    " Don't show the -- Insert -- anymore
-set nowrap                        " Do not wrap lines
-set nowritebackup                 " Do not make backup when overwriting a file
-set nrformats-=octal              " Do not recognize octal numbers for Ctrl-A and Ctrl-X
-set number                        " Turn on line numbers
-set ruler                         " Show the cursor position all the time
-set scrolloff=1                   " Keep context around cursor
-set shortmess+=c                  " Don't pass messages to |ins-completion-menu|.
-set signcolumn=yes                " Always show the signcolumn, otherwise it would shift the text each time
-set smartcase                     " If search contains uppercase characters, disobey ignorecase
-set smartindent                   " Indents when creating a newline
-set splitbelow                    " Open a window below the current window
-set splitright                    " Open a window right of the current window
-set termguicolors                 " Enables 24-bit RGB color in the TUI
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case " Use Rg when using :grep                                                 "
+set hidden                                            " Buffer becomes hidden when it is abandoned
+set ignorecase                                        " Ignore case when searching
+set mouse=a                                           " Allows mouse click on vim
+set nobackup                                          " Some servers have issues with backup files (see #649 Coc.nvim)
+set nolangremap                                       " Do not remap characters
+set noshowmode                                        " Don't show the -- Insert -- anymore
+set nowrap                                            " Do not wrap lines
+set nowritebackup                                     " Do not make backup when overwriting a file
+set nrformats-=octal                                  " Do not recognize octal numbers for Ctrl-A and Ctrl-X
+set number                                            " Turn on line numbers
+set ruler                                             " Show the cursor position all the time
+set scrolloff=1                                       " Keep context around cursor
+set shortmess+=c                                      " Don't pass messages to |ins-completion-menu|.
+set signcolumn=yes                                    " Always show the signcolumn, otherwise it would shift the text each time
+set smartcase                                         " If search contains uppercase characters, disobey ignorecase
+set smartindent                                       " Indents when creating a newline
+set splitbelow                                        " Open a window below the current window
+set splitright                                        " Open a window right of the current window
 set t_Co=256
-set updatetime=100                " Faster CursorHold refresh to highlight matching vars
-set virtualedit=block,onemore     " Allow putting cursor on non-characters past the end of the line
-set wildmenu                      " Display completion matches in a status line
+set termguicolors                                     " Enables 24-bit RGB color in the TUI
+set updatetime=100                                    " Faster CursorHold refresh to highlight matching vars
+set virtualedit=block,onemore                         " Allow putting cursor on non-characters past the end of the line
+set wildmenu                                          " Display completion matches in a status line
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Keybindings

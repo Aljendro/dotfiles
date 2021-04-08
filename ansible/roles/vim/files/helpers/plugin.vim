@@ -76,10 +76,10 @@ let g:lightline = {
 "" NERDTree (File Tree Viewer Plugin)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>dd :<C-U>NERDTreeToggle<cr>
-nnoremap <leader>df :<C-U>NERDTreeFind<cr>
+nnoremap <leader>dd :<C-U>NERDTreeFind<cr>
+nnoremap <leader>dt :<C-U>NERDTreeToggle<cr>
 
-let NERDTreeShowLineNumbers  = 1
+let NERDTreeShowLineNumbers  = 0
 let NERDTreeMouseMode        = 3
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeShowHidden       = 1
@@ -169,9 +169,9 @@ let g:rg_command = 'rg --vimgrep -S'
 let g:rg_highlight = v:true
 
 " Search for word under cursor in project
-nnoremap <leader>/w :Rg <C-R>=expand("<cword>")<cr><cr>
+nnoremap <leader>/w :<C-U>silent grep! <C-R>=expand("<cword>")<cr><cr>:copen<cr>
 " Search for highlighted word in project
-vnoremap <leader>/w y:<C-U>Rg <C-R>=escape(@",'/\')<cr><cr>
+vnoremap <leader>/w y:<C-U>silent grep! -F -- <C-R>=shellescape(getreg("*"))<cr><cr>:copen<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" FZF
@@ -183,7 +183,7 @@ let g:fzf_command_prefix = 'F'
 " (using with_preview 'options' parameter)
 command! -bang -nargs=* FARg
       \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+      \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
 nnoremap <leader>sf  :<C-U>FFiles<cr>
