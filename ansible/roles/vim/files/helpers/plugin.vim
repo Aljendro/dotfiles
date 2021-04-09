@@ -280,9 +280,9 @@ let g:EasyMotion_smartcase        = 1
 let g:EasyMotion_use_smartsign_us = 1
 
 map <leader>j <Plug>(easymotion-bd-f)
-map <leader><C-j> <Plug>(easymotion-bd-jk)
 map <leader>k <Plug>(easymotion-bd-w)
 map <leader><C-k> <Plug>(easymotion-bd-e)
+map <leader>; <Plug>(easymotion-bd-jk)
 
 augroup customEasyMotion
   autocmd!

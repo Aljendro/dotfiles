@@ -27,6 +27,7 @@ set nowrap                                            " Do not wrap lines
 set nowritebackup                                     " Do not make backup when overwriting a file
 set nrformats-=octal                                  " Do not recognize octal numbers for Ctrl-A and Ctrl-X
 set number                                            " Turn on line numbers
+set relativenumber                                    " Relative numbers for quick range commands
 set ruler                                             " Show the cursor position all the time
 set scrolloff=1                                       " Keep context around cursor
 set shortmess+=c                                      " Don't pass messages to |ins-completion-menu|.
@@ -98,6 +99,9 @@ vnoremap > >gv
 vmap [v [egvv
 vmap ]v ]egvv
 
+" Use the . to execute once for each line of a visual selection
+vnoremap . :normal .<cr>
+
 " Quick Session
 nnoremap <expr> <localleader>s ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
@@ -126,11 +130,16 @@ vmap <leader>rw *cgn
 nmap <leader>rw g*cgn
 
 " Easier macro execution
-nnoremap <expr> <leader>m '@' . nr2char(getchar())
+nnoremap <expr> <leader>mm 'q' . nr2char(getchar())
+nnoremap <expr> <leader>me '@' . nr2char(getchar())
+vnoremap <expr> <leader>me ':norm! @' . nr2char(getchar()) . '<cr>'
 
 " Selections
 " Whole Buffer
 nnoremap <leader>va ggVG
+
+" Get all file info as default
+nnoremap <C-g> 4<C-g>
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
@@ -173,8 +182,6 @@ augroup customVim
       autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc,$DOTFILES_DIR/ansible/roles/vim/files/*.vim nested source $MYVIMRC
       " Delete trailing spaces
       autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
-      " Add line numbers
-      autocmd BufEnter * set number
       " Enter insert mode for terminal upon entering
       autocmd TermOpen * startinsert
       " Easier exiting
