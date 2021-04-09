@@ -130,9 +130,11 @@ vmap <leader>rw *cgn
 nmap <leader>rw g*cgn
 
 " Easier macro execution
-nnoremap <expr> <leader>mm 'q' . nr2char(getchar())
+nnoremap <silent> <leader>mm :call RecordMacro()<cr>
 nnoremap <expr> <leader>me '@' . nr2char(getchar())
+nnoremap <leader>mr @@
 vnoremap <expr> <leader>me ':norm! @' . nr2char(getchar()) . '<cr>'
+vnoremap <leader>mr :norm! @@<cr>
 
 " Selections
 " Whole Buffer

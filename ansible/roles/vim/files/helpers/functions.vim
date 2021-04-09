@@ -75,3 +75,9 @@ function! GetFilePathFromGitRoot(filename)
   let final_str = substitute(a:filename, git_path, '', '')
   return final_str
 endfunction
+
+function! RecordMacro()
+  let register = nr2char(getchar())
+  " Clear out the register and start recording
+  exec "normal! q" . register . "q". "q" . register
+endfunction
