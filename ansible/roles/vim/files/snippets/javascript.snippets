@@ -36,6 +36,12 @@ for (const item of $1) {
 }
 endsnippet
 
+snippet fora "For await statement (highlighted in for block)"
+for await (const item of $1) {
+  ${VISUAL}$2
+}
+endsnippet
+
 snippet if "If statement (highlighted in if block)"
 if ($1) {
   ${VISUAL}$2
@@ -58,13 +64,13 @@ if ($1) {
 }
 endsnippet
 
-snippet fna "Async Lambda Function"
+snippet fna "Async Lambda Function" i
 async ($1) => {
   ${VISUAL}$2
 }
 endsnippet
 
-snippet fn "Lambda Function"
+snippet fn "Lambda Function" i
 ($1) => {
   ${VISUAL}$2
 }
@@ -93,11 +99,11 @@ it('$1', () => {
 });
 endsnippet
 
-snippet clg "Console log"
+snippet clg "Console log" i
 console.log(${VISUAL}$1);
 endsnippet
 
-snippet cle "Console error"
+snippet cle "Console error" i
 console.error(${VISUAL}$1);
 endsnippet
 
@@ -107,7 +113,7 @@ snippet bc "Block comment"
 /////////////////////////////////////////////////////
 endsnippet
 
-snippet JS "JSON stringify"
+snippet JS "JSON stringify" i
 JSON.stringify(${VISUAL}$1, null, 2)
 endsnippet
 

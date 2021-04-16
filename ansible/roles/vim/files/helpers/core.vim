@@ -152,7 +152,7 @@ nnoremap <Right> zL
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Create a new tab at the end
-nnoremap <leader>tn :<C-U>tabnew<cr>:<C-U>tabmove<cr>
+nnoremap <leader>tn :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :<C-U>tabclose<cr>
 " Go to last visited tab
