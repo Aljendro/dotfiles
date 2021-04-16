@@ -2,7 +2,7 @@
 
 ## Summary
 
-The intention of these dotfiles is to make the configuration of my machine/vm 
+The intention of these dotfiles is to make the configuration of my machine/vm
 an easy endeavor for development purposes; we want the least amount of manual
 intervention as possible.
 
@@ -18,7 +18,7 @@ intervention as possible.
 Assuming this is a new system, install [Git](https://git-scm.com/)
 and clone this repository.
 
-This script will setup your machine/vm. 
+This script will setup your machine/vm.
 
 ```
 ./install all
@@ -83,6 +83,7 @@ each other.
 
 Where tag can come from:
 
+* all (everything below)
 * aws
 * chrome
 * clojure
