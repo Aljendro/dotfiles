@@ -213,10 +213,10 @@ augroup END
 "" Coc (LSP Client)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
+" Make <cr> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
 
 " Use C to open coc config
 call SetupCommandAbbrs('C', 'CocConfig')
@@ -259,7 +259,7 @@ nnoremap <silent><nowait> <leader>llo  :<C-U>CocList outline<cr>
 nnoremap <silent><nowait> <leader>lls  :<C-U>CocList -I symbols<cr>
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<cr>
 
 augroup customLSP
   autocmd!
@@ -296,19 +296,19 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Prompt for a command to run
-map <Leader>vp :<C-U>VimuxPromptCommand<CR>
+map <Leader>vp :<C-U>VimuxPromptCommand<cr>
 " Run last command executed by VimuxRunCommand
-map <Leader>vl :<C-U>VimuxRunLastCommand<CR>
+map <Leader>vl :<C-U>VimuxRunLastCommand<cr>
 " Inspect runner pane
-map <Leader>vi :<C-U>VimuxInspectRunner<CR>
+map <Leader>vi :<C-U>VimuxInspectRunner<cr>
 " Close vim tmux runner opened by VimuxRunCommand
-map <Leader>vq :<C-U>VimuxCloseRunner<CR>
+map <Leader>vq :<C-U>VimuxCloseRunner<cr>
 " Interrupt any command running in the runner pane
-map <Leader>vx :<C-U>VimuxInterruptRunner<CR>
+map <Leader>vx :<C-U>VimuxInterruptRunner<cr>
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
-map <Leader>vz :<C-U>call VimuxZoomRunner()<CR>
+map <Leader>vz :<C-U>call VimuxZoomRunner()<cr>
 " Clear the tmux history of the runner pane
-map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<CR>
+map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Closetag

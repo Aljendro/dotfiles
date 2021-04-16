@@ -8,17 +8,17 @@
 
 - name: Install nvm
   shell: >
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
 - name: Install Nodejs version
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 12.13.0
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 14.16.1
   args:
     executable: /bin/bash
 
 - name: Use Nodejs version
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm alias default 12.13.0
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm alias default 14.16.1
   args:
     executable: /bin/bash
 
