@@ -21,7 +21,6 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case " Use Rg when using :grep 
 set hidden                                            " Buffer becomes hidden when it is abandoned
 set ignorecase                                        " Ignore case when searching
 set inccommand=nosplit                                " Show preview of changes
-set lazyredraw                                        " Do not repaint in the middle of a macro execution
 set mouse=a                                           " Allows mouse click on vim
 set nolangremap                                       " Do not remap characters
 set noshowmode                                        " Don't show the -- Insert -- anymore
@@ -108,6 +107,7 @@ vnoremap . :normal .<cr>
 " Quick Session
 nnoremap <expr> <localleader>s ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <localleader>sd :<C-U>wall \| call LoadSession('default')<cr>
 
 " Paste at mark
 nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
@@ -169,7 +169,9 @@ nnoremap <expr> <leader>O 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Default Prettify Indententation
-nnoremap <leader>f gg=G''
+nnoremap <leader>ff gg=G''
+" Fast column formatting
+vnoremap <leader>ft :<C-U>'<,'>Tab /
 
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
@@ -193,5 +195,7 @@ augroup customVim
       autocmd TermOpen * startinsert
       " Easier exiting
       autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+      " Create a default session when vim leaves
+      autocmd VimLeave * :call MakeSession()
 augroup END
 
