@@ -9,6 +9,7 @@
 filetype plugin indent on
 syntax enable
 
+set nowrapscan                                        " Once search hits the bottom, do not go to the top
 set autowrite
 set clipboard=unnamed,unnamedplus                     " Yank to the system clipboard and selection clipboard
 set cursorline                                        " Highlights the current line
@@ -19,8 +20,9 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case " Use Rg when using :grep                                                 "
 set hidden                                            " Buffer becomes hidden when it is abandoned
 set ignorecase                                        " Ignore case when searching
+set inccommand=nosplit                                " Show preview of changes
+set lazyredraw                                        " Do not repaint in the middle of a macro execution
 set mouse=a                                           " Allows mouse click on vim
-set nobackup                                          " Some servers have issues with backup files (see #649 Coc.nvim)
 set nolangremap                                       " Do not remap characters
 set noshowmode                                        " Don't show the -- Insert -- anymore
 set nowrap                                            " Do not wrap lines
@@ -29,7 +31,7 @@ set nrformats-=octal                                  " Do not recognize octal n
 set number                                            " Turn on line numbers
 set relativenumber                                    " Relative numbers for quick range commands
 set ruler                                             " Show the cursor position all the time
-set scrolloff=1                                       " Keep context around cursor
+set scrolloff=2                                       " Keep context around cursor
 set shortmess+=c                                      " Don't pass messages to |ins-completion-menu|.
 set signcolumn=yes                                    " Always show the signcolumn, otherwise it would shift the text each time
 set smartcase                                         " If search contains uppercase characters, disobey ignorecase
@@ -38,6 +40,7 @@ set splitbelow                                        " Open a window below the 
 set splitright                                        " Open a window right of the current window
 set t_Co=256
 set termguicolors                                     " Enables 24-bit RGB color in the TUI
+set undofile                                          " Saves an undo file, undo/redo even after closing a files
 set updatetime=100                                    " Faster CursorHold refresh to highlight matching vars
 set virtualedit=block,onemore                         " Allow putting cursor on non-characters past the end of the line
 set wildmenu                                          " Display completion matches in a status line
@@ -132,9 +135,9 @@ nmap <leader>rw g*cgn
 " Easier macro execution
 nnoremap <silent> <leader>mm :call RecordMacro()<cr>
 nnoremap <expr> <leader>me '@' . nr2char(getchar())
-nnoremap <leader>mr @@
 vnoremap <expr> <leader>me ':norm! @' . nr2char(getchar()) . '<cr>'
-vnoremap <leader>mr :norm! @@<cr>
+nnoremap Q @@
+vnoremap Q :norm! @@<cr>
 
 " Selections
 " Whole Buffer
@@ -144,15 +147,17 @@ nnoremap <leader>va ggVG
 nnoremap <C-g> 4<C-g>
 
 " Faster shifting
-nnoremap <Down> 5<C-e>
-nnoremap <Up> 5<C-y>
+nnoremap <Down> 10<C-e>
+nnoremap <Up> 10<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Create a new tab at the end
-nnoremap <leader>tn :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
+nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
+" Create a new scratch buffer tab at the end
+nnoremap <leader>ts :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :<C-U>tabclose<cr>
 " Go to last visited tab
@@ -164,7 +169,7 @@ nnoremap <expr> <leader>O 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Default Prettify Indententation
-nnoremap <localleader>f gg=G''
+nnoremap <leader>f gg=G''
 
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
