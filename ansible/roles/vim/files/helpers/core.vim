@@ -173,6 +173,9 @@ nnoremap <leader>ff gg=G''
 " Fast column formatting
 vnoremap <leader>ft :<C-U>'<,'>Tab /
 
+" Insert moving everything to the right down a line
+nnoremap <M-i> mii<cr><esc>`ii
+
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
 
