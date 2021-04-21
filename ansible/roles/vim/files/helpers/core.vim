@@ -9,13 +9,13 @@
 filetype plugin indent on
 syntax enable
 
-set nowrapscan                                        " Once search hits the bottom, do not go to the top
 set autowrite
 set clipboard=unnamed,unnamedplus                     " Yank to the system clipboard and selection clipboard
 set cursorline                                        " Highlights the current line
 set display=truncate                                  " Show @@@ in the last line if it is truncated.
 set expandtab                                         " Convert tab to spaces
 set fileencoding=utf-8
+set foldcolumn=1
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case " Use Rg when using :grep                                                 "
 set hidden                                            " Buffer becomes hidden when it is abandoned
@@ -25,6 +25,7 @@ set mouse=a                                           " Allows mouse click on vi
 set nolangremap                                       " Do not remap characters
 set noshowmode                                        " Don't show the -- Insert -- anymore
 set nowrap                                            " Do not wrap lines
+set nowrapscan                                        " Once search hits the bottom, do not go to the top
 set nowritebackup                                     " Do not make backup when overwriting a file
 set nrformats-=octal                                  " Do not recognize octal numbers for Ctrl-A and Ctrl-X
 set number                                            " Turn on line numbers
@@ -66,8 +67,8 @@ nnoremap <C-f> <C-w><C-l>
 nnoremap <C-s> <C-w><C-h>
 
 " Move between tabs easily
-noremap <C-h> :<C-U>tabprevious<cr>
-noremap <C-l> :<C-U>tabnext<cr>
+noremap <C-h> gT
+noremap <C-l> gt
 
 " Move between quickfix items easily
 nnoremap <M-h> :<C-U>cprevious<cr>
@@ -173,6 +174,20 @@ nnoremap <leader>ff gg=G''
 " Fast column formatting
 vnoremap <leader>ft :<C-U>'<,'>Tab /
 
+" Easier folds
+nnoremap <leader>ft za
+nnoremap <leader>fT zA
+nnoremap <leader>fj zr
+nnoremap <leader>fJ zR
+nnoremap <leader>fk zm
+nnoremap <leader>fK zM
+nnoremap <leader>fo zo
+nnoremap <leader>fO zO
+nnoremap <leader>fc zc
+nnoremap <leader>fC zC
+nnoremap <leader>fe zMzO
+nnoremap <leader>fE zRzC
+
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
 
@@ -200,5 +215,7 @@ augroup customVim
       autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
+      " Keep all folds open
+      autocmd Syntax * setlocal foldmethod=syntax
 augroup END
 
