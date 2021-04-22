@@ -106,7 +106,7 @@ vmap ]v ]egvv
 vnoremap . :normal .<cr>
 
 " Quick Session
-nnoremap <expr> <localleader>s ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <localleader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <localleader>sd :<C-U>wall \| call LoadSession('default')<cr>
 

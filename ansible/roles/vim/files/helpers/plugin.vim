@@ -186,23 +186,23 @@ command! -bang -nargs=* FARg
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
-nnoremap <leader>sf  :<C-U>FFiles<cr>
-nnoremap <leader>sw  :<C-U>FWindows<cr>
-nnoremap <leader>sgg :<C-U>FGFiles<cr>
-nnoremap <leader>sgm :<C-U>FGFiles?<cr>
-nnoremap <leader>sc  :<C-U>FCommits<cr>
-nnoremap <leader>sr  :<C-U>FRg<cr>
-nnoremap <leader>sa  :<C-U>FARg<cr>
-nnoremap <leader>s:  :<C-U>FHistory:<cr>
-vnoremap <leader>s:  :<C-U>FHistory:<cr>
-nnoremap <leader>sb  :<C-U>FBLines<cr>
-nnoremap <leader>sl  :<C-U>FLines<cr>
-nnoremap <leader>s/  :<C-U>FHistory/<cr>
-vnoremap <leader>s/  :<C-U>FHistory/<cr>
-nnoremap <leader>sm  :<C-U>FMarks<cr>
-nnoremap <leader>stt :<C-U>FTags<cr>
-nnoremap <leader>stb :<C-U>FBTags<cr>
-nnoremap <leader>so  :<C-U>FBuffers<cr>
+nnoremap <leader>sf     :<C-U>FFiles<cr>
+nnoremap <leader>sw     :<C-U>FWindows<cr>
+nnoremap <leader>sgg    :<C-U>FGFiles<cr>
+nnoremap <leader>sgm    :<C-U>FGFiles?<cr>
+nnoremap <leader>sc     :<C-U>FCommits<cr>
+nnoremap <leader>sa     :<C-U>FRg<cr>
+nnoremap <leader>s<C-A> :<C-U>FARg<cr>
+nnoremap <leader>s:     :<C-U>FHistory:<cr>
+vnoremap <leader>s:     :<C-U>FHistory:<cr>
+nnoremap <leader>sb     :<C-U>FBLines<cr>
+nnoremap <leader>sl     :<C-U>FLines<cr>
+nnoremap <leader>s/     :<C-U>FHistory/<cr>
+vnoremap <leader>s/     :<C-U>FHistory/<cr>
+nnoremap <leader>sm     :<C-U>FMarks<cr>
+nnoremap <leader>stt    :<C-U>FTags<cr>
+nnoremap <leader>stb    :<C-U>FBTags<cr>
+nnoremap <leader>so     :<C-U>FBuffers<cr>
 
 augroup customFZF
   autocmd!
