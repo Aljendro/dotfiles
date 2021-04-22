@@ -155,6 +155,8 @@ nnoremap <Right> zL
 
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
+" Move file to new tab
+nnoremap <leader>tT <C-w>T
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
 " Create a new scratch buffer tab at the end
@@ -172,7 +174,7 @@ nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 " Default Prettify Indententation
 nnoremap <leader>ff gg=G''
 " Fast column formatting
-vnoremap <leader>ft :<C-U>'<,'>Tab /
+vnoremap <leader>ff :<C-U>'<,'>Tab /
 
 " Easier folds
 nnoremap <leader>ft za
@@ -182,11 +184,15 @@ nnoremap <leader>fJ zR
 nnoremap <leader>fk zm
 nnoremap <leader>fK zM
 nnoremap <leader>fo zo
+vnoremap <leader>fo zo
 nnoremap <leader>fO zO
+vnoremap <leader>fO zO
 nnoremap <leader>fc zc
+vnoremap <leader>fc zc
 nnoremap <leader>fC zC
-nnoremap <leader>fe zMzO
-nnoremap <leader>fE zRzC
+vnoremap <leader>fC zC
+nnoremap <leader>fe mazMzv`azczO
+nnoremap <leader>fE zRzCz<cr>
 
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
@@ -215,7 +221,5 @@ augroup customVim
       autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
-      " Keep all folds open
-      autocmd Syntax * setlocal foldmethod=syntax
 augroup END
 
