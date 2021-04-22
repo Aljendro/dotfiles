@@ -12,13 +12,27 @@
 
 - name: Downloading Clojure Cli
   get_url:
-    url: https://download.clojure.org/install/linux-install-1.10.1.727.sh
+    url: https://download.clojure.org/install/linux-install-1.10.3.822.sh
     dest: /tmp/clojure_installer
     mode: '0700'
+    checksum: sha256:e6e27030eabab54f085befef6e4c455d05ec2064718267c087d5fed9d266b438
 
 - name: Install Clojure Cli
   become: yes
   command: ./clojure_installer
+  args:
+    chdir: /tmp
+
+- name: Downloading Clojure LSP
+  get_url:
+    url: https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install-latest-clojure-lsp.sh
+    dest: /tmp/clojure_lsp_installer
+    mode: '0700'
+    checksum: sha256:88e7cc74c92ac3cb94ca685c4f8269886ea2bb8b330544f3507664e2af030e6c
+
+- name: Install Clojure LSP
+  become: yes
+  command: ./clojure_lsp_installer
   args:
     chdir: /tmp
 
