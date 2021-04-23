@@ -1,0 +1,21 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: tmux_wait search_text target_pane search_lines_num sleep_for"
+}
+
+display_summary() {
+    echo -e "Waits until tmux target_pane contains search_text in the past search_lines_num line history"
+}
+
+if [ $# -eq 4 ]; then
+    echo "Waiting for tmux pane $2 to contain $1"
+    while :; do
+        tmux capture-pane -pJ -S-$3 -t $2 | grep $1 2>&1 > /dev/null && break
+        sleep $4
+        echo "Waiting..."
+    done
+else
+    display_summary
+    display_usage
+fi
