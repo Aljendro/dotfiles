@@ -156,7 +156,7 @@ nnoremap <Right> zL
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Move file to new tab
-nnoremap <leader>tT <C-w>T
+nnoremap <leader>t<M-t> <C-w>T
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
 " Create a new scratch buffer tab at the end
@@ -168,7 +168,7 @@ let g:lastTab = 1
 nnoremap <leader>tl :<C-U>exec "tabn " . g:lastTab<cr>
 
 " Open line directly above/below cursor
-nnoremap <expr> <leader>O 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
+nnoremap <expr> <leader><M-o> 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Default Prettify Indententation
@@ -177,22 +177,22 @@ nnoremap <leader>ff gg=G''
 vnoremap <leader>ff :<C-U>'<,'>Tab /
 
 " Easier folds
-nnoremap <leader>ft za
-nnoremap <leader>fT zA
-nnoremap <leader>fj zr
-nnoremap <leader>fJ zR
-nnoremap <leader>fk zm
-nnoremap <leader>fK zM
-nnoremap <leader>fo zo
-vnoremap <leader>fo zo
-nnoremap <leader>fO zO
-vnoremap <leader>fO zO
-nnoremap <leader>fc zc
-vnoremap <leader>fc zc
-nnoremap <leader>fC zC
-vnoremap <leader>fC zC
-nnoremap <leader>fe mazMzv`azczO
-nnoremap <leader>fE zRzCz<cr>
+nnoremap <leader>ft     za
+nnoremap <leader>f<M-t> zA
+nnoremap <leader>fj     zr
+nnoremap <leader>f<M-j> zR
+nnoremap <leader>fk     zm
+nnoremap <leader>f<M-k> zM
+nnoremap <leader>fo     zo
+vnoremap <leader>fo     zo
+nnoremap <leader>f<M-o> zO
+vnoremap <leader>f<M-o> zO
+nnoremap <leader>fc     zc
+vnoremap <leader>fc     zc
+nnoremap <leader>f<M-c> zC
+vnoremap <leader>f<M-c> zC
+nnoremap <leader>fe     mazMzv`azczO
+nnoremap <leader>f<M-e> zRzCz<cr>
 
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii

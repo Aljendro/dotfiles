@@ -192,7 +192,7 @@ nnoremap <leader>sgg    :<C-U>FGFiles<cr>
 nnoremap <leader>sgm    :<C-U>FGFiles?<cr>
 nnoremap <leader>sc     :<C-U>FCommits<cr>
 nnoremap <leader>sa     :<C-U>FRg<cr>
-nnoremap <leader>s<C-A> :<C-U>FARg<cr>
+nnoremap <leader>s<M-a> :<C-U>FARg<cr>
 nnoremap <leader>s:     :<C-U>FHistory:<cr>
 vnoremap <leader>s:     :<C-U>FHistory:<cr>
 nnoremap <leader>sb     :<C-U>FBLines<cr>
@@ -237,11 +237,11 @@ nmap ]g <Plug>(coc-diagnostic-next)
 nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
-nmap <leader>ld <Plug>(coc-definition)
-nmap <leader>lt <Plug>(coc-type-definition)
-nmap <leader>li <Plug>(coc-implementation)
-nmap <leader>lr <Plug>(coc-references)
-nmap <leader>lR <Plug>(coc-rename)
+nmap <leader>ld     <Plug>(coc-definition)
+nmap <leader>lt     <Plug>(coc-type-definition)
+nmap <leader>li     <Plug>(coc-implementation)
+nmap <leader>lr     <Plug>(coc-references)
+nmap <leader>l<M-r> <Plug>(coc-rename)
 
 " Mappings using CoCList
 
