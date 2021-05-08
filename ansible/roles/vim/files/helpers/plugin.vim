@@ -32,12 +32,10 @@ let g:gutentags_ctags_exclude = [
 let g:smoothie_no_default_mappings = v:true
 
 " Move in windows easily
-nmap <C-j> <Plug>(SmoothieDownwards)
-nmap <C-k> <Plug>(SmoothieUpwards)
-nmap <M-j> <Plug>(SmoothieForwards)
-nmap <M-k> <Plug>(SmoothieBackwards)
-vmap <M-j> <Plug>(SmoothieForwards)
-vmap <M-k> <Plug>(SmoothieBackwards)
+nmap <M-j> <Plug>(SmoothieDownwards)
+vmap <M-j> <Plug>(SmoothieDownwards)
+nmap <M-k> <Plug>(SmoothieUpwards)
+vmap <M-k> <Plug>(SmoothieUpwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
@@ -278,6 +276,7 @@ augroup END
 let g:EasyMotion_do_mapping       = 0
 let g:EasyMotion_smartcase        = 1
 let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_startofline      = 0
 
 map <leader>j <Plug>(easymotion-bd-f)
 map <leader>k <Plug>(easymotion-bd-w)

@@ -88,6 +88,14 @@ snippet me "Module exports"
 module.exports.$1 = $2
 endsnippet
 
+snippet pe "Extract environment variables"
+const { $1 } = process.env;
+endsnippet
+
+snippet epe "Expand process.env" i
+process.env.$1;
+endsnippet
+
 snippet td "Jest Describe"
 describe('$1', () => {
   $2

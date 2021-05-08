@@ -177,22 +177,19 @@ nnoremap <leader>ff gg=G''
 vnoremap <leader>ff :<C-U>'<,'>Tab /
 
 " Easier folds
-nnoremap <leader>ft     za
-nnoremap <leader>f<M-t> zA
-nnoremap <leader>fj     zr
-nnoremap <leader>f<M-j> zR
-nnoremap <leader>fk     zm
-nnoremap <leader>f<M-k> zM
-nnoremap <leader>fo     zo
-vnoremap <leader>fo     zo
-nnoremap <leader>f<M-o> zO
-vnoremap <leader>f<M-o> zO
-nnoremap <leader>fc     zc
-vnoremap <leader>fc     zc
-nnoremap <leader>f<M-c> zC
-vnoremap <leader>f<M-c> zC
-nnoremap <leader>fe     mazMzv`azczO
-nnoremap <leader>f<M-e> zRzCz<cr>
+nnoremap <leader>fj  zr
+nnoremap <leader>fk  zm
+nnoremap <leader>fh  zM
+nnoremap <leader>fl  zR
+nnoremap <leader>fo  zo
+vnoremap <leader>fo  zo
+nnoremap <leader>fao zO
+vnoremap <leader>fao zO
+nnoremap <leader>fc  zc
+vnoremap <leader>fc  zc
+nnoremap <leader>fac zC
+vnoremap <leader>fac zC
+nnoremap <leader>fe  mazMzv`azczO
 
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
