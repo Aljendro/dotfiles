@@ -92,9 +92,9 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeShowHidden       = 1
 let NERDTreeQuitOnOpen       = 0
 let NERDTreeMinimalUI        = 1
-let g:webdevicons_conceal_nerdtree_brackets = 0
-let g:NERDTreeDirArrowExpandable = ""
-let g:NERDTreeDirArrowCollapsible = ""
+
+let NERDTreeMapOpenVSplit = 'v'
+let NERDTreeMapPreviewVSplit = 'gv'
 
 augroup customNERDTree
   autocmd!
@@ -199,7 +199,7 @@ nnoremap <leader>sgg    :<C-U>FGFiles<cr>
 nnoremap <leader>sgm    :<C-U>FGFiles?<cr>
 nnoremap <leader>sc     :<C-U>FCommits<cr>
 nnoremap <leader>sa     :<C-U>FRg<cr>
-nnoremap <leader>s<M-a> :<C-U>FARg<cr>
+nnoremap <leader>s<C-a> :<C-U>FARg<cr>
 nnoremap <leader>s:     :<C-U>FHistory:<cr>
 vnoremap <leader>s:     :<C-U>FHistory:<cr>
 nnoremap <leader>sb     :<C-U>FBLines<cr>
@@ -279,25 +279,12 @@ augroup customLSP
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Easy Motion
+"" Sneak
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:EasyMotion_do_mapping       = 0
-let g:EasyMotion_smartcase        = 1
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_startofline      = 0
-
-map <leader>j <Plug>(easymotion-bd-f)
-map <leader>k <Plug>(easymotion-bd-w)
-map <leader><C-k> <Plug>(easymotion-bd-e)
-map <leader>; <Plug>(easymotion-bd-jk)
-
-augroup customEasyMotion
-  autocmd!
-  " Disable CoC when easymotion is active
-  autocmd User EasyMotionPromptBegin silent! CocDisable
-  autocmd User EasyMotionPromptEnd silent! CocEnable
-augroup END
+let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
+let g:sneak#target_labels = "fjdkslarueiwovmctyghbnqpzFJDKSLARUEIWOVMCTYGHBNQPZ"
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
