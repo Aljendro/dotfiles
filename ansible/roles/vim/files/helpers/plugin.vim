@@ -32,10 +32,10 @@ let g:gutentags_ctags_exclude = [
 let g:smoothie_no_default_mappings = v:true
 
 " Move in windows easily
-nmap <M-j> <Plug>(SmoothieDownwards)
-vmap <M-j> <Plug>(SmoothieDownwards)
-nmap <M-k> <Plug>(SmoothieUpwards)
-vmap <M-k> <Plug>(SmoothieUpwards)
+nmap <C-j> <Plug>(SmoothieDownwards)
+vmap <C-j> <Plug>(SmoothieDownwards)
+nmap <C-k> <Plug>(SmoothieUpwards)
+vmap <C-k> <Plug>(SmoothieUpwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
@@ -57,13 +57,22 @@ function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return winwidth(0) > 70 ? path[len(root)+1:] : fnamemodify(path[len(root)+1:], ':t')
+  endif
+  return winwidth(0) > 70 ? expand('%') : fnamemodify(expand('%'), ':t')
+endfunction
+
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \             [ 'readonly', 'filename', 'modified' ] ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'LightlineBranch',
+      \   'filename': 'LightlineFilename',
       \   'fileformat': 'LightlineFileformat',
       \   'filetype': 'LightlineFiletype',
       \   'fileencoding': 'LightlineFileencoding'

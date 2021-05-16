@@ -115,10 +115,10 @@ nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
 
 " Search for visually selected word in buffer
 vnoremap <silent> * :call setreg("/",
-                  \ substitute(GetSelectedText(),
-                  \ '\_s\+',
-                  \ '\\_s\\+', 'g')
-                  \ )<cr>:set hls<cr>
+            \ substitute(GetSelectedText(),
+            \ '\_s\+',
+            \ '\\_s\\+', 'g')
+            \ )<cr>:set hls<cr>
 
 nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
@@ -143,9 +143,6 @@ vnoremap Q :norm! @@<cr>
 " Selections
 " Whole Buffer
 nnoremap <leader>va ggVG
-
-" Get all file info as default
-nnoremap <C-g> 4<C-g>
 
 " Faster shifting
 nnoremap <Down> 10<C-e>
