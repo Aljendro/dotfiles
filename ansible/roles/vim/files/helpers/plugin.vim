@@ -228,7 +228,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Use C to open coc config
 call SetupCommandAbbrs('C', 'CocConfig')
 
-inoremap <silent><expr> <Tab>
+inoremap <silent> <expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ CheckBackSpace() ? "\<Tab>" :
       \ coc#refresh()
@@ -285,6 +285,16 @@ augroup END
 let g:sneak#label = 1
 let g:sneak#use_ic_scs = 1
 let g:sneak#target_labels = "fjdkslarueiwovmctyghbnqpzFJDKSLARUEIWOVMCTYGHBNQPZ"
+
+" 2-character Sneak (default)
+nmap <leader>j <Plug>Sneak_s
+nmap <leader>k <Plug>Sneak_S
+" visual-mode
+xmap <leader>j <Plug>Sneak_s
+xmap <leader>k <Plug>Sneak_S
+" operator-pending-mode
+omap <leader>j <Plug>Sneak_s
+omap <leader>k <Plug>Sneak_S
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
