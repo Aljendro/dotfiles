@@ -209,10 +209,6 @@ augroup customVim
       autocmd BufWritePost $DOTFILES_DIR/ansible/roles/vim/files/vimrc,$DOTFILES_DIR/ansible/roles/vim/files/*.vim nested source $MYVIMRC
       " Delete trailing spaces
       autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
-      " Enter insert mode for terminal upon entering
-      autocmd TermOpen * startinsert
-      " Easier exiting
-      autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
 augroup END

@@ -185,6 +185,7 @@ vnoremap <leader>/w y:<C-U>silent grep! -F -- <C-R>=shellescape(getreg("*"))<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:fzf_command_prefix = 'F'
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
@@ -193,28 +194,23 @@ command! -bang -nargs=* FARg
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
-nnoremap <leader>sf     :<C-U>FFiles<cr>
-nnoremap <leader>sw     :<C-U>FWindows<cr>
-nnoremap <leader>sgg    :<C-U>FGFiles<cr>
-nnoremap <leader>sgm    :<C-U>FGFiles?<cr>
-nnoremap <leader>sc     :<C-U>FCommits<cr>
-nnoremap <leader>sa     :<C-U>FRg<cr>
-nnoremap <leader>s<C-a> :<C-U>FARg<cr>
-nnoremap <leader>s:     :<C-U>FHistory:<cr>
-vnoremap <leader>s:     :<C-U>FHistory:<cr>
-nnoremap <leader>sb     :<C-U>FBLines<cr>
-nnoremap <leader>sl     :<C-U>FLines<cr>
-nnoremap <leader>s/     :<C-U>FHistory/<cr>
-vnoremap <leader>s/     :<C-U>FHistory/<cr>
-nnoremap <leader>sm     :<C-U>FMarks<cr>
-nnoremap <leader>stt    :<C-U>FTags<cr>
-nnoremap <leader>stb    :<C-U>FBTags<cr>
-nnoremap <leader>so     :<C-U>FBuffers<cr>
-
-augroup customFZF
-  autocmd!
-  autocmd FileType fzf tunmap <buffer> <Esc>
-augroup END
+nnoremap <leader>sf  :<C-U>FFiles<cr>
+nnoremap <leader>sw  :<C-U>FWindows<cr>
+nnoremap <leader>sgg :<C-U>FGFiles<cr>
+nnoremap <leader>sgm :<C-U>FGFiles?<cr>
+nnoremap <leader>sc  :<C-U>FCommits<cr>
+nnoremap <leader>sa  :<C-U>FRg<cr>
+nnoremap <leader>sA  :<C-U>FARg<cr>
+nnoremap <leader>s:  :<C-U>FHistory:<cr>
+vnoremap <leader>s:  :<C-U>FHistory:<cr>
+nnoremap <leader>sb  :<C-U>FBLines<cr>
+nnoremap <leader>sl  :<C-U>FLines<cr>
+nnoremap <leader>s/  :<C-U>FHistory/<cr>
+vnoremap <leader>s/  :<C-U>FHistory/<cr>
+nnoremap <leader>sm  :<C-U>FMarks<cr>
+nnoremap <leader>stt :<C-U>FTags<cr>
+nnoremap <leader>stb :<C-U>FBTags<cr>
+nnoremap <leader>so  :<C-U>FBuffers<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Coc (LSP Client)
@@ -244,11 +240,11 @@ nmap ]g <Plug>(coc-diagnostic-next)
 nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
-nmap <leader>ld     <Plug>(coc-definition)
-nmap <leader>lt     <Plug>(coc-type-definition)
-nmap <leader>li     <Plug>(coc-implementation)
-nmap <leader>lr     <Plug>(coc-references)
-nmap <leader>l<M-r> <Plug>(coc-rename)
+nmap <leader>ld <Plug>(coc-definition)
+nmap <leader>lt <Plug>(coc-type-definition)
+nmap <leader>li <Plug>(coc-implementation)
+nmap <leader>lr <Plug>(coc-references)
+nmap <leader>lR <Plug>(coc-rename)
 
 " Mappings using CoCList
 
