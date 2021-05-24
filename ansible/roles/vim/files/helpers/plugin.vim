@@ -185,7 +185,8 @@ vnoremap <leader>/w y:<C-U>silent grep! -F -- <C-R>=shellescape(getreg("*"))<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
@@ -196,21 +197,23 @@ command! -bang -nargs=* FARg
 
 nnoremap <leader>sf  :<C-U>FFiles<cr>
 nnoremap <leader>sw  :<C-U>FWindows<cr>
-nnoremap <leader>sgg :<C-U>FGFiles<cr>
-nnoremap <leader>sgm :<C-U>FGFiles?<cr>
-nnoremap <leader>sc  :<C-U>FCommits<cr>
+nnoremap <leader>sg  :<C-U>FGFiles?<cr>
+nnoremap <leader>sh  :<C-U>FCommits<cr>
+nnoremap <leader>sc  :<C-U>FBCommits<cr>
 nnoremap <leader>sa  :<C-U>FRg<cr>
 nnoremap <leader>sA  :<C-U>FARg<cr>
-nnoremap <leader>s:  :<C-U>FHistory:<cr>
-vnoremap <leader>s:  :<C-U>FHistory:<cr>
-nnoremap <leader>sb  :<C-U>FBLines<cr>
-nnoremap <leader>sl  :<C-U>FLines<cr>
 nnoremap <leader>s/  :<C-U>FHistory/<cr>
 vnoremap <leader>s/  :<C-U>FHistory/<cr>
+nnoremap <leader>s:  :<C-U>FHistory:<cr>
+vnoremap <leader>s:  :<C-U>FHistory:<cr>
+nnoremap <leader>ss  :<C-U>FBLines<cr>
+nnoremap <leader>sl  :<C-U>FLines<cr>
 nnoremap <leader>sm  :<C-U>FMarks<cr>
 nnoremap <leader>stt :<C-U>FTags<cr>
 nnoremap <leader>stb :<C-U>FBTags<cr>
 nnoremap <leader>so  :<C-U>FBuffers<cr>
+nnoremap <leader>su  :<C-U>FSnippets<cr>
+nnoremap <leader>sk  :<C-U>FMaps<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Coc (LSP Client)

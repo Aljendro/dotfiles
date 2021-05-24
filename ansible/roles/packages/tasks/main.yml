@@ -32,6 +32,9 @@
     name: bitwarden
     state: present
 
+- name: Install Delta from Cargo
+  command: cargo install git-delta
+
 - name: Check watchman installation
   shell: which watchman
   register: watchman_stat
