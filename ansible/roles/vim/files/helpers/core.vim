@@ -40,7 +40,6 @@ set splitbelow                                        " Open a window below the 
 set splitright                                        " Open a window right of the current window
 set t_Co=256
 set termguicolors                                     " Enables 24-bit RGB color in the TUI
-set undofile                                          " Saves an undo file, undo/redo even after closing a files
 set updatetime=100                                    " Faster CursorHold refresh to highlight matching vars
 set virtualedit=block,onemore                         " Allow putting cursor on non-characters past the end of the line
 set wildmenu                                          " Display completion matches in a status line
