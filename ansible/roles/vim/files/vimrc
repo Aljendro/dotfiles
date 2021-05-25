@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
+Plug 'antoinemadec/coc-fzf'
 Plug 'benmills/vimux'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'godlygeek/tabular'

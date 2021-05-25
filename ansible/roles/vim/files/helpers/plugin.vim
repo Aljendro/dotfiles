@@ -185,7 +185,7 @@ vnoremap <leader>/w y:<C-U>silent grep! -F -- <C-R>=shellescape(getreg("*"))<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.98 } }
 let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 
 " Do not search the file path with rip grep
@@ -244,6 +244,8 @@ nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
 nmap <leader>ld <Plug>(coc-definition)
+nmap <leader>ldv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
+nmap <leader>ldt :call CocActionAsync('jumpDefinition', 'tabe')<cr>
 nmap <leader>lt <Plug>(coc-type-definition)
 nmap <leader>li <Plug>(coc-implementation)
 nmap <leader>lr <Plug>(coc-references)
@@ -251,18 +253,20 @@ nmap <leader>lR <Plug>(coc-rename)
 
 " Mappings using CoCList
 
+nnoremap <silent><nowait> <localleader>ll  :<C-U>CocFzfList<cr>
 " Show all diagnostics.
-nnoremap <silent><nowait> <leader>lld  :<C-U>CocList diagnostics<cr>
+nnoremap <silent><nowait> <localleader>ldd  :<C-U>CocFzfList diagnostics<cr>
+nnoremap <silent><nowait> <localleader>ldb  :<C-U>CocFzfList diagnostics --current-buf<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <leader>lle  :<C-U>CocList extensions<cr>
+nnoremap <silent><nowait> <localleader>le  :<C-U>CocFzfList extensions<cr>
 " Resume latest coc list.
-nnoremap <silent><nowait> <leader>llr :<C-U>CocListResume<cr>
+nnoremap <silent><nowait> <localleader>lr :<C-U>CocFzfListResume<cr>
 " Show commands.
-nnoremap <silent><nowait> <leader>llc  :<C-U>CocList commands<cr>
+nnoremap <silent><nowait> <localleader>lc  :<C-U>CocFzfList commands<cr>
 " Find symbol of current Outline
-nnoremap <silent><nowait> <leader>llo  :<C-U>CocList outline<cr>
+nnoremap <silent><nowait> <localleader>lo  :<C-U>CocFzfList outline<cr>
 " Search workspace symbolS
-nnoremap <silent><nowait> <leader>lls  :<C-U>CocList -I symbols<cr>
+nnoremap <silent><nowait> <localleader>ls  :<C-U>CocFzfList symbols<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<cr>
