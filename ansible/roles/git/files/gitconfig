@@ -11,7 +11,7 @@
 	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 [delta]
   features = line-numbers decorations
-  syntax-theme = Dracula
+  syntax-theme = gruvbox
   plus-style = syntax "#003800"
   minus-style = syntax "#3f0001"
 [delta "decorations"]
