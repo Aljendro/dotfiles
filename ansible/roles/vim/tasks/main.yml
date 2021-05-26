@@ -58,12 +58,12 @@
     state: link
     mode: u+rwx,g+rx,o+rx
 
-# - name: Linking ftdetect for neovim
-  # file:
-    # src: "{{ role_path }}/files/ftdetect"
-    # dest: ~/.config/nvim/after/ftdetect
-    # state: link
-    # mode: u+rwx,g+rx,o+rx
+- name: Linking ftdetect for neovim
+  file:
+    src: "{{ role_path }}/files/ftdetect"
+    dest: ~/.config/nvim/after/ftdetect
+    state: link
+    mode: u+rwx,g+rx,o+rx
 
 - name: Linking coc-settings for neovim
   file:
