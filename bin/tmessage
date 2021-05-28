@@ -1,0 +1,18 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: tmessage message"
+}
+
+display_summary() {
+    echo -e "Sends a text message using aws sns.\n"
+    echo -e "export TMESSAGE_PHONE_NUMBER=<e164 format>"
+    echo -e "export TMESSAGE_PROFILE=<aws profile name>"
+}
+
+if [ $# -eq 1 ]; then
+    aws sns publish --phone-number "$TMESSAGE_PHONE_NUMBER" --message "$1" --profile "$TMESSAGE_PROFILE"
+else
+    display_usage
+    display_summary
+fi

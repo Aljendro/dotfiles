@@ -146,6 +146,8 @@ cabbrev gbdr Git push origin --delete
 cabbrev gp Git push
 cabbrev gco Git checkout
 cabbrev gcb Git checkout -b
+cabbrev gcd Git checkout develop
+cabbrev gcm Git checkout master
 cabbrev gac Git commit -a -m
 cabbrev gsta Git stash push -u
 cabbrev gstd Git stash drop
