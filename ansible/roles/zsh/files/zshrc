@@ -1,5 +1,9 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$DOTFILES_DIR/bin:~/.vim/plugged/fzf/bin:~/.cargo/bin:/usr/local/go/bin:~/.yarn/bin:$PATH
+# Some local env variables and secrets must live locally (away from VCS)
+source ~/.zshrc_local
+# VM specific variables
+source ~/.zshrc_vm_local
+
+export -U PATH=$DOTFILES_DIR/bin:~/.nvm/versions/node/v14.16.1/bin:~/.vim/plugged/fzf/bin:/usr/local/go/bin:~/.yarn/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
@@ -18,7 +22,7 @@ DISABLE_MAGIC_FUNCTIONS=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Add wisely, as too many plugins slow down shell startup.
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws cargo node npm nvm wd encode64)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,16 +72,12 @@ alias fd='fdfind'
 alias bat='batcat'
 alias e='exit'
 
-## Some local env variables and secrets must live locally (away from VCS)
-source ~/.zshrc_local
-## VM specific variables
-source ~/.zshrc_vm_local
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 export FZF_DIR="$HOME/.vim/plugged/fzf"
 [ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
 [ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
 
+source "$HOME/.cargo/env"
