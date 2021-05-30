@@ -60,16 +60,21 @@ function node_env_name {
   echo "%F{250}Node%F %F{245}($(node -v))%F"
 }
 
-local tdtk_env='$(tdtk_env_name)'
-local tcm_env='$(tcm_env_name)'
-local node_env='$(node_env_name)'
-local java_env='$(java_env_name)'
-local git_info='$(git_prompt_info)'
+function load_env_info {
+  if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
+    echo "
+│ $(tdtk_env_name)$(tcm_env_name)$(node_env_name) $(java_env_name) $(git_prompt_info)%{$reset_color%}"
+  else
+    echo "
+│ $(git_prompt_info)%{$reset_color%}"
+  fi
+}
+
+local load_env_line='$(load_env_info)'
 
 PROMPT="
 ╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%}
-│ %B%F{226}%~%{$reset_color%}
-│ ${tdtk_env}${tcm_env}${node_env} ${java_env} ${git_info}%{$reset_color%}
+│ %B%F{226}%~%{$reset_color%}${load_env_line}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
