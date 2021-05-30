@@ -63,17 +63,17 @@ function node_env_name {
 function load_env_info {
   if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
     echo "
-│ $(tdtk_env_name)$(tcm_env_name)$(node_env_name) $(java_env_name) $(git_prompt_info)%{$reset_color%}"
+│ $(tdtk_env_name)$(tcm_env_name)$(node_env_name) $(java_env_name)%{$reset_color%}"
   else
-    echo "
-│ $(git_prompt_info)%{$reset_color%}"
+    echo ""
   fi
 }
 
 local load_env_line='$(load_env_info)'
+local git_info='$(git_prompt_info)'
 
 PROMPT="
-╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%}
+╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%} ${git_info}
 │ %B%F{226}%~%{$reset_color%}${load_env_line}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
