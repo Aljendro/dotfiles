@@ -181,12 +181,12 @@ nnoremap <leader>fh  zM
 nnoremap <leader>fl  zR
 nnoremap <leader>fo  zo
 vnoremap <leader>fo  zo
-nnoremap <leader>fao zO
-vnoremap <leader>fao zO
+nnoremap <leader>fO zO
+vnoremap <leader>fO zO
 nnoremap <leader>fc  zc
 vnoremap <leader>fc  zc
-nnoremap <leader>fac zC
-vnoremap <leader>fac zC
+nnoremap <leader>fC zC
+vnoremap <leader>fC zC
 nnoremap <leader>fe  mazMzv`azczO
 
 " Insert moving everything to the right down a line
