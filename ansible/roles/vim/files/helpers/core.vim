@@ -22,6 +22,7 @@ set hidden                                            " Buffer becomes hidden wh
 set ignorecase                                        " Ignore case when searching
 set inccommand=nosplit                                " Show preview of changes
 set mouse=a                                           " Allows mouse click on vim
+set nofoldenable
 set nolangremap                                       " Do not remap characters
 set noshowmode                                        " Don't show the -- Insert -- anymore
 set nowrap                                            " Do not wrap lines
