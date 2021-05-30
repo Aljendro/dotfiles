@@ -139,6 +139,10 @@ nmap <leader>gb :<C-U>Git blame<cr>A
 nnoremap <leader>gq :<C-U>GitGutterQuickFix<cr>:copen<cr>
 " Undo hunk change
 nnoremap <leader>gu :<C-U>GitGutterUndoHunk<cr>
+" FZF-checkout plugin
+nnoremap <leader>gg  :<C-U>FGBranches<cr>
+nnoremap <leader>gt  :<C-U>FGTags<cr>
+
 
 cabbrev gb Git branch
 cabbrev gbd Git branch -d
