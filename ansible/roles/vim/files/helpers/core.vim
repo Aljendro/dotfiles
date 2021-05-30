@@ -58,6 +58,10 @@ let maplocalleader= "\\"
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
 
+" Do not show visual feedback for grepping in command line
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
+
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
 
@@ -212,5 +216,8 @@ augroup customVim
       autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
+      " Open quickfix after command that populates it is run
+      autocmd QuickFixCmdPost [^l]* cwindow
+      autocmd QuickFixCmdPost l* lwindow
 augroup END
 
