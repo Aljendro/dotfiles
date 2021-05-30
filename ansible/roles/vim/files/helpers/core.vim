@@ -16,6 +16,7 @@ set display=truncate                                  " Show @@@ in the last lin
 set expandtab                                         " Convert tab to spaces
 set fileencoding=utf-8
 set foldcolumn=1
+set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case " Use Rg when using :grep                                                 "
 set hidden                                            " Buffer becomes hidden when it is abandoned
