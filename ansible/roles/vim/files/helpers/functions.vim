@@ -37,15 +37,16 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" https://vim.fandom.com/wiki/Search_for_visually_selected_text
+" https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 function! GetSelectedText()
-  let l:old_reg = getreg('"')
-  let l:old_regtype = getregtype('"')
-  norm gvy
-  let l:ret = getreg('"')
-  call setreg('"', l:old_reg, l:old_regtype)
-  exe "norm \<Esc>"
-  return l:ret
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let l:pattern = escape(@", "\\/.*'$^~[]")
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 function! MakeSession(...)

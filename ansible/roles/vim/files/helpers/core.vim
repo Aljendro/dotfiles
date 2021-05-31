@@ -58,6 +58,14 @@ let maplocalleader= "\\"
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 iabbrev """ """"""""""""""""""""
 
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+" Faster saving
+nnoremap <leader>w :w<cr>
+nnoremap <leader>W :W<cr>
+nnoremap <leader>q :wq<cr>
+
 " Do not show visual feedback for grepping in command line
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
@@ -97,7 +105,7 @@ nnoremap gvf <C-w>vgf
 nnoremap gvv gv
 
 " Close highlighting
-nnoremap <leader>th :<C-U>noh<cr>
+nnoremap <leader><enter> :<C-U>noh<cr>
 
 " Better tabbing alignment
 vnoremap < <gv
@@ -118,15 +126,14 @@ nnoremap <localleader>sd :<C-U>wall \| call LoadSession('default')<cr>
 " Paste at mark
 nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
 
-" Search for visually selected word in buffer
-vnoremap <silent> * :call setreg("/",
-            \ substitute(GetSelectedText(),
-            \ '\_s\+',
-            \ '\\_s\\+', 'g')
-            \ )<cr>:set hls<cr>
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :<C-u>call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
+vnoremap <silent> # :<C-u>call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
 
 nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
+nnoremap # :keepjumps normal! mi#`i<cr>
+nnoremap g# :keepjumps normal! mig#`i<cr>
 
 " Count the number of possible replacements (occurrences and lines)
 nnoremap <leader>rco :<C-U>%s///gn<cr>
@@ -155,10 +162,15 @@ nnoremap <Up> 10<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
+" Move tabs around
+nnoremap <leader>th :<C-U>-1tabm<cr>
+nnoremap <leader>tl :<C-U>+1tabm<cr>
+" Only keep current tab
+nnoremap <leader>to :<C-U>tabo<cr>
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Move file to new tab
-nnoremap <leader>t<M-t> <C-w>T
+nnoremap <leader>tm <C-w>T
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
 " Create a new scratch buffer tab at the end
@@ -167,7 +179,7 @@ nnoremap <leader>ts :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
 nnoremap <leader>tc :<C-U>tabclose<cr>
 " Go to last visited tab
 let g:lastTab = 1
-nnoremap <leader>tl :<C-U>exec "tabn " . g:lastTab<cr>
+nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
 
 " Open line directly above/below cursor
 nnoremap <expr> <leader><M-o> 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'

@@ -13,6 +13,7 @@ let g:gruvbox_invert_selection = 0
 let g:rainbow_active           = 1
 
 colorscheme gruvbox
+highlight CursorLine term=bold cterm=bold guibg=Grey32
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Ctags
@@ -33,9 +34,11 @@ let g:smoothie_no_default_mappings = v:true
 
 " Move in windows easily
 nmap <C-j> <Plug>(SmoothieDownwards)
-vmap <C-j> <Plug>(SmoothieDownwards)
 nmap <C-k> <Plug>(SmoothieUpwards)
-vmap <C-k> <Plug>(SmoothieUpwards)
+nmap <M-j> <Plug>(SmoothieForwards)
+nmap <M-k> <Plug>(SmoothieBackwards)
+vmap <M-j> <Plug>(SmoothieForwards)
+vmap <M-k> <Plug>(SmoothieBackwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
@@ -178,13 +181,10 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 "" Ripgrep
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:rg_command = 'rg --vimgrep -S'
-let g:rg_highlight = v:true
-
 " Search for word under cursor in project
 nnoremap <leader>/w :<C-U>silent grep! <C-R>=expand("<cword>")<cr><cr>:copen<cr>
 " Search for highlighted word in project
-vnoremap <leader>/w y:<C-U>silent grep! -F -- <C-R>=shellescape(getreg("*"))<cr><cr>:copen<cr>
+vnoremap <leader>/w :<C-U>call GetSelectedText()<cr>:silent grep! -F -- <C-R>=@/<cr><cr>:copen<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" FZF
