@@ -13,7 +13,6 @@ let g:gruvbox_invert_selection = 0
 let g:rainbow_active           = 1
 
 colorscheme gruvbox
-highlight CursorLine term=bold cterm=bold guibg=Grey32
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Ctags
@@ -33,12 +32,8 @@ let g:gutentags_ctags_exclude = [
 let g:smoothie_no_default_mappings = v:true
 
 " Move in windows easily
-nmap <C-j> <Plug>(SmoothieDownwards)
-nmap <C-k> <Plug>(SmoothieUpwards)
-nmap <M-j> <Plug>(SmoothieForwards)
-nmap <M-k> <Plug>(SmoothieBackwards)
-vmap <M-j> <Plug>(SmoothieForwards)
-vmap <M-k> <Plug>(SmoothieBackwards)
+nmap <C-j> <Plug>(SmoothieForwards)
+nmap <C-k> <Plug>(SmoothieBackwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline

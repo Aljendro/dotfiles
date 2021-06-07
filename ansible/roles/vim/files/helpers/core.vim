@@ -26,6 +26,7 @@ set mouse=a                                           " Allows mouse click on vi
 set nofoldenable
 set nolangremap                                       " Do not remap characters
 set noshowmode                                        " Don't show the -- Insert -- anymore
+set noswapfile
 set nowrap                                            " Do not wrap lines
 set nowrapscan                                        " Once search hits the bottom, do not go to the top
 set nowritebackup                                     " Do not make backup when overwriting a file
@@ -41,7 +42,6 @@ set smartindent                                       " Indents when creating a 
 set splitbelow                                        " Open a window below the current window
 set splitright                                        " Open a window right of the current window
 set t_Co=256
-set termguicolors                                     " Enables 24-bit RGB color in the TUI
 set updatetime=100                                    " Faster CursorHold refresh to highlight matching vars
 set virtualedit=block,onemore                         " Allow putting cursor on non-characters past the end of the line
 set wildmenu                                          " Display completion matches in a status line
@@ -142,19 +142,23 @@ nnoremap <leader>rcl :<C-U>%s///n<cr>
 " Easier search and/or replace
 nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
 nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
-vmap <leader>rw *cgn
+vmap <leader>rw *Ncgn
 nmap <leader>rw g*cgn
 
 " Easier macro execution
-nnoremap <silent> <leader>mm :call RecordMacro()<cr>
-nnoremap <expr> <leader>me '@' . nr2char(getchar())
-vnoremap <expr> <leader>me ':norm! @' . nr2char(getchar()) . '<cr>'
+nnoremap <silent> <leader>m :call RecordMacro()<cr>
+nnoremap <expr> <leader>e '@' . nr2char(getchar())
+vnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
 nnoremap Q @@
 vnoremap Q :norm! @@<cr>
 
 " Selections
 " Whole Buffer
 nnoremap <leader>va ggVG
+
+" Auto copy selection when using mouse
+vnoremap <RightMouse> <RightMouse>ygv
+vnoremap <LeftRelease> <LeftRelease>ygv
 
 " Faster shifting
 nnoremap <Down> 10<C-e>
@@ -170,7 +174,7 @@ nnoremap <leader>to :<C-U>tabo<cr>
 " Expand split in new tab
 nnoremap <leader>tt :<C-U>tab split<cr>
 " Move file to new tab
-nnoremap <leader>tm <C-w>T
+nnoremap <leader>tT <C-w>T
 " Create a new tab at the end
 nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
 " Create a new scratch buffer tab at the end

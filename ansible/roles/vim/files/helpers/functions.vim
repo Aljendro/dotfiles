@@ -92,16 +92,10 @@ function! FoldText()
   redir End
   let l:lpadding += l:signs =~ 'id=' ? 2 : 0
 
-  if exists("+relativenumber")
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    elseif (&relativenumber)
-      let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
-    endif
-  else
-    if (&number)
-      let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-    endif
+  if (&number)
+    let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+  elseif (&relativenumber)
+    let l:lpadding += max([&numberwidth, strlen(v:foldstart - line('w0')), strlen(line('w$') - v:foldstart), strlen(v:foldstart)]) + 1
   endif
 
   " expand tabs
