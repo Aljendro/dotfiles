@@ -26,10 +26,17 @@
     state: present
     update_cache: yes
 
-- name: Installing Snap Packages
+- name: Installing Bitwarden
   become: yes
   snap:
     name: bitwarden
+    state: present
+
+- name: Installing VSCodium
+  become: yes
+  snap:
+    name: codium
+    classic: yes
     state: present
 
 - name: Install Delta from Cargo
