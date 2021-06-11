@@ -32,8 +32,10 @@ let g:gutentags_ctags_exclude = [
 let g:smoothie_no_default_mappings = v:true
 
 " Move in windows easily
-nmap <C-j> <Plug>(SmoothieForwards)
-nmap <C-k> <Plug>(SmoothieBackwards)
+nmap <C-j> <Plug>(SmoothieDownwards)
+nmap <C-k> <Plug>(SmoothieUpwards)
+nmap <M-j> <Plug>(SmoothieForwards)
+nmap <M-k> <Plug>(SmoothieBackwards)
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
@@ -141,11 +143,14 @@ nnoremap <leader>gu :<C-U>GitGutterUndoHunk<cr>
 nnoremap <leader>gg  :<C-U>FGBranches<cr>
 nnoremap <leader>gt  :<C-U>FGTags<cr>
 
-
+cabbrev gf Git fetch origin
 cabbrev gb Git branch
 cabbrev gbd Git branch -d
 cabbrev gbdr Git push origin --delete
+cabbrev gpl Git pull
+cabbrev ggpull Git pull origin <C-R>=FugitiveHead()<cr>
 cabbrev gp Git push
+cabbrev ggpush Git push origin <C-R>=FugitiveHead()<cr>
 cabbrev gco Git checkout
 cabbrev gcb Git checkout -b
 cabbrev gcd Git checkout develop

@@ -70,6 +70,8 @@ nnoremap <leader>q :wq<cr>
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
 
+cnoreabbrev tah tab help
+
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
 
@@ -155,10 +157,6 @@ vnoremap Q :norm! @@<cr>
 " Selections
 " Whole Buffer
 nnoremap <leader>va ggVG
-
-" Auto copy selection when using mouse
-vnoremap <RightMouse> <RightMouse>ygv
-vnoremap <LeftRelease> <LeftRelease>ygv
 
 " Faster shifting
 nnoremap <Down> 10<C-e>
