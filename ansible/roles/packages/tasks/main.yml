@@ -32,10 +32,10 @@
     name: bitwarden
     state: present
 
-- name: Installing VSCodium
+- name: Installing VSCode
   become: yes
   snap:
-    name: codium
+    name: code
     classic: yes
     state: present
 
