@@ -1,5 +1,5 @@
 {
-  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v14.16.1/bin/npm",
+  "tsserver.npm": "/home/alejandro/.nvm/versions/node/v14.17.1/bin/npm",
   "tsserver.enableJavascript": true,
   "tsserver.log": "terse",
   "yaml.customTags": [

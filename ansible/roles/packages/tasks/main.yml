@@ -16,7 +16,6 @@
       - libssl-dev
       - libtool
       - linux-tools-{{ kernel_release.stdout }}
-      - pandoc
       - python-dev
       - python-setuptools
       - ripgrep

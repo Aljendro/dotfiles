@@ -20,7 +20,7 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$DOTFILES_DIR/bin:~/.nvm/versions/node/v14.16.1/bin:~/.vim/plugged/fzf/bin:/usr/local/go/bin:~/.yarn/bin:$PATH
+export -U PATH=$DOTFILES_DIR/bin:~/.nvm/versions/node/v14.17.1/bin:~/.vim/plugged/fzf/bin:/usr/local/go/bin:~/.yarn/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
