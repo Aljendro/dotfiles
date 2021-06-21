@@ -17,3 +17,17 @@
   shell: ./rust_installer -y
   args:
     chdir: /tmp
+
+- name: Downloading Wasm-Pack Installer
+  get_url:
+    url: https://rustwasm.github.io/wasm-pack/installer/init.sh
+    dest: /tmp/wasmpack_installer
+    mode: '0700'
+
+- name: Install Wasm-Pack
+  shell: ./wasmpack_installer -y
+  args:
+    chdir: /tmp
+
+- name: Install Cargo-Generate from Cargo
+  command: cargo install cargo-generate
