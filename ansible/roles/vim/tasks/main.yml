@@ -34,7 +34,7 @@
 
 - name: Creating session directory
   file:
-    path: ~/.config/nvim/session
+    path: ~/.config/nvim/sessions
     state: directory
     mode: '0700'
 
