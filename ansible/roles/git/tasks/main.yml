@@ -1,4 +1,14 @@
 ---
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name:
+      - make
+      - libsecret-1-0
+      - libsecret-1-dev
+    state: present
+    update_cache: yes
+
 - name: Linking .gitconfig
   file:
     src: "{{ role_path }}/files/gitconfig"
@@ -12,3 +22,9 @@
     dest: ~/.gitignore_global
     state: link
     mode: '0700'
+
+- name: Install Libsecret
+  become: yes
+  shell: make
+  args:
+    chdir: /usr/share/doc/git/contrib/credential/libsecret
