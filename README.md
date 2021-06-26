@@ -8,10 +8,8 @@ intervention as possible.
 
 ## Environments
 
-* Strongly Supported
-  * Ubuntu 20.04
 * Supported
-  * Ubuntu 18.04
+  * Ubuntu 20.04
 
 ## Quickstart
 
@@ -22,6 +20,16 @@ This script will setup your machine/vm.
 
 ```
 ./install all
+
+# If the task [rust : Install Wasm-Pack] fails.
+# Close terminal and rerun the remaining steps
+./install rust tmux vim
+
+# Install ripgrep manually
+sudp apt install ripgrep
+sudo dpkg -i --force-overwrite <from the last run -> /var/.../ripgrep_11.0.2-1build1_amd64.deb>
+
+# Restart your computer
 ```
 
 ## Development Installations/Configurations

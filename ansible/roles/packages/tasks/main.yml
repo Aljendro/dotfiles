@@ -7,6 +7,9 @@
   become: yes
   apt:
     name:
+      - clangd
+      - clang
+      - libclang-dev
       - make
       - autoconf
       - automake
