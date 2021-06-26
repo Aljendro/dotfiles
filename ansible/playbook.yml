@@ -5,6 +5,15 @@
     # - name: "Ansible | List all known variables and facts"
       # debug:
         # var: hostvars[inventory_hostname]
+    - import_role:
+        name: packages
+      tags:
+        - packages
+
+    - import_role:
+        name: zsh
+      tags:
+        - zsh
 
     - import_role:
         name: aws
@@ -57,11 +66,6 @@
         - js
 
     - import_role:
-        name: packages
-      tags:
-        - packages
-
-    - import_role:
         name: python
       tags:
         - python
@@ -80,9 +84,3 @@
         name: vim
       tags:
         - vim
-
-    - import_role:
-        name: zsh
-      tags:
-        - zsh
-

@@ -43,7 +43,7 @@
 
 - name: Adding Clojure deps user local
   git:
-    repo: git@github.com:Aljendro/clojure-deps-edn.git
+    repo: https://github.com/Aljendro/clojure-deps-edn.git
     dest: ~/.clojure/
     depth: "1"
 

@@ -12,7 +12,7 @@
     chdir: /tmp/watchman
 
 - name: Run configure for watchman
-  shell: ./configure --enable-lenient
+  shell: ./configure --enable-lenient --disable-dependency-tracking
   args:
     chdir: /tmp/watchman
 

@@ -31,3 +31,6 @@
 
 - name: Install Cargo-Generate from Cargo
   command: cargo install cargo-generate
+
+- name: Install Delta from Cargo
+  command: cargo install git-delta

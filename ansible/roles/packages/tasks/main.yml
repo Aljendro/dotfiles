@@ -7,6 +7,7 @@
   become: yes
   apt:
     name:
+      - make
       - autoconf
       - automake
       - bat
@@ -18,7 +19,7 @@
       - linux-tools-{{ kernel_release.stdout }}
       - python-dev
       - python-setuptools
-      - ripgrep
+      # - ripgrep
       - tree
       - universal-ctags
       - xclip
@@ -37,9 +38,6 @@
     name: code
     classic: yes
     state: present
-
-- name: Install Delta from Cargo
-  command: cargo install git-delta
 
 - name: Check watchman installation
   shell: which watchman
