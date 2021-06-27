@@ -224,13 +224,14 @@ nmap ]g <Plug>(coc-diagnostic-next)
 nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
-nnoremap gd :call CocActionAsync('jumpDefinition', 'tabe')<cr>
-nnoremap gv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
-nnoremap gt <Plug>(coc-type-definition)
-nnoremap gi <Plug>(coc-implementation)
-nnoremap gr <Plug>(coc-references)
-nnoremap gR <Plug>(coc-rename)
-nnoremap gk :call ShowDocumentation()<cr>
+nnoremap <silent> gd :call CocActionAsync('jumpDefinition')<cr>
+nnoremap <silent> gt :call CocActionAsync('jumpDefinition', 'tabe')<cr>
+nnoremap <silent> gv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
+" nnoremap <silent> gt <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gR <Plug>(coc-rename)
+nnoremap <silent> gk :call ShowDocumentation()<cr>
 
 " Mappings using CoCList
 nnoremap <silent><nowait> <leader>ll  :<C-U>CocFzfList<cr>
