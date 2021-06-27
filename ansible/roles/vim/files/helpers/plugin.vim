@@ -91,19 +91,6 @@ augroup customNERDTree
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" NERDCommenter
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 0
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Git Plugins (Fugitive, Gitgutter, etc.)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -237,33 +224,29 @@ nmap ]g <Plug>(coc-diagnostic-next)
 nmap ]d :<C-U>CocNext<cr>
 nmap [d :<C-U>CocPrev<cr>
 
-nmap <leader>ld <Plug>(coc-definition)
-nmap <leader>ldv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
-nmap <leader>ldt :call CocActionAsync('jumpDefinition', 'tabe')<cr>
-nmap <leader>lt <Plug>(coc-type-definition)
-nmap <leader>li <Plug>(coc-implementation)
-nmap <leader>lr <Plug>(coc-references)
-nmap <leader>lR <Plug>(coc-rename)
+nnoremap gd :call CocActionAsync('jumpDefinition', 'tabe')<cr>
+nnoremap gv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
+nnoremap gt <Plug>(coc-type-definition)
+nnoremap gi <Plug>(coc-implementation)
+nnoremap gr <Plug>(coc-references)
+nnoremap gR <Plug>(coc-rename)
+nnoremap gk :call ShowDocumentation()<cr>
 
 " Mappings using CoCList
-
-nnoremap <silent><nowait> <localleader>ll  :<C-U>CocFzfList<cr>
+nnoremap <silent><nowait> <leader>ll  :<C-U>CocFzfList<cr>
 " Show all diagnostics.
-nnoremap <silent><nowait> <localleader>ldd  :<C-U>CocFzfList diagnostics<cr>
-nnoremap <silent><nowait> <localleader>ldb  :<C-U>CocFzfList diagnostics --current-buf<cr>
+nnoremap <silent><nowait> <leader>ldd  :<C-U>CocFzfList diagnostics<cr>
+nnoremap <silent><nowait> <leader>ldb  :<C-U>CocFzfList diagnostics --current-buf<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <localleader>le  :<C-U>CocFzfList extensions<cr>
+nnoremap <silent><nowait> <leader>le  :<C-U>CocFzfList extensions<cr>
 " Resume latest coc list.
-nnoremap <silent><nowait> <localleader>lr :<C-U>CocFzfListResume<cr>
+nnoremap <silent><nowait> <leader>lr :<C-U>CocFzfListResume<cr>
 " Show commands.
-nnoremap <silent><nowait> <localleader>lc  :<C-U>CocFzfList commands<cr>
+nnoremap <silent><nowait> <leader>lc  :<C-U>CocFzfList commands<cr>
 " Find symbol of current Outline
-nnoremap <silent><nowait> <localleader>lo  :<C-U>CocFzfList outline<cr>
+nnoremap <silent><nowait> <leader>lo  :<C-U>CocFzfList outline<cr>
 " Search workspace symbolS
-nnoremap <silent><nowait> <localleader>ls  :<C-U>CocFzfList symbols<cr>
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<cr>
+nnoremap <silent><nowait> <leader>ls  :<C-U>CocFzfList symbols<cr>
 
 augroup customLSP
   autocmd!
