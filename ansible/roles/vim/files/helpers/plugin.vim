@@ -26,18 +26,6 @@ let g:gutentags_ctags_exclude = [
       \]
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Vim Smoothie
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:smoothie_no_default_mappings = v:true
-
-" Move in windows easily
-nmap <C-j> <Plug>(SmoothieDownwards)
-nmap <C-k> <Plug>(SmoothieUpwards)
-nmap <M-j> <Plug>(SmoothieForwards)
-nmap <M-k> <Plug>(SmoothieBackwards)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
 """""""""""""""""""""""""""""""""""""""""""""""""
 

@@ -89,6 +89,12 @@ noremap <C-l> gt
 nnoremap <M-h> :<C-U>cprevious<cr>
 nnoremap <M-l> :<C-U>cnext<cr>
 
+" Scroll window easily
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+nnoremap <M-j> <C-f>
+nnoremap <M-k> <C-b>
+
 " Move windows easily
 nnoremap <C-w>j <C-w>J
 nnoremap <C-w>k <C-w>K
