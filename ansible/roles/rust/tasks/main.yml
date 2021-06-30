@@ -2,7 +2,7 @@
 - name: Installing Apt Packages
   become: yes
   apt:
-    name: 
+    name:
       - curl
     state: present
     update_cache: yes
