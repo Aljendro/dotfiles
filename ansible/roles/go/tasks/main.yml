@@ -19,4 +19,4 @@
   unarchive:
     src: /tmp/go_installer
     dest: /usr/local/
-    mode: '0700'
+    mode: '0755'
