@@ -68,7 +68,7 @@ nnoremap <leader>q :wq<cr>
 
 " Do not show visual feedback for grepping in command line
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| copen<left><left><left><left><left><left><left><left>' : 'lgrep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
 
 cnoreabbrev tah tab help
 
