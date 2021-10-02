@@ -11,6 +11,7 @@ syntax enable
 
 set autowrite
 set clipboard=unnamed,unnamedplus                                                      " Yank to the system clipboard and selection clipboard
+set completeopt=menu,menuone,noselect
 set cursorline                                                                         " Highlights the current line
 set display=truncate                                                                   " Show @@@ in the last line if it is truncated.
 set expandtab                                                                          " Convert tab to spaces
@@ -36,7 +37,7 @@ set relativenumber                                                              
 set ruler                                                                              " Show the cursor position all the time
 set scrolloff=2                                                                        " Keep context around cursor
 set shortmess+=c                                                                       " Don't pass messages to |ins-completion-menu|.
-set signcolumn=yes                                                                     " Always show the signcolumn, otherwise it would shift the text each time
+set signcolumn=auto                                                                    " Always show the signcolumn, otherwise it would shift the text each time
 set smartcase                                                                          " If search contains uppercase characters, disobey ignorecase
 set smartindent                                                                        " Indents when creating a newline
 set splitbelow                                                                         " Open a window below the current window
@@ -60,10 +61,12 @@ iabbrev """ """"""""""""""""""""
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+" TODO: Fix for neovim
+" command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+" nnoremap <leader>W :W<cr>
+
 " Faster saving
 nnoremap <leader>w :w<cr>
-nnoremap <leader>W :W<cr>
 nnoremap <leader>q :wq<cr>
 
 " Do not show visual feedback for grepping in command line
