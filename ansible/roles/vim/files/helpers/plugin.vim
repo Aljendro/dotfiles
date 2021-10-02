@@ -15,17 +15,6 @@ let g:rainbow_active           = 1
 colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Ctags
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:gutentags_file_list_command = 'rg --files'
-let g:gutentags_ctags_exclude = [
-      \ 'package-lock.json',
-      \ 'package.json',
-      \ 'tsconfig.json',
-      \]
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -137,22 +126,6 @@ cabbrev gstl Git stash list
 cabbrev gstp Git stash pop
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Snippets
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Ripgrep
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -197,66 +170,17 @@ nnoremap <leader>su  :<C-U>FSnippets<cr>
 nnoremap <leader>sk  :<C-U>FMaps<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Coc (LSP Client)
+"" LSP Client
 """""""""""""""""""""""""""""""""""""""""""""""""
-
-" Make <cr> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
-
-" Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
-
-inoremap <silent> <expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackSpace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Navigate diagnostics
-nmap [g <Plug>(coc-diagnostic-prev)
-nmap ]g <Plug>(coc-diagnostic-next)
-" Naviate Coc List
-nmap ]d :<C-U>CocNext<cr>
-nmap [d :<C-U>CocPrev<cr>
-
-nnoremap <silent> gd :call CocActionAsync('jumpDefinition')<cr>
-nnoremap <silent> gt :call CocActionAsync('jumpDefinition', 'tabe')<cr>
-nnoremap <silent> gv :call CocActionAsync('jumpDefinition', 'vsplit')<cr>
-" nnoremap <silent> gt <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
-nnoremap <silent> gR <Plug>(coc-rename)
-nnoremap <silent> gk :call ShowDocumentation()<cr>
-
-" Mappings using CoCList
-nnoremap <silent><nowait> <leader>ll  :<C-U>CocFzfList<cr>
-" Show all diagnostics.
-nnoremap <silent><nowait> <leader>ldd  :<C-U>CocFzfList diagnostics<cr>
-nnoremap <silent><nowait> <leader>ldb  :<C-U>CocFzfList diagnostics --current-buf<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <leader>le  :<C-U>CocFzfList extensions<cr>
-" Resume latest coc list.
-nnoremap <silent><nowait> <leader>lr :<C-U>CocFzfListResume<cr>
-" Show commands.
-nnoremap <silent><nowait> <leader>lc  :<C-U>CocFzfList commands<cr>
-" Find symbol of current Outline
-nnoremap <silent><nowait> <leader>lo  :<C-U>CocFzfList outline<cr>
-" Search workspace symbolS
-nnoremap <silent><nowait> <leader>ls  :<C-U>CocFzfList symbols<cr>
 
 augroup customLSP
   autocmd!
   " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   " Close the pop up menu after completion
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
   " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
