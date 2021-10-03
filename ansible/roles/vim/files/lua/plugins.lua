@@ -7,7 +7,6 @@ vim.g["python3_host_prog"] = vim.fn.expand("/usr/bin/python3")
 return require('packer').startup(function()
 
   use 'Xuyuanp/nerdtree-git-plugin'
-  use 'airblade/vim-gitgutter'
   use 'alvan/vim-closetag'
   use 'benmills/vimux'
   use 'godlygeek/tabular'
@@ -27,7 +26,6 @@ return require('packer').startup(function()
   use 'quangnguyen30192/cmp-nvim-ultisnips'
   use 'raimondi/delimitmate'
   use 'scrooloose/nerdtree'
-  use 'sheerun/vim-polyglot'
   use 'sirver/ultisnips'
   use 'stefandtw/quickfix-reflector.vim'
   use 'stsewd/fzf-checkout.vim'
@@ -36,10 +34,15 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
+  use 'vim-scripts/LargeFile'
   use 'wbthomason/packer.nvim'
   use { 'eraserhd/parinfer-rust', run = 'cargo build --release' }
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' }
   use { 'junegunn/fzf', run = function() vim.fn['fzf#install()'](0) end }
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }  
   use { 'prettier/vim-prettier', run = 'npm -s install' }
 
 end)

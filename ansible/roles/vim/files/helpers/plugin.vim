@@ -15,6 +15,15 @@ let g:rainbow_active           = 1
 colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+"" Ultisnips
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+let snippetPath=$DOTFILES_DIR.'/ansible/roles/vim/files/snippets/'
+let g:UltiSnipsSnippetDirectories=[snippetPath]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Lightline
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -85,10 +94,6 @@ augroup END
 
 " Create diffsplit
 nnoremap <leader>gds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
-" Open diffs of all the different changed files in tabs
-nnoremap <leader>gdd :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git difftool -y \| tabclose 1<cr>
-" Restore previous session
-nnoremap <leader>gdr :<C-U>wall \| tabonly \| call LoadSession('diff')<cr>
 " Refresh difftool
 nnoremap <leader>gdu :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
@@ -99,13 +104,6 @@ nnoremap <expr> <leader>gj ':<C-U>diffget //2/' . GetFilePathFromGitRoot(expand(
 nnoremap <expr> <leader>gk ':<C-U>diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Open git blame with commit and author
 nmap <leader>gb :<C-U>Git blame<cr>A
-" Open changes in quickfix list
-nnoremap <leader>gq :<C-U>GitGutterQuickFix<cr>:copen<cr>
-" Undo hunk change
-nnoremap <leader>gu :<C-U>GitGutterUndoHunk<cr>
-" FZF-checkout plugin
-nnoremap <leader>gg  :<C-U>FGBranches<cr>
-nnoremap <leader>gt  :<C-U>FGTags<cr>
 
 cabbrev gf Git fetch origin
 cabbrev gb Git branch
@@ -135,39 +133,42 @@ nnoremap <leader>/w :<C-U>silent grep! <C-R>=expand("<cword>")<cr><cr>:copen<cr>
 vnoremap <leader>/w :<C-U>call GetSelectedText()<cr>:silent grep! -F -- <C-R>=@/<cr><cr>:copen<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" FZF
+"" Fuzzy Finder (Telescope)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.98 } }
-let g:fzf_preview_window = ['right:60%', 'ctrl-/']
-
-" Do not search the file path with rip grep
-" (using with_preview 'options' parameter)
-command! -bang -nargs=* FARg
-      \ call fzf#vim#grep(
-      \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
-
-nnoremap <leader>sf  :<C-U>FFiles<cr>
-nnoremap <leader>sw  :<C-U>FWindows<cr>
-nnoremap <leader>sg  :<C-U>FGFiles?<cr>
-nnoremap <leader>sh  :<C-U>FCommits<cr>
-nnoremap <leader>sc  :<C-U>FBCommits<cr>
-nnoremap <leader>sa  :<C-U>FRg<cr>
-nnoremap <leader>sA  :<C-U>FARg<cr>
-nnoremap <leader>s/  :<C-U>FHistory/<cr>
-vnoremap <leader>s/  :<C-U>FHistory/<cr>
-nnoremap <leader>s:  :<C-U>FHistory:<cr>
-vnoremap <leader>s:  :<C-U>FHistory:<cr>
-nnoremap <leader>ss  :<C-U>FBLines<cr>
-nnoremap <leader>sl  :<C-U>FLines<cr>
-nnoremap <leader>sm  :<C-U>FMarks<cr>
-nnoremap <leader>stt :<C-U>FTags<cr>
-nnoremap <leader>stb :<C-U>FBTags<cr>
-nnoremap <leader>so  :<C-U>FBuffers<cr>
-nnoremap <leader>su  :<C-U>FSnippets<cr>
-nnoremap <leader>sk  :<C-U>FMaps<cr>
+nnoremap <leader>sp    :<C-U>lua require('telescope.builtin').resume()<cr>
+nnoremap <leader>sf    :<C-U>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>sa    :<C-U>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>sA    :<C-U>lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
+nnoremap <leader>ss    :<C-U>lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
+nnoremap <leader>sgf   :<C-U>lua require('telescope.builtin').git_files()<cr>
+nnoremap <leader>sgcb  :<C-U>lua require('telescope.builtin').git_bcommits()<cr>
+nnoremap <leader>sgcp  :<C-U>lua require('telescope.builtin').git_commits()<cr>
+nnoremap <leader>sgb   :<C-U>lua require('telescope.builtin').git_branches()<cr>
+nnoremap <leader>sgst  :<C-U>lua require('telescope.builtin').git_status()<cr>
+nnoremap <leader>sgsta :<C-U>lua require('telescope.builtin').git_stash()<cr>
+nnoremap <leader>sb    :<C-U>lua require('telescope.builtin').buffers({sort_mru=true})<cr>
+nnoremap <leader>sht   :<C-U>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>sc    :<C-U>lua require('telescope.builtin').commands()<cr>
+nnoremap <leader>sq    :<C-U>lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
+nnoremap <leader>slq   :<C-U>lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
+nnoremap <leader>sof   :<C-U>lua require('telescope.builtin').oldfiles()<cr>
+nnoremap <leader>s/    :<C-U>lua require('telescope.builtin').search_history()<cr>
+nnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<cr>
+vnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<cr>
+nnoremap <leader>svo   :<C-U>lua require('telescope.builtin').vim_options()<cr>
+nnoremap <leader>stm   :<C-U>lua require('telescope.builtin').man_pages()<cr>
+nnoremap <leader>sm    :<C-U>lua require('telescope.builtin').marks()<cr>
+nnoremap <leader>sr    :<C-U>lua require('telescope.builtin').registers()<cr>
+nnoremap <leader>sk    :<C-U>lua require('telescope.builtin').keymaps()<cr>
+nnoremap <leader>stf   :<C-U>lua require('telescope.builtin').filetypes()<cr>
+nnoremap <leader>sj    :<C-U>lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
+nnoremap <leader>sla   :<C-U>lua require('telescope.builtin').lsp_code_actions()<cr>
+nnoremap <leader>slra  :<C-U>lua require('telescope.builtin').lsp_range_code_actions()<cr>
+nnoremap <leader>slds  :<C-U>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <leader>slps  :<C-U>lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
+nnoremap <leader>sldd  :<C-U>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap <leader>slpd  :<C-U>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client

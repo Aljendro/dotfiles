@@ -19,7 +19,8 @@ set fileencoding=utf-8
 set foldcolumn=1
 set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline\ --multiline-dotall " Use Rg when using :grep                                                 "
+" set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline\ --multiline-dotall
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline
 set hidden                                                                             " Buffer becomes hidden when it is abandoned
 set ignorecase                                                                         " Ignore case when searching
 set inccommand=nosplit                                                                 " Show preview of changes
@@ -37,7 +38,7 @@ set relativenumber                                                              
 set ruler                                                                              " Show the cursor position all the time
 set scrolloff=2                                                                        " Keep context around cursor
 set shortmess+=c                                                                       " Don't pass messages to |ins-completion-menu|.
-set signcolumn=auto                                                                    " Always show the signcolumn, otherwise it would shift the text each time
+set signcolumn=yes                                                                     " Always show the signcolumn, otherwise it would shift the text each time
 set smartcase                                                                          " If search contains uppercase characters, disobey ignorecase
 set smartindent                                                                        " Indents when creating a newline
 set splitbelow                                                                         " Open a window below the current window
@@ -202,19 +203,19 @@ nnoremap <leader>ff gg=G''
 vnoremap <leader>ff :<C-U>'<,'>Tab /
 
 " Easier folds
-nnoremap <leader>fj  zr
-nnoremap <leader>fk  zm
-nnoremap <leader>fh  zM
-nnoremap <leader>fl  zR
-nnoremap <leader>fo  zo
-vnoremap <leader>fo  zo
+nnoremap <leader>fj zr
+nnoremap <leader>fk zm
+nnoremap <leader>fh zM
+nnoremap <leader>fl zR
+nnoremap <leader>fo zo
+vnoremap <leader>fo zo
 nnoremap <leader>fO zO
 vnoremap <leader>fO zO
-nnoremap <leader>fc  zc
-vnoremap <leader>fc  zc
+nnoremap <leader>fc zc
+vnoremap <leader>fc zc
 nnoremap <leader>fC zC
 vnoremap <leader>fC zC
-nnoremap <leader>fe  mazMzv`azczO
+nnoremap <leader>fe mazMzv`azczO
 
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
