@@ -158,6 +158,7 @@ nnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<
 vnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<cr>
 nnoremap <leader>svo   :<C-U>lua require('telescope.builtin').vim_options()<cr>
 nnoremap <leader>stm   :<C-U>lua require('telescope.builtin').man_pages()<cr>
+nnoremap <leader>stt   :<C-U>lua require('telescope.builtin').treesitter()<cr>
 nnoremap <leader>sm    :<C-U>lua require('telescope.builtin').marks()<cr>
 nnoremap <leader>sr    :<C-U>lua require('telescope.builtin').registers()<cr>
 nnoremap <leader>sk    :<C-U>lua require('telescope.builtin').keymaps()<cr>
@@ -188,19 +189,15 @@ augroup END
 "" Sneak
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:sneak#label = 1
-let g:sneak#use_ic_scs = 1
-let g:sneak#target_labels = "fjdkslarueiwovmctyghbnqpzFJDKSLARUEIWOVMCTYGHBNQPZ"
-
 " 2-character Sneak (default)
-nmap <leader>j <Plug>Sneak_s
-nmap <leader>k <Plug>Sneak_S
+nmap <leader>j <cmd>HopWord<cr>
+nmap <leader>k <cmd>HopLine<cr>
 " visual-mode
-xmap <leader>j <Plug>Sneak_s
-xmap <leader>k <Plug>Sneak_S
+xmap <leader>j <cmd>HopWord<cr>
+xmap <leader>k <cmd>HopLine<cr>
 " operator-pending-mode
-omap <leader>j <Plug>Sneak_s
-omap <leader>k <Plug>Sneak_S
+omap <leader>j <cmd>HopWord<cr>
+omap <leader>k <cmd>HopLine<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
