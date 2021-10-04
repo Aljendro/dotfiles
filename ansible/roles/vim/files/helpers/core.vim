@@ -243,5 +243,6 @@ augroup customVim
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
+      autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
 augroup END
 
