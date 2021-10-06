@@ -2,8 +2,9 @@ require('plugins')
 
 vim.cmd("source ~/.vimrc")
 
-local cmp = require'cmp'
+local cmp = require('cmp')
 local nvim_lsp = require('lspconfig')
+local dap = require('dap')
 
 local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -115,7 +116,20 @@ for _, lsp in ipairs(servers) do
         }
 end
 
+dap.adapters.node2 = {
+        type = 'executable',
+        command = 'node',
+        args = {os.getenv('HOME') .. '/.local/share/nvim/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js'}
+}
+
+vim.fn.sign_define('DapBreakpoint', {text='🟩', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapCondition', {text='🟧', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected', {text='🟥', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='➡️', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='📓', texthl='', linehl='', numhl=''})
+
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('dap')
 require('gitsigns').setup()
 require('hop').setup()
 require('nvim-treesitter.configs').setup({

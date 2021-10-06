@@ -76,6 +76,9 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? '
 
 cnoreabbrev tah tab help
 
+" Profile everything
+nnoremap  <localleader>pa :<C-U>profile start profile-all.txt \| profile file * \| profile func *<cr>
+
 " Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
 nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
 

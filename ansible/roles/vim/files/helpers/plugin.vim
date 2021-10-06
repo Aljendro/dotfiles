@@ -69,8 +69,8 @@ let g:lightline = {
 "" NERDTree (File Tree Viewer Plugin)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>dd :<C-U>NERDTreeFind<cr>
-nnoremap <leader>dt :<C-U>NERDTreeToggle<cr>
+nnoremap <localleader>f :<C-U>NERDTreeFind<cr>
+nnoremap <localleader>d :<C-U>NERDTreeToggle<cr>
 
 let NERDTreeShowLineNumbers  = 0
 let NERDTreeMouseMode        = 3
@@ -92,6 +92,8 @@ augroup END
 "" Git Plugins (Fugitive, Gitgutter, etc.)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+" Open up Fugitive in a tab
+nnoremap <leader>gdd :<C-U>tab G<cr>
 " Create diffsplit
 nnoremap <leader>gds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
 " Refresh difftool
@@ -135,41 +137,53 @@ vnoremap <leader>/w :<C-U>call GetSelectedText()<cr>:silent grep! -F -- <C-R>=@/
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Fuzzy Finder (Telescope)
 """""""""""""""""""""""""""""""""""""""""""""""""
+let g:fzf_command_prefix = 'F'
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 
-nnoremap <leader>sp    :<C-U>lua require('telescope.builtin').resume()<cr>
-nnoremap <leader>sf    :<C-U>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>sa    :<C-U>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>sA    :<C-U>lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
-nnoremap <leader>ss    :<C-U>lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
-nnoremap <leader>sgf   :<C-U>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>sgcb  :<C-U>lua require('telescope.builtin').git_bcommits()<cr>
-nnoremap <leader>sgcp  :<C-U>lua require('telescope.builtin').git_commits()<cr>
-nnoremap <leader>sgb   :<C-U>lua require('telescope.builtin').git_branches()<cr>
-nnoremap <leader>sgst  :<C-U>lua require('telescope.builtin').git_status()<cr>
-nnoremap <leader>sgsta :<C-U>lua require('telescope.builtin').git_stash()<cr>
-nnoremap <leader>sb    :<C-U>lua require('telescope.builtin').buffers({sort_mru=true})<cr>
-nnoremap <leader>sht   :<C-U>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>sc    :<C-U>lua require('telescope.builtin').commands()<cr>
-nnoremap <leader>sq    :<C-U>lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
-nnoremap <leader>slq   :<C-U>lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
-nnoremap <leader>sof   :<C-U>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap <leader>s/    :<C-U>lua require('telescope.builtin').search_history()<cr>
-nnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<cr>
-vnoremap <leader>s:    :<C-U>lua require('telescope.builtin').command_history()<cr>
-nnoremap <leader>svo   :<C-U>lua require('telescope.builtin').vim_options()<cr>
-nnoremap <leader>stm   :<C-U>lua require('telescope.builtin').man_pages()<cr>
-nnoremap <leader>stt   :<C-U>lua require('telescope.builtin').treesitter()<cr>
-nnoremap <leader>sm    :<C-U>lua require('telescope.builtin').marks()<cr>
-nnoremap <leader>sr    :<C-U>lua require('telescope.builtin').registers()<cr>
-nnoremap <leader>sk    :<C-U>lua require('telescope.builtin').keymaps()<cr>
-nnoremap <leader>stf   :<C-U>lua require('telescope.builtin').filetypes()<cr>
-nnoremap <leader>sj    :<C-U>lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
-nnoremap <leader>sla   :<C-U>lua require('telescope.builtin').lsp_code_actions()<cr>
-nnoremap <leader>slra  :<C-U>lua require('telescope.builtin').lsp_range_code_actions()<cr>
-nnoremap <leader>slds  :<C-U>lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap <leader>slps  :<C-U>lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
-nnoremap <leader>sldd  :<C-U>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-nnoremap <leader>slpd  :<C-U>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
+" Do not search the file path with rip grep
+" (using with_preview 'options' parameter)
+command! -bang -nargs=* FARg
+      \ call fzf#vim#grep(
+      \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
+
+nnoremap <leader>sp    <cmd>lua require('telescope.builtin').resume()<cr>
+nnoremap <leader>sf    <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>sa    <cmd>FRg<cr>
+nnoremap <leader>sA    <cmd>FARg<cr>
+nnoremap <leader>sgg   <cmd>lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
+nnoremap <leader>ss    <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
+nnoremap <leader>sgf   <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap <leader>sgcb  <cmd>lua require('telescope.builtin').git_bcommits()<cr>
+nnoremap <leader>sgcp  <cmd>lua require('telescope.builtin').git_commits()<cr>
+nnoremap <leader>sgb   <cmd>lua require('telescope.builtin').git_branches()<cr>
+nnoremap <leader>sgst  <cmd>lua require('telescope.builtin').git_status()<cr>
+nnoremap <leader>sgsta <cmd>lua require('telescope.builtin').git_stash()<cr>
+nnoremap <leader>sb    <cmd>lua require('telescope.builtin').buffers({sort_mru=true})<cr>
+nnoremap <leader>sht   <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>sc    <cmd>lua require('telescope.builtin').commands()<cr>
+nnoremap <leader>sq    <cmd>lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
+nnoremap <leader>slq   <cmd>lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
+nnoremap <leader>sof   <cmd>lua require('telescope.builtin').oldfiles()<cr>
+nnoremap <leader>s/    <cmd>lua require('telescope.builtin').search_history()<cr>
+nnoremap <leader>s:    <cmd>lua require('telescope.builtin').command_history()<cr>
+vnoremap <leader>s:    <cmd>lua require('telescope.builtin').command_history()<cr>
+nnoremap <leader>svo   <cmd>lua require('telescope.builtin').vim_options()<cr>
+nnoremap <leader>stm   <cmd>lua require('telescope.builtin').man_pages()<cr>
+nnoremap <leader>stt   <cmd>lua require('telescope.builtin').treesitter()<cr>
+nnoremap <leader>sm    <cmd>lua require('telescope.builtin').marks()<cr>
+nnoremap <leader>sr    <cmd>lua require('telescope.builtin').registers()<cr>
+nnoremap <leader>sk    <cmd>lua require('telescope.builtin').keymaps()<cr>
+nnoremap <leader>stf   <cmd>lua require('telescope.builtin').filetypes()<cr>
+nnoremap <leader>sj    <cmd>lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
+nnoremap <leader>sla   <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
+nnoremap <leader>slra  <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>
+nnoremap <leader>slds  <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <leader>slps  <cmd>lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
+nnoremap <leader>sldd  <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap <leader>slpd  <cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
+nnoremap <leader>snc   <cmd>lua require('telescope').extensions.neoclip.default()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
@@ -179,25 +193,55 @@ augroup customLSP
   autocmd!
   " Update signature help on jump placeholder.
   " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  " Close the pop up menu after completion
-  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
   " Highlight the symbol and its references when holding the cursor.
   " autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" DAP Client
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>dd  <cmd>lua require('dap').toggle_breakpoint()<cr>
+nnoremap <leader>dD  <cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>
+nnoremap <leader>dj  <cmd>lua require('dap').step_into()<cr>
+nnoremap <leader>dk  <cmd>lua require('dap').step_out()<cr>
+nnoremap <leader>dl  <cmd>lua require('dap').step_over()<cr>
+nnoremap <leader>dC  <cmd>lua require('dap').run_to_cursor()<cr>
+nnoremap <leader>d;  <cmd>lua require('dap').down()<cr>
+nnoremap <leader>dh  <cmd>lua require('dap').up()<cr>
+nnoremap <leader>dc  <cmd>lua require('dap').continue()<cr>
+nnoremap <leader>ds  <cmd>lua require('dap').close()<cr>
+nnoremap <leader>dl  <cmd>lua require('dap').run_last()<cr>
+nnoremap <leader>dr  <cmd>lua require('dap').repl.open({}, 'tab')<cr>
+nnoremap <leader>de  <cmd>lua require('dap').set_exception_breakpoints({"all"})<cr>
+nnoremap <leader>da  <cmd>lua require('debug-helper').attach()<cr>
+nnoremap <leader>dh  <cmd>lua require('dap.ui.widgets').hover()<cr>
+vnoremap <leader>dh  <cmd>lua require('dap.ui.widgets').visual_hover()<cr>
+nnoremap <leader>dv  <cmd>lua local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<cr>gg
+nnoremap <leader>dtc <cmd>lua require('telescope').extensions.dap.commands({})<cr>
+nnoremap <leader>dtb <cmd>lua require('telescope').extensions.dap.list_breakpoints({})<cr>
+nnoremap <leader>dtv <cmd>lua require('telescope').extensions.dap.variables({})<cr>
+nnoremap <leader>dtf <cmd>lua require('telescope').extensions.dap.frames({})<cr>
+
+augroup customLSP
+  autocmd!
+  autocmd FileType dap-repl lua require('dap.ext.autocompl').attach()
+augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Sneak
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " 2-character Sneak (default)
-nmap <leader>j <cmd>HopWord<cr>
-nmap <leader>k <cmd>HopLine<cr>
+nmap <leader>k <cmd>HopWord<cr>
+nmap <leader>j <cmd>HopLine<cr>
 " visual-mode
-xmap <leader>j <cmd>HopWord<cr>
-xmap <leader>k <cmd>HopLine<cr>
+xmap <leader>k <cmd>HopWord<cr>
+xmap <leader>j <cmd>HopLine<cr>
 " operator-pending-mode
-omap <leader>j <cmd>HopWord<cr>
-omap <leader>k <cmd>HopLine<cr>
+omap <leader>k <cmd>HopWord<cr>
+omap <leader>j <cmd>HopLine<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
