@@ -223,7 +223,7 @@ nnoremap <leader>dtb <cmd>lua require('telescope').extensions.dap.list_breakpoin
 nnoremap <leader>dtv <cmd>lua require('telescope').extensions.dap.variables({})<cr>
 nnoremap <leader>dtf <cmd>lua require('telescope').extensions.dap.frames({})<cr>
 
-augroup customLSP
+augroup customDAP
   autocmd!
   autocmd FileType dap-repl lua require('dap.ext.autocompl').attach()
 augroup END
