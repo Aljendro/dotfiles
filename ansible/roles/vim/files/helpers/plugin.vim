@@ -69,8 +69,7 @@ let g:lightline = {
 "" NERDTree (File Tree Viewer Plugin)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <localleader>f :<C-U>NERDTreeFind<cr>
-nnoremap <localleader>d :<C-U>NERDTreeToggle<cr>
+nnoremap <silent> <expr> <localleader>d g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 
 let NERDTreeShowLineNumbers  = 0
 let NERDTreeMouseMode        = 3
@@ -215,6 +214,7 @@ nnoremap <leader>dl  <cmd>lua require('dap').run_last()<cr>
 nnoremap <leader>dr  <cmd>lua require('dap').repl.open({}, 'tab')<cr>
 nnoremap <leader>de  <cmd>lua require('dap').set_exception_breakpoints({"all"})<cr>
 nnoremap <leader>da  <cmd>lua require('debug-helper').attach()<cr>
+nnoremap <leader>dL  <cmd>lua require('debug-helper').launch()<cr>
 nnoremap <leader>dh  <cmd>lua require('dap.ui.widgets').hover()<cr>
 vnoremap <leader>dh  <cmd>lua require('dap.ui.widgets').visual_hover()<cr>
 nnoremap <leader>dv  <cmd>lua local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<cr>gg
