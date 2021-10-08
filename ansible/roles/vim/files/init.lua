@@ -122,11 +122,22 @@ dap.adapters.node2 = {
         args = {os.getenv('HOME') .. '/.local/share/nvim/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js'}
 }
 
-vim.fn.sign_define('DapBreakpoint', {text='🟩', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapCondition', {text='🟧', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointRejected', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='➡️', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint', {text='📓', texthl='', linehl='', numhl=''})
+
+local signs = {
+        LspDiagnosticsSignError = "💢",
+        LspDiagnosticsSignWarn = "⚠️ ",
+        LspDiagnosticsSignHint = "💬",
+        LspDiagnosticsSignInfo = "📜",
+        DapBreakpoint         ='🟩',
+        DapCondition          ='🟧',
+        DapBreakpointRejected ='🟥',
+        DapStopped            ='➡️' ,
+        DapLogPoint           ='📓',
+}
+
+for hl, icon in pairs(signs) do
+        vim.fn.sign_define(hl, { text = icon, texthl = "SignColumn", linehl="", numhl = "" })
+end
 
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('dap')
