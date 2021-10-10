@@ -147,53 +147,60 @@ command! -bang -nargs=* FARg
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
 
-nnoremap <leader>sp    <cmd>lua require('telescope.builtin').resume()<cr>
-nnoremap <leader>sf    <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>sa    <cmd>FRg<cr>
-nnoremap <leader>sA    <cmd>FARg<cr>
-nnoremap <leader>sgg   <cmd>lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
-nnoremap <leader>ss    <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
-nnoremap <leader>sgf   <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>sgcb  <cmd>lua require('telescope.builtin').git_bcommits()<cr>
-nnoremap <leader>sgcp  <cmd>lua require('telescope.builtin').git_commits()<cr>
-nnoremap <leader>sgb   <cmd>lua require('telescope.builtin').git_branches()<cr>
-nnoremap <leader>sgst  <cmd>lua require('telescope.builtin').git_status()<cr>
-nnoremap <leader>sgsta <cmd>lua require('telescope.builtin').git_stash()<cr>
-nnoremap <leader>sb    <cmd>lua require('telescope.builtin').buffers({sort_mru=true})<cr>
-nnoremap <leader>sht   <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>sc    <cmd>lua require('telescope.builtin').commands()<cr>
-nnoremap <leader>sq    <cmd>lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
-nnoremap <leader>slq   <cmd>lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
-nnoremap <leader>sof   <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap <leader>s/    <cmd>lua require('telescope.builtin').search_history()<cr>
-nnoremap <leader>s:    <cmd>lua require('telescope.builtin').command_history()<cr>
-vnoremap <leader>s:    <cmd>lua require('telescope.builtin').command_history()<cr>
-nnoremap <leader>svo   <cmd>lua require('telescope.builtin').vim_options()<cr>
-nnoremap <leader>stm   <cmd>lua require('telescope.builtin').man_pages()<cr>
-nnoremap <leader>stt   <cmd>lua require('telescope.builtin').treesitter()<cr>
-nnoremap <leader>sm    <cmd>lua require('telescope.builtin').marks()<cr>
-nnoremap <leader>sr    <cmd>lua require('telescope.builtin').registers()<cr>
-nnoremap <leader>sk    <cmd>lua require('telescope.builtin').keymaps()<cr>
-nnoremap <leader>stf   <cmd>lua require('telescope.builtin').filetypes()<cr>
-nnoremap <leader>sj    <cmd>lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
-nnoremap <leader>sla   <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
-nnoremap <leader>slra  <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>
-nnoremap <leader>slds  <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap <leader>slps  <cmd>lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
-nnoremap <leader>sldd  <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-nnoremap <leader>slpd  <cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
-nnoremap <leader>snc   <cmd>lua require('telescope').extensions.neoclip.default()<cr>
+nnoremap ;p    :lua require('telescope.builtin').resume()<cr>
+nnoremap ;f    :lua require('telescope.builtin').find_files()<cr>
+nnoremap ;a    :FRg<cr>
+nnoremap ;A    :FARg<cr>
+nnoremap ;gg   :lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
+nnoremap ;s    :lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
+nnoremap ;gf   :lua require('telescope.builtin').git_files()<cr>
+nnoremap ;gcb  :lua require('telescope.builtin').git_bcommits()<cr>
+nnoremap ;gcp  :lua require('telescope.builtin').git_commits()<cr>
+nnoremap ;gb   :lua require('telescope.builtin').git_branches()<cr>
+nnoremap ;gst  :lua require('telescope.builtin').git_status()<cr>
+nnoremap ;gsT  :lua require('telescope.builtin').git_stash()<cr>
+nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
+nnoremap ;ht   :lua require('telescope.builtin').help_tags()<cr>
+nnoremap ;c    :lua require('telescope.builtin').commands()<cr>
+nnoremap ;q    :lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
+nnoremap ;lq   :lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
+nnoremap ;of   :lua require('telescope.builtin').oldfiles()<cr>
+nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
+nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
+vnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
+nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
+nnoremap ;tm   :lua require('telescope.builtin').man_pages()<cr>
+nnoremap ;tt   :lua require('telescope.builtin').treesitter()<cr>
+nnoremap ;m    :lua require('telescope.builtin').marks()<cr>
+nnoremap ;r    :lua require('telescope.builtin').registers()<cr>
+nnoremap ;k    :lua require('telescope.builtin').keymaps()<cr>
+nnoremap ;tf   :lua require('telescope.builtin').filetypes()<cr>
+nnoremap ;j    :lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
+nnoremap ;la   :lua require('telescope.builtin').lsp_code_actions()<cr>
+nnoremap ;lra  :lua require('telescope.builtin').lsp_range_code_actions()<cr>
+nnoremap ;lds  :lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap ;lps  :lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
+nnoremap ;ldd  :lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap ;lpd  :lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
+nnoremap ;nc   :lua require('telescope').extensions.neoclip.default()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+highlight LspReference guifg=NONE guibg=#665c54 guisp=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=59
+highlight! link LspReferenceText LspReference
+highlight! link LspReferenceRead LspReference
+highlight! link LspReferenceWrite LspReference
+
 augroup customLSP
   autocmd!
-  " Update signature help on jump placeholder.
-  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  " Highlight the symbol and its references when holding the cursor.
-  " autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+  autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
+  autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
+  autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved * lua vim.lsp.buf.clear_references()
+  autocmd BufWritePost <buffer> lua require('lint').try_lint()
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
