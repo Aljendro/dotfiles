@@ -130,6 +130,9 @@ vnoremap > >gv
 vmap [v [egvv
 vmap ]v ]egvv
 
+" Next character remap
+nnoremap <leader>; ;
+
 " Use the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>
 
@@ -222,6 +225,9 @@ nnoremap <leader>fe mazMzv`azczO
 
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
+
+" save and resource current file
+nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
 
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>

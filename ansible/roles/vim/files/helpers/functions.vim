@@ -3,6 +3,20 @@
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
+" Execute this file
+function! SaveAndExec() abort
+  if &filetype == 'vim'
+    :silent! write
+    :source %
+  elseif &filetype == 'lua'
+    :silent! write
+    :lua require("plenary.reload").reload_module'%'
+    :luafile %
+  endif
+
+  return
+endfunction
+
 function! DeleteTrailingSpacesSilent()
   %s/\s\+$//e
   call histdel('search', -1)

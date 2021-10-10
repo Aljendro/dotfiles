@@ -15,6 +15,17 @@ local check_back_space = function()
         return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
 end
 
+function _G.put(...)
+        local objects = {}
+        for i = 1, select('#', ...) do
+                local v = select(i, ...)
+                table.insert(objects, vim.inspect(v))
+        end
+
+        print(table.concat(objects, '\n'))
+        return ...
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -42,7 +53,6 @@ local on_attach = function(client, bufnr)
         buf_set_keymap('n','[g'        ,'<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>'                          ,opts)
         buf_set_keymap('n',']g'        ,'<cmd>lua vim.lsp.diagnostic.goto_next()<cr>'                          ,opts)
         buf_set_keymap('n','gla'       ,'<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>'                      ,opts)
-        buf_set_keymap('n','gld'       ,'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>'              ,opts)
         buf_set_keymap('n','glf'       ,'<cmd>lua vim.lsp.buf.formatting()<cr>'                                ,opts)
         buf_set_keymap('n','glq'       ,'<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>'                        ,opts)
         buf_set_keymap('n','glr'       ,'<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>'                   ,opts)
@@ -95,25 +105,64 @@ cmp.setup({
         },
 })
 
+-- Merge two tables together
+local function merge(t0, t1)
+        local c = {}
+        if t0 == nil then t0 = {} end
+        if t1 == nil then t1 = {} end
+
+        for k,v in pairs(t0) do c[k] = v end
+        for k,v in pairs(t1) do c[k] = v end
+
+        return c
+end
+
+local lsp_custom = {
+        lua = {
+                settings = {
+                        Lua = {
+                                runtime = {
+                                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                                        version = 'LuaJIT',
+                                        -- Setup your lua path
+                                        path = vim.split(package.path, ';')
+                                },
+                                diagnostics = {
+                                        -- Get the language server to recognize the `vim` global
+                                        globals = {'vim'}
+                                },
+                                workspace = {
+                                        -- Make the server aware of Neovim runtime files
+                                        library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
+                                }
+                        }
+                }
+        }
+}
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver' }
+require'lspinstall'.setup()
+-- local servers = require'lspinstall'.installed_servers()
+local servers = {'lua'}
 for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup {
+        local custom_setting = lsp_custom[lsp]
+        nvim_lsp[lsp].setup(merge({
                 capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
                 on_attach = on_attach,
                 handlers = {
                         ["textDocument/publishDiagnostics"] = vim.lsp.with(
                                 vim.lsp.diagnostic.on_publish_diagnostics, {
-                                        -- Disable virtual_text
-                                        virtual_text = false
+                                        virtual_text = false,
+                                        underline = true,
+                                        signs = true,
                                 }
                         ),
                 },
                 flags = {
                         debounce_text_changes = 150,
                 }
-        }
+        }, custom_setting))
 end
 
 dap.adapters.node2 = {
@@ -124,15 +173,15 @@ dap.adapters.node2 = {
 
 
 local signs = {
-        LspDiagnosticsSignError = "💢",
-        LspDiagnosticsSignWarn = "⚠️ ",
-        LspDiagnosticsSignHint = "💬",
-        LspDiagnosticsSignInfo = "📜",
-        DapBreakpoint         ='🟩',
-        DapCondition          ='🟧',
-        DapBreakpointRejected ='🟥',
-        DapStopped            ='➡️' ,
-        DapLogPoint           ='📓',
+        LspDiagnosticsSignError       = "💢",
+        LspDiagnosticsSignWarning     = "⚠️ ",
+        LspDiagnosticsSignHint        = "💬",
+        LspDiagnosticsSignInformation = "📜",
+        DapBreakpoint                 = '🟩',
+        DapCondition                  = '🟧',
+        DapBreakpointRejected         = '🟥',
+        DapStopped                    = '➡️' ,
+        DapLogPoint                   = '📓',
 }
 
 for hl, icon in pairs(signs) do
@@ -143,6 +192,9 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('dap')
 require('gitsigns').setup()
 require('hop').setup()
+require('lint').linters_by_ft = {
+        javascript = {'eslint'}
+}
 require('nvim-treesitter.configs').setup({
         ensure_installed = 'all',
         highlight = {
