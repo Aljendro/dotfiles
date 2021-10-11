@@ -200,7 +200,6 @@ augroup customLSP
   " autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
   " autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
   " autocmd CursorMoved * lua vim.lsp.buf.clear_references()
-  autocmd BufWritePost <buffer> lua require('lint').try_lint()
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""

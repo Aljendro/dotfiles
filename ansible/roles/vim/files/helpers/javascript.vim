@@ -5,4 +5,5 @@ iabbrev <buffer> d; debugger;
 " Run tests with vimux using jest
 map <buffer> <leader>rt :call VimuxRunCommand("clear; cd " . expand('%:p:h') . "; jest --watch --runInBand " . bufname("%"))<CR>
 
-setlocal foldmethod=syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
