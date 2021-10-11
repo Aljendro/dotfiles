@@ -141,9 +141,6 @@ nnoremap <expr> <localleader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getc
 nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
 nnoremap <localleader>sd :<C-U>wall \| call LoadSession('default')<cr>
 
-" Paste at mark
-nnoremap <leader>p :<C-U>call PasteAtMark()<cr>
-
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
 vnoremap <silent> # :<C-u>call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
@@ -203,8 +200,6 @@ nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
 nnoremap <expr> <leader><M-o> 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
-" Default Prettify Indententation
-nnoremap <leader>ff gg=G''
 " Fast column formatting
 vnoremap <leader>ff :<C-U>'<,'>Tab /
 

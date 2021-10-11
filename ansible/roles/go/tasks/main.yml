@@ -20,3 +20,7 @@
     src: /tmp/go_installer
     dest: /usr/local/
     mode: '0755'
+
+- name: Install EFM LSP Server
+  shell: go install github.com/mattn/efm-langserver@latest
+

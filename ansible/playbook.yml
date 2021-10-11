@@ -66,6 +66,11 @@
         - js
 
     - import_role:
+        name: lua
+      tags:
+        - lua
+
+    - import_role:
         name: python
       tags:
         - python
