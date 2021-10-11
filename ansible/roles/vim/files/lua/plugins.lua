@@ -22,7 +22,6 @@ return require('packer').startup(function()
     use 'kana/vim-textobj-entire'
     use 'kana/vim-textobj-user'
     use 'mfussenegger/nvim-dap'
-    use 'mfussenegger/nvim-lint'
     use 'morhetz/gruvbox'
     use 'neovim/nvim-lspconfig'
     use 'nvim-telescope/telescope-dap.nvim'

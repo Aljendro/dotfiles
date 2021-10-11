@@ -69,7 +69,7 @@ let g:lightline = {
 "" NERDTree (File Tree Viewer Plugin)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <expr> <localleader>d g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+nnoremap <silent> <expr> ;d g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 
 let NERDTreeShowLineNumbers  = 0
 let NERDTreeMouseMode        = 3
@@ -195,11 +195,11 @@ highlight! link LspReferenceWrite LspReference
 
 augroup customLSP
   autocmd!
-  autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+  autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
   autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
-  autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
-  autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved * lua vim.lsp.buf.clear_references()
+  " autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
+  " autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
+  " autocmd CursorMoved * lua vim.lsp.buf.clear_references()
   autocmd BufWritePost <buffer> lua require('lint').try_lint()
 augroup END
 
@@ -237,6 +237,14 @@ augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+"" Packer Manager (Packer)
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>pi :PackerInstall<cr>
+nnoremap <leader>pc :PackerCompile<cr>
+nnoremap <leader>pr :PackerClean<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Sneak
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -268,15 +276,6 @@ map <Leader>vx :<C-U>VimuxInterruptRunner<cr>
 map <Leader>vz :<C-U>call VimuxZoomRunner()<cr>
 " Clear the tmux history of the runner pane
 map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-"" Closetag
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-
-let g:closetag_filetypes = "html,javascriptreact,typescriptreact"
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Delimitmate

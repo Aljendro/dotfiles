@@ -1,3 +1,13 @@
+-- Neovim init settings
+--
+-- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+--
+
+-- TODO: This config is in early of being converted to lua
+-- Its a "make it work" stage and settings/configs/functions
+-- are in progress.
+-- Will clean this up once all my settings are working properly
+
 require('plugins')
 
 vim.cmd("source ~/.vimrc")
@@ -36,7 +46,6 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
 
-    client.resolved_capabilities.document_formatting = false
     -- Mappings.
     local opts = {
         noremap = true,
@@ -132,8 +141,15 @@ local function merge(t0, t1)
     return c
 end
 
-local lsp_custom = {
+local servers = {
+    bash = {},
+    clojure = {},
+    css = {},
+    dockerfile = {},
+    html = {},
+    json = {},
     lua = {
+        self_disable_formatter = true, -- Don't use LSP formatter
         settings = {
             Lua = {
                 runtime = {
@@ -155,25 +171,31 @@ local lsp_custom = {
                 }
             }
         }
-    }
+    },
+    rust = {},
+    typescript = {
+        self_disable_formatter = true -- Don't use LSP formatter
+    },
+    vim = {},
+    yaml = {}
 }
+
+require'lspinstall'.setup()
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-require'lspinstall'.setup()
-local servers = {
-    'dockerfile', 'clojure', 'json', 'yaml', 'rust', 'lua', 'css', 'typescript',
-    'html', 'bash', 'vim'
-}
-
--- Generic LSP Config
-for _, lsp in ipairs(servers) do
-    local custom_setting = lsp_custom[lsp]
+for lsp, custom_setting in pairs(servers) do
     nvim_lsp[lsp].setup(merge({
         capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                        .protocol
                                                                        .make_client_capabilities()),
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+            if custom_setting.self_disable_formatter then
+                client.resolved_capabilities.document_formatting =
+                    not custom_setting.self_disable_formatter
+            end
+            on_attach(client, bufnr)
+        end,
         settings = {
             documentFormatting = false
         },
@@ -193,12 +215,26 @@ for _, lsp in ipairs(servers) do
     }, custom_setting))
 end
 
+local prettier = {
+    formatCommand = "prettier --stdin-filepath ${INPUT}",
+    formatStdin = true
+}
+local eslint = {
+    lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+    lintIgnoreExitCode = true,
+    lintStdin = true,
+    lintFormats = {"%f:%l:%c: %m"}
+}
+
 -- Custom LSP Config
 nvim_lsp['efm'].setup({
     init_options = {
         documentFormatting = true
     },
-    filetypes = {"lua"},
+    filetypes = {
+        "lua", "javascript", "javascript", "javascriptreact", "typescript",
+        "typescriptreact"
+    },
     settings = {
         rootMarkers = {".git/"},
         languages = {
@@ -207,7 +243,11 @@ nvim_lsp['efm'].setup({
                     formatCommand = "$HOME/.luarocks/bin/lua-format -i",
                     formatStdin = true
                 }
-            }
+            },
+            javascript = {prettier, eslint},
+            javascriptreact = {prettier, eslint},
+            typescript = {prettier, eslint},
+            typescriptreact = {prettier, eslint}
         }
     }
 })
@@ -247,9 +287,6 @@ require('telescope').load_extension('dap')
 require('gitsigns').setup()
 require('hop').setup()
 require('nvim-ts-autotag').setup()
-require('lint').linters_by_ft = {
-    javascript = {'eslint'}
-}
 require('nvim-treesitter.configs').setup({
     ensure_installed = 'all',
     highlight = {

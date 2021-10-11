@@ -23,7 +23,7 @@
     executable: /bin/bash
 
 - name: Install globals
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g live-server yarn neovim prettier serverless jest aws-cdk csvtojson
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g live-server eslint_d yarn neovim prettier serverless jest aws-cdk csvtojson
   args:
     executable: /bin/bash
 
