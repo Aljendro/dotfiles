@@ -8,7 +8,6 @@ vim.g["python3_host_prog"] = vim.fn.expand("/usr/bin/python3")
 return require('packer').startup(function()
 
     use "Pocco81/DAPInstall.nvim"
-    use 'Xuyuanp/nerdtree-git-plugin'
     use 'benmills/vimux'
     use 'davidgranstrom/nvim-markdown-preview'
     use 'godlygeek/tabular'
