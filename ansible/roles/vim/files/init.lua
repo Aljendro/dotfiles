@@ -2,12 +2,10 @@
 --
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
-
 -- TODO: This config is in early of being converted to lua
 -- Its a "make it work" stage and settings/configs/functions
 -- are in progress.
 -- Will clean this up once all my settings are working properly
-
 require('plugins')
 
 vim.cmd("source ~/.vimrc")
@@ -91,7 +89,8 @@ cmp.setup({
     },
     sources = {
         {
-            name = 'nvim_lsp'
+            name = 'nvim_lsp',
+            preselect = true
         }, {
             name = 'ultisnips'
         }, {
@@ -234,6 +233,15 @@ nvim_lsp['efm'].setup({
     filetypes = {
         "lua", "javascript", "javascript", "javascriptreact", "typescript",
         "typescriptreact"
+    },
+    handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic
+                                                               .on_publish_diagnostics,
+                                                           {
+            virtual_text = false,
+            underline = true,
+            signs = true
+        })
     },
     settings = {
         rootMarkers = {".git/"},
