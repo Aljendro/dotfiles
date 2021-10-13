@@ -25,7 +25,6 @@ set hidden                                                                      
 set ignorecase                                                                         " Ignore case when searching
 set inccommand=nosplit                                                                 " Show preview of changes
 set mouse=a                                                                            " Allows mouse click on vim
-set nofoldenable
 set nolangremap                                                                        " Do not remap characters
 set noshowmode                                                                         " Don't show the -- Insert -- anymore
 set noswapfile
@@ -200,18 +199,18 @@ nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easier folds
-nnoremap <leader>fj zr
-nnoremap <leader>fk zm
-nnoremap <leader>fh zM
-nnoremap <leader>fl zR
-nnoremap <leader>fo zo
-vnoremap <leader>fo zo
-nnoremap <leader>fO zO
-vnoremap <leader>fO zO
-nnoremap <leader>fc zc
-vnoremap <leader>fc zc
-nnoremap <leader>fC zC
-vnoremap <leader>fC zC
+nnoremap <leader>fj zrz<cr>
+nnoremap <leader>fk zmz<cr>
+nnoremap <leader>fh zMz<cr>
+nnoremap <leader>fl zRz<cr>
+nnoremap <leader>fo zoz<cr>
+vnoremap <leader>fo zoz<cr>
+nnoremap <leader>fO zOz<cr>
+vnoremap <leader>fO zOz<cr>
+nnoremap <leader>fc zcz<cr>
+vnoremap <leader>fc zcz<cr>
+nnoremap <leader>fC zCz<cr>
+vnoremap <leader>fC zCz<cr>
 nnoremap <leader>fe mazMzv`azczO
 
 """""""""""""""""""""""""""""""""""""""""""""""""
