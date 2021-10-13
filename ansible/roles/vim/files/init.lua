@@ -293,7 +293,10 @@ end
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('dap')
 require('gitsigns').setup()
-require('hop').setup()
+require('hop').setup({
+    keys = 'fjdksla;rueiwovmcxtyz',
+    term_seq_bias = 0.5
+})
 require('nvim-ts-autotag').setup()
 require('nvim-treesitter.configs').setup({
     ensure_installed = 'all',

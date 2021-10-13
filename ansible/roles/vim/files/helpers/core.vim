@@ -1,10 +1,10 @@
-" The core settings and keybindings in all version of vim
+" The core settings and keybindings in neovim
 "
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 "
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Config
+""""""""""""""" Settings """"""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on
 syntax enable
@@ -36,7 +36,7 @@ set nrformats-=octal                                                            
 set number                                                                             " Turn on line numbers
 set relativenumber                                                                     " Relative numbers for quick range commands
 set ruler                                                                              " Show the cursor position all the time
-set scrolloff=2                                                                        " Keep context around cursor
+set scrolloff=1                                                                        " Keep context around cursor
 set shortmess+=c                                                                       " Don't pass messages to |ins-completion-menu|.
 set signcolumn=yes                                                                     " Always show the signcolumn, otherwise it would shift the text each time
 set smartcase                                                                          " If search contains uppercase characters, disobey ignorecase
@@ -49,7 +49,7 @@ set virtualedit=block,onemore                                                   
 set wildmenu                                                                           " Display completion matches in a status line
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Keybindings
+""""""""" Configurations/Keybindings """"""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <Bslash> <Nop>
@@ -57,8 +57,24 @@ nnoremap <space> <Nop>
 let mapleader = " "
 let maplocalleader= "\\"
 
+" Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
+nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Abbreviations
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Code signature
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
-iabbrev """ """"""""""""""""""""
+" Do not show visual feedback for grepping in command line
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
+" Always open help in new tab
+cnoreabbrev help tab help
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Saves
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -68,33 +84,44 @@ iabbrev """ """"""""""""""""""""
 
 " Faster saving
 nnoremap <leader>w :w<cr>
-nnoremap <leader>q :wq<cr>
+nnoremap <leader>q :q<cr>
 
-" Do not show visual feedback for grepping in command line
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
+" Save and resource current file
+nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
 
-cnoreabbrev tah tab help
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Quickfix
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Profile everything
-nnoremap  <localleader>pa :<C-U>profile start profile-all.txt \| profile file * \| profile func *<cr>
+" Move between quickfix list easily
+nnoremap sm :<C-U>cprevious<cr>
+nnoremap s, :<C-U>cnext<cr>
 
-" Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <F1> :tabedit $DOTFILES_DIR/ansible/roles/vim/files/vimrc<cr>:!ls<cr><cr>G
+" Move between location list easily
+nnoremap s. :<C-U>lprevious<cr>
+nnoremap s/ :<C-U>lnext<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Splits/Windows
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Only split
+nnoremap so <C-w>o
+
+" Tab split
+nnoremap st <C-w>T
+
+" Vertical split
+nnoremap sv <C-w>v
+
+" Close split
+nnoremap sc <C-w>c
 
 " Move between windows easily
-nnoremap <C-e> <C-w><C-k>
-nnoremap <C-d> <C-w><C-j>
-nnoremap <C-f> <C-w><C-l>
-nnoremap <C-s> <C-w><C-h>
-
-" Move between tabs easily
-noremap <C-h> gT
-noremap <C-l> gt
-
-" Move between quickfix items easily
-nnoremap <M-h> :<C-U>cprevious<cr>
-nnoremap <M-l> :<C-U>cnext<cr>
+nnoremap sk <C-w><C-k>
+nnoremap sj <C-w><C-j>
+nnoremap sl <C-w><C-l>
+nnoremap sh <C-w><C-h>
 
 " Scroll window easily
 nnoremap <C-j> <C-d>
@@ -119,6 +146,117 @@ nnoremap gvf <C-w>vgf
 " Reset keybinding for reselecting visual
 nnoremap gvv gv
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Search
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Easier search and/or replace
+nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
+nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
+vmap <leader>rw *Ncgn
+nmap <leader>rw g*cgn
+
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :<C-u>call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
+vnoremap <silent> # :<C-u>call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
+
+nnoremap * :keepjumps normal! mi*`i<cr>
+nnoremap g* :keepjumps normal! mig*`i<cr>
+nnoremap # :keepjumps normal! mi#`i<cr>
+nnoremap g# :keepjumps normal! mig#`i<cr>
+
+" Count the number of possible replacements (occurrences and lines)
+nnoremap <leader>rco :<C-U>%s///gn<cr>
+nnoremap <leader>rcl :<C-U>%s///n<cr>
+
+" Center cursor when searching
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Tabs
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move between tabs easily
+noremap si gT
+noremap su gt
+" Move tabs around
+nnoremap <leader>th :<C-U>-1tabm<cr>
+nnoremap <leader>tl :<C-U>+1tabm<cr>
+" Only keep current tab
+nnoremap <leader>to :<C-U>tabo<cr>
+" Create a new tab at the end
+nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
+" Create a new scratch buffer tab at the end
+nnoremap <leader>ts :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
+" Close the tab
+nnoremap <leader>tc :<C-U>tabclose<cr>
+" Go to last visited tab
+let g:lastTab = 1
+nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Folds
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Easier folds
+nnoremap <leader>fj zr
+nnoremap <leader>fk zm
+nnoremap <leader>fh zM
+nnoremap <leader>fl zR
+nnoremap <leader>fo zo
+vnoremap <leader>fo zo
+nnoremap <leader>fO zO
+vnoremap <leader>fO zO
+nnoremap <leader>fc zc
+vnoremap <leader>fc zc
+nnoremap <leader>fC zC
+vnoremap <leader>fC zC
+nnoremap <leader>fe mazMzv`azczO
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Sessions
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Quick Session
+nnoremap <expr> <leader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <leader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <leader>sd :<C-U>wall \| call LoadSession('default')<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Profiling
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Profile everything
+nnoremap  <leader>p :<C-U>profile start profile-all.txt \| profile file * \| profile func *<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Macros
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Easier macro execution
+nnoremap <silent> <leader>m :call RecordMacro()<cr>
+nnoremap <expr> <leader>e '@' . nr2char(getchar())
+vnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
+nnoremap Q @@
+vnoremap Q :norm! @@<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Miscellaneous
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Undo breakpoints
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Keep cursor in same place
+nnoremap J mzJ`z
+
+" Normalize Y
+nnoremap Y y$
+
 " Close highlighting
 nnoremap <leader><enter> :<C-U>noh<cr>
 
@@ -136,65 +274,15 @@ nnoremap <leader>; ;
 " Use the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>
 
-" Quick Session
-nnoremap <expr> <localleader>ss ':<C-U>wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
-nnoremap <expr> <localleader>sr ':<C-U>wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
-nnoremap <localleader>sd :<C-U>wall \| call LoadSession('default')<cr>
-
-" Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :<C-u>call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
-vnoremap <silent> # :<C-u>call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
-
-nnoremap * :keepjumps normal! mi*`i<cr>
-nnoremap g* :keepjumps normal! mig*`i<cr>
-nnoremap # :keepjumps normal! mi#`i<cr>
-nnoremap g# :keepjumps normal! mig#`i<cr>
-
-" Count the number of possible replacements (occurrences and lines)
-nnoremap <leader>rco :<C-U>%s///gn<cr>
-nnoremap <leader>rcl :<C-U>%s///n<cr>
-
-" Easier search and/or replace
-nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
-nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
-vmap <leader>rw *Ncgn
-nmap <leader>rw g*cgn
-
-" Easier macro execution
-nnoremap <silent> <leader>m :call RecordMacro()<cr>
-nnoremap <expr> <leader>e '@' . nr2char(getchar())
-vnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
-nnoremap Q @@
-vnoremap Q :norm! @@<cr>
-
 " Selections
 " Whole Buffer
 nnoremap <leader>va ggVG
 
 " Faster shifting
-nnoremap <Down> 10<C-e>
-nnoremap <Up> 10<C-y>
+nnoremap <Down> 25<C-e>
+nnoremap <Up> 25<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
-
-" Move tabs around
-nnoremap <leader>th :<C-U>-1tabm<cr>
-nnoremap <leader>tl :<C-U>+1tabm<cr>
-" Only keep current tab
-nnoremap <leader>to :<C-U>tabo<cr>
-" Expand split in new tab
-nnoremap <leader>tt :<C-U>tab split<cr>
-" Move file to new tab
-nnoremap <leader>tT <C-w>T
-" Create a new tab at the end
-nnoremap <leader>tn :<C-U>tabnew<cr>:tabmove<cr>
-" Create a new scratch buffer tab at the end
-nnoremap <leader>ts :<C-U>tabnew +setl\ buftype=nofile<cr>:<C-U>tabmove<cr>
-" Close the tab
-nnoremap <leader>tc :<C-U>tabclose<cr>
-" Go to last visited tab
-let g:lastTab = 1
-nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
 
 " Open line directly above/below cursor
 nnoremap <expr> <leader><M-o> 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
@@ -203,29 +291,15 @@ nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 " Fast column formatting
 vnoremap <leader>ff :<C-U>'<,'>Tab /
 
-" Easier folds
-nnoremap <leader>fj zr
-nnoremap <leader>fk zm
-nnoremap <leader>fh zM
-nnoremap <leader>fl zR
-nnoremap <leader>fo zo
-vnoremap <leader>fo zo
-nnoremap <leader>fO zO
-vnoremap <leader>fO zO
-nnoremap <leader>fc zc
-vnoremap <leader>fc zc
-nnoremap <leader>fC zC
-vnoremap <leader>fC zC
-nnoremap <leader>fe mazMzv`azczO
-
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
 
-" save and resource current file
-nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
-
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Autocommands
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup customVim
       autocmd!

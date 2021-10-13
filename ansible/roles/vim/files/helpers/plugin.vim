@@ -15,6 +15,16 @@ let g:rainbow_active           = 1
 colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+"" Surround
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap <leader>' ysiw'
+nmap <leader>" ysiw"
+nmap <leader>` ysiw`
+nmap <leader>( ysiw)
+nmap <leader>{ ysiw}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""""
 
