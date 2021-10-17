@@ -8,6 +8,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on
 syntax enable
+colorscheme dracula
 
 set autowrite
 set clipboard=unnamed,unnamedplus                                                      " Yank to the system clipboard and selection clipboard
@@ -19,8 +20,8 @@ set fileencoding=utf-8
 set foldcolumn=1
 set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
-" set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline\ --multiline-dotall
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline                     " set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline\ --multiline-dotall
+set guitablabel=%t
 set hidden                                                                             " Buffer becomes hidden when it is abandoned
 set ignorecase                                                                         " Ignore case when searching
 set inccommand=nosplit                                                                 " Show preview of changes
@@ -43,6 +44,7 @@ set smartindent                                                                 
 set splitbelow                                                                         " Open a window below the current window
 set splitright                                                                         " Open a window right of the current window
 set t_Co=256
+set termguicolors
 set updatetime=100                                                                     " Faster CursorHold refresh to highlight matching vars
 set virtualedit=block,onemore                                                          " Allow putting cursor on non-characters past the end of the line
 set wildmenu                                                                           " Display completion matches in a status line
@@ -177,8 +179,8 @@ nnoremap N Nzzzv
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between tabs easily
-noremap si gT
-noremap su gt
+noremap su gT
+noremap si gt
 " Move tabs around
 nnoremap <leader>th :<C-U>-1tabm<cr>
 nnoremap <leader>tl :<C-U>+1tabm<cr>
@@ -199,19 +201,19 @@ nnoremap <leader>tp :<C-U>exec "tabn " . g:lastTab<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easier folds
-nnoremap <leader>fj zrz<cr>
-nnoremap <leader>fk zmz<cr>
-nnoremap <leader>fh zMz<cr>
-nnoremap <leader>fl zRz<cr>
-nnoremap <leader>fo zoz<cr>
-vnoremap <leader>fo zoz<cr>
-nnoremap <leader>fO zOz<cr>
-vnoremap <leader>fO zOz<cr>
-nnoremap <leader>fc zcz<cr>
-vnoremap <leader>fc zcz<cr>
-nnoremap <leader>fC zCz<cr>
-vnoremap <leader>fC zCz<cr>
-nnoremap <leader>fe mazMzv`azczO
+nnoremap <leader>fj zrzz
+nnoremap <leader>fk zmzz
+nnoremap <leader>fh zMzz
+nnoremap <leader>fl zRzz
+nnoremap <leader>fo zozz
+vnoremap <leader>fo zozz
+nnoremap <leader>fO zOzz
+vnoremap <leader>fO zOzz
+nnoremap <leader>fc zczz
+vnoremap <leader>fc zczz
+nnoremap <leader>fC zCzz
+vnoremap <leader>fC zCzz
+nnoremap <leader>fe mazMzv`azczOzz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Sessions
