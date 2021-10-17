@@ -4,17 +4,6 @@
 "
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Config
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:gruvbox_contrast_dark    = 'medium'
-let g:gruvbox_hls_cursor       = 'blue'
-let g:gruvbox_invert_selection = 0
-let g:rainbow_active           = 1
-
-colorscheme gruvbox
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Surround
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -32,48 +21,6 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 
 let snippetPath=$DOTFILES_DIR.'/ansible/roles/vim/files/snippets/'
 let g:UltiSnipsSnippetDirectories=[snippetPath]
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-"" Lightline
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! LightlineBranch()
-  return winwidth(0) > 70 ? FugitiveHead() : ''
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? &fileencoding : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return winwidth(0) > 70 ? path[len(root)+1:] : fnamemodify(path[len(root)+1:], ':t')
-  endif
-  return winwidth(0) > 70 ? expand('%') : fnamemodify(expand('%'), ':t')
-endfunction
-
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ],
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'fileencoding': 'LightlineFileencoding'
-      \ },
-      \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" NERDTree (File Tree Viewer Plugin)

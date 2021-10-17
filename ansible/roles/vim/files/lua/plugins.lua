@@ -10,18 +10,20 @@ return require('packer').startup(function()
     use "Pocco81/DAPInstall.nvim"
     use 'benmills/vimux'
     use 'davidgranstrom/nvim-markdown-preview'
+    use 'dracula/vim'
     use 'godlygeek/tabular'
     use 'guns/vim-sexp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/nvim-cmp'
-    use 'itchyny/lightline.vim'
     use 'junegunn/fzf.vim'
     use 'kabouzeid/nvim-lspinstall'
+    use 'ryanoasis/vim-devicons'
+    use 'tpope/vim-sleuth'
     use 'kana/vim-textobj-entire'
     use 'kana/vim-textobj-user'
+    use 'kyazdani42/nvim-web-devicons'
     use 'mfussenegger/nvim-dap'
-    use 'morhetz/gruvbox'
     use 'neovim/nvim-lspconfig'
     use 'nvim-telescope/telescope-dap.nvim'
     use 'olical/conjure'
@@ -44,8 +46,19 @@ return require('packer').startup(function()
         config = function() require('neoclip').setup() end
     }
     use {
+        'alvarosevilla95/luatab.nvim',
+        requires = 'kyazdani42/nvim-web-devicons'
+    }
+    use {
         'eraserhd/parinfer-rust',
         run = 'cargo build --release'
+    }
+    use {
+        'hoob3rt/lualine.nvim',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        }
     }
     use {
         'junegunn/fzf',

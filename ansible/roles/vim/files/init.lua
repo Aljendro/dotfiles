@@ -8,6 +8,7 @@
 -- Will clean this up once all my settings are working properly
 require('plugins')
 
+vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
 vim.cmd("source ~/.vimrc")
 
 local cmp = require('cmp')
@@ -210,7 +211,8 @@ for lsp, custom_setting in pairs(servers) do
         },
         flags = {
             debounce_text_changes = 150
-        }
+        },
+        root_dir = require('lspconfig.util').root_pattern('.git')
     }, custom_setting))
 end
 
@@ -225,6 +227,7 @@ local eslint = {
     lintFormats = {"%f:%l:%c: %m"}
 }
 
+vim.lsp.set_log_level("debug")
 -- Custom LSP Config
 nvim_lsp['efm'].setup({
     init_options = {
@@ -317,3 +320,9 @@ require('nvim-treesitter.configs').setup({
         enable = true
     }
 })
+require('lualine').setup({
+    options = {
+        theme = 'dracula'
+    }
+})
+
