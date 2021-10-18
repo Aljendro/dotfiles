@@ -93,6 +93,7 @@ vnoremap <leader>/w :<C-U>call GetSelectedText()<cr>:silent grep! -F -- <C-R>=@/
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Fuzzy Finder (Telescope)
 """""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:fzf_command_prefix = 'F'
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
 let g:fzf_preview_window = ['right:60%', 'ctrl-/']
@@ -108,6 +109,8 @@ nnoremap ;p    :lua require('telescope.builtin').resume()<cr>
 nnoremap ;f    :lua require('telescope.builtin').find_files()<cr>
 nnoremap ;a    :FRg<cr>
 nnoremap ;A    :FARg<cr>
+nnoremap ;w    :Telescope grep_string<cr>
+vnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string search=<C-R>=@/<cr><cr>
 nnoremap ;gg   :lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
 nnoremap ;s    :lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
 nnoremap ;gf   :lua require('telescope.builtin').git_files()<cr>
