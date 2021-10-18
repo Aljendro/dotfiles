@@ -168,7 +168,6 @@ nnoremap g# :keepjumps normal! mig#`i<cr>
 
 " Count the number of possible replacements (occurrences and lines)
 nnoremap <leader>rco :<C-U>%s///gn<cr>
-nnoremap <leader>rcl :<C-U>%s///n<cr>
 
 " Center cursor when searching
 nnoremap n nzzzv
@@ -181,6 +180,8 @@ nnoremap N Nzzzv
 " Move between tabs easily
 noremap su gT
 noremap si gt
+" Move a window into a new tabpage
+noremap <leader>tt <C-w>T
 " Move tabs around
 nnoremap <leader>th :<C-U>-1tabm<cr>
 nnoremap <leader>tl :<C-U>+1tabm<cr>
