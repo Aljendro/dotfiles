@@ -38,10 +38,19 @@ let NERDTreeMinimalUI        = 1
 let NERDTreeMapOpenVSplit = 'v'
 let NERDTreeMapPreviewVSplit = 'gv'
 
+let NERDTreeDirArrowExpandable = "\u00a0"
+let NERDTreeDirArrowCollapsible = "\u00a0"
+
 augroup customNERDTree
   autocmd!
   " Close NERDTree if its the last open window
   autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  " Conceal the brackets
+  autocmd FileType nerdtree syntax clear NERDTreeFlags
+  autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
+  autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\[" contained conceal containedin=ALL
+  autocmd FileType nerdtree setlocal conceallevel=3
+  autocmd FileType nerdtree setlocal concealcursor=nvic
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
