@@ -219,12 +219,15 @@ nnoremap <leader>pr :PackerClean<cr>
 " 2-character Sneak (default)
 nmap <leader>k <cmd>HopWord<cr>
 nmap <leader>j <cmd>HopLine<cr>
+nmap <leader>l <cmd>HopChar1<cr>
 " visual-mode
 xmap <leader>k <cmd>HopWord<cr>
 xmap <leader>j <cmd>HopLine<cr>
+xmap <leader>l <cmd>HopChar1<cr>
 " operator-pending-mode
 omap <leader>k <cmd>HopWord<cr>
 omap <leader>j <cmd>HopLine<cr>
+omap <leader>l <cmd>HopChar1<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
