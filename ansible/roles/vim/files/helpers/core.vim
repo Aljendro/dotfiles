@@ -71,7 +71,7 @@ iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
 " Always open help in new tab
-cnoreabbrev help tab help
+cnoreabbrev tah tab help
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
@@ -95,12 +95,12 @@ nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between quickfix list easily
-nnoremap sm :<C-U>cprevious<cr>
-nnoremap s, :<C-U>cnext<cr>
+nnoremap sm :<C-U>cprevious<cr>zz
+nnoremap s, :<C-U>cnext<cr>zz
 
 " Move between location list easily
-nnoremap s. :<C-U>lprevious<cr>
-nnoremap s/ :<C-U>lnext<cr>
+nnoremap s. :<C-U>lprevious<cr>zz
+nnoremap s/ :<C-U>lnext<cr>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
@@ -152,10 +152,12 @@ nnoremap gvv gv
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easier search and/or replace
-nnoremap <leader>rr :<C-U>%s//gcI<Left><Left><Left><Left>
-nnoremap <leader>ri :<C-U>%s//gci<Left><Left><Left><Left>
-vmap <leader>rw *Ncgn
-nmap <leader>rw g*cgn
+nnoremap <leader>/r :<C-U>%s//gci<Left><Left><Left><Left>
+" Count the number of possible replacements (occurrences and lines)
+nnoremap <leader>/c :<C-U>%s///gn<cr>
+
+vmap <leader>/w *Ncgn
+nmap <leader>/w g*cgn
 
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
@@ -165,9 +167,6 @@ nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
 nnoremap # :keepjumps normal! mi#`i<cr>
 nnoremap g# :keepjumps normal! mig#`i<cr>
-
-" Count the number of possible replacements (occurrences and lines)
-nnoremap <leader>rco :<C-U>%s///gn<cr>
 
 " Center cursor when searching
 nnoremap n nzzzv
@@ -281,8 +280,8 @@ vnoremap . :normal .<cr>
 nnoremap <leader>va ggVG
 
 " Faster shifting
-nnoremap <Down> 25<C-e>
-nnoremap <Up> 25<C-y>
+nnoremap <Down> 5<C-e>
+nnoremap <Up> 5<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
@@ -305,6 +304,8 @@ inoremap <C-c> <esc>
 
 augroup customVim
       autocmd!
+      " Keep folds open
+      autocmd BufWinEnter * normal zR
       " When editing a file, always jump to the last known cursor position.
       autocmd BufReadPost *
                         \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
