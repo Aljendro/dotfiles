@@ -74,6 +74,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gla',
                    '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
     buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+    buf_set_keymap('n', 'gld', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
     buf_set_keymap('n', 'glq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>',
                    opts)
     buf_set_keymap('n', 'glr',
@@ -211,8 +212,7 @@ for lsp, custom_setting in pairs(servers) do
         },
         flags = {
             debounce_text_changes = 150
-        },
-        root_dir = require('lspconfig.util').root_pattern('.git')
+        }
     }, custom_setting))
 end
 
