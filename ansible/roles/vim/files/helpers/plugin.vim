@@ -91,15 +91,6 @@ cabbrev gstl Git stash list
 cabbrev gstp Git stash pop
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Ripgrep
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Search for word under cursor in project
-nnoremap <leader>/w :<C-U>silent grep! <C-R>=expand("<cword>")<cr><cr>:copen<cr>
-" Search for highlighted word in project
-vnoremap <leader>/w :<C-U>call GetSelectedText()<cr>:silent grep! -F -- <C-R>=@/<cr><cr>:copen<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Fuzzy Finder (Telescope)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -164,8 +155,6 @@ highlight! link LspReferenceWrite LspReference
 
 augroup customLSP
   autocmd!
-  autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
-  autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
   " autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
   " autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
   " autocmd CursorMoved * lua vim.lsp.buf.clear_references()
@@ -253,3 +242,16 @@ map <Leader>vc :<C-U>call VimuxRunCommand("clear;")<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let delimitMate_excluded_ft = "clojure"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Vim Test
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let test#strategy = 'vimux'
+
+nnoremap <leader>tt :TestNearest<CR>
+nnoremap <leader>T  :TestFile<CR>
+nnoremap <leader>ta :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
+

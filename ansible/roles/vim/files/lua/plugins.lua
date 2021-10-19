@@ -17,6 +17,7 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/nvim-cmp'
     use 'junegunn/fzf.vim'
+    use 'vim-test/vim-test'
     use 'kabouzeid/nvim-lspinstall'
     use 'ryanoasis/vim-devicons'
     use 'tpope/vim-sleuth'
