@@ -63,9 +63,9 @@ function! GetFilePathFromGitRoot(filename)
 endfunction
 
 function! RecordMacro()
-  let register = nr2char(getchar())
+  let l:register = nr2char(getchar())
   " Clear out the register and start recording
-  exec "normal! q" . register . "q". "q" . register
+  exec "normal! q" . l:register . "q" . "q" . l:register
 endfunction
 
 " Prettier folding
@@ -98,3 +98,4 @@ function! FoldText()
 
   return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
+

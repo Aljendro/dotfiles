@@ -95,12 +95,14 @@ nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between quickfix list easily
+nnoremap sn :<C-U>cNfile<cr>zz
 nnoremap sm :<C-U>cprevious<cr>zz
 nnoremap s, :<C-U>cnext<cr>zz
+nnoremap s. :<C-U>cnfile<cr>zz
 
 " Move between location list easily
-nnoremap s. :<C-U>lprevious<cr>zz
-nnoremap s/ :<C-U>lnext<cr>zz
+nnoremap so :<C-U>lprevious<cr>zz
+nnoremap sp :<C-U>lnext<cr>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
@@ -180,7 +182,7 @@ nnoremap N Nzzzv
 noremap su gT
 noremap si gt
 " Move a window into a new tabpage
-noremap <leader>tt <C-w>T
+noremap <leader>tw <C-w>T
 " Move tabs around
 nnoremap <leader>th :<C-U>-1tabm<cr>
 nnoremap <leader>tl :<C-U>+1tabm<cr>

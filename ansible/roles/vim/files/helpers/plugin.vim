@@ -58,19 +58,21 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Open up Fugitive in a tab
-nnoremap <leader>gdd :<C-U>tab G<cr>
+nnoremap <leader>gg :<C-U>tab G<cr>
 " Create diffsplit
-nnoremap <leader>gds :<C-U>tab split<cr>:<C-U>Gvdiffsplit<cr>
+nnoremap <leader>gd :<C-U>tab split<cr>:Gvdiffsplit<cr>
+" Load changes into quickfix list
+nnoremap <leader>gc :<C-U>Git difftool<cr>:cclose<cr>
+" Open git blame with commit and author
+nmap <leader>gb :<C-U>Git blame<cr>A
 " Refresh difftool
-nnoremap <leader>gdu :<C-U>diffupdate<cr>
+nnoremap <leader>gD :<C-U>diffupdate<cr>
 " Open merge conflicts in different tabs
-nnoremap <leader>gdc :<C-U>wall \| call MakeSession('diff') \| tabonly \| Git mergetool -y \| tabclose 1<cr>
+nnoremap <leader>gC :Git mergetool<cr>:cclose<cr>
 " Choose left buffer
 nnoremap <expr> <leader>gj ':<C-U>diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Choose the right buffer
 nnoremap <expr> <leader>gk ':<C-U>diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
-" Open git blame with commit and author
-nmap <leader>gb :<C-U>Git blame<cr>A
 
 cabbrev gf Git fetch origin
 cabbrev gb Git branch
