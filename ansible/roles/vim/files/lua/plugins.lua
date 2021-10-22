@@ -15,6 +15,8 @@ return require('packer').startup(function()
     use 'guns/vim-sexp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-nvim-lsp'
+    use 'onsails/lspkind-nvim'
+    use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
     use 'junegunn/fzf.vim'
     use 'vim-test/vim-test'
