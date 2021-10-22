@@ -14,6 +14,7 @@ set autowrite
 set clipboard=unnamed,unnamedplus                                                      " Yank to the system clipboard and selection clipboard
 set completeopt=menu,menuone,noselect
 set cursorline                                                                         " Highlights the current line
+set dictionary+=/usr/share/dict/words
 set display=truncate                                                                   " Show @@@ in the last line if it is truncated.
 set expandtab                                                                          " Convert tab to spaces
 set fileencoding=utf-8
@@ -174,6 +175,10 @@ nnoremap g# :keepjumps normal! mig#`i<cr>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Default to very magic
+nnoremap / /\v
+cnoremap s/ s/\v
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -306,8 +311,6 @@ inoremap <C-c> <esc>
 
 augroup customVim
       autocmd!
-      " Keep folds open
-      autocmd BufWinEnter * normal zR
       " When editing a file, always jump to the last known cursor position.
       autocmd BufReadPost *
                         \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
