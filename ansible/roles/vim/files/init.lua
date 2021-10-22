@@ -74,7 +74,9 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gla',
                    '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
     buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
-    buf_set_keymap('n', 'gld', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+    buf_set_keymap('n', 'gld',
+                   '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>',
+                   opts)
     buf_set_keymap('n', 'glq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>',
                    opts)
     buf_set_keymap('n', 'glr',
@@ -86,20 +88,46 @@ local on_attach = function(client, bufnr)
 end
 
 cmp.setup({
+    experimental = {
+        native_menu = false,
+        ghost_text = true
+    },
+    formatting = {
+        format = require("lspkind").cmp_format({
+            with_text = true,
+            menu = ({
+                buffer = "[Buffer]",
+                nvim_lsp = "[LSP]",
+                ultisnips = "[Ulti]",
+                dictionary = "[Dict]"
+            })
+        })
+    },
     snippet = {
         expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end
     },
     sources = {
         {
+            name = 'ultisnips',
+            preselect = true
+        }, {
             name = 'nvim_lsp',
             preselect = true
         }, {
-            name = 'ultisnips'
+            name = 'buffer',
+            preselect = true,
+            max_item_count = 20,
+            opts = {
+                keyword_pattern = [[\k\k\k\k\+]]
+            }
         }, {
-            name = 'buffer'
+            name = 'path'
         }
     },
     mapping = {
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-e>'] = cmp.mapping.close(),
         ['<cr>'] = cmp.mapping.confirm({
             select = true
         }),
