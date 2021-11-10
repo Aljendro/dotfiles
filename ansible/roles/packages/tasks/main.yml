@@ -7,19 +7,20 @@
   become: yes
   apt:
     name:
-      - clangd
-      - clang
-      - libclang-dev
-      - make
       - autoconf
       - automake
       - bat
+      - clang
+      - clangd
       - fd-find
       - firefox
+      - gnome-tweak-tool
       - jq
+      - libclang-dev
       - libssl-dev
       - libtool
       - linux-tools-{{ kernel_release.stdout }}
+      - make
       - python-dev
       - python-setuptools
       # - ripgrep

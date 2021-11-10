@@ -18,7 +18,6 @@ return require('packer').startup(function()
     use 'onsails/lspkind-nvim'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
-    use 'junegunn/fzf.vim'
     use 'vim-test/vim-test'
     use 'kabouzeid/nvim-lspinstall'
     use 'ryanoasis/vim-devicons'
@@ -44,6 +43,7 @@ return require('packer').startup(function()
     use 'vim-scripts/LargeFile'
     use 'wbthomason/packer.nvim'
     use 'windwp/nvim-ts-autotag'
+    use {'junegunn/fzf.vim', run = './install' }
     use {
         "AckslD/nvim-neoclip.lua",
         config = function() require('neoclip').setup() end

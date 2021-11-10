@@ -20,7 +20,7 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$DOTFILES_DIR/bin:~/.nvm/versions/node/v14.17.1/bin:~/.vim/plugged/fzf/bin:/usr/local/go/bin:$HOME/go/bin:~/.yarn/bin:$PATH
+export -U PATH=$DOTFILES_DIR/bin:$HOME/.nvm/versions/node/v14.17.1/bin:$HOME/.local/share/nvim/site/pack/packer/start/fzf/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/$USER/.oh-my-zsh"
@@ -77,7 +77,7 @@ zle -N zle-keymap-select
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-export FZF_DIR="$HOME/.vim/plugged/fzf"
+export FZF_DIR="$HOME/.local/share/nvim/site/pack/packer/start/fzf"
 [ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
 [ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
 
