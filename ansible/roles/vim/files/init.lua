@@ -8,7 +8,6 @@
 -- Will clean this up once all my settings are working properly
 require('plugins')
 
-vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
 vim.cmd("source ~/.vimrc")
 
 local cmp = require('cmp')
@@ -321,6 +320,7 @@ for hl, icon in pairs(signs) do
     })
 end
 
+require('luatab').setup({})
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('dap')
 require('gitsigns').setup()

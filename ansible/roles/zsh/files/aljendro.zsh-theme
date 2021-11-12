@@ -30,26 +30,26 @@ function tdtk_env_name {
   fi
 }
 
-function tcm_env_name {
-  if [[ ! -z "$TCM_ENV" ]]; then
-    if [[ "$TCM_ENV" = "prod" ]]; then
-      THEME_PROFILE_NAME=$THEME_TCM_PROFILE_PROD_NAME
-    else
-      THEME_PROFILE_NAME=$THEME_TCM_PROFILE_NONPROD_NAME
-    fi
+# function tcm_env_name {
+#   if [[ ! -z "$TCM_ENV" ]]; then
+#     if [[ "$TCM_ENV" = "prod" ]]; then
+#       THEME_PROFILE_NAME=$THEME_TCM_PROFILE_PROD_NAME
+#     else
+#       THEME_PROFILE_NAME=$THEME_TCM_PROFILE_NONPROD_NAME
+#     fi
 
-    EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
-    NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then
-      IS_SIGNED_IN="%F{green}✔%F"
-    else
-      IS_SIGNED_IN="%F{red}✘%F"
-    fi
-    echo "%F{250}TCM_ENV%F %F{245}($(echo $TCM_ENV) $IS_SIGNED_IN%F{245} )%F "
-  else
-    echo ''
-  fi
-}
+#     EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
+#     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+#     if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then
+#       IS_SIGNED_IN="%F{green}✔%F"
+#     else
+#       IS_SIGNED_IN="%F{red}✘%F"
+#     fi
+#     echo "%F{250}TCM_ENV%F %F{245}($(echo $TCM_ENV) $IS_SIGNED_IN%F{245} )%F "
+#   else
+#     echo ''
+#   fi
+# }
 
 function java_env_name {
   EXTRACTED_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
@@ -63,7 +63,7 @@ function node_env_name {
 function load_env_info {
   if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
     echo "
-│ $(tdtk_env_name)$(tcm_env_name)$(node_env_name) $(java_env_name)%{$reset_color%}"
+│ $(tdtk_env_name)$(node_env_name) $(java_env_name)%{$reset_color%}"
   else
     echo ""
   fi
