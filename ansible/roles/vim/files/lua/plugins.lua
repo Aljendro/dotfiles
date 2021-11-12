@@ -9,7 +9,6 @@ return require('packer').startup(function()
 
     use "Pocco81/DAPInstall.nvim"
     use 'benmills/vimux'
-    use 'davidgranstrom/nvim-markdown-preview'
     use 'dracula/vim'
     use 'godlygeek/tabular'
     use 'guns/vim-sexp'
@@ -44,6 +43,10 @@ return require('packer').startup(function()
     use 'vim-scripts/LargeFile'
     use 'wbthomason/packer.nvim'
     use 'windwp/nvim-ts-autotag'
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = 'cd app && yarn install'
+    }
     use {
         "AckslD/nvim-neoclip.lua",
         config = function() require('neoclip').setup() end
