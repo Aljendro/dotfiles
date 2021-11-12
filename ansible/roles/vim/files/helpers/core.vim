@@ -26,6 +26,7 @@ set guitablabel=%t
 set hidden                                                                             " Buffer becomes hidden when it is abandoned
 set ignorecase                                                                         " Ignore case when searching
 set inccommand=nosplit                                                                 " Show preview of changes
+set iskeyword+=-
 set mouse=a                                                                            " Allows mouse click on vim
 set nolangremap                                                                        " Do not remap characters
 set noshowmode                                                                         " Don't show the -- Insert -- anymore
@@ -113,7 +114,7 @@ nnoremap sp :<C-U>lnext<cr>zz
 nnoremap so <C-w>o
 
 " Tab split
-nnoremap st <C-w>T
+nnoremap st :tab split<cr>
 
 " Vertical split
 nnoremap sv <C-w>v

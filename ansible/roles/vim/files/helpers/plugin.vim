@@ -87,7 +87,7 @@ cabbrev gcb Git checkout -b
 cabbrev gcd Git checkout develop
 cabbrev gcm Git checkout master
 cabbrev gac Git commit -a -m
-cabbrev gsta Git stash push -u
+cabbrev gsta Git stash push -u -m
 cabbrev gstd Git stash drop
 cabbrev gstl Git stash list
 cabbrev gstp Git stash pop
@@ -259,4 +259,5 @@ nnoremap <leader>T  :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
+
 
