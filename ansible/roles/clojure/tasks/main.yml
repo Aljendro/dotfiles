@@ -28,7 +28,7 @@
     url: https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install-latest-clojure-lsp.sh
     dest: /tmp/clojure_lsp_installer
     mode: '0700'
-    checksum: sha256:88e7cc74c92ac3cb94ca685c4f8269886ea2bb8b330544f3507664e2af030e6c
+    checksum: sha256:f14a82f29e06662852139009ced6b14cd039379134a8e17db0adb448a89e882f
 
 - name: Install Clojure LSP
   become: yes
