@@ -1,20 +1,12 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-    state: present
-    update_cache: yes
-
 - name: Downloading Google Public Key
   get_url:
     url: https://dl.google.com/linux/linux_signing_key.pub
-    dest: "{{ google_pubkey_location }}"
+    dest: /tmp/google_pubkey.pub
 
 - name: Loading Google Public Key into Apt
   become: yes
-  command: apt-key add {{ google_pubkey_location }}
+  command: apt-key add /tmp/google_pubkey.pub
 
 - name: Adding Google Chrome Stable to List
   become: yes

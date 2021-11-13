@@ -1,35 +1,4 @@
 ---
-- name: Get Kernel Release
-  shell: uname -r
-  register: kernel_release
-
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - autoconf
-      - automake
-      - bat
-      - clang
-      - clangd
-      - fd-find
-      - firefox
-      - gnome-tweak-tool
-      - jq
-      - libclang-dev
-      - libssl-dev
-      - libtool
-      - linux-tools-{{ kernel_release.stdout }}
-      - make
-      - python-dev
-      - python-setuptools
-      # - ripgrep
-      - tree
-      - universal-ctags
-      - xclip
-    state: present
-    update_cache: yes
-
 - name: Installing Bitwarden
   become: yes
   snap:
@@ -43,10 +12,12 @@
     classic: yes
     state: present
 
-- name: Check watchman installation
-  shell: which watchman
-  register: watchman_stat
-  ignore_errors: true
+# TODO: Break this out into its own role for watchman
 
-- import_tasks: watchman.yml
-  when: watchman_stat.rc != 0
+# - name: Check watchman installation
+#   shell: which watchman
+#   register: watchman_stat
+#   ignore_errors: true
+
+# - import_tasks: watchman.yml
+#   when: watchman_stat.rc != 0

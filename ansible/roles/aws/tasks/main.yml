@@ -1,12 +1,4 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - awscli
-    state: present
-    update_cache: yes
-
 - name: Create the .aws directory
   file:
     path: ~/.aws

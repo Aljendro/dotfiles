@@ -11,19 +11,9 @@
         - packages
 
     - import_role:
-        name: zsh
-      tags:
-        - zsh
-
-    - import_role:
         name: aws
       tags:
         - aws
-
-    - import_role:
-        name: c
-      tags:
-        - c
 
     - import_role:
         name: chrome
@@ -54,6 +44,7 @@
         name: go
       tags:
         - go
+        - package_manager
 
     - import_role:
         name: java
@@ -64,11 +55,13 @@
         name: javascript
       tags:
         - js
+        - package_manager
 
     - import_role:
         name: lua
       tags:
         - lua
+        - package_manager
 
     - import_role:
         name: python
@@ -79,6 +72,7 @@
         name: rust
       tags:
         - rust
+        - package_manager
 
     - import_role:
         name: tmux

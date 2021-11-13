@@ -1,18 +1,6 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - autoconf
-      - automake
-      - libtool
-      - clangd
-      - clang
-      - libclang-dev
-      - bear
-    state: present
-    update_cache: yes
+# TODO: Move all package installs to single file 
 
-- name: Installing cmake
-  become: yes
-  command: snap install cmake --classic
+# - name: Installing cmake
+#   become: yes
+#   command: snap install cmake --classic

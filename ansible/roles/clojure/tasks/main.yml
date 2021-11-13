@@ -1,15 +1,4 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-      - rlwrap
-      - openjdk-11-jdk
-      - leiningen
-    state: present
-    update_cache: yes
-
 - name: Downloading Clojure Cli
   get_url:
     url: https://download.clojure.org/install/linux-install-1.10.3.855.sh
@@ -23,27 +12,16 @@
   args:
     chdir: /tmp
 
-- name: Downloading Clojure LSP
-  get_url:
-    url: https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install-latest-clojure-lsp.sh
-    dest: /tmp/clojure_lsp_installer
-    mode: '0700'
-    checksum: sha256:f14a82f29e06662852139009ced6b14cd039379134a8e17db0adb448a89e882f
+# TODO: Use Stow to link this file
 
-- name: Install Clojure LSP
-  become: yes
-  command: ./clojure_lsp_installer
-  args:
-    chdir: /tmp
+# - name: Delete auto generated .clojure directory
+#   file:
+#     state: absent
+#     path: ~/.clojure
 
-- name: Delete auto generated .clojure directory
-  file:
-    state: absent
-    path: ~/.clojure
-
-- name: Adding Clojure deps user local
-  git:
-    repo: https://github.com/Aljendro/clojure-deps-edn.git
-    dest: ~/.clojure/
-    depth: "1"
+# - name: Adding Clojure deps user local
+#   git:
+#     repo: https://github.com/Aljendro/clojure-deps-edn.git
+#     dest: ~/.clojure/
+#     depth: "1"
 

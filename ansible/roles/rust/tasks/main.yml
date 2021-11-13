@@ -1,12 +1,4 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-    state: present
-    update_cache: yes
-
 - name: Downloading Rust Installer
   get_url:
     url: https://sh.rustup.rs
@@ -17,6 +9,8 @@
   shell: ./rust_installer -y
   args:
     chdir: /tmp
+
+# TODO: Create a separate wasm role
 
 - name: Downloading Wasm-Pack Installer
   get_url:
@@ -29,8 +23,10 @@
   args:
     chdir: /tmp
 
-- name: Install Cargo-Generate from Cargo
-  command: cargo install cargo-generate
+# TODO: Move all package installs to single file 
 
-- name: Install Delta from Cargo
-  command: cargo install git-delta
+# - name: Install Cargo-Generate from Cargo
+#   command: cargo install cargo-generate
+
+# - name: Install Delta from Cargo
+#   command: cargo install git-delta

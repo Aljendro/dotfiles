@@ -1,12 +1,4 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-    state: present
-    update_cache: yes
-
 - name: Downloading Go tar file
   get_url:
     url: https://dl.google.com/go/go1.17.2.linux-amd64.tar.gz
@@ -21,6 +13,8 @@
     dest: /usr/local/
     mode: '0755'
 
-- name: Install EFM LSP Server
-  shell: go install github.com/mattn/efm-langserver@latest
+# TODO: Move all package installs to single file 
+
+# - name: Install EFM LSP Server
+#   shell: go install github.com/mattn/efm-langserver@latest
 

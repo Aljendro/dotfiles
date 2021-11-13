@@ -1,25 +1,18 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-      - neovim
-    state: present
-    update_cache: yes
+# TODO: Move this to a separate font role
+ 
+# - name: Download Font
+#   get_url:
+#     url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
+#     dest: /tmp/RobotoMono.ttf
 
-- name: Download Font
-  get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
-    dest: /tmp/RobotoMono.ttf
+# - name: Move the Font file
+#   become: yes
+#   shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
 
-- name: Move the Font file
-  become: yes
-  shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
-
-- name: Refresh font cache
-  become: true
-  shell: fc-cache -fv
+# - name: Refresh font cache
+#   become: true
+#   shell: fc-cache -fv
 
 - name: Install Packer package manager
   git:
@@ -27,81 +20,65 @@
     dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     depth: 1
 
-- name: Linking .vimrc
-  file:
-    src: "{{ role_path }}/files/vimrc"
-    dest: ~/.vimrc
-    state: link
-    mode: u+rwx,g+rx,o+rx
+# TODO: Use Stow to link all these files
 
-- name: Creating neovim directory
-  file:
-    path: ~/.config/nvim
-    state: directory
-    mode: '0700'
+# - name: Linking .vimrc
+#   file:
+#     src: "{{ role_path }}/files/vimrc"
+#     dest: ~/.vimrc
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 
-- name: Linking Lua directory for neovim
-  file:
-    src: "{{ role_path }}/files/lua"
-    dest: ~/.config/nvim/lua
-    state: link
-    mode: u+rwx,g+rx,o+rx
+# - name: Creating neovim directory
+#   file:
+#     path: ~/.config/nvim
+#     state: directory
+#     mode: '0700'
 
-- name: Creating neovim after directory
-  file:
-    path: ~/.config/nvim/after
-    state: directory
-    mode: '0700'
+# - name: Linking Lua directory for neovim
+#   file:
+#     src: "{{ role_path }}/files/lua"
+#     dest: ~/.config/nvim/lua
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 
-- name: Creating session directory
-  file:
-    path: ~/.config/nvim/sessions
-    state: directory
-    mode: '0700'
+# - name: Creating neovim after directory
+#   file:
+#     path: ~/.config/nvim/after
+#     state: directory
+#     mode: '0700'
 
-- name: Creating coc directory
-  file:
-    path: ~/.config/coc
-    state: directory
-    mode: '0700'
+# - name: Creating session directory
+#   file:
+#     path: ~/.config/nvim/sessions
+#     state: directory
+#     mode: '0700'
 
-- name: Linking init.lua for neovim
-  file:
-    src: "{{ role_path }}/files/init.lua"
-    dest: ~/.config/nvim/init.lua
-    state: link
-    mode: u+rwx,g+rx,o+rx
+# - name: Linking init.lua for neovim
+#   file:
+#     src: "{{ role_path }}/files/init.lua"
+#     dest: ~/.config/nvim/init.lua
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 
-- name: Linking ftplugin for neovim
-  file:
-    src: "{{ role_path }}/files/ftplugin"
-    dest: ~/.config/nvim/after/ftplugin
-    state: link
-    mode: u+rwx,g+rx,o+rx
+# - name: Linking ftplugin for neovim
+#   file:
+#     src: "{{ role_path }}/files/ftplugin"
+#     dest: ~/.config/nvim/after/ftplugin
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 
-- name: Linking ftdetect for neovim
-  file:
-    src: "{{ role_path }}/files/ftdetect"
-    dest: ~/.config/nvim/after/ftdetect
-    state: link
-    mode: u+rwx,g+rx,o+rx
+# - name: Linking ftdetect for neovim
+#   file:
+#     src: "{{ role_path }}/files/ftdetect"
+#     dest: ~/.config/nvim/after/ftdetect
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 
-- name: Linking coc-settings for neovim
-  file:
-    src: "{{ role_path }}/files/coc-settings.json"
-    dest: ~/.config/nvim/coc-settings.json
-    state: link
-    mode: u+rwx,g+rx,o+rx
-
-- name: Linking snippets directory for neovim
-  file:
-    src: "{{ role_path }}/files/snippets"
-    dest: ~/.config/coc/ultisnips
-    state: link
-    mode: u+rwx,g+rx,o+rx
-
-- name: Installing Node.js provider and LSP plugins
-  shell: "{{ role_path }}/files/install-lsp.sh"
-  args:
-    executable: /bin/bash
+# - name: Linking snippets directory for neovim
+#   file:
+#     src: "{{ role_path }}/files/snippets"
+#     dest: ~/.config/coc/ultisnips
+#     state: link
+#     mode: u+rwx,g+rx,o+rx
 

@@ -1,23 +1,12 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - curl
-      - software-properties-common
-      - apt-transport-https
-      - ca-certificates
-    state: present
-    update_cache: yes
-
 - name: Downloading Docker Public Key
   get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
-    dest: "{{ docker_pubkey_location }}"
+    dest: /tmp/docker_pubkey.pub
 
 - name: Loading Docker Public Key into Apt
   become: yes
-  command: apt-key add {{ docker_pubkey_location }}
+  command: apt-key add /tmp/docker_pubkey.pub
 
 - name: Adding Docker to List
   become: yes
@@ -45,10 +34,12 @@
   shell: uname -s
   register: kernel_name
 
-- name: Install Docker Compose
-  become: yes
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ kernel_name.stdout }}-{{ hardware_name.stdout }}"
-    dest: /usr/local/bin/docker-compose
-    mode: +x
+# TODO: Move all package installs to single file 
+
+# - name: Install Docker Compose
+#   become: yes
+#   get_url:
+#     url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ kernel_name.stdout }}-{{ hardware_name.stdout }}"
+#     dest: /usr/local/bin/docker-compose
+#     mode: +x
 

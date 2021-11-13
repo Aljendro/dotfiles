@@ -1,13 +1,4 @@
 ---
-- name: Installing Apt Packages
-  become: yes
-  apt:
-    name:
-      - build-essential
-      - libreadline-dev
-    state: present
-    update_cache: yes
-
 - name: Downloading Lua Tarball
   get_url:
     url: http://www.lua.org/ftp/lua-5.3.5.tar.gz
