@@ -24,3 +24,23 @@
     state: directory
     mode: '0700'
 
+- name: Install Packages
+  shell: neovim +PackerInstall
+
+- name: Compile Packages
+  shell: neovim +PackerCompile
+
+- name: Install Lsp Servers
+  shell: neovim +LspInstall {{ item }}
+  loop:
+    - bash
+    - clojure
+    - css
+    - dockerfile
+    - html
+    - json
+    - lua
+    - rust
+    - typescript
+    - vim
+    - yaml
