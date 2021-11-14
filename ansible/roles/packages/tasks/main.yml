@@ -141,9 +141,9 @@
 - import_tasks: "{{ role_path }}/wasm_pack/main.yml"
 
 - name: Check watchman installation
-  command: which watchman
-  register: installed_watchman
+  shell: which watchman
+  register: watchman_stat
   ignore_errors: true
 
 - import_tasks: "{{ role_path }}/watchman/main.yml"
-  when: not installed_watchman
+  when: watchman_stat.rc != 0
