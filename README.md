@@ -19,8 +19,9 @@ and clone this repository.
 This script will setup your machine/vm.
 
 ```
+./install init
+# Restart terminal
 ./install
-
 # Restart your computer
 ```
 
