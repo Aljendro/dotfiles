@@ -27,14 +27,14 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-cd $DOTFILES_DIR
-ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+if [ $0 != "zsh" ]; then
+  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+  zsh
+fi
 
-cd $DOTFILES_DIR/stow
-stow -t $HOME zsh
+stow -t $HOME ./stow/zsh
 source $HOME/.zshrc
 
-cd $DOTFILES_DIR
 ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
@@ -45,8 +45,9 @@ ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansibl
 #     state: absent
 #     path: ~/.clojure
 
-cd $DOTFILES_DIR/stow
-stow -t $HOME *
+stow -t $HOME ./stow/clojure ./stow/git ./stow/nvim ./stow/tmux
 
+echo "Geneate ssh key manually"
+echo "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
 
 echo "Finishing Install"

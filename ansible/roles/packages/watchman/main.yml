@@ -17,13 +17,12 @@
     chdir: /tmp/watchman
 
 - name: Run make for watchman
-  shell: make
-  args:
+  make:
     chdir: /tmp/watchman
 
 - name: Install watchman
   become: yes
-  shell: make install
-  args:
+  make:
     chdir: /tmp/watchman
+    target: install
 

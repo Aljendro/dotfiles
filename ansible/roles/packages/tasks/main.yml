@@ -11,35 +11,44 @@
   apt:
     name:
       - apt-transport-https # gcp
-      - autoconf # watchman
-      - automake # watchman
+      - autoconf # watchman nvim
+      - automake # watchman nvim
       - bat # dev
       - bear
       - ca-certificates # docker gcp
       - clang
       - clangd
-      - curl # docker
+      - cmake # nvim
+      - curl # docker nvim
+      - doxygen # nvim
       - fd-find # dev
       - fonts-powerline # zsh theme
+      - g++ # nvim
+      - gettext # nvim
       - gnome-tweak-tool # dev
       - gnupg # docker gcp
       - jq # dev
       - leiningen # dev
       - libclang-dev
+      - libnss3-tools # mkcert
       - libsecret-1-0 # libsecret
       - libsecret-1-dev # libsecret
       - libssl-dev # watchman
-      - libtool # watchman
+      - libtool # watchman nvim
+      - libtool-bin # nvim
       - linux-tools-{{ kernel_release.stdout }}
       - lsb-release # docker
+      - ninja-build # nvim
       - openjdk-11-jdk # clojure
       - openjdk-8-jdk # clojure
+      - pkg-config # nvim
       - powerline # zsh theme
       - python-setuptools # watchman
       - rlwrap # clojure
       - software-properties-common
       - tmux # dev
       - tree # dev
+      - unzip # nvim
       - xclip # dev
     state: latest
     update_cache: yes
@@ -130,6 +139,8 @@
 - import_tasks: "{{ role_path }}/packages/gcp/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/git/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/nvim/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/tmux/main.yml"
 

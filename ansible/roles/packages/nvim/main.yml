@@ -1,0 +1,19 @@
+---
+- name: Downloading Neovim
+  git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: /tmp/neovim
+    version: v0.5.1
+    depth: 1
+
+- name: Build Neovim
+  make:
+    chdir: /tmp/neovim
+    params:
+      CMAKE_BUILD_TYPE: Release
+
+- name: Install Neovim
+  become: yes
+  make:
+    chdir: /tmp/neovim
+    target: install
