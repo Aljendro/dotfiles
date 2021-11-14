@@ -122,28 +122,28 @@
 ########### Custom ###########
 ##############################
 
-- import_tasks: "{{ role_path }}/packages/aws/main.yml"
+- import_tasks: "{{ role_path }}/aws/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/chrome/main.yml"
+- import_tasks: "{{ role_path }}/chrome/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/clojure/main.yml"
+- import_tasks: "{{ role_path }}/clojure/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/docker/main.yml"
+- import_tasks: "{{ role_path }}/docker/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/fonts/main.yml"
+- import_tasks: "{{ role_path }}/fonts/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/gcp/main.yml"
+- import_tasks: "{{ role_path }}/gcp/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/git/main.yml"
+- import_tasks: "{{ role_path }}/git/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/nvim/main.yml"
+- import_tasks: "{{ role_path }}/nvim/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/wasm_pack/main.yml"
+- import_tasks: "{{ role_path }}/wasm_pack/main.yml"
 
 - name: Check watchman installation
   command: which watchman
   register: installed_watchman
   ignore_errors: true
 
-- import_tasks: "{{ role_path }}/packages/watchman/main.yml"
+- import_tasks: "{{ role_path }}/watchman/main.yml"
   when: not installed_watchman

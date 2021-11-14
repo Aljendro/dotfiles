@@ -13,10 +13,10 @@
     state: latest
     update_cache: yes
 
-- import_tasks: "{{ role_path }}/packages_managers/brew/main.yml"
-- import_tasks: "{{ role_path }}/packages_managers/cargo/main.yml"
-- import_tasks: "{{ role_path }}/packages_managers/go/main.yml"
-- import_tasks: "{{ role_path }}/packages_managers/luarocks/main.yml"
-- import_tasks: "{{ role_path }}/packages_managers/nodejs/main.yml"
-- import_tasks: "{{ role_path }}/packages_managers/packer/main.yml"
+- import_tasks: "{{ role_path }}/brew/main.yml"
+- import_tasks: "{{ role_path }}/cargo/main.yml"
+- import_tasks: "{{ role_path }}/go/main.yml"
+- import_tasks: "{{ role_path }}/luarocks/main.yml"
+- import_tasks: "{{ role_path }}/nodejs/main.yml"
+- import_tasks: "{{ role_path }}/packer/main.yml"
 
