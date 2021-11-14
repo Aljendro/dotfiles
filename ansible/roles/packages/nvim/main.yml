@@ -24,11 +24,17 @@
     state: directory
     mode: '0700'
 
+- name: Copying .pluginvimrc
+  copy:
+    src: "{{ role_path }}/nvim/files/.pluginvimrc"
+    dest: ~/.pluginvimrc
+    mode: '0755'
+
 - name: Install Packages
-  shell: nvim +PackerInstall
+  shell: nvim -u ~/.pluginvimrc +PackerInstall
 
 - name: Compile Packages
-  shell: nvim +PackerCompile
+  shell: nvim -u ~/.pluginvimrc +PackerCompile
 
 - name: Install Lsp Servers
   shell: nvim +LspInstall {{ item }}
