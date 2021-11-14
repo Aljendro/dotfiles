@@ -58,7 +58,7 @@
 ##############################
 
 - name: Installing Dependencies with Brew
-  command: brew upgrade && brew install mkcert clojure ripgrep
+  command: brew install mkcert clojure ripgrep
 
 ##############################
 ########### Cargo ############
