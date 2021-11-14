@@ -19,9 +19,11 @@ sudo apt install git -y
 git clone --recurse-submodules -j8 https://github.com/Aljendro/dotfiles.git
 cd dotfiles
 ./install init
+# Restart VM
+./install managers
 # Restart terminal
 ./install
-# Restart your computer
+# Restart VM
 ```
 
 ## Development Installations

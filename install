@@ -30,22 +30,13 @@ fi
 if [ $1 == 'init' ]; then
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   stow -d $DOTFILES_DIR/stow -t $HOME zsh
-else
+  echo "Restart VM"
+elif [ $1 == 'managers' ]; then
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-  [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
+  echo "Restart Terminal"
+else 
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-
-  # TODO: Delete auto generated .clojure directory
-
-  # - name: Delete auto generated .clojure directory
-  #   file:
-  #     state: absent
-  #     path: ~/.clojure
-
   stow -d $DOTFILES_DIR/stow -t $HOME clojure git nvim tmux
-  # echo "Generate ssh key manually"
-  # echo "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+  echo "Restart VM"
 fi
 
-echo "Restart Computer"
