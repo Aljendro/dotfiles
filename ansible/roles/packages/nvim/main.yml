@@ -37,6 +37,9 @@
 - name: Compile Packages
   shell: nvim -u ~/.pluginvimrc --headless +PackerCompile +"!sleep 15" +qall
 
+- name: Install fzf
+  shell: $HOME/.local/share/nvim/site/pack/packer/start/fzf install
+
 - name: Install Lsp Servers
   shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +"!sleep 15" +qall
   loop:
