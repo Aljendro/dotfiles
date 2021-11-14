@@ -1,4 +1,9 @@
 ---
+- name: Remove default .zshrc
+  file:
+    path: ~/.clojure
+    state: absent
+
 # TODO: Create a git submodule to track this repo
 
 # - name: Adding Clojure deps user local

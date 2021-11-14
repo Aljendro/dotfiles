@@ -1,0 +1,6 @@
+[submodule "stow/tmux/.tmux-themepack"]
+	path = stow/tmux/.tmux-themepack
+	url = https://github.com/jimeh/tmux-themepack.git
+[submodule "stow/clojure/.clojure"]
+	path = stow/clojure/.clojure
+	url = https://github.com/Aljendro/clojure-deps-edn.git

@@ -13,12 +13,11 @@ intervention as possible.
 
 ## Quickstart
 
-Assuming this is a new system, install [Git](https://git-scm.com/)
-and clone this repository.
-
-This script will setup your machine/vm.
-
 ```
+cd ~
+sudo apt install git -y
+git clone --recurse-submodules -j8 https://github.com/Aljendro/dotfiles.git
+cd dotfiles
 ./install init
 # Restart terminal
 ./install
