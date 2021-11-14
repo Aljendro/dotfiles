@@ -32,6 +32,8 @@ if [ $1 == 'init' ]; then
   stow -d $DOTFILES_DIR/stow -t $HOME zsh
 else
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+  [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
   # TODO: Delete auto generated .clojure directory
