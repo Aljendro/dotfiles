@@ -132,21 +132,13 @@
 
 - import_tasks: "{{ role_path }}/packages/fonts/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/chrome/main.yml"
-
-- import_tasks: "{{ role_path }}/packages/clojure/main.yml"
-
 - import_tasks: "{{ role_path }}/packages/gcp/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/git/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/nvim/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/tmux/main.yml"
-
 - import_tasks: "{{ role_path }}/packages/wasm_pack/main.yml"
-
-- import_tasks: "{{ role_path }}/packages/vim/main.yml"
 
 - name: Check watchman installation
   command: which watchman
