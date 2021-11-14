@@ -11,7 +11,7 @@
 # TODO: Update this install to follow docker website
 - name: Adding Docker to List
   become: yes
-  shell: echo 'deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list
+  shell: echo 'deb [arch=amd64] http://download.docker.com/linux/ubuntu bionic stable' | sudo tee /etc/apt/sources.list.d/docker.list
 
 - name: Installing Docker Packages
   become: yes
