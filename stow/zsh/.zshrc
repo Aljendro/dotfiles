@@ -1,3 +1,8 @@
+export ZSH="$HOME/.oh-my-zsh"
+export NVM_DIR="$HOME/.nvm"
+export FZF_DIR="$HOME/.local/share/nvim/site/pack/packer/start/fzf"
+export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH
+
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export LOAD_ENV_INFO=0
@@ -20,27 +25,9 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$DOTFILES_DIR/bin:$HOME/.nvm/versions/node/v14.17.1/bin:$HOME/.local/share/nvim/site/pack/packer/start/fzf/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/$USER/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="aljendro"
-
-# Uncomment the following line if pasting URLs and other text is messed up.
 DISABLE_MAGIC_FUNCTIONS=true
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Add wisely, as too many plugins slow down shell startup.
-# Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -74,20 +61,16 @@ _fix_cursor() {
 precmd_functions+=(_fix_cursor)
 zle -N zle-keymap-select
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-export FZF_DIR="$HOME/.local/share/nvim/site/pack/packer/start/fzf"
+[ -s $NVM_DIR/bash_completion ] && \. $NVM_DIR/bash_completion
 [ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
 [ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
-
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 lazy_load_nvm() {
   unset -f node
   unset -f npx
   unset -f nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+  [ -s $NVM_DIR/nvm.sh ] && \. $NVM_DIR/nvm.sh --no-use
 }
 
 node() {
@@ -106,7 +89,7 @@ nvm() {
 }
 
 toggle_env_line() {
-  if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
+  if [[ $LOAD_ENV_INFO -eq 1 ]]; then
     LOAD_ENV_INFO=0
   else
     LOAD_ENV_INFO=1

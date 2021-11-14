@@ -1,5 +1,10 @@
 ---
-# TODO: Move this into a package iinstall file
+- name: Install NVM
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
 - name: Install Nodejs version
   shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 14.17.1
   args:
@@ -9,4 +14,6 @@
   shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm alias default 14.17.1
   args:
     executable: /bin/bash
+
+
 

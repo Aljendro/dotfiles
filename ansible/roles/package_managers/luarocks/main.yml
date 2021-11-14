@@ -29,27 +29,27 @@
 
 - name: Downloading LuaRocks Tarball
   get_url:
-    url: https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+    url: https://luarocks.org/releases/luarocks-3.8.0.tar.gz
     dest: /tmp
 
 - name: Unzip LuaRocks
   become: yes
   unarchive:
-    src: /tmp/luarocks-3.3.1.tar.gz
+    src: /tmp/luarocks-3.8.0.tar.gz
     dest: /tmp
     mode: '0777'
 
 - name: Configure LuaRocks
   shell: ./configure --with-lua-include=/usr/local/include
   args:
-    chdir: /tmp/luarocks-3.3.1
+    chdir: /tmp/luarocks-3.8.0
 
 - name: Build LuaRocks
   make:
-    chdir: /tmp/luarocks-3.3.1
+    chdir: /tmp/luarocks-3.8.0
 
 - name: Install Luarocks
   become: yes
   make:
-    chdir: /tmp/luarocks-3.3.1
+    chdir: /tmp/luarocks-3.8.0
     target: install

@@ -6,27 +6,84 @@
   shell: uname -r
   register: kernel_release
 
-- name: Installing Apt Packages
+- name: Installing Dependencies with Apt
   become: yes
   apt:
     name:
-      # TODO: Install ripgrep manually
-      # - ripgrep
-      - bat
-      - fd-find
-      - firefox
-      - fonts-powerline
-      - gnome-tweak-tool
-      - jq
-      - leiningen
+      - apt-transport-https # gcp
+      - autoconf # watchman
+      - automake # watchman
+      - bat # dev
+      - bear
+      - ca-certificates # docker gcp
+      - clang
+      - clangd
+      - curl # docker
+      - fd-find # dev
+      - fonts-powerline # zsh theme
+      - gnome-tweak-tool # dev
+      - gnupg # docker gcp
+      - jq # dev
+      - leiningen # dev
+      - libclang-dev
+      - libsecret-1-0 # libsecret
+      - libsecret-1-dev # libsecret
+      - libssl-dev # watchman
+      - libtool # watchman
       - linux-tools-{{ kernel_release.stdout }}
-      - powerline
-      - rlwrap
-      - tmux
-      - tree
-      - xclip
+      - lsb-release # docker
+      - openjdk-11-jdk # clojure
+      - openjdk-8-jdk # clojure
+      - powerline # zsh theme
+      - python-setuptools # watchman
+      - rlwrap # clojure
+      - software-properties-common
+      - tmux # dev
+      - tree # dev
+      - xclip # dev
     state: latest
     update_cache: yes
+
+##############################
+########### Brew #############
+##############################
+
+- name: Installing Dependencies with Brew
+  command: brew update && brew install mkcert clojure ripgrep
+
+##############################
+########### Cargo ############
+##############################
+
+- name: Installing Dependencies with Cargo
+  command: cargo install cargo-generate git-delta
+
+##############################
+############ Go ##############
+##############################
+
+- name: Install EFM LSP Server
+  shell: go install github.com/mattn/efm-langserver@latest
+
+##############################
+########### Node #############
+##############################
+
+- name: Install Dependencies with Node
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g @babel/core @babel/preset-env @babel/cli @babel/node live-server eslint_d yarn neovim prettier serverless jest aws-cdk csvtojson
+  args:
+    executable: /bin/bash
+
+##############################
+########### Pip ##############
+##############################
+
+- name: Installing Dependencies with Pip
+  pip:
+    name:
+      - pynvim==0.4.3
+      - cfn-lint
+      - awscli
 
 ##############################
 ########## Snaps #############
@@ -53,69 +110,8 @@
     state: present
 
 ##############################
-############ Go ##############
-##############################
-
-- name: Install EFM LSP Server
-  shell: go install github.com/mattn/efm-langserver@latest
-
-##############################
-########### Node #############
-##############################
-
-- name: Install globals
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g @babel/core @babel/preset-env @babel/cli @babel/node live-server eslint_d yarn neovim prettier serverless jest aws-cdk csvtojson
-  args:
-    executable: /bin/bash
-
-##############################
-########### Pip ##############
-##############################
-
-- name: Install pip packages
-  pip:
-    name:
-      - pynvim==0.4.3
-      - cfn-lint
-      - awscli
-
-##############################
-########### Cargo ############
-##############################
-
-- name: Install Cargo-Generate from Cargo
-  command: cargo install cargo-generate
-
-- name: Install Delta from Cargo
-  command: cargo install git-delta
-
-- name: Downloading Wasm-Pack Installer
-  get_url:
-    url: https://rustwasm.github.io/wasm-pack/installer/init.sh
-    dest: /tmp/wasmpack_installer
-    mode: '0700'
-
-##############################
 ########### Custom ###########
 ##############################
-
-- name: Install Wasm-Pack
-  shell: ./wasmpack_installer -y
-  args:
-    chdir: /tmp
-
-- name: Download Font
-  get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
-    dest: /tmp/RobotoMono.ttf
-
-- name: Move the Font file
-  become: yes
-  shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
-
-- name: Refresh font cache
-  become: true
-  shell: fc-cache -fv
 
 - import_tasks: "{{ role_path }}/packages/aws/main.yml"
 
@@ -125,20 +121,26 @@
 
 - import_tasks: "{{ role_path }}/packages/docker/main.yml"
 
+- import_tasks: "{{ role_path }}/packages/fonts/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/chrome/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/clojure/main.yml"
+
 - import_tasks: "{{ role_path }}/packages/gcp/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/git/main.yml"
 
-- import_tasks: "{{ role_path }}/packages/javascript/main.yml"
-
 - import_tasks: "{{ role_path }}/packages/tmux/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/wasm_pack/main.yml"
 
 - import_tasks: "{{ role_path }}/packages/vim/main.yml"
 
 - name: Check watchman installation
-  shell: which watchman
-  register: watchman_stat
+  command: which watchman
+  register: installed_watchman
   ignore_errors: true
 
 - import_tasks: "{{ role_path }}/packages/watchman/main.yml"
-  when: watchman_stat.rc != 0
+  when: not installed_watchman

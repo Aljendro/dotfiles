@@ -1,0 +1,12 @@
+---
+- name: Downloading Wasm-Pack Installer
+  get_url:
+    url: https://rustwasm.github.io/wasm-pack/installer/init.sh
+    dest: /tmp/wasmpack_installer
+    mode: '0755'
+
+- name: Install Wasm-Pack
+  shell: ./wasmpack_installer -y
+  args:
+    chdir: /tmp
+

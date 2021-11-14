@@ -1,0 +1,14 @@
+---
+- name: Download Font
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
+    dest: /tmp/RobotoMono.ttf
+
+- name: Move the Font file
+  become: yes
+  shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
+
+- name: Refresh font cache
+  become: true
+  shell: fc-cache -fv
+

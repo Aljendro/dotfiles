@@ -1,10 +1,10 @@
 ---
 - name: Downloading Go tar file
   get_url:
-    url: https://dl.google.com/go/go1.17.2.linux-amd64.tar.gz
+    url: https://dl.google.com/go/go1.17.3.linux-amd64.tar.gz
     dest: /tmp/go_installer
     mode: '0755'
-    checksum: sha256:f242a9db6a0ad1846de7b6d94d507915d14062660616a61ef7c808a76e4f1676
+    checksum: sha256:550f9845451c0c94be679faf116291e7807a8d78b43149f9506c1b15eb89008c
 
 - name: Install Go
   become: yes
