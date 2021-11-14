@@ -43,6 +43,7 @@
       - openjdk-8-jdk # clojure
       - pkg-config # nvim
       - powerline # zsh theme
+      - python-dev
       - python-setuptools # watchman
       - rlwrap # clojure
       - software-properties-common
