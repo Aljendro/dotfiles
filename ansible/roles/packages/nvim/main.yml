@@ -30,11 +30,15 @@
     dest: ~/.pluginvimrc
     mode: '0755'
 
+# TODO: Figure out how to check for async job completion
 - name: Install Packages
-  shell: nvim -u ~/.pluginvimrc --headless +PackerInstall +PackerCompile +qall
+  shell: nvim -u ~/.pluginvimrc --headless +PackerInstall +"!sleep 20" +qall
+
+- name: Compile Packages
+  shell: nvim -u ~/.pluginvimrc --headless +PackerCompile +"!sleep 15" +qall
 
 - name: Install Lsp Servers
-  shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +qall
+  shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +"!sleep 15" +qall
   loop:
     - bash
     - clojure
