@@ -27,10 +27,7 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-if [ $0 != "zsh" ]; then
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-  zsh
-fi
+ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
 stow -t $HOME ./stow/zsh
 source $HOME/.zshrc
