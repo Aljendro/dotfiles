@@ -4,6 +4,12 @@
     url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
     dest: /tmp/RobotoMono.ttf
 
+- name: Create font path
+  file:
+    path: "{{ lookup('env','HOME') }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+
 - name: Move the Font file
   become: yes
   shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
