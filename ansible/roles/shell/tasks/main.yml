@@ -65,3 +65,8 @@
     mode: '0700'
   when: vm_local.stat.exists == false
 
+- name: Remove default .zshrc
+  file:
+    path: ~/.zshrc
+    state: absent
+
