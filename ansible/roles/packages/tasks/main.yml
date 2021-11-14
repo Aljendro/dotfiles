@@ -1,4 +1,37 @@
 ---
+##############################
+########### Apt ##############
+##############################
+- name: Get Kernel Release
+  shell: uname -r
+  register: kernel_release
+
+- name: Installing Apt Packages
+  become: yes
+  apt:
+    name:
+      # TODO: Install ripgrep manually
+      # - ripgrep
+      - bat
+      - fd-find
+      - firefox
+      - fonts-powerline
+      - gnome-tweak-tool
+      - jq
+      - leiningen
+      - linux-tools-{{ kernel_release.stdout }}
+      - powerline
+      - rlwrap
+      - tmux
+      - tree
+      - xclip
+    state: latest
+    update_cache: yes
+
+##############################
+########## Snaps #############
+##############################
+
 - name: Installing Bitwarden
   become: yes
   snap:
@@ -12,12 +45,100 @@
     classic: yes
     state: present
 
-# TODO: Break this out into its own role for watchman
+- name: Installing CMake
+  become: yes
+  snap:
+    name: cmake
+    classic: yes
+    state: present
 
-# - name: Check watchman installation
-#   shell: which watchman
-#   register: watchman_stat
-#   ignore_errors: true
+##############################
+############ Go ##############
+##############################
 
-# - import_tasks: watchman.yml
-#   when: watchman_stat.rc != 0
+- name: Install EFM LSP Server
+  shell: go install github.com/mattn/efm-langserver@latest
+
+##############################
+########### Node #############
+##############################
+
+- name: Install globals
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use default && npm install -g @babel/core @babel/preset-env @babel/cli @babel/node live-server eslint_d yarn neovim prettier serverless jest aws-cdk csvtojson
+  args:
+    executable: /bin/bash
+
+##############################
+########### Pip ##############
+##############################
+
+- name: Install pip packages
+  pip:
+    name:
+      - pynvim==0.4.3
+      - cfn-lint
+      - awscli
+
+##############################
+########### Cargo ############
+##############################
+
+- name: Install Cargo-Generate from Cargo
+  command: cargo install cargo-generate
+
+- name: Install Delta from Cargo
+  command: cargo install git-delta
+
+- name: Downloading Wasm-Pack Installer
+  get_url:
+    url: https://rustwasm.github.io/wasm-pack/installer/init.sh
+    dest: /tmp/wasmpack_installer
+    mode: '0700'
+
+##############################
+########### Custom ###########
+##############################
+
+- name: Install Wasm-Pack
+  shell: ./wasmpack_installer -y
+  args:
+    chdir: /tmp
+
+- name: Download Font
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf
+    dest: /tmp/RobotoMono.ttf
+
+- name: Move the Font file
+  become: yes
+  shell: mv /tmp/RobotoMono.ttf {{ lookup('env','HOME') }}/.local/share/fonts/RobotoMono.ttf
+
+- name: Refresh font cache
+  become: true
+  shell: fc-cache -fv
+
+- import_tasks: "{{ role_path }}/packages/aws/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/chrome/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/clojure/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/docker/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/gcp/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/git/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/javascript/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/tmux/main.yml"
+
+- import_tasks: "{{ role_path }}/packages/vim/main.yml"
+
+- name: Check watchman installation
+  shell: which watchman
+  register: watchman_stat
+  ignore_errors: true
+
+- import_tasks: "{{ role_path }}/packages/watchman/main.yml"
+  when: watchman_stat.rc != 0

@@ -2,84 +2,18 @@
 - name: Development Machine Setup
   hosts: local
   tasks:
-    # - name: "Ansible | List all known variables and facts"
-      # debug:
-        # var: hostvars[inventory_hostname]
+    - import_role:
+        name: shell
+      tags:
+        - shell
+
+    - import_role:
+        name: package_managers
+      tags:
+        - package_managers
+
     - import_role:
         name: packages
       tags:
         - packages
 
-    - import_role:
-        name: aws
-      tags:
-        - aws
-
-    - import_role:
-        name: chrome
-      tags:
-        - chrome
-
-    - import_role:
-        name: clojure
-      tags:
-        - clojure
-
-    - import_role:
-        name: docker
-      tags:
-        - docker
-
-    - import_role:
-        name: gcp
-      tags:
-        - gcp
-
-    - import_role:
-        name: git
-      tags:
-        - git
-
-    - import_role:
-        name: go
-      tags:
-        - go
-        - package_manager
-
-    - import_role:
-        name: java
-      tags:
-        - java
-
-    - import_role:
-        name: javascript
-      tags:
-        - js
-        - package_manager
-
-    - import_role:
-        name: lua
-      tags:
-        - lua
-        - package_manager
-
-    - import_role:
-        name: python
-      tags:
-        - python
-
-    - import_role:
-        name: rust
-      tags:
-        - rust
-        - package_manager
-
-    - import_role:
-        name: tmux
-      tags:
-        - tmux
-
-    - import_role:
-        name: vim
-      tags:
-        - vim

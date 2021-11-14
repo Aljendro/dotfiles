@@ -1,6 +1,0 @@
----
-# TODO: Move all package installs to single file 
-
-# - name: Installing cmake
-#   become: yes
-#   command: snap install cmake --classic

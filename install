@@ -6,13 +6,13 @@ set -e
 # See https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 export DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Install ansible
+# Install python3/ansible/stow
 if [ "$OSTYPE" == "linux-gnu" ]; then
   DISTRIBUTION=$(uname -v)
   if [[ "$DISTRIBUTION" == *"Ubuntu"* ]]; then
-    sudo apt -y update && sudo apt -y upgrade
-    sudo apt -y install python3
-    sudo apt -y install ansible
+    sudo apt -y update
+    sudo apt -y upgrade
+    sudo apt -y install python3 ansible stow
   else
     echo "Distribution ($DISTRIBUTION) not supported at the moment"
   fi
@@ -27,9 +27,26 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
   exit 1
 fi
 
-# Creates a ',' separated string from the given array elements
-TAG_STR=$(sed 's/ /,/g' <<<"$@")
+cd $DOTFILES_DIR
+ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
-ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags $TAG_STR --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+cd $DOTFILES_DIR/stow
+stow -t $HOME zsh
+source $HOME/.zshrc
+
+cd $DOTFILES_DIR
+ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
+
+# TODO: Delete auto generated .clojure directory
+
+# - name: Delete auto generated .clojure directory
+#   file:
+#     state: absent
+#     path: ~/.clojure
+
+cd $DOTFILES_DIR/stow
+stow -t $HOME *
+
 
 echo "Finishing Install"

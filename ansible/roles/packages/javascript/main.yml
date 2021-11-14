@@ -1,0 +1,12 @@
+---
+# TODO: Move this into a package iinstall file
+- name: Install Nodejs version
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 14.17.1
+  args:
+    executable: /bin/bash
+
+- name: Use Nodejs version
+  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm alias default 14.17.1
+  args:
+    executable: /bin/bash
+

@@ -1,0 +1,41 @@
+---
+- name: Installing Package Managers' Dependencies
+  become: yes
+  apt:
+    name:
+      - apt-transport-https
+      - autoconf
+      - automake
+      - bear
+      - build-essential
+      - ca-certificates
+      - clang
+      - clangd
+      - curl
+      - fonts-powerline
+      - gnupg
+      - libclang-dev
+      - libreadline-dev
+      - libsecret-1-0
+      - libsecret-1-dev
+      - libssl-dev
+      - libtool
+      - make
+      - openjdk-11-jdk
+      - openjdk-8-jdk
+      - powerline
+      - python-dev
+      - python-setuptools
+      - python3
+      - python3-pip
+      - rlwrap
+      - software-properties-common
+    state: latest
+    update_cache: yes
+
+- import_tasks: "{{ role_path }}/packages_managers/cargo/main.yml"
+- import_tasks: "{{ role_path }}/packages_managers/go/main.yml"
+- import_tasks: "{{ role_path }}/packages_managers/luarocks/main.yml"
+- import_tasks: "{{ role_path }}/packages_managers/nvm/main.yml"
+- import_tasks: "{{ role_path }}/packages_managers/packer/main.yml"
+

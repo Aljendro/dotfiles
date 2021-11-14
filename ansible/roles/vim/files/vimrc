@@ -1,9 +1,0 @@
-" Settings vimrc file.
-"
-" Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
-"
-
-source $DOTFILES_DIR/ansible/roles/vim/files/helpers/functions.vim
-source $DOTFILES_DIR/ansible/roles/vim/files/helpers/core.vim
-source $DOTFILES_DIR/ansible/roles/vim/files/helpers/plugin.vim
-

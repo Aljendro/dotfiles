@@ -1,0 +1,11 @@
+---
+- name: Downloading Rust Installer
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rust_installer
+    mode: '0700'
+
+- name: Install Cargo
+  shell: ./rust_installer -y
+  args:
+    chdir: /tmp

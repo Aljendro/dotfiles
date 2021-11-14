@@ -1,9 +1,0 @@
----
-# TODO: Move all package installs to single file 
-
-# - name: Install pip packages
-#   pip:
-#     name:
-#       - pynvim==0.4.3
-#       - cfn-lint
-# TODO: Install awscli with pip

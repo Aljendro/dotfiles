@@ -1,0 +1,55 @@
+---
+- name: Downloading Lua Tarball
+  get_url:
+    url: http://www.lua.org/ftp/lua-5.3.5.tar.gz
+    dest: /tmp
+
+- name: Unzip Lua
+  become: yes
+  unarchive:
+    src: /tmp/lua-5.3.5.tar.gz
+    dest: /tmp
+    mode: '0777'
+
+- name: Build Lua (linux)
+  make:
+    chdir: /tmp/lua-5.3.5
+    target: linux
+
+- name: Build Lua (test)
+  make:
+    chdir: /tmp/lua-5.3.5
+    target: test
+
+- name: Install Lua
+  become: yes
+  make:
+    chdir: /tmp/lua-5.3.5
+    target: install
+
+- name: Downloading LuaRocks Tarball
+  get_url:
+    url: https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+    dest: /tmp
+
+- name: Unzip LuaRocks
+  become: yes
+  unarchive:
+    src: /tmp/luarocks-3.3.1.tar.gz
+    dest: /tmp
+    mode: '0777'
+
+- name: Configure LuaRocks
+  shell: ./configure --with-lua-include=/usr/local/include
+  args:
+    chdir: /tmp/luarocks-3.3.1
+
+- name: Build LuaRocks
+  make:
+    chdir: /tmp/luarocks-3.3.1
+
+- name: Install Luarocks
+  become: yes
+  make:
+    chdir: /tmp/luarocks-3.3.1
+    target: install
