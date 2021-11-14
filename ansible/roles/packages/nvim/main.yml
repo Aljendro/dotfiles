@@ -31,13 +31,10 @@
     mode: '0755'
 
 - name: Install Packages
-  shell: nvim -u ~/.pluginvimrc +PackerInstall
-
-- name: Compile Packages
-  shell: nvim -u ~/.pluginvimrc +PackerCompile
+  shell: nvim -u ~/.pluginvimrc --headless +PackerInstall +PackerCompile +qall
 
 - name: Install Lsp Servers
-  shell: nvim +LspInstall {{ item }}
+  shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +qall
   loop:
     - bash
     - clojure
