@@ -29,7 +29,7 @@ fi
 
 ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
 
-stow -t $HOME ./stow/zsh
+stow -d $DOTFILES_DIR/stow -t $HOME zsh
 source $HOME/.zshrc
 
 ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
@@ -42,7 +42,7 @@ ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansibl
 #     state: absent
 #     path: ~/.clojure
 
-stow -t $HOME ./stow/clojure ./stow/git ./stow/nvim ./stow/tmux
+stow $DOTFILES_DIR/stow -t $HOME clojure git nvim tmux
 
 echo "Geneate ssh key manually"
 echo "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
