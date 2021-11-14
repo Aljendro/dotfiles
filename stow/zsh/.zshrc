@@ -1,6 +1,12 @@
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export FZF_DIR="$HOME/.local/share/nvim/site/pack/packer/start/fzf"
+
+# Some local env variables and secrets must live locally (away from VCS)
+source ~/.zshrc_local
+# VM specific variables
+source ~/.zshrc_vm_local
+
 export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH
 
 export LANG=en_US.UTF-8
@@ -19,11 +25,6 @@ alias sz='source ~/.zshrc'
 alias fd='fdfind'
 alias bat='batcat'
 alias e='exit'
-
-# Some local env variables and secrets must live locally (away from VCS)
-source ~/.zshrc_local
-# VM specific variables
-source ~/.zshrc_vm_local
 
 ZSH_THEME="aljendro"
 DISABLE_MAGIC_FUNCTIONS=true
@@ -65,6 +66,7 @@ zle -N zle-keymap-select
 [ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
 [ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
+[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 lazy_load_nvm() {
   unset -f node
