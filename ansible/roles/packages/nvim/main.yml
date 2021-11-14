@@ -25,13 +25,13 @@
     mode: '0700'
 
 - name: Install Packages
-  shell: neovim +PackerInstall
+  shell: nvim +PackerInstall
 
 - name: Compile Packages
-  shell: neovim +PackerCompile
+  shell: nvim +PackerCompile
 
 - name: Install Lsp Servers
-  shell: neovim +LspInstall {{ item }}
+  shell: nvim +LspInstall {{ item }}
   loop:
     - bash
     - clojure
