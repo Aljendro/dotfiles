@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
-export FZF_DIR="$HOME/.local/share/nvim/site/pack/packer/start/fzf"
+export FZF_DIR="$HOME/.fzf"
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local

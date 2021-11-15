@@ -18,16 +18,10 @@
     chdir: /tmp/neovim
     target: install
 
-- name: Downloading FZF
-  git:
-    repo: 'https://github.com/junegunn/fzf.git'
-    dest: /tmp/fzf
-    depth: 1
-
 - name: Install FZF
-  shell: install --bin
+  shell: ./install --bin
   args:
-    chdir: /tmp/fzf
+    chdir: ~/.fzf
 
 - name: Creating session directory
   file:

@@ -4,3 +4,6 @@
 [submodule "stow/clojure/.clojure"]
 	path = stow/clojure/.clojure
 	url = https://github.com/Aljendro/clojure-deps-edn.git
+[submodule "stow/fzf/.fzf"]
+	path = stow/fzf/.fzf
+	url = https://github.com/junegunn/fzf.git
