@@ -35,7 +35,7 @@ elif [ $1 == 'managers' ]; then
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   echo "Restart Terminal"
 else 
-  stow -d $DOTFILES_DIR/stow -t $HOME clojure git nvim tmux
+  stow -d $DOTFILES_DIR/stow -t $HOME clojure fzf git nvim tmux
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   echo "Restart VM"
 fi
