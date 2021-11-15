@@ -1,1 +1,1 @@
-source $DOTFILES_DIR/ansible/roles/vim/files/helpers/javascript.vim
+source $HOME/.config/nvim/helpers/javascript.vim

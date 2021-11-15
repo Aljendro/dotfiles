@@ -1,1 +1,1 @@
-source $DOTFILES_DIR/ansible/roles/vim/files/helpers/lisp.vim
+source $HOME/.config/nvim/helpers/lisp.vim
