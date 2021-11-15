@@ -28,15 +28,15 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
 fi
 
 if [ $1 == 'init' ]; then
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   stow -d $DOTFILES_DIR/stow -t $HOME zsh
+  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   echo "Restart VM"
 elif [ $1 == 'managers' ]; then
   ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   echo "Restart Terminal"
 else 
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   stow -d $DOTFILES_DIR/stow -t $HOME clojure git nvim tmux
+  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
   echo "Restart VM"
 fi
 
