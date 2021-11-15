@@ -14,9 +14,21 @@
     update_cache: yes
 
 - import_tasks: "{{ role_path }}/brew/main.yml"
+  async: 300
+  poll: 0
 - import_tasks: "{{ role_path }}/cargo/main.yml"
+  async: 300
+  poll: 0
 - import_tasks: "{{ role_path }}/go/main.yml"
+  async: 300
+  poll: 0
 - import_tasks: "{{ role_path }}/luarocks/main.yml"
+  async: 300
+  poll: 0
 - import_tasks: "{{ role_path }}/nodejs/main.yml"
+  async: 300
+  poll: 0
 - import_tasks: "{{ role_path }}/packer/main.yml"
+  async: 300
+  poll: 0
 
