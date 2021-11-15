@@ -19,7 +19,7 @@ nmap <leader>{ ysiw}
 
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
-let snippetPath=$DOTFILES_DIR.'/ansible/roles/vim/files/snippets/'
+let snippetPath=$HOME.'/.config/nvim/ultisnips'
 let g:UltiSnipsSnippetDirectories=[snippetPath]
 
 """""""""""""""""""""""""""""""""""""""""""""""""
