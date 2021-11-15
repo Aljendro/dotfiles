@@ -18,6 +18,17 @@
     chdir: /tmp/neovim
     target: install
 
+- name: Downloading FZF
+  git:
+    repo: 'https://github.com/junegunn/fzf.git'
+    dest: /tmp/fzf
+    depth: 1
+
+- name: Install FZF
+  shell: install --bin
+  args:
+    chdir: /tmp/fzf
+
 - name: Creating session directory
   file:
     path: ~/.config/nvim/sessions
@@ -31,26 +42,23 @@
     mode: '0755'
 
 # TODO: Figure out how to check for async job completion
-- name: Install Packages
-  shell: nvim -u ~/.pluginvimrc --headless +PackerInstall +"!sleep 20" +qall
+# - name: Install Packages
+#   shell: nvim -u ~/.pluginvimrc --headless +PackerInstall +"!sleep 20" +qall
 
-- name: Compile Packages
-  shell: nvim -u ~/.pluginvimrc --headless +PackerCompile +"!sleep 15" +qall
+# - name: Compile Packages
+#   shell: nvim -u ~/.pluginvimrc --headless +PackerCompile +"!sleep 15" +qall
 
-- name: Install fzf
-  command: $HOME/.local/share/nvim/site/pack/packer/start/fzf/install --no-bash --no-zsh
-
-- name: Install Lsp Servers
-  shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +"!sleep 15" +qall
-  loop:
-    - bash
-    - clojure
-    - css
-    - dockerfile
-    - html
-    - json
-    - lua
-    - rust
-    - typescript
-    - vim
-    - yaml
+# - name: Install Lsp Servers
+#   shell: nvim -u ~/.pluginvimrc --headless +"LspInstall {{ item }}" +"!sleep 15" +qall
+#   loop:
+#     - bash
+#     - clojure
+#     - css
+#     - dockerfile
+#     - html
+#     - json
+#     - lua
+#     - rust
+#     - typescript
+#     - vim
+#     - yaml
