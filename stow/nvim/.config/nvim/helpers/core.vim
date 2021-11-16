@@ -86,7 +86,7 @@ cnoreabbrev tah tab help
 " nnoremap <leader>W :W<cr>
 
 " Faster saving
-nnoremap <leader>w :w<cr>
+nnoremap <leader>w :w<cr>:e<cr>
 nnoremap <leader>q :q<cr>
 
 " Save and resource current file
