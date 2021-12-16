@@ -1,7 +1,0 @@
----
-- name: Install Libsecret
-  become: yes
-  shell: make
-  args:
-    chdir: /usr/share/doc/git/contrib/credential/libsecret
-

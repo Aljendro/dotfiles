@@ -1,3 +1,14 @@
+# git
+.git
+
 # Vim
 *.swp
 tags
+
+# Nvim
+stow/nvim/.config/nvim/sessions
+stow/zsh/.oh-my-zsh
+stow/fzf/.fzf
+stow/clojure/.clojure
+stow/tmux/.tmux-themepack
+stow/nvim/.config/nvim/plugin/packer_compiled.lua

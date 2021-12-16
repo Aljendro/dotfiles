@@ -1,9 +1,20 @@
 [submodule "stow/tmux/.tmux-themepack"]
 	path = stow/tmux/.tmux-themepack
 	url = https://github.com/jimeh/tmux-themepack.git
+	shallow = true
 [submodule "stow/clojure/.clojure"]
 	path = stow/clojure/.clojure
 	url = https://github.com/Aljendro/clojure-deps-edn.git
+	shallow = true
 [submodule "stow/fzf/.fzf"]
 	path = stow/fzf/.fzf
 	url = https://github.com/junegunn/fzf.git
+	shallow = true
+[submodule "stow/zsh/.oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+	path = stow/zsh/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+	shallow = true
+[submodule "stow/zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+	path = stow/zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	shallow = true
