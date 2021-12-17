@@ -22,7 +22,6 @@ set cursorline
 set dictionary+=/usr/share/dict/words
 set display=truncate
 set expandtab
-set fileencoding=utf-8
 set fillchars+=diff:\ ,fold:.
 set foldcolumn=1
 set foldtext=FoldText()
@@ -34,7 +33,6 @@ set ignorecase
 set inccommand=nosplit
 set iskeyword+=-
 set mouse=a
-set nolangremap
 set noshowmode
 set noswapfile
 set nowrap
@@ -43,7 +41,6 @@ set nowritebackup
 set nrformats-=octal
 set number
 set relativenumber
-set ruler
 set scrolloff=1
 set shortmess+=c
 set signcolumn=yes
@@ -51,11 +48,8 @@ set smartcase
 set smartindent
 set splitbelow
 set splitright
-set t_Co=256
-set termguicolors
 set updatetime=100
 set virtualedit=block,onemore
-set wildmenu
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 """"""""" Configurations/Keybindings """"""""""""
@@ -90,9 +84,6 @@ cnoreabbrev tah tab help
 " Faster saving
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
-
-" Save and resource current file
-nnoremap <silent> <leader><leader>w :call SaveAndExec()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Quickfix
@@ -140,7 +131,7 @@ nnoremap <M-k> <C-b>
 nnoremap <C-w>j <C-w>J
 nnoremap <C-w>k <C-w>K
 nnoremap <C-w>l <C-w>L
-noremap <C-w>h <C-w>H
+nnoremap <C-w>h <C-w>H
 
 " Resize windows
 nnoremap <M-d> :resize -4<cr>
@@ -149,9 +140,7 @@ nnoremap <M-s> :vertical resize +16<cr>
 nnoremap <M-f> :vertical resize -16<cr>
 
 " Vertical split a file path
-nnoremap gvf <C-w>vgf
-" Reset keybinding for reselecting visual
-nnoremap gvv gv
+nnoremap sfv <C-w>vgf
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
@@ -162,6 +151,7 @@ nnoremap <leader>/r :%s//gci<Left><Left><Left><Left>
 " Count the number of possible replacements (occurrences and lines)
 nnoremap <leader>/c :%s///gn<cr>
 
+" Change word under cursor giving the ability to reapply with .
 vmap <leader>/w *Ncgn
 nmap <leader>/w g*cgn
 
@@ -169,6 +159,7 @@ nmap <leader>/w g*cgn
 vnoremap <silent> * :call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
 vnoremap <silent> # :call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
 
+" Maintain position when you hit * or #
 nnoremap * :keepjumps normal! mi*`i<cr>
 nnoremap g* :keepjumps normal! mig*`i<cr>
 nnoremap # :keepjumps normal! mi#`i<cr>
@@ -268,19 +259,11 @@ nnoremap <leader><enter> :noh<cr>
 vnoremap < <gv
 vnoremap > >gv
 
-" Better Vertical block movement
-vmap [v [egvv
-vmap ]v ]egvv
-
 " Next character remap
 nnoremap <leader>; ;
 
 " Use the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>
-
-" Selections
-" Whole Buffer
-nnoremap <leader>va ggVG
 
 " Faster shifting
 nnoremap <Down> 5<C-e>
@@ -323,9 +306,8 @@ augroup customVim
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
-      autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
-      autocmd User FugitiveObject unmap <buffer> s
-      autocmd User FugitiveObject unmap <buffer> q
+      " Highlight the movement selection
+      autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -360,12 +342,12 @@ nnoremap <leader>gg :tab G<cr>
 nnoremap <leader>gd :tab split<cr>:Gvdiffsplit<cr>
 " Load changes into quickfix list
 nnoremap <leader>gc :Git difftool<cr>:cclose<cr>
+" Open merge conflicts in different tabs
+nnoremap <leader>gC :Git mergetool<cr>:cclose<cr>
 " Open git blame with commit and author
 nmap <leader>gb :Git blame<cr>A
 " Refresh difftool
-nnoremap <leader>gD :diffupdate<cr>
-" Open merge conflicts in different tabs
-nnoremap <leader>gC :Git mergetool<cr>:cclose<cr>
+nnoremap <leader>gu :diffupdate<cr>
 " Choose left buffer
 nnoremap <expr> <leader>gj ':diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 " Choose the right buffer
@@ -404,44 +386,42 @@ command! -bang -nargs=* FARg
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up'), <bang>0)
 
-nnoremap ;p    :lua require('telescope.builtin').resume()<cr>
-nnoremap ;f    :lua require('telescope.builtin').find_files({hidden=true})<cr>
-nnoremap ;a    :FRg<cr>
-nnoremap ;A    :FARg<cr>
-nnoremap ;w    :Telescope grep_string<cr>
-vnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=true search=<C-R>=@/<cr><cr>
-nnoremap ;gg   :lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
-nnoremap ;s    :lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
-nnoremap ;gf   :lua require('telescope.builtin').git_files()<cr>
-nnoremap ;gcb  :lua require('telescope.builtin').git_bcommits()<cr>
-nnoremap ;gcp  :lua require('telescope.builtin').git_commits()<cr>
-nnoremap ;gb   :lua require('telescope.builtin').git_branches()<cr>
-nnoremap ;gst  :lua require('telescope.builtin').git_status()<cr>
-nnoremap ;gsT  :lua require('telescope.builtin').git_stash()<cr>
-nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
-nnoremap ;ht   :lua require('telescope.builtin').help_tags()<cr>
-nnoremap ;c    :lua require('telescope.builtin').commands()<cr>
-nnoremap ;q    :lua require('telescope.builtin').quickfix({ignore_filename=false})<cr>
-nnoremap ;lq   :lua require('telescope.builtin').loclist({ignore_filename=false})<cr>
-nnoremap ;of   :lua require('telescope.builtin').oldfiles()<cr>
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
 vnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
-nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
-nnoremap ;tm   :lua require('telescope.builtin').man_pages()<cr>
-nnoremap ;tt   :lua require('telescope.builtin').treesitter()<cr>
-nnoremap ;m    :lua require('telescope.builtin').marks()<cr>
-nnoremap ;r    :lua require('telescope.builtin').registers()<cr>
-nnoremap ;k    :lua require('telescope.builtin').keymaps()<cr>
-nnoremap ;tf   :lua require('telescope.builtin').filetypes()<cr>
+nnoremap ;a    :FRg<cr>
+nnoremap ;A    :FARg<cr>
+nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
+nnoremap ;c    :lua require('telescope.builtin').commands()<cr>
+nnoremap ;f    :lua require('telescope.builtin').find_files({hidden=true})<cr>
+nnoremap ;gc   :lua require('telescope.builtin').git_bcommits()<cr>
+nnoremap ;gC   :lua require('telescope.builtin').git_commits()<cr>
+nnoremap ;gb   :lua require('telescope.builtin').git_branches()<cr>
+nnoremap ;gf   :lua require('telescope.builtin').git_files()<cr>
+nnoremap ;gg   :lua require('telescope.builtin').live_grep()<cr>
+nnoremap ;gs   :lua require('telescope.builtin').grep_string({use_regex=true, search=''})<left><left><left>
+nnoremap ;gS   :lua require('telescope.builtin').git_stash()<cr>
+nnoremap ;h    :lua require('telescope.builtin').help_tags()<cr>
 nnoremap ;j    :lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
+nnoremap ;k    :lua require('telescope.builtin').keymaps()<cr>
 nnoremap ;la   :lua require('telescope.builtin').lsp_code_actions()<cr>
-nnoremap ;lra  :lua require('telescope.builtin').lsp_range_code_actions()<cr>
-nnoremap ;lds  :lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap ;lps  :lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
-nnoremap ;ldd  :lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-nnoremap ;lpd  :lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
-nnoremap ;nc   :lua require('telescope').extensions.neoclip.default()<cr>
+nnoremap ;lA   :lua require('telescope.builtin').lsp_range_code_actions()<cr>
+nnoremap ;ld   :lua require('telescope.builtin').diagnostics({bufnr=0})<cr>
+nnoremap ;lm   :lua require('telescope.builtin').man_pages()<cr>
+nnoremap ;ls   :lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap ;lD   :lua require('telescope.builtin').diagnostics()<cr>
+nnoremap ;lS   :lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>
+nnoremap ;m    :lua require('telescope.builtin').marks()<cr>
+nnoremap ;n    :lua require('telescope').extensions.neoclip.default()<cr>
+nnoremap ;of   :lua require('telescope.builtin').oldfiles()<cr>
+nnoremap ;r    :lua require('telescope.builtin').resume()<cr>
+nnoremap ;R    :lua require('telescope.builtin').registers()<cr>
+nnoremap ;s    :lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
+nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
+nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
+nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
+nnoremap ;w    :Telescope grep_string<cr>
+vnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=true search=<C-R>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
@@ -499,18 +479,17 @@ nnoremap <leader>pu :PackerSync<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " 2-character Sneak (default)
-nmap <leader>k :HopWord<cr>
-nmap <leader>j :HopLine<cr>
-nmap <leader>l :HopChar1<cr>
+nmap <leader>k <cmd>HopWord<cr>
+nmap <leader>j <cmd>HopLine<cr>
+nmap <leader>l <cmd>HopChar1<cr>
 " visual-mode
-xmap <leader>k :HopWord<cr>
-xmap <leader>j :HopLine<cr>
-xmap <leader>l :HopChar1<cr>
+xmap <leader>k <cmd>HopWord<cr>
+xmap <leader>j <cmd>HopLine<cr>
+xmap <leader>l <cmd>HopChar1<cr>
 " operator-pending-mode
-omap <leader>k :HopWord<cr>
-omap <leader>j :HopLine<cr>
-omap <leader>l :HopChar1<cr>
-
+omap <leader>k <cmd>HopWord<cr>
+omap <leader>j <cmd>HopLine<cr>
+omap <leader>l <cmd>HopChar1<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Vimux
@@ -543,7 +522,7 @@ let delimitMate_expand_inside_quotes = 1
 let test#strategy = 'vimux'
 
 nnoremap <leader>tt :TestNearest<CR>
-nnoremap <leader>T  :TestFile<CR>
+nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
