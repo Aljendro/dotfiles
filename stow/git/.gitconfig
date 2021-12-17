@@ -8,7 +8,7 @@
 [push]
   default = current
 [credential]
-  helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+  helper = libsecret
 [delta]
   features = line-numbers decorations
   syntax-theme = gruvbox

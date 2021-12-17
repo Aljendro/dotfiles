@@ -7,14 +7,14 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.yarn/bin:$PATH
+export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$PATH
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export LOAD_ENV_INFO=0
 export FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-half-page-down,ctrl-p:preview-half-page-up\""
-export FZF_DEFAULT_COMMAND="fdfind --type f --hidden -E .git"
-export FZF_ALT_C_COMMAND="fdfind --type d -E 'node_modules/*'"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden -E .git"
+export FZF_ALT_C_COMMAND="fd --type d -E 'node_modules/*'"
 
 alias n='nvim'
 alias c='code'
@@ -22,7 +22,6 @@ alias nf='VAL=$(fzf --preview "batcat --style=numbers --color=always --line-rang
 alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-case . | fzf --ansi); [ ! -z $VAL ] && nvim +$(cut -d":" -f2 <<<$VAL) $(cut -d":" -f1 <<<$VAL)'
 alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
-alias fd='fdfind'
 alias bat='batcat'
 alias e='exit'
 
@@ -62,11 +61,8 @@ _fix_cursor() {
 precmd_functions+=(_fix_cursor)
 zle -N zle-keymap-select
 
-[ -s $NVM_DIR/bash_completion ] && \. $NVM_DIR/bash_completion
 [ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
 [ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
-[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
-[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 lazy_load_nvm() {
   unset -f node

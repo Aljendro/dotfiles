@@ -37,7 +37,6 @@ function tdtk_env_name {
 #     else
 #       THEME_PROFILE_NAME=$THEME_TCM_PROFILE_NONPROD_NAME
 #     fi
-
 #     EXPIRATION_TIME=$(aws configure get expiration --profile $THEME_PROFILE_NAME)
 #     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 #     if [[ "$EXPIRATION_TIME" > "$NOW" ]]; then

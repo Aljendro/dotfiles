@@ -1,42 +1,157 @@
 #!/bin/bash
 
+# Install all dependencies and configuration dependencies.
+# Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+
 set -e
 
-# Get directory of executing script regardless of where it is called from (with some caveats)
-# See https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
-export DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+__summary="
+Bootstraps a VM by installing dependencies and linking dotfiles.
 
-# Install python3/ansible/stow
-if [ "$OSTYPE" == "linux-gnu" ]; then
-  DISTRIBUTION=$(uname -v)
-  if [[ "$DISTRIBUTION" == *"Ubuntu"* ]]; then
-    sudo apt -y update
-    sudo apt -y upgrade
-    sudo apt -y install python3 ansible stow
-  else
-    echo "Distribution ($DISTRIBUTION) not supported at the moment"
-  fi
-elif [ "$OSTYPE" == "darwin" ]; then
-  echo "MacOS is not supported at this moment"
-else
-  echo "$OSTYPE is not supported"
+Usage: install
+"
+
+##################################################
+########### Package Manager Install ##############
+##################################################
+
+sudo dnf update
+sudo dnf upgrade
+sudo dnf install -y                \
+  bat                              \ # dev
+  chromium                         \ # dev
+  clojure                          \ # dev
+  fd-find                          \ # dev
+  git-credential-libsecret.aarch64 \ # git
+  git-delta                        \ # git
+  gnome-tweak-tool                 \ # dev
+  java-1.8.0-openjdk-devel.aarch64 \ # clojure
+  java-11-openjdk-devel.aarch64    \ # clojure
+  jq                               \ # dev
+  ripgrep                          \ # dev
+  stow                             \ # dotfiles
+  tmux                             \ # dev
+  tree                             \ # dev
+  watchman                         \ # dev
+  xclip                            \ # dev
+  zsh                                # dev
+
+##################################################
+#################### Shell  ######################
+##################################################
+
+if [ $SHELL != $(which zsh) ];then
+  sudo chsh -s $(which zsh)
+  [ ! -d $HOME/.oh-my-zsh ] && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  [ ! -f $HOME/.zshrc_local ] && touch $HOME/.zshrc_local && echo "export DOTFILES_DIR=$DOTFILES_DIR\n" >> .zshrc_local
+  [ ! -f $HOME/.zshrc_vm_local ] && touch $HOME/.zshrc_vm_local
+  rm $HOME/.zshrc
 fi
 
-if ! [ -x "$(command -v ansible-playbook)" ]; then
-  echo 'Error: ansible was not installed.' >&2
-  exit 1
+##################################################
+############### Package Managers #################
+##################################################
+
+mkdir /tmp/dotfiles
+cd /tmp/dotfiles
+
+##################### NVM ########################
+
+if [ ! -f $HOME/.nvm/nvm.sh ]; then
+  mkdir nvm
+  cd nvm
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+fi
+source $HOME/.nvm/nvm.sh
+
+##################### Node #######################
+
+NODE_VERSION_CHECK=$(node --version)
+
+if [ $NODE_VERSION_CHECK != 'v14.17.1' ];then
+  nvm install 14.17.1
+  nvm alias default 14.17.1
 fi
 
-if [ $1 == 'init' ]; then
-  stow -d $DOTFILES_DIR/stow -t $HOME zsh
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags shell --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-  echo "Restart VM"
-elif [ $1 == 'managers' ]; then
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags package_managers --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-  echo "Restart Terminal"
-else 
-  stow -d $DOTFILES_DIR/stow -t $HOME clojure fzf git nvim tmux
-  ansible-playbook -v --inventory $DOTFILES_DIR/ansible/hosts $DOTFILES_DIR/ansible/playbook.yml --tags packages --extra-vars "dotfiles_dir=$DOTFILES_DIR"
-  echo "Restart VM"
+#################### Packer ######################
+
+if [ ! -f $HOME/.local/share/nvim/site/pack/start/packer.vim ];then
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+   $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
+
+##################################################
+################### Packages #####################
+##################################################
+
+##################### Rust ########################
+
+if ! command -v rustup &> /dev/null;then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+##################### AWS ########################
+
+if [ ! -d $HOME/.aws ];then
+  mkdir $HOME/.aws
+  [ ! -f $HOME/.aws/config ] && cp $DOTFILES_DIR/files/aws/config $HOME/.aws/
+  [ ! -f $HOME/.aws/credentials ] && cp $DOTFILES_DIR/files/aws/credentials $HOME/.aws/
+fi
+
+#################### Docker ######################
+
+if ! command -v docker &> /dev/null;then
+  sudo dnf -y install dnf-plugins-core
+  sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
+  sudo dnf install docker-ce docker-ce-cli containerd.io
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+fi
+
+################ Docker Compose ##################
+
+if ! command -v docker-compose &> /dev/null;then
+  mkdir docker-compose
+  cd docker-compose
+  curl https://github.com/docker/compose/releases/download/v2.2.1/docker-compose-linux-aarch64 \
+    -o docker-compose
+  chmod +x docker-compose
+  sudo mv docker-compose /usr/local/bin/
+fi
+
+################### Fonts ########################
+
+if [ ! -f $HOME/.local/share/fonts/RobotoMono.ttf ];then
+  mkdir fonts
+  cd fonts
+  curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf \
+    -o RobotoMono.ttf
+  mkdir -p $HOME/.local/share/fonts
+  sudo mv RobotoMono.ttf $HOME/.local/share/fonts
+  sudo fc-cache -fv
+fi
+
+################### NVIM #########################
+
+[ ! -d $HOME/.config/nvim/sessions ] && mkdir -p $HOME/.config/nvim/sessions
+
+if ! command -v nvim &> /dev/null;then
+  mkdir neovim
+  cd neovim
+  git clone https://github.com/neovim/neovim
+  git checkout tags/v0.6.0
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo make install
+fi
+
+################### Misc. ########################
+
+npm install -g typescript live-server eslint_d yarn neovim prettier serverless jest aws-cdk csvtojson
+pip3 install pynvim==0.4.3 awscli
+
+if ! command -v lua-format &> /dev/null;then
+  sudo luarocks install --server=https://luarocks.org/dev luaformatter
 fi
 
