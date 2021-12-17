@@ -50,7 +50,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
 ------------------- Javascript -------------------
 --------------------------------------------------
 
-require('lspconfig').tsserver.setup({
+lspconfig.tsserver.setup({
     cmd = {helper.lsp_dir .. "/tsserver/node_modules/.bin/tsserver", "--stdio"},
     capabilities = capabilities,
     on_attach = on_attach,
@@ -61,7 +61,7 @@ require('lspconfig').tsserver.setup({
 --------------------- HTML -----------------------
 --------------------------------------------------
 
-require('lspconfig').html.setup({
+lspconfig.html.setup({
     cmd = {
         helper.lsp_dir ..
             "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
@@ -76,7 +76,7 @@ require('lspconfig').html.setup({
 --------------------- CSS ------------------------
 --------------------------------------------------
 
-require('lspconfig').cssls.setup({
+lspconfig.cssls.setup({
     cmd = {
         helper.lsp_dir ..
             "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
@@ -91,7 +91,7 @@ require('lspconfig').cssls.setup({
 -------------------- JSON ------------------------
 --------------------------------------------------
 
-require('lspconfig').jsonls.setup({
+lspconfig.jsonls.setup({
     cmd = {
         helper.lsp_dir ..
             "/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
@@ -106,7 +106,7 @@ require('lspconfig').jsonls.setup({
 ------------------- Clojure ----------------------
 --------------------------------------------------
 
-require('lspconfig').clojure_lsp.setup({
+lspconfig.clojure_lsp.setup({
     cmd = {helper.lsp_dir .. "/clojure_lsp/clojure-lsp"},
     capabilities = capabilities,
     on_attach = on_attach
@@ -128,7 +128,7 @@ local eslint = {
     lintFormats = {"%f:%l:%c: %m"}
 }
 
-require('lspconfig').efm.setup({
+lspconfig.efm.setup({
     cmd = {helper.lsp_dir .. "/efm/efm-langserver"},
     on_attach = function(client, bufn)
         helper.buf_set_keymap('n', 'gef', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
@@ -136,11 +136,11 @@ require('lspconfig').efm.setup({
     end,
     init_options = {documentFormatting = true},
     filetypes = {
-        "lua", "javascript", "javascript", "javascriptreact", "typescript",
+        "lua", "javascript", "javascriptreact", "typescript",
         "typescriptreact"
     },
     settings = {
-        rootMarkers = {".git/"},
+        rootMarkers = lspconfig.util.root_pattern(".git"),
         languages = {
             lua = {{formatCommand = "lua-format -i", formatStdin = true}},
             javascript = {prettier, eslint},

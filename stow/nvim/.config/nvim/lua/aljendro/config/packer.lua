@@ -70,6 +70,7 @@ return require('packer').startup(function()
         'vim-test/vim-test',
         cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
     }
+    use {'wellle/targets.vim'}
     use {'wbthomason/packer.nvim'}
     use {
         'williamboman/nvim-lsp-installer',
