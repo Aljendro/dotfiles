@@ -22,7 +22,7 @@ sudo dnf install -y                \
   chromium                         \ # dev
   clojure                          \ # dev
   fd-find                          \ # dev
-  git-credential-libsecret.aarch64 \ # git
+  git-credential-libsecret         \ # git
   git-delta                        \ # git
   gnome-tweak-tool                 \ # dev
   java-1.8.0-openjdk-devel.aarch64 \ # clojure

@@ -7,7 +7,7 @@
 """"""""""""""" Settings """"""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on
-colorscheme dracula
+colorscheme tokyonight
 
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
@@ -23,10 +23,11 @@ set dictionary+=/usr/share/dict/words
 set display=truncate
 set expandtab
 set fileencoding=utf-8
+set fillchars+=diff:\ ,fold:.
 set foldcolumn=1
 set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --multiline
+set grepprg=rg\ --vimgrep\ --no-heading
 set guitablabel=%t
 set hidden
 set ignorecase
@@ -85,12 +86,6 @@ cnoreabbrev tah tab help
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
 """""""""""""""""""""""""""""""""""""""""""""""""
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-" TODO: Fix for neovim
-" command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-" nnoremap <leader>W :W<cr>
 
 " Faster saving
 nnoremap <leader>w :w<cr>
@@ -266,9 +261,6 @@ inoremap ? ?<c-g>u
 " Keep cursor in same place
 nnoremap J mzJ`z
 
-" Normalize Y
-nnoremap Y y$
-
 " Close highlighting
 nnoremap <leader><enter> :noh<cr>
 
@@ -359,6 +351,9 @@ let g:UltiSnipsSnippetDirectories=[snippetPath]
 "" Git Plugins (Fugitive, Gitgutter, etc.)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+" Remap the fugitive s(tage) command to S
+let g:nremap = {'s': 'S'}
+let g:xremap = {'s': 'S'}
 " Open up Fugitive in a tab
 nnoremap <leader>gg :tab G<cr>
 " Create diffsplit
@@ -399,15 +394,15 @@ cabbrev gstp Git stash pop
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
-let g:fzf_preview_window = ['right:60%', 'ctrl-/']
+let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
+let g:fzf_preview_window = ['up:40%', 'ctrl-/']
 
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
 command! -bang -nargs=* FARg
       \ call fzf#vim#grep(
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right'), <bang>0)
+      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up'), <bang>0)
 
 nnoremap ;p    :lua require('telescope.builtin').resume()<cr>
 nnoremap ;f    :lua require('telescope.builtin').find_files({hidden=true})<cr>
@@ -497,7 +492,7 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <leader>pi :PackerInstall<cr>
-nnoremap <leader>pu :PlugSync<cr>
+nnoremap <leader>pu :PackerSync<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Hop

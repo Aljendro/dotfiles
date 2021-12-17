@@ -2,8 +2,7 @@ local helper = require('aljendro/config/helper')
 
 return require('packer').startup(function()
 
-    use 'wbthomason/packer.nvim'
-    use 'AckslD/nvim-neoclip.lua'
+    use {'AckslD/nvim-neoclip.lua'}
     use {
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
@@ -12,20 +11,15 @@ return require('packer').startup(function()
         'alvarosevilla95/luatab.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }
-    use 'benmills/vimux'
-    use 'dracula/vim'
+    use {'benmills/vimux'}
     use {
         'eraserhd/parinfer-rust',
         run = 'cargo build --release',
         ft = {'clojure'}
     }
+    use 'folke/tokyonight.nvim'
     use {'godlygeek/tabular', cmd = 'Tabularize'}
     use {'guns/vim-sexp', ft = {'clojure'}}
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
-    }
-    -- use 'hrsh7th/cmp-cmdline'
     use {
         'hrsh7th/nvim-cmp',
         requires = {
@@ -38,39 +32,45 @@ return require('packer').startup(function()
         run = 'cd app && yarn install',
         cmd = 'MarkdownPreview'
     }
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
-    use 'kana/vim-textobj-entire'
-    use 'kana/vim-textobj-user'
-    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-    use 'mfussenegger/nvim-dap'
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/plenary.nvim'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-    use {'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'}}
-    use 'nvim-treesitter/nvim-treesitter'
-    use {'olical/conjure', ft = {'clojure'}}
-    use 'onsails/lspkind-nvim'
-    use 'p00f/nvim-ts-rainbow'
-    use 'phaazon/hop.nvim'
-    use 'raimondi/delimitmate'
+    use {'junegunn/fzf'}
+    use {'junegunn/fzf.vim'}
+    use {'kana/vim-textobj-entire'}
+    use {'kana/vim-textobj-user'}
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons'}
     }
-    use 'sirver/ultisnips'
-    use 'stefandtw/quickfix-reflector.vim'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-sleuth'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-unimpaired'
-    use 'vim-scripts/LargeFile'
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use {'mfussenegger/nvim-dap'}
+    use {'neovim/nvim-lspconfig'}
+    use {'nvim-lua/plenary.nvim'}
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    use {'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use {'nvim-treesitter/nvim-treesitter'}
+    use {'olical/conjure', ft = {'clojure'}}
+    use {'onsails/lspkind-nvim'}
+    use {'p00f/nvim-ts-rainbow'}
+    use {'phaazon/hop.nvim'}
+    use {'raimondi/delimitmate'}
+    use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
+    use {'sirver/ultisnips'}
+    use {'stefandtw/quickfix-reflector.vim'}
+    use {'tpope/vim-commentary'}
+    use {'tpope/vim-fugitive'}
+    use {'tpope/vim-repeat'}
+    use {'tpope/vim-sleuth'}
+    use {'tpope/vim-surround'}
+    use {'tpope/vim-unimpaired'}
+    use {'vim-scripts/LargeFile'}
     use {
         'vim-test/vim-test',
         cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
     }
+    use {'wbthomason/packer.nvim'}
     use {
         'williamboman/nvim-lsp-installer',
         cmd = {
@@ -78,6 +78,6 @@ return require('packer').startup(function()
             'LspUninstallAll'
         }
     }
-    use 'windwp/nvim-ts-autotag'
+    use {'windwp/nvim-ts-autotag'}
 
 end)

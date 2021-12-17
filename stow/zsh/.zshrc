@@ -1,6 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export FZF_DIR="$HOME/.fzf"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgrep"
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
@@ -12,17 +13,16 @@ export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bi
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export LOAD_ENV_INFO=0
-export FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-half-page-down,ctrl-p:preview-half-page-up\""
-export FZF_DEFAULT_COMMAND="fd --type f --hidden -E .git"
-export FZF_ALT_C_COMMAND="fd --type d -E 'node_modules/*'"
+export FZF_DEFAULT_OPTS="--bind \"ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up\""
+export FZF_DEFAULT_COMMAND="fd --type file --hidden --no-ignore -E .git"
+export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
 
 alias n='nvim'
 alias c='code'
-alias nf='VAL=$(fzf --preview "batcat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim $VAL'
+alias nf='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim $VAL'
 alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-case . | fzf --ansi); [ ! -z $VAL ] && nvim +$(cut -d":" -f2 <<<$VAL) $(cut -d":" -f1 <<<$VAL)'
 alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
-alias bat='batcat'
 alias e='exit'
 
 ZSH_THEME="aljendro"
