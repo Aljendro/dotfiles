@@ -4,7 +4,10 @@ return require('packer').startup(function()
 
     use 'wbthomason/packer.nvim'
     use 'AckslD/nvim-neoclip.lua'
-    use { 'Pocco81/DAPInstall.nvim', cmd = { 'DIInstall', 'DIUninstall', 'DIList' } }
+    use {
+        'Pocco81/DAPInstall.nvim',
+        cmd = {'DIInstall', 'DIUninstall', 'DIList'}
+    }
     use {
         'alvarosevilla95/luatab.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
@@ -64,8 +67,17 @@ return require('packer').startup(function()
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
     use 'vim-scripts/LargeFile'
-    use 'vim-test/vim-test'
-    use 'williamboman/nvim-lsp-installer'
+    use {
+        'vim-test/vim-test',
+        cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
+    }
+    use {
+        'williamboman/nvim-lsp-installer',
+        cmd = {
+            'LspInstall', 'LspInstallInfo', 'LspInstallLog', 'LspUninstall',
+            'LspUninstallAll'
+        }
+    }
     use 'windwp/nvim-ts-autotag'
 
 end)
