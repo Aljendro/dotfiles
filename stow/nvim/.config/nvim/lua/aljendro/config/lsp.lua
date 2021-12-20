@@ -60,7 +60,20 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .make_client_capabilities())
 
 --------------------------------------------------
-------------------- Javascript -------------------
+------------------- Python -----------------------
+--------------------------------------------------
+
+lspconfig.pyright.setup({
+    cmd = {
+        helper.lsp_dir .. "/python/node_modules/.bin/pyright-langserver",
+        "--stdio"
+    },
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+--------------------------------------------------
+------------ Javascript/Typescript ---------------
 --------------------------------------------------
 
 lspconfig.tsserver.setup({
