@@ -80,9 +80,7 @@ lspconfig.html.setup({
             "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
         "--stdio"
     },
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {debounce_text_changes = 150}
+    capabilities = capabilities
 })
 
 --------------------------------------------------
@@ -95,14 +93,48 @@ lspconfig.cssls.setup({
             "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
         "--stdio"
     },
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {debounce_text_changes = 150}
+    capabilities = capabilities
 })
 
 --------------------------------------------------
 -------------------- JSON ------------------------
 --------------------------------------------------
+
+local schemas = {
+    {
+        description = "TypeScript compiler configuration file",
+        fileMatch = {"tsconfig.json", "tsconfig.*.json"},
+        url = "https://json.schemastore.org/tsconfig.json"
+    }, {
+        description = "Lerna config",
+        fileMatch = {"lerna.json"},
+        url = "https://json.schemastore.org/lerna.json"
+    }, {
+        description = "Babel configuration",
+        fileMatch = {".babelrc.json", ".babelrc", "babel.config.json"},
+        url = "https://json.schemastore.org/babelrc.json"
+    }, {
+        description = "ESLint config",
+        fileMatch = {".eslintrc.json", ".eslintrc"},
+        url = "https://json.schemastore.org/eslintrc.json"
+    }, {
+        description = "Prettier config",
+        fileMatch = {".prettierrc", ".prettierrc.json", "prettier.config.json"},
+        url = "https://json.schemastore.org/prettierrc"
+    }, {
+        description = "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
+        fileMatch = {"*.cf.json", "cloudformation.json"},
+        url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json"
+    }, {
+        description = "The AWS Serverless Application Model (AWS SAM, previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs, AWS Lambda functions, and Amazon DynamoDB tables needed by your serverless application.",
+        fileMatch = {"serverless.template", "*.sam.json", "sam.json"},
+        url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json"
+    }, {
+        description = "NPM configuration file",
+        fileMatch = {"package.json"},
+        url = "https://json.schemastore.org/package.json"
+    }
+}
 
 lspconfig.jsonls.setup({
     cmd = {
@@ -111,8 +143,7 @@ lspconfig.jsonls.setup({
         "--stdio"
     },
     capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {debounce_text_changes = 150}
+    settings = {json = {schemas = schemas}}
 })
 
 --------------------------------------------------
@@ -122,8 +153,7 @@ lspconfig.jsonls.setup({
 lspconfig.clojure_lsp.setup({
     cmd = {helper.lsp_dir .. "/clojure_lsp/clojure-lsp"},
     capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {debounce_text_changes = 150}
+    on_attach = on_attach
 })
 
 --------------------------------------------------
@@ -134,7 +164,10 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 require('lspconfig').sumneko_lua.setup({
-    cmd = {helper.lsp_dir .. "/sumneko_lua/lua-language-server/bin/lua-language-server"},
+    cmd = {
+        helper.lsp_dir ..
+            "/sumneko_lua/lua-language-server/bin/lua-language-server"
+    },
     on_attach = on_attach,
     settings = {
         Lua = {
