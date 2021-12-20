@@ -2,7 +2,6 @@ local M = {}
 
 M.lsp_dir = vim.fn.stdpath("data") .. "/lsp_servers"
 
-
 -- Pretty print
 function _G.put(...)
     local objects = {}

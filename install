@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Install all dependencies and configuration dependencies.
+# Simple (uncomplected) install script for all dependencies.
+#
 # Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 
 set -e
@@ -10,6 +11,11 @@ Bootstraps a VM by installing dependencies and linking dotfiles.
 
 Usage: install
 "
+
+echo "This script has yet to be fully tested."
+echo "Thes are are 'Notes' on what/how to install deps at the moment."
+
+exit 1
 
 ##################################################
 ########### Package Manager Install ##############
@@ -28,6 +34,8 @@ sudo dnf -y install                \
   java-1.8.0-openjdk-devel.aarch64 \ # clojure
   java-11-openjdk-devel.aarch64    \ # clojure
   jq                               \ # dev
+  libstdc++-static                 \ # sumneko_lua
+  ninja-build                      \ # sumneko_lua
   ripgrep                          \ # dev
   stow                             \ # dotfiles
   tmux                             \ # dev
@@ -52,14 +60,11 @@ fi
 ############### Package Managers #################
 ##################################################
 
-mkdir /tmp/dotfiles
-cd /tmp/dotfiles
-
 ##################### NVM ########################
 
 if [ ! -f $HOME/.nvm/nvm.sh ]; then
-  mkdir nvm
-  cd nvm
+  mkdir -p /tmp/dotfiles/nvm
+  cd /tmp/dotfiles/nvm
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 fi
 source $HOME/.nvm/nvm.sh
@@ -84,10 +89,32 @@ fi
 ################### Packages #####################
 ##################################################
 
-##################### Rust ########################
+##################### Rust #######################
 
 if ! command -v rustup &> /dev/null;then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+###################### Go ########################
+
+if ! command -v go &> /dev/null;then
+  mkdir /tmp/dotfiles/go
+  cd /tmp/dotfiles/go
+  if [[ $(uname -m) == 'aarch64' ]]; then
+    curl -OL https://go.dev/dl/go1.17.5.linux-arm64.tar.gz
+    GO_SHASUM=$(sha256sum go1.17.5.linux-arm64.tar.gz | cut -d' ' -f1)
+    if [[ $GO_SHASUM == '6f95ce3da40d9ce1355e48f31f4eb6508382415ca4d7413b1e7a3314e6430e7e' ]];then
+      sudo rm -rf /usr/local/go
+      sudo tar -C /usr/local -xzf go1.17.5.linux-arm64.tar.gz
+    fi
+  else
+    curl -OL https://go.dev/dl/go1.17.5.linux-amd64.tar.gz
+    GO_SHASUM=$(sha256sum go1.17.5.linux-arm64.tar.gz | cut -d' ' -f1)
+    if [[ $GO_SHASUM == 'bd78114b0d441b029c8fe0341f4910370925a4d270a6a590668840675b0c653e' ]];then
+      sudo rm -rf /usr/local/go
+      sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz
+    fi
+  fi
 fi
 
 ##################### AWS ########################
@@ -113,8 +140,8 @@ fi
 ################ Docker Compose ##################
 
 if ! command -v docker-compose &> /dev/null;then
-  mkdir docker-compose
-  cd docker-compose
+  mkdir /tmp/dotfiles/docker-compose
+  cd /tmp/dotfiles/docker-compose
   curl https://github.com/docker/compose/releases/download/v2.2.1/docker-compose-linux-aarch64 \
     -o docker-compose
   chmod +x docker-compose
@@ -124,8 +151,8 @@ fi
 ################### Fonts ########################
 
 if [ ! -f $HOME/.local/share/fonts/RobotoMono.ttf ];then
-  mkdir fonts
-  cd fonts
+  mkdir /tmp/dotfiles/fonts
+  cd /tmp/dotfiles/fonts
   curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete.ttf \
     -o RobotoMono.ttf
   mkdir -p $HOME/.local/share/fonts
@@ -138,8 +165,8 @@ fi
 [ ! -d $HOME/.config/nvim/sessions ] && mkdir -p $HOME/.config/nvim/sessions
 
 if ! command -v nvim &> /dev/null;then
-  mkdir neovim
-  cd neovim
+  mkdir /tmp/dotfiles/neovim
+  cd /tmp/dotfiles/neovim
   git clone https://github.com/neovim/neovim
   git checkout tags/v0.6.0
   make CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -159,5 +186,22 @@ pip3 install pynvim==0.4.3 awscli
 
 if ! command -v lua-format &> /dev/null;then
   sudo luarocks install --server=https://luarocks.org/dev luaformatter
+fi
+
+if [ ! -d $HOME/.local/share/nvim/lsp_servers/sumneko_lua ] &> /dev/null;then
+  # TODO: Revaluate install/build manually
+  # Must install/build manually because lsp installer installing amd64 version
+  mkdir /tmp/dotfiles/lua
+  cd /tmp/dotfiles/lua
+  git clone --depth 1 https://github.com/sumneko/lua-language-server.git
+  cd lua-language-server
+  git submodule update --init --recursive
+  cd 3rd/luamake
+  ./compile/install.sh
+  cd ../..
+  ./3rd/luamake/luamake rebuild
+  cd /tmp/dotfiles/lua
+  mkdir -p $HOME/.local/share/nvim/lsp_servers/sumneko_lua
+  cp -r lua-language-server $HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server
 fi
 

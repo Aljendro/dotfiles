@@ -8,7 +8,7 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$PATH
+export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
@@ -24,6 +24,7 @@ alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-ca
 alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
 alias e='exit'
+alias luamake=$HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server/3rd/luamake/luamake
 
 ZSH_THEME="aljendro"
 DISABLE_MAGIC_FUNCTIONS=true
