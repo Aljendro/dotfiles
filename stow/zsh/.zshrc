@@ -13,7 +13,7 @@ export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export LOAD_ENV_INFO=0
-export FZF_DEFAULT_OPTS="--bind \"ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up\""
+export FZF_DEFAULT_OPTS="--bind ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,tab:toggle-out,shift-tab:toggle-in"
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --no-ignore -E .git"
 export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
 
@@ -98,3 +98,4 @@ toggle_env_line() {
 
 zle -N toggle_env_line{,}
 bindkey "\eOQ" toggle_env_line
+

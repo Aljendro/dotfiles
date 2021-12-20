@@ -381,14 +381,14 @@ cabbrev gstp Git stash pop
 
 let g:fzf_command_prefix = 'F'
 let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
-let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
 
 " Do not search the file path with rip grep
 " (using with_preview 'options' parameter)
 command! -bang -nargs=* FARg
       \ call fzf#vim#grep(
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up'), <bang>0)
+      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up:40%:hidden', 'ctrl-/'), <bang>0)
 
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>

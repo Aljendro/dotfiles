@@ -10,9 +10,9 @@ vim.cmd("source $HOME/.config/nvim/config/core.vim")
 require('luatab').setup({})
 require('telescope').setup({
     defaults = {
-      layout_strategy = 'vertical',
-      layout_config = { height = 0.99, width = 0.99 },
-    },
+        layout_strategy = 'vertical',
+        layout_config = {height = 0.99, width = 0.99, preview_height = 0.45}
+    }
 })
 require('telescope').load_extension('fzf')
 require('gitsigns').setup({})
@@ -34,9 +34,6 @@ require('nvim-treesitter.configs').setup({
 })
 require('neoclip').setup({})
 require('lualine').setup({options = {theme = 'tokyonight'}})
-require('diffview').setup({
-    enhanced_diff_hl = false
-})
 
 require('aljendro/config/dap');
 require('aljendro/config/lsp');
