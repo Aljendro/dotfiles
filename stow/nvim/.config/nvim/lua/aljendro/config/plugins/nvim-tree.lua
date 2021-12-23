@@ -1,5 +1,4 @@
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
-local helper = require('aljendro/config/helper')
 
 local opts = {noremap = true, silent = true}
 vim.api.nvim_set_keymap('n', ';d', ':NvimTreeToggle<cr>', opts)
@@ -15,8 +14,8 @@ vim.g.nvim_tree_show_icons = {
 }
 
 local list = {
-    {key = {'CD'}, cb = tree_cb("cd")}, {key = "s"},
-    {key = "S", cb = tree_cb("system_open")}
+    {key = {'CD'}, cb = tree_cb('cd')}, {key = 's'},
+    {key = 'S', cb = tree_cb('system_open')}
 }
 
 require('nvim-tree').setup({view = {mappings = {list = list}}})

@@ -1,5 +1,3 @@
-local helper = require('aljendro/config/helper')
-
 return require('packer').startup(function()
 
     use {'AckslD/nvim-neoclip.lua'}

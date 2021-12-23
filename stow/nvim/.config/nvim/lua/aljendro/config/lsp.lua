@@ -65,8 +65,8 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
 
 lspconfig.pyright.setup({
     cmd = {
-        helper.lsp_dir .. "/python/node_modules/.bin/pyright-langserver",
-        "--stdio"
+        helper.lsp_dir .. '/python/node_modules/.bin/pyright-langserver',
+        '--stdio'
     },
     capabilities = capabilities,
     on_attach = on_attach
@@ -77,7 +77,7 @@ lspconfig.pyright.setup({
 --------------------------------------------------
 
 lspconfig.tsserver.setup({
-    cmd = {helper.lsp_dir .. "/tsserver/node_modules/.bin/tsserver", "--stdio"},
+    cmd = {helper.lsp_dir .. '/tsserver/node_modules/.bin/tsserver', '--stdio'},
     capabilities = capabilities,
     on_attach = on_attach,
     flags = {debounce_text_changes = 150}
@@ -90,8 +90,8 @@ lspconfig.tsserver.setup({
 lspconfig.html.setup({
     cmd = {
         helper.lsp_dir ..
-            "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
-        "--stdio"
+            '/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server',
+        '--stdio'
     },
     capabilities = capabilities
 })
@@ -103,8 +103,8 @@ lspconfig.html.setup({
 lspconfig.cssls.setup({
     cmd = {
         helper.lsp_dir ..
-            "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
-        "--stdio"
+            '/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server',
+        '--stdio'
     },
     capabilities = capabilities
 })
@@ -115,45 +115,45 @@ lspconfig.cssls.setup({
 
 local schemas = {
     {
-        description = "TypeScript compiler configuration file",
-        fileMatch = {"tsconfig.json", "tsconfig.*.json"},
-        url = "https://json.schemastore.org/tsconfig.json"
+        description = 'TypeScript compiler configuration file',
+        fileMatch = {'tsconfig.json', 'tsconfig.*.json'},
+        url = 'https://json.schemastore.org/tsconfig.json'
     }, {
-        description = "Lerna config",
-        fileMatch = {"lerna.json"},
-        url = "https://json.schemastore.org/lerna.json"
+        description = 'Lerna config',
+        fileMatch = {'lerna.json'},
+        url = 'https://json.schemastore.org/lerna.json'
     }, {
-        description = "Babel configuration",
-        fileMatch = {".babelrc.json", ".babelrc", "babel.config.json"},
-        url = "https://json.schemastore.org/babelrc.json"
+        description = 'Babel configuration',
+        fileMatch = {'.babelrc.json', '.babelrc', 'babel.config.json'},
+        url = 'https://json.schemastore.org/babelrc.json'
     }, {
-        description = "ESLint config",
-        fileMatch = {".eslintrc.json", ".eslintrc"},
-        url = "https://json.schemastore.org/eslintrc.json"
+        description = 'ESLint config',
+        fileMatch = {'.eslintrc.json', '.eslintrc'},
+        url = 'https://json.schemastore.org/eslintrc.json'
     }, {
-        description = "Prettier config",
-        fileMatch = {".prettierrc", ".prettierrc.json", "prettier.config.json"},
-        url = "https://json.schemastore.org/prettierrc"
+        description = 'Prettier config',
+        fileMatch = {'.prettierrc', '.prettierrc.json', 'prettier.config.json'},
+        url = 'https://json.schemastore.org/prettierrc'
     }, {
-        description = "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
-        fileMatch = {"*.cf.json", "cloudformation.json"},
-        url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json"
+        description = 'AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.',
+        fileMatch = {'*.cf.json', 'cloudformation.json'},
+        url = 'https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json'
     }, {
-        description = "The AWS Serverless Application Model (AWS SAM, previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs, AWS Lambda functions, and Amazon DynamoDB tables needed by your serverless application.",
-        fileMatch = {"serverless.template", "*.sam.json", "sam.json"},
-        url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json"
+        description = 'The AWS Serverless Application Model (AWS SAM, previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs, AWS Lambda functions, and Amazon DynamoDB tables needed by your serverless application.',
+        fileMatch = {'serverless.template', '*.sam.json', 'sam.json'},
+        url = 'https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json'
     }, {
-        description = "NPM configuration file",
-        fileMatch = {"package.json"},
-        url = "https://json.schemastore.org/package.json"
+        description = 'NPM configuration file',
+        fileMatch = {'package.json'},
+        url = 'https://json.schemastore.org/package.json'
     }
 }
 
 lspconfig.jsonls.setup({
     cmd = {
         helper.lsp_dir ..
-            "/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
-        "--stdio"
+            '/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server',
+        '--stdio'
     },
     capabilities = capabilities,
     settings = {json = {schemas = schemas}}
@@ -164,7 +164,7 @@ lspconfig.jsonls.setup({
 --------------------------------------------------
 
 lspconfig.clojure_lsp.setup({
-    cmd = {helper.lsp_dir .. "/clojure_lsp/clojure-lsp"},
+    cmd = {helper.lsp_dir .. '/clojure_lsp/clojure-lsp'},
     capabilities = capabilities,
     on_attach = on_attach
 })
@@ -174,12 +174,12 @@ lspconfig.clojure_lsp.setup({
 --------------------------------------------------
 
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 require('lspconfig').sumneko_lua.setup({
     cmd = {
         helper.lsp_dir ..
-            "/sumneko_lua/lua-language-server/bin/lua-language-server"
+            '/sumneko_lua/lua-language-server/bin/lua-language-server'
     },
     on_attach = on_attach,
     settings = {
@@ -196,7 +196,7 @@ require('lspconfig').sumneko_lua.setup({
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true)
+                library = vim.api.nvim_get_runtime_file('', true)
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {enable = false}
@@ -209,31 +209,31 @@ require('lspconfig').sumneko_lua.setup({
 --------------------------------------------------
 
 local prettier = {
-    formatCommand = "prettier --stdin-filepath ${INPUT}",
+    formatCommand = 'prettier --stdin-filepath ${INPUT}',
     formatStdin = true
 }
 
 local eslint = {
-    lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+    lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
     lintIgnoreExitCode = true,
     lintStdin = true,
-    lintFormats = {"%f:%l:%c: %m"}
+    lintFormats = {'%f:%l:%c: %m'}
 }
 
 lspconfig.efm.setup({
-    cmd = {helper.lsp_dir .. "/efm/efm-langserver"},
+    cmd = {helper.lsp_dir .. '/efm/efm-langserver'},
     on_attach = function(client, bufn)
         helper.buf_set_keymap('n', 'gef',
                               '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
     end,
     init_options = {documentFormatting = true},
     filetypes = {
-        "lua", "javascript", "javascriptreact", "typescript", "typescriptreact"
+        'lua', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'
     },
     settings = {
         rootMarkers = {'.git/'},
         languages = {
-            lua = {{formatCommand = "lua-format -i", formatStdin = true}},
+            lua = {{formatCommand = 'lua-format -i', formatStdin = true}},
             javascript = {prettier, eslint},
             javascriptreact = {prettier, eslint},
             typescript = {prettier, eslint},

@@ -1,6 +1,6 @@
 local M = {}
 
-M.lsp_dir = vim.fn.stdpath("data") .. "/lsp_servers"
+M.lsp_dir = vim.fn.stdpath('data') .. '/lsp_servers'
 
 -- Pretty print
 function _G.put(...)
@@ -34,8 +34,8 @@ function M.t(str)
 end
 
 function M.check_back_space()
-    local col = vim.fn.col(".") - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
 return M
