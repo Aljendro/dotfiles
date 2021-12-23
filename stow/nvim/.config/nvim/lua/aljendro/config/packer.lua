@@ -49,7 +49,6 @@ return require('packer').startup(function()
     use {'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'nvim-treesitter/nvim-treesitter'}
     use {'olical/conjure', ft = {'clojure'}}
-    use {'onsails/lspkind-nvim'}
     use {'p00f/nvim-ts-rainbow'}
     use {'phaazon/hop.nvim'}
     use {'raimondi/delimitmate'}

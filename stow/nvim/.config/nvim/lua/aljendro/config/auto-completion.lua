@@ -4,38 +4,42 @@ local helper = require('aljendro/config/helper')
 cmp.setup({
     experimental = {native_menu = false, ghost_text = true},
     formatting = {
-        format = require('lspkind').cmp_format({
-            with_text = true,
-            menu = ({
+        format = function(entry, vim_item)
+            vim_item.menu = ({
                 nvim_lsp = '[LSP]',
-                buffer = '[Buffer]',
+                buffer = '[Buf]',
                 ultisnips = '[Ulti]',
                 dictionary = '[Dict]'
-            })
-        })
+            })[entry.source.name]
+            return vim_item
+        end
     },
     snippet = {expand = function(args) vim.fn['UltiSnips#Anon'](args.body) end},
-    sources = {
-        {name = 'ultisnips', preselect = true},
-        {name = 'nvim_lsp', preselect = true}, {
+    sources = cmp.config.sources({
+        {name = 'nvim_lsp', preselect = true},
+        {name = 'ultisnips', preselect = true}, {
             name = 'buffer',
             preselect = true,
             max_item_count = 20,
             options = {keyword_pattern = [[\k\k\k\k\+]]}
         }, {name = 'path'}
-    },
+    }),
     mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-u>'] = cmp.mapping.scroll_docs(4),
-        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+        ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+        ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close()
+        }),
         ['<cr>'] = cmp.mapping.confirm({select = true}),
-        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if vim.fn.complete_info()['selected'] == -1 and
                 vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
                 vim.fn.feedkeys(helper.t('<C-R>=UltiSnips#ExpandSnippet()<cr>'))
             elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
-                vim.fn.feedkeys(helper.t('<ESC>:call UltiSnips#JumpForwards()<cr>'))
+                vim.fn.feedkeys(helper.t(
+                                    '<ESC>:call UltiSnips#JumpForwards()<cr>'))
             elseif vim.fn.pumvisible() == 1 then
                 vim.fn.feedkeys(helper.t('<C-n>'), 'n')
             elseif helper.check_back_space() then
@@ -46,7 +50,8 @@ cmp.setup({
         end, {'i', 's'}),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
-                return vim.fn.feedkeys(helper.t('<C-R>=UltiSnips#JumpBackwards()<cr>'))
+                return vim.fn.feedkeys(helper.t(
+                                           '<C-R>=UltiSnips#JumpBackwards()<cr>'))
             elseif vim.fn.pumvisible() == 1 then
                 vim.fn.feedkeys(helper.t('<C-p>'), 'n')
             else
