@@ -17,7 +17,7 @@ return require('packer').startup(function()
         run = 'cargo build --release',
         ft = {'clojure'}
     }
-    use 'folke/tokyonight.nvim'
+    use {'folke/tokyonight.nvim'}
     use {'godlygeek/tabular', cmd = 'Tabularize'}
     use {'guns/vim-sexp', ft = {'clojure'}}
     use {
@@ -43,7 +43,6 @@ return require('packer').startup(function()
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'mfussenegger/nvim-dap'}
     use {'neovim/nvim-lspconfig'}
-    use {'nvim-lua/plenary.nvim'}
     use {
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -56,7 +55,6 @@ return require('packer').startup(function()
     use {'p00f/nvim-ts-rainbow'}
     use {'phaazon/hop.nvim'}
     use {'raimondi/delimitmate'}
-    use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim'}
     use {'tpope/vim-commentary'}
@@ -64,8 +62,6 @@ return require('packer').startup(function()
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
     use {'tpope/vim-surround'}
-    use {'tpope/vim-unimpaired'}
-    use {'vim-scripts/LargeFile'}
     use {
         'vim-test/vim-test',
         cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
