@@ -409,7 +409,8 @@ nnoremap ;h    :lua require('telescope.builtin').help_tags()<cr>
 nnoremap ;j    :lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
 nnoremap ;k    :lua require('telescope.builtin').keymaps()<cr>
 nnoremap ;la   :lua require('telescope.builtin').lsp_code_actions()<cr>
-nnoremap ;lA   :lua require('telescope.builtin').lsp_range_code_actions()<cr>
+" TODO: Figure out why this is not working with visual selection
+" vnoremap ;la   :lua require('telescope.builtin').lsp_range_code_actions()<cr>
 nnoremap ;ld   :lua require('telescope.builtin').diagnostics({bufnr=0})<cr>
 nnoremap ;lm   :lua require('telescope.builtin').man_pages()<cr>
 nnoremap ;ls   :lua require('telescope.builtin').lsp_document_symbols()<cr>

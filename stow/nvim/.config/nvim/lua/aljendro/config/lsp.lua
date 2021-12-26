@@ -17,6 +17,8 @@ local on_attach = function(client, bufnr)
                           '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     helper.buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>',
                           opts)
+    helper.buf_set_keymap('v', 'ga', '<cmd>lua vim.lsp.buf.range_code_action()<cr>',
+                          opts)
     helper.buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'gi',
