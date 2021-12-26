@@ -183,8 +183,8 @@ noremap si gt
 " Move a window into a new tabpage
 noremap <leader>tw <C-w>T
 " Move tabs around
-nnoremap <leader>th :-1tabm<cr>
-nnoremap <leader>tl :+1tabm<cr>
+nnoremap <leader>tj :-1tabm<cr>
+nnoremap <leader>tk :+1tabm<cr>
 " Only keep current tab
 nnoremap <leader>to :tabo<cr>
 " Create a new tab at the end
