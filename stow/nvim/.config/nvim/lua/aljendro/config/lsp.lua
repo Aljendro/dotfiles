@@ -5,7 +5,7 @@ local opts = {noremap = true, silent = true}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(client)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     helper.buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>',
@@ -17,8 +17,8 @@ local on_attach = function(client, bufnr)
                           '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     helper.buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>',
                           opts)
-    helper.buf_set_keymap('v', 'ga', '<cmd>lua vim.lsp.buf.range_code_action()<cr>',
-                          opts)
+    helper.buf_set_keymap('v', 'ga',
+                          '<cmd>lua vim.lsp.buf.range_code_action()<cr>', opts)
     helper.buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'gi',
@@ -28,32 +28,28 @@ local on_attach = function(client, bufnr)
                           opts)
     helper.buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>',
                           opts)
-    helper.buf_set_keymap('v', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>',
-                          opts)
     helper.buf_set_keymap('n', 'gv',
                           '<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'gt',
                           '<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>',
                           opts)
-    helper.buf_set_keymap('n', '[g',
-                          '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
-    helper.buf_set_keymap('n', ']g',
-                          '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
     helper.buf_set_keymap('n', 'gla',
                           '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>',
                           opts)
-    helper.buf_set_keymap('n', 'gld',
-                          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'glq',
-                          '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
     helper.buf_set_keymap('n', 'glr',
                           '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'glw',
                           '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>',
                           opts)
+    helper.buf_set_keymap('n', 'gld',
+                          '<cmd>lua vim.diagnostic.open_float()<cr>',
+                          opts)
+    helper.buf_set_keymap('n', 'glq',
+                          '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
+    helper.buf_set_keymap('n', 'glQ',
+                          '<cmd>lua vim.diagnostic.setqflist()<cr>', opts)
 
 end
 
@@ -79,9 +75,15 @@ lspconfig.pyright.setup({
 --------------------------------------------------
 
 lspconfig.tsserver.setup({
-    cmd = {helper.lsp_dir .. '/tsserver/node_modules/.bin/tsserver', '--stdio'},
+    cmd = {
+        helper.lsp_dir ..
+            '/tsserver/node_modules/.bin/typescript-language-server', '--stdio'
+    },
     capabilities = capabilities,
-    on_attach = on_attach,
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+        on_attach(client)
+    end,
     flags = {debounce_text_changes = 150}
 })
 
@@ -224,7 +226,7 @@ local eslint = {
 
 lspconfig.efm.setup({
     cmd = {helper.lsp_dir .. '/efm/efm-langserver'},
-    on_attach = function(client, bufn)
+    on_attach = function()
         helper.buf_set_keymap('n', 'gef',
                               '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
     end,
