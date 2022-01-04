@@ -393,8 +393,8 @@ command! -bang -nargs=* FARg
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
 vnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
-nnoremap ;a    :FRg<cr>
-nnoremap ;A    :FARg<cr>
+nnoremap ;a    :FARg<cr>
+nnoremap ;A    :FRg<cr>
 nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
 nnoremap ;c    :lua require('telescope.builtin').commands()<cr>
 nnoremap ;f    :lua require('telescope.builtin').find_files({hidden=true})<cr>
