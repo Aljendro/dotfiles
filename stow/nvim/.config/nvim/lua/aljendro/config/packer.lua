@@ -5,10 +5,8 @@ return require('packer').startup(function()
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
     }
-    use {
-        'alvarosevilla95/luatab.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }
+    use {'kyazdani42/nvim-web-devicons'}
+    use {'alvarosevilla95/luatab.nvim'}
     use {'benmills/vimux'}
     use {
         'eraserhd/parinfer-rust',
@@ -34,17 +32,11 @@ return require('packer').startup(function()
     use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }
+    use {'kyazdani42/nvim-tree.lua'}
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'mfussenegger/nvim-dap'}
     use {'neovim/nvim-lspconfig'}
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }
+    use {'nvim-lualine/lualine.nvim'}
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'nvim-treesitter/nvim-treesitter'}
