@@ -1,1 +1,1 @@
-source $HOME/.config/nvim/helpers/javascript.vim
+source $HOME/.config/nvim/config/javascript.vim
