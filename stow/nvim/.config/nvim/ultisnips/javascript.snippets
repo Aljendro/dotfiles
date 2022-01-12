@@ -38,6 +38,12 @@ try {
 }
 endsnippet
 
+snippet fori "For statement (highlighted in for block)"
+for (let ${1:i} = 0; $1 < ${2:1}; $1++) {
+  ${VISUAL}$3
+}
+
+endsnippet
 snippet for "For each statement (highlighted in for block)"
 for (const ${2:item} of $1) {
   ${VISUAL}$3
@@ -135,3 +141,8 @@ snippet JS "JSON stringify" i
 JSON.stringify(${VISUAL}$1, null, 2)
 endsnippet
 
+snippet //* "Component body comment"
+{/*
+${VISUAL}
+*/}
+endsnippet

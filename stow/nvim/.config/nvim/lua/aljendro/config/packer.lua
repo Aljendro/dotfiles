@@ -23,11 +23,7 @@ return require('packer').startup(function()
             {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
         }
     }
-    use {
-        'iamcco/markdown-preview.nvim',
-        run = 'cd app && yarn install',
-        cmd = 'MarkdownPreview'
-    }
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use {'junegunn/fzf'}
     use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}

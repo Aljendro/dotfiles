@@ -74,6 +74,7 @@ iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 " Do not show visual feedback for grepping in command line
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
+cnoreabbrev --gm --multiline --multiline-dotall
 " Always open help in new tab
 cnoreabbrev tah tab help
 
@@ -274,10 +275,6 @@ nnoremap <Down> 5<C-e>
 nnoremap <Up> 5<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
-
-" Open line directly above/below cursor
-nnoremap <expr> <leader><M-o> 'k$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
-nnoremap <expr> <leader>o '$a<cr><C-o>:norm D' . (virtcol('.') - 1)  . 'i <cr>'
 
 " Fast column formatting
 vnoremap <leader>ff :'<,'>Tab /

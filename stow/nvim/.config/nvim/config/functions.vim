@@ -42,7 +42,7 @@ function! MakeSession(...)
     redraw!
   endif
   let filename = sessiondir . 'session-' . session_name . '.vim'
-  exe "tabdo NERDTreeClose | mksession! " . filename
+  exe "mksession! " . filename
 endfunction
 
 function! LoadSession(...)

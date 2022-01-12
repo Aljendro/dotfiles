@@ -50,19 +50,24 @@ function tdtk_env_name {
 #   fi
 # }
 
+function node_env_name {
+  echo "%F{250}Node%F %F{245}($(node -v))%F"
+}
+
+function go_env_name {
+  EXTRACTED_VERSION=$(go version | awk -F' ' '{print $3}')
+  echo "%F{250}Go%F %F{245}($EXTRACTED_VERSION)%F"
+}
+
 function java_env_name {
   EXTRACTED_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
   echo "%F{250}Java%F %F{245}($EXTRACTED_VERSION)%F"
 }
 
-function node_env_name {
-  echo "%F{250}Node%F %F{245}($(node -v))%F"
-}
-
 function load_env_info {
   if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
     echo "
-│ $(tdtk_env_name)$(node_env_name) $(java_env_name)%{$reset_color%}"
+│ $(tdtk_env_name)$(node_env_name)%{$reset_color%}"
   else
     echo ""
   fi

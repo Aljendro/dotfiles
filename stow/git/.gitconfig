@@ -8,7 +8,7 @@
 [push]
   default = current
 [credential]
-  helper = libsecret
+  helper = osxkeychain
 [delta]
   features = line-numbers decorations
   syntax-theme = gruvbox

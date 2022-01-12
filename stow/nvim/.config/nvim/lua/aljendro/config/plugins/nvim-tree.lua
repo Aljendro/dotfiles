@@ -18,4 +18,7 @@ local list = {
     {key = 'S', cb = tree_cb('system_open')}
 }
 
-require('nvim-tree').setup({view = {mappings = {list = list}}})
+require('nvim-tree').setup({
+    update_cwd = true,
+    view = {mappings = {list = list}}
+})
