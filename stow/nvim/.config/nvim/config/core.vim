@@ -263,6 +263,7 @@ vnoremap > >gv
 
 " Next character remap
 nnoremap <leader>; ;
+vnoremap <leader>; ;
 
 " Use the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>

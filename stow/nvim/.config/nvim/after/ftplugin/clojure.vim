@@ -1,1 +1,1 @@
-source $HOME/.config/nvim/helpers/lisp.vim
+source $HOME/.config/nvim/config/lisp.vim

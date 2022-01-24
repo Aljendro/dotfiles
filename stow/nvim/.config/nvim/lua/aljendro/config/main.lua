@@ -15,7 +15,22 @@ require('telescope').setup({
     }
 })
 require('telescope').load_extension('fzf')
-require('gitsigns').setup({})
+require('gitsigns').setup({
+    on_attach = function(bufnr)
+        local helper = require('aljendro/config/helper')
+        local gs = package.loaded.gitsigns
+
+        local opts = {noremap = true, silent = true}
+
+        -- Actions
+        helper.buf_set_keymap('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>', opts)
+        helper.buf_set_keymap('v', '<leader>hs', ':Gitsigns stage_hunk<CR>', opts)
+        helper.buf_set_keymap('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>', opts)
+        helper.buf_set_keymap('v', '<leader>hr', ':Gitsigns reset_hunk<CR>', opts)
+        helper.buf_set_keymap('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>', opts)
+        helper.buf_set_keymap('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', opts)
+    end
+})
 require('hop').setup({keys = 'fjdksla;rueiwovmcxtyz', term_seq_bias = 0.5})
 require('nvim-ts-autotag').setup({})
 require('nvim-treesitter.configs').setup({
@@ -26,7 +41,7 @@ require('nvim-treesitter.configs').setup({
         keymaps = {
             init_selection = '<leader>o',
             node_decremental = '<leader>u',
-            node_incremental = '<leader>i',
+            node_incremental = '<leader>i'
         }
     },
     indent = {enable = true}
