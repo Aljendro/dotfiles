@@ -5,6 +5,7 @@ return require('packer').startup(function()
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
     }
+    use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
     use {'kyazdani42/nvim-web-devicons'}
     use {'alvarosevilla95/luatab.nvim'}
     use {'benmills/vimux'}

@@ -529,4 +529,19 @@ nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Harpoon
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>sa :lua require("harpoon.mark").add_file()<cr>
+nnoremap <leader>sA :lua require("harpoon.ui").toggle_quick_menu()<cr>
+nnoremap <leader>sm :lua require("harpoon.ui").nav_file(1)<cr>
+nnoremap <leader>s, :lua require("harpoon.ui").nav_file(2)<cr>
+nnoremap <leader>s. :lua require("harpoon.ui").nav_file(3)<cr>
+nnoremap <leader>sj :lua require("harpoon.ui").nav_file(4)<cr>
+nnoremap <leader>sk :lua require("harpoon.ui").nav_file(5)<cr>
+nnoremap <leader>sl :lua require("harpoon.ui").nav_file(6)<cr>
+nnoremap <leader>su :lua require("harpoon.ui").nav_file(7)<cr>
+nnoremap <leader>si :lua require("harpoon.ui").nav_file(8)<cr>
+nnoremap <leader>so :lua require("harpoon.ui").nav_file(9)<cr>
 
