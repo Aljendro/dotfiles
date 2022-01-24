@@ -144,9 +144,6 @@ nnoremap <M-e> :resize +4<cr>
 nnoremap <M-s> :vertical resize +16<cr>
 nnoremap <M-f> :vertical resize -16<cr>
 
-" Vertical split a file path
-nnoremap sfv <C-w>vgf
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -385,7 +382,7 @@ let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
 command! -bang -nargs=* FARg
       \ call fzf#vim#grep(
       \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up:40%:hidden', 'ctrl-/'), <bang>0)
+      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up:80%:hidden', 'ctrl-/'), <bang>0)
 
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>

@@ -28,7 +28,7 @@ local on_attach = function(client)
                           opts)
     helper.buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>',
                           opts)
-    helper.buf_set_keymap('n', 'gv',
+    helper.buf_set_keymap('n', 'gs',
                           '<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'gt',

@@ -150,3 +150,7 @@ Cargo.lock
 .clj-kondo
 .cpcache
 
+####################### RipGrep ########################
+
+.rgignore
+
