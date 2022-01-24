@@ -16,13 +16,9 @@ require('telescope').setup({
 })
 require('telescope').load_extension('fzf')
 require('gitsigns').setup({
-    on_attach = function(bufnr)
+    on_attach = function()
         local helper = require('aljendro/config/helper')
-        local gs = package.loaded.gitsigns
-
         local opts = {noremap = true, silent = true}
-
-        -- Actions
         helper.buf_set_keymap('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>', opts)
         helper.buf_set_keymap('v', '<leader>hs', ':Gitsigns stage_hunk<CR>', opts)
         helper.buf_set_keymap('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>', opts)
