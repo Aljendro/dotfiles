@@ -3,10 +3,11 @@ let g:conjure#mapping#def_word="d"
 let conjure#log#wrap = v:true
 
 " Opening the REPL
-nmap <leader>cv <localleader>lv
-nmap <leader>cs <localleader>ls
-nmap <leader>ct <localleader>lt
+nmap <leader>cc <localleader>lv
 nmap <leader>cq <localleader>lq
+
+" Working with REPL
+nnoremap <leader>ci Go
 
 " Evaluations
 nmap <leader>ee <localleader>ee
@@ -18,9 +19,6 @@ nmap <leader>ef <localleader>ef
 nmap <leader>eb <localleader>eb
 nmap <leader>ed <localleader>d
 nmap <expr> <leader>em '<localleader>em' . nr2char(getchar())
-
-" Working with REPL
-nnoremap <leader>ci Go
 
 """""""""""""""""" sexp
 

@@ -236,7 +236,6 @@ nnoremap <leader>p :profile start profile-all.txt \| profile file * \| profile f
 
 " Easier macro execution
 nnoremap <silent> <leader>m :call RecordMacro()<cr>
-nnoremap <expr> <leader>e '@' . nr2char(getchar())
 vnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
 nnoremap Q @@
 vnoremap Q :norm! @@<cr>
