@@ -3,12 +3,12 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DIR="$HOME/.fzf"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgrep"
 
+export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
+
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
-
-export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.17.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
@@ -99,3 +99,5 @@ toggle_env_line() {
 zle -N toggle_env_line{,}
 bindkey "\eOQ" toggle_env_line
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -44,18 +44,34 @@ local on_attach = function(client)
                           '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>',
                           opts)
     helper.buf_set_keymap('n', 'gld',
-                          '<cmd>lua vim.diagnostic.open_float()<cr>',
-                          opts)
+                          '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
     helper.buf_set_keymap('n', 'glq',
                           '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
-    helper.buf_set_keymap('n', 'glQ',
-                          '<cmd>lua vim.diagnostic.setqflist()<cr>', opts)
+    helper.buf_set_keymap('n', 'glQ', '<cmd>lua vim.diagnostic.setqflist()<cr>',
+                          opts)
 
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .protocol
                                                                      .make_client_capabilities())
+
+--------------------------------------------------
+------------------- Clojure ----------------------
+--------------------------------------------------
+
+lspconfig.clojure_lsp
+    .setup({capabilities = capabilities, on_attach = on_attach})
+
+--------------------------------------------------
+--------------------- Go -------------------------
+--------------------------------------------------
+
+lspconfig.gopls.setup({
+    cmd = {helper.lsp_dir .. '/go/gopls'},
+    capabilities = capabilities,
+    on_attach = on_attach
+})
 
 --------------------------------------------------
 ------------------- Python -----------------------
@@ -161,16 +177,6 @@ lspconfig.jsonls.setup({
     },
     capabilities = capabilities,
     settings = {json = {schemas = schemas}}
-})
-
---------------------------------------------------
-------------------- Clojure ----------------------
---------------------------------------------------
-
-lspconfig.clojure_lsp.setup({
-    cmd = {helper.lsp_dir .. '/clojure_lsp/clojure-lsp'},
-    capabilities = capabilities,
-    on_attach = on_attach
 })
 
 --------------------------------------------------
