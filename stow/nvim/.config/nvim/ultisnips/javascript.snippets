@@ -78,6 +78,14 @@ if ($1) {
 }
 endsnippet
 
+snippet ss "Switch Statment"
+switch ($1) {
+  case $2:
+    ${VISUAL}$3
+    break;$4
+}
+endsnippet
+
 snippet fna "Async Lambda Function" i
 async ($1) => {
   ${VISUAL}$2
