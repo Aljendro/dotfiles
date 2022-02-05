@@ -213,6 +213,8 @@ vnoremap <leader>fc zczz
 nnoremap <leader>fC zCzz
 vnoremap <leader>fC zCzz
 nnoremap <leader>fe mazMzv`azczOzz
+" Reset Folds
+nnoremap <leader>fr zx
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Sessions
