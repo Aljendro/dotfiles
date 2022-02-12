@@ -3,6 +3,10 @@ local helper = require('aljendro/config/helper')
 
 local opts = {noremap = true, silent = true}
 
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client)
