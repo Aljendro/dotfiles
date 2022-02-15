@@ -343,7 +343,7 @@ nnoremap <leader>gd :tab split<cr>:Gvdiffsplit<cr>
 " Load changes into quickfix list
 nnoremap <leader>gc :Git difftool<cr>:cclose<cr>
 " Open merge conflicts in different tabs
-nnoremap <leader>gC :Git mergetool<cr>:cclose<cr>
+nnoremap <leader>gC :Git mergetool -y<cr>:cclose<cr>
 " Open git blame with commit and author
 nmap <leader>gb :Git blame<cr>A
 " Refresh difftool
