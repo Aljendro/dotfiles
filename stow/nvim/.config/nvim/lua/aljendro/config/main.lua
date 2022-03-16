@@ -44,6 +44,11 @@ require('nvim-treesitter.configs').setup({
 })
 require('neoclip').setup({})
 require('lualine').setup({options = {theme = 'tokyonight'}})
+require("harpoon").setup({
+    menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+    }
+})
 
 require('aljendro/config/dap');
 require('aljendro/config/lsp');
