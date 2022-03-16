@@ -30,7 +30,7 @@ require('gitsigns').setup({
 require('hop').setup({keys = 'fjdksla;rueiwovmcxtyz', term_seq_bias = 0.5})
 require('nvim-ts-autotag').setup({})
 require('nvim-treesitter.configs').setup({
-    ensure_installed = 'all',
+    ensure_installed = 'maintained',
     highlight = {enable = true, additional_vim_regex_highlighting = false},
     incremental_selection = {
         enable = true,
