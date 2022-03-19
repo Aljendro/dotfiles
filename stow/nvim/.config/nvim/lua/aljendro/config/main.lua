@@ -19,12 +19,18 @@ require('gitsigns').setup({
     on_attach = function()
         local helper = require('aljendro/config/helper')
         local opts = {noremap = true, silent = true}
-        helper.buf_set_keymap('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>', opts)
-        helper.buf_set_keymap('v', '<leader>hs', ':Gitsigns stage_hunk<CR>', opts)
-        helper.buf_set_keymap('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>', opts)
-        helper.buf_set_keymap('v', '<leader>hr', ':Gitsigns reset_hunk<CR>', opts)
-        helper.buf_set_keymap('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>', opts)
-        helper.buf_set_keymap('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>', opts)
+        helper.buf_set_keymap('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>',
+                              opts)
+        helper.buf_set_keymap('v', '<leader>hs', ':Gitsigns stage_hunk<CR>',
+                              opts)
+        helper.buf_set_keymap('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>',
+                              opts)
+        helper.buf_set_keymap('v', '<leader>hr', ':Gitsigns reset_hunk<CR>',
+                              opts)
+        helper.buf_set_keymap('n', '<leader>hu',
+                              '<cmd>Gitsigns undo_stage_hunk<CR>', opts)
+        helper.buf_set_keymap('n', '<leader>hp',
+                              '<cmd>Gitsigns preview_hunk<CR>', opts)
     end
 })
 require('hop').setup({keys = 'fjdksla;rueiwovmcxtyz', term_seq_bias = 0.5})
@@ -44,11 +50,8 @@ require('nvim-treesitter.configs').setup({
 })
 require('neoclip').setup({})
 require('lualine').setup({options = {theme = 'tokyonight'}})
-require("harpoon").setup({
-    menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-    }
-})
+require("harpoon").setup({menu = {width = vim.api.nvim_win_get_width(0) - 4}})
+require('Comment').setup()
 
 require('aljendro/config/dap');
 require('aljendro/config/lsp');
