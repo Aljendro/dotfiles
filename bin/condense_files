@@ -1,0 +1,26 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: condense_files folder_name_prefix file_search_regex"
+}
+
+display_summary() {
+    echo -e "Search a given file_search_regex and places those files into a folder prefixed with folder_name_prefix\n"
+}
+
+if [ $# -eq 2 ]; then
+    FOLDER_NAME="$1-$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+    FILES_SEARCH_REGEX="$2"
+
+    mkdir $FOLDER_NAME
+    FILES=$(find . -maxdepth 1 -type f -regex $FILES_SEARCH_REGEX)
+    IFS=$'\n' read -rd '' -a FILES_ARRAY <<<"$FILES"
+    for file_name in "${FILES_ARRAY[@]}"
+    do
+        mv "$file_name" $FOLDER_NAME
+    done
+else
+    display_summary
+    display_usage
+fi
+
