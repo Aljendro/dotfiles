@@ -77,6 +77,8 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? '
 cnoreabbrev --gm --multiline --multiline-dotall
 " Always open help in new tab
 cnoreabbrev tah tab help
+" Non Greedy *
+cnoreabbrev *? <left>\{-\}
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
