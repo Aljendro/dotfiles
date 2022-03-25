@@ -4,7 +4,6 @@ local opts = {noremap = true, silent = true}
 vim.api.nvim_set_keymap('n', ';d', ':NvimTreeFindFile<cr>', opts)
 vim.api.nvim_set_keymap('n', ';D', ':NvimTreeToggle<cr>', opts)
 
-vim.g.nvim_tree_change_dir_global = 1
 vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_group_empty = 1
 vim.g.nvim_tree_show_icons = {
@@ -39,6 +38,7 @@ local list = {
 }
 
 require('nvim-tree').setup({
+    actions = {change_dir = { global = true }},
     update_cwd = true,
     view = {mappings = {custom_only = true, list = list}}
 })

@@ -3,9 +3,7 @@ local helper = require('aljendro/config/helper')
 
 local opts = {noremap = true, silent = true}
 
-vim.diagnostic.config({
-  virtual_text = false,
-})
+vim.diagnostic.config({virtual_text = false})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -61,11 +59,24 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .make_client_capabilities())
 
 --------------------------------------------------
+-------------------- Rust ------------------------
+--------------------------------------------------
+
+lspconfig.rust_analyzer.setup({
+    cmd = {helper.lsp_dir .. '/rust/rust-analyzer'},
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+--------------------------------------------------
 ------------------- Docker -----------------------
 --------------------------------------------------
 
 lspconfig.dockerls.setup({
-    cmd = {helper.lsp_dir .. '/dockerfile/node_modules/.bin/docker-langserver', '--stdio'},
+    cmd = {
+        helper.lsp_dir .. '/dockerfile/node_modules/.bin/docker-langserver',
+        '--stdio'
+    },
     capabilities = capabilities
 })
 
