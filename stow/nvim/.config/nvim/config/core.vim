@@ -170,12 +170,12 @@ nnoremap <leader>/r :%s//gci<Left><Left><Left><Left>
 nnoremap <leader>/c :%s///gn<cr>
 
 " Change word under cursor giving the ability to reapply with .
-vmap <leader>/w *Ncgn
+xmap <leader>/w *Ncgn
 nmap <leader>/w g*cgn
 
 " Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
-vnoremap <silent> # :call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
+xnoremap <silent> * :call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
+xnoremap <silent> # :call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
 
 " Maintain position when you hit * or #
 nnoremap * :keepjumps normal! mi*`i<cr>
@@ -221,13 +221,13 @@ nnoremap <leader>fk zmzz
 nnoremap <leader>fh zMzz
 nnoremap <leader>fl zRzz
 nnoremap <leader>fo zozz
-vnoremap <leader>fo zozz
+xnoremap <leader>fo zozz
 nnoremap <leader>fO zOzz
-vnoremap <leader>fO zOzz
+xnoremap <leader>fO zOzz
 nnoremap <leader>fc zczz
-vnoremap <leader>fc zczz
+xnoremap <leader>fc zczz
 nnoremap <leader>fC zCzz
-vnoremap <leader>fC zCzz
+xnoremap <leader>fC zCzz
 nnoremap <leader>fe mazMzv`azczOzz
 " Reset Folds
 nnoremap <leader>fr zx
@@ -254,9 +254,9 @@ nnoremap <leader>p :profile start profile-all.txt \| profile file * \| profile f
 
 " Easier macro execution
 nnoremap <silent> <leader>m :call RecordMacro()<cr>
-vnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
+xnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
 nnoremap Q @@
-vnoremap Q :norm! @@<cr>
+xnoremap Q :norm! @@<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Miscellaneous
@@ -275,15 +275,15 @@ nnoremap J mzJ`z
 nnoremap <leader><enter> :noh<cr>
 
 " Better tabbing alignment
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " Next character remap
 nnoremap <leader>; ;
-vnoremap <leader>; ;
+xnoremap <leader>; ;
 
 " Use the . to execute once for each line of a visual selection
-vnoremap . :normal .<cr>
+xnoremap . :normal .<cr>
 
 " Faster shifting
 nnoremap <Left> zH
@@ -402,7 +402,7 @@ command! -bang -nargs=* FARg
 
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
-vnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
+xnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
 nnoremap ;a    :FARg<cr>
 nnoremap ;A    :FRg<cr>
 nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
@@ -436,7 +436,7 @@ nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
 nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
 nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
 nnoremap ;w    :Telescope grep_string<cr>
-vnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=true search=<C-R>=@/<cr><cr>
+xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=true search=<C-R>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
@@ -473,7 +473,7 @@ nnoremap <leader>dr  :lua require('dap').repl.open({}, 'tab')<cr>
 nnoremap <leader>de  :lua require('dap').set_exception_breakpoints({"all"})<cr>
 nnoremap <leader>da  :lua require('config/debug-helper').attach()<cr>
 nnoremap <leader>dh  :lua require('dap.ui.widgets').hover()<cr>
-vnoremap <leader>dh  :lua require('dap.ui.widgets').visual_hover()<cr>
+xnoremap <leader>dh  :lua require('dap.ui.widgets').visual_hover()<cr>
 nnoremap <leader>dv  :lua local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<cr>gg
 
 augroup customDAP
