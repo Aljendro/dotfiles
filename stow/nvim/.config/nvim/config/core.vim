@@ -546,3 +546,11 @@ nnoremap <leader>su :lua require("harpoon.ui").nav_file(7)<cr>
 nnoremap <leader>si :lua require("harpoon.ui").nav_file(8)<cr>
 nnoremap <leader>so :lua require("harpoon.ui").nav_file(9)<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" NrrwRgn
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:nrrw_topbot_leftright = 'botright'
+
+xmap <leader>z <Plug>NrrwrgnDo
+
