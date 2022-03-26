@@ -56,6 +56,5 @@ require('Comment').setup()
 require('aljendro/config/dap');
 require('aljendro/config/lsp');
 require('aljendro/config/auto-completion');
-require('aljendro/config/plugins/nvim-tree');
 require('aljendro/config/plugins/neoscroll');
 

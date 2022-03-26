@@ -8,7 +8,13 @@ return require('packer').startup(function()
     use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
     use {'kyazdani42/nvim-web-devicons'}
     use {'alvarosevilla95/luatab.nvim'}
-    use {'benmills/vimux'}
+    use {
+        'benmills/vimux',
+        cmd = {
+            'VimuxPromptCommand', 'VimuxRunLastCommand', 'VimuxInspectRunner',
+            'VimuxCloseRunner', 'VimuxInterruptRunner'
+        }
+    }
     use {'chrisbra/NrrwRgn'}
     use {
         'eraserhd/parinfer-rust',
@@ -25,13 +31,23 @@ return require('packer').startup(function()
             {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
         }
     }
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = 'cd app && yarn install',
+        cmd = {
+            'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle'
+        }
+    }
     use {'junegunn/fzf'}
     use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
     use {'karb94/neoscroll.nvim'}
-    use {'kyazdani42/nvim-tree.lua'}
+    use {
+        'kyazdani42/nvim-tree.lua',
+        cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
+        config = function() require('aljendro/config/plugins/nvim-tree') end
+    }
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'mfussenegger/nvim-dap'}
     use {'neovim/nvim-lspconfig'}
@@ -45,8 +61,8 @@ return require('packer').startup(function()
     use {'phaazon/hop.nvim'}
     use {'raimondi/delimitmate'}
     use {'sirver/ultisnips'}
-    use {'stefandtw/quickfix-reflector.vim'}
-    use {'tpope/vim-fugitive'}
+    use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
+    use {'tpope/vim-fugitive', cmd = {'Git', 'Gvdiffsplit'}}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
     use {'tpope/vim-surround'}

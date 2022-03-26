@@ -15,6 +15,9 @@ let g:loaded_python_provider = 0
 let g:node_host_prog = expand("~/.nvm/versions/node/v14.17.1/bin/neovim-node-host")
 let g:python3_host_prog = expand("/usr/bin/python3")
 
+let g:loaded_netrwPlugin = 1
+let g:loaded_tutor_mode_plugin = 1
+
 set autowrite
 set clipboard=unnamed,unnamedplus
 set completeopt=menu,menuone,noselect
@@ -289,9 +292,6 @@ xnoremap . :normal .<cr>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
-" Fast column formatting
-vnoremap <leader>ff :'<,'>Tab /
-
 " Insert moving everything to the right down a line
 nnoremap <M-i> mii<cr><esc>`ii
 
@@ -351,7 +351,7 @@ let g:UltiSnipsSnippetDirectories=[snippetPath]
 let g:nremap = {'s': 'S'}
 let g:xremap = {'s': 'S'}
 " Open up Fugitive in a tab
-nnoremap <leader>gg :tab G<cr>
+nnoremap <leader>gg :tab Git<cr>
 " Create diffsplit
 nnoremap <leader>gd :tab split<cr>:Gvdiffsplit<cr>
 " Load changes into quickfix list
@@ -575,3 +575,16 @@ let g:nrrw_topbot_leftright = 'botright'
 
 xmap <leader>z <Plug>NrrwrgnDo
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Tabular
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Fast column formatting
+cnoreabbrev <expr> t CommandAbbreviation('t', "Tab /")
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Nvim-tree
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap ;d :NvimTreeFindFile<cr>
+nnoremap ;D :NvimTreeToggle<cr>
