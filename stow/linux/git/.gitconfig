@@ -11,7 +11,7 @@
   helper = libsecret
 [delta]
   features = line-numbers decorations
-  syntax-theme = gruvbox
+  syntax-theme = Nord
   plus-style = syntax "#003800"
   minus-style = syntax "#3f0001"
 [delta "decorations"]
