@@ -45,7 +45,6 @@ return require('packer').startup(function()
     use {'raimondi/delimitmate'}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim'}
-    use {'tpope/vim-commentary'}
     use {'tpope/vim-fugitive'}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
