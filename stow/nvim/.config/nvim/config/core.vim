@@ -84,6 +84,19 @@ cnoreabbrev <expr> ft CommandAbbreviation('ft', 'set ft=')
 " Split line by a character
 cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\(\)/\1\r/g<left><left><left><left><left><left><left><left><left>')
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Options
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <expr> <leader><leader>c ':set colorcolumn=' . (&colorcolumn == '' ? '+1' : '') . '<cr>:set colorcolumn?<cr>'
+nnoremap <leader>oh :set cursorcolumn!<cr>:set cursorcolumn?<cr>
+nnoremap <leader>of :set foldenable!<cr>:set foldenable?<cr>
+nnoremap <leader>ol :set lazyredraw!<cr>:set lazyredraw?<cr>
+nnoremap <leader>on :set number!<cr>:set number?<cr>
+nnoremap <leader>or :set relativenumber!<cr>:set relativenumber?<cr>
+nnoremap <leader>ob :set scrollbind!<cr>:set scrollbind?<cr>
+nnoremap <leader>os :set spell!<cr>:set spell?<cr>
+nnoremap <leader>ow :set wrap!<cr>:set wrap?<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
