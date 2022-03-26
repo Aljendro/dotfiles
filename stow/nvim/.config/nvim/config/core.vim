@@ -111,14 +111,14 @@ nnoremap <leader>q :q<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between quickfix list easily
-nnoremap sn :cNfile<cr>zz
-nnoremap sm :cprevious<cr>zz
-nnoremap s, :cnext<cr>zz
-nnoremap s. :cnfile<cr>zz
+nnoremap <M-s> :cNfile<cr>zz
+nnoremap <M-d> :cprevious<cr>zz
+nnoremap <M-f> :cnext<cr>zz
+nnoremap <M-g> :cnfile<cr>zz
 
 " Move between location list easily
-nnoremap so :lprevious<cr>zz
-nnoremap sp :lnext<cr>zz
+nnoremap <M-e> :lprevious<cr>zz
+nnoremap <M-r> :lnext<cr>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
@@ -159,10 +159,10 @@ nnoremap <C-w>l <C-w>L
 nnoremap <C-w>h <C-w>H
 
 " Resize windows
-nnoremap <M-d> :resize -4<cr>
-nnoremap <M-e> :resize +4<cr>
-nnoremap <M-s> :vertical resize +16<cr>
-nnoremap <M-f> :vertical resize -16<cr>
+nnoremap <M-c> :resize -4<cr>
+nnoremap <M-v> :resize +4<cr>
+nnoremap <M-b> :vertical resize +16<cr>
+nnoremap <M-x> :vertical resize -16<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
@@ -199,7 +199,7 @@ nnoremap N Nzzzv
 noremap su gT
 noremap si gt
 " Move a window into a new tabpage
-noremap <leader>tw <C-w>T
+nnoremap <leader>tw <C-w>T
 " Move tabs around
 nnoremap <leader>tj :-1tabm<cr>
 nnoremap <leader>tk :+1tabm<cr>
@@ -542,11 +542,11 @@ let delimitMate_expand_inside_quotes = 1
 
 let test#strategy = 'vimux'
 
-nnoremap <leader>tt :TestNearest<CR>
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>ta :TestSuite<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tv :TestVisit<CR>
+nnoremap <leader>tt :TestNearest<cr>
+nnoremap <leader>tf :TestFile<cr>
+nnoremap <leader>ta :TestSuite<cr>
+nnoremap <leader>tl :TestLast<cr>
+nnoremap <leader>tv :TestVisit<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Harpoon
