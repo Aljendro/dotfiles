@@ -71,14 +71,19 @@ nnoremap <silent> <leader>r :lua require('plenary.reload').reload_module('aljend
 
 " Code signature
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
-" Do not show visual feedback for grepping in command line
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep \| copen<left><left><left><left><left><left><left><left>'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep \| lopen<left><left><left><left><left><left><left><left>' : 'lgrep'
-cnoreabbrev --gm --multiline --multiline-dotall
-" Always open help in new tab
-cnoreabbrev tah tab help
+" Quick Grep and Location/Quickfix List opens
+cnoreabbrev <expr> grep CommandAbbreviation('grep', "silent grep  \| copen<left><left><left><left><left><left><left><left>")
+cnoreabbrev <expr> lgrep CommandAbbreviation('lgrep', "silent lgrep  <C-r>=expand('%:p')<cr> \| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>")
+noreabbrev --ml --multiline --multiline-dotall
 " Non Greedy *
-cnoreabbrev *? <left>\{-\}
+cnoreabbrev *? <left>\{-}<C-r>=EatChar('\s')<cr>
+" Always open help in new tab
+cnoreabbrev <expr> tah CommandAbbreviation('tah', 'tab help') . ' '
+" Change filetype
+cnoreabbrev <expr> ft CommandAbbreviation('ft', 'set ft=')
+" Split line by a character
+cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\(\)/\1\r/g<left><left><left><left><left><left><left><left><left>')
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
@@ -355,23 +360,23 @@ nnoremap <expr> <leader>gj ':diffget //2/' . GetFilePathFromGitRoot(expand('%'))
 " Choose the right buffer
 nnoremap <expr> <leader>gk ':diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
 
-cabbrev gf Git fetch origin
-cabbrev gb Git branch
-cabbrev gbd Git branch -d
-cabbrev gbdr Git push origin --delete
-cabbrev gpl Git pull
-cabbrev ggpull Git pull origin <C-R>=FugitiveHead()<cr>
-cabbrev gp Git push
-cabbrev ggpush Git push origin <C-R>=FugitiveHead()<cr>
-cabbrev gco Git checkout
-cabbrev gcb Git checkout -b
-cabbrev gcd Git checkout develop
-cabbrev gcm Git checkout master
-cabbrev gac Git commit -a -m
-cabbrev gsta Git stash push -u -m
-cabbrev gstd Git stash drop
-cabbrev gstl Git stash list
-cabbrev gstp Git stash pop
+cnoreabbrev <expr> gf CommandAbbreviation('gf', 'Git fetch origin')
+cnoreabbrev <expr> gb CommandAbbreviation('gb', 'Git branch')
+cnoreabbrev <expr> gbd CommandAbbreviation('gbd', 'Git branch -d')
+cnoreabbrev <expr> gbdr CommandAbbreviation('gbdr', 'Git push origin --delete')
+cnoreabbrev <expr> gpl CommandAbbreviation('gpl', 'Git pull')
+cnoreabbrev <expr> ggpull CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gp CommandAbbreviation('gp', 'Git push')
+cnoreabbrev <expr> ggpush CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gco CommandAbbreviation('gco', 'Git checkout')
+cnoreabbrev <expr> gcb CommandAbbreviation('gcb', 'Git checkout -b')
+cnoreabbrev <expr> gcd CommandAbbreviation('gcd', 'Git checkout develop')
+cnoreabbrev <expr> gcm CommandAbbreviation('gcm', 'Git checkout master')
+cnoreabbrev <expr> gac CommandAbbreviation('gac', 'Git commit -a -m')
+cnoreabbrev <expr> gsta CommandAbbreviation('gsta', 'Git stash push -u -m')
+cnoreabbrev <expr> gstd CommandAbbreviation('gstd', 'Git stash drop')
+cnoreabbrev <expr> gstl CommandAbbreviation('gstl', 'Git stash list')
+cnoreabbrev <expr> gstp CommandAbbreviation('gstp', 'Git stash pop')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Fuzzy Finder (Telescope)
@@ -545,6 +550,15 @@ nnoremap <leader>sl :lua require("harpoon.ui").nav_file(6)<cr>
 nnoremap <leader>su :lua require("harpoon.ui").nav_file(7)<cr>
 nnoremap <leader>si :lua require("harpoon.ui").nav_file(8)<cr>
 nnoremap <leader>so :lua require("harpoon.ui").nav_file(9)<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" JQ
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+cnoreabbrev <expr> jq CommandAbbreviation('jq', "%!jq ''<left>", "!jq ''<left>")
+cnoreabbrev <expr> jqc CommandAbbreviation('jqc', "%!jq -c ''<left>", "!jq -c ''<left>")
+cnoreabbrev <expr> jqs CommandAbbreviation('jqs', "%!jq -s ''<left>", "!jq -s ''<left>")
+cnoreabbrev <expr> jqs CommandAbbreviation('jqcs', "%!jq -c -s ''<left>", "!jq -c -s ''<left>")
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" NrrwRgn

@@ -99,3 +99,24 @@ function! FoldText()
   return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
 
+func EatChar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
+
+func CommandAbbreviation(abbreviation, substitution, ...)
+  if (getcmdtype() ==# ':')
+    " Do not place EatChar here, it will always EatChar in command mode
+    " and you need to press <cr> twice when typing
+    if (getcmdline() =~# '^' . a:abbreviation)
+      :call EatChar('\s')
+      return a:substitution
+    elseif (getcmdline() =~# "^'<,'>" . a:abbreviation)
+      :call EatChar('\s')
+      return get(a:, 1, a:substitution)
+    endif
+  endif
+  return a:abbreviation
+endfunc
+
+
