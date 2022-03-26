@@ -30,6 +30,7 @@ return require('packer').startup(function()
     use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
+    use {'karb94/neoscroll.nvim'}
     use {'kyazdani42/nvim-tree.lua'}
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use {'mfussenegger/nvim-dap'}

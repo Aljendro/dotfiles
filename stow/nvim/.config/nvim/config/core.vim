@@ -143,13 +143,9 @@ nnoremap sl <C-w><C-l>
 nnoremap sh <C-w><C-h>
 
 " Scroll window easily
-nnoremap <C-j> <C-d>
 xnoremap <C-j> <C-d>
-nnoremap <C-k> <C-u>
 xnoremap <C-k> <C-u>
-nnoremap <M-j> <C-f>
 xnoremap <M-j> <C-f>
-nnoremap <M-k> <C-b>
 xnoremap <M-k> <C-b>
 
 " Move windows easily
@@ -290,8 +286,6 @@ vnoremap <leader>; ;
 vnoremap . :normal .<cr>
 
 " Faster shifting
-nnoremap <Down> 5<C-e>
-nnoremap <Up> 5<C-y>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
