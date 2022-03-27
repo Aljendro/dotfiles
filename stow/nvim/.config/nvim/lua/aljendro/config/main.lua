@@ -8,13 +8,6 @@ vim.cmd('source $HOME/.config/nvim/config/functions.vim')
 vim.cmd('source $HOME/.config/nvim/config/core.vim')
 
 require('luatab').setup({})
-require('telescope').setup({
-    defaults = {
-        layout_strategy = 'vertical',
-        layout_config = {height = 0.99, width = 0.99, preview_height = 0.45}
-    }
-})
-require('telescope').load_extension('fzf')
 require('gitsigns').setup({
     on_attach = function()
         local helper = require('aljendro/config/helper')
@@ -33,7 +26,6 @@ require('gitsigns').setup({
                               '<cmd>Gitsigns preview_hunk<CR>', opts)
     end
 })
-require('hop').setup({keys = 'fjdksla;rueiwovmcxtyz', term_seq_bias = 0.5})
 require('nvim-ts-autotag').setup({})
 require('nvim-treesitter.configs').setup({
     ensure_installed = 'maintained',
@@ -48,12 +40,8 @@ require('nvim-treesitter.configs').setup({
     },
     indent = {enable = true}
 })
-require('neoclip').setup({})
 require('lualine').setup({options = {theme = 'tokyonight'}})
-require('harpoon').setup({menu = {width = vim.api.nvim_win_get_width(0) - 4}})
-require('Comment').setup()
 
-require('aljendro/config/dap');
 require('aljendro/config/lsp');
 require('aljendro/config/auto-completion');
 require('aljendro/config/plugins/neoscroll');

@@ -1,11 +1,24 @@
 return require('packer').startup(function()
 
-    use {'AckslD/nvim-neoclip.lua'}
+    use {
+        'AckslD/nvim-neoclip.lua',
+        module = {'telescope'},
+        config = function() require('neoclip').setup({}) end
+    }
     use {
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
     }
-    use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
+    use {
+        'ThePrimeagen/harpoon',
+        requires = {'nvim-lua/plenary.nvim'},
+        module = {'harpoon.mark', 'harpoon.ui'},
+        config = function()
+            require('harpoon').setup({
+                menu = {width = vim.api.nvim_win_get_width(0) - 4}
+            })
+        end
+    }
     use {'kyazdani42/nvim-web-devicons'}
     use {'alvarosevilla95/luatab.nvim'}
     use {
@@ -49,17 +62,50 @@ return require('packer').startup(function()
         config = function() require('aljendro/config/plugins/nvim-tree') end
     }
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-    use {'mfussenegger/nvim-dap'}
+    -- use {'mfussenegger/nvim-dap', config = function() require('aljendro/config/dap') end }
     use {'neovim/nvim-lspconfig'}
-    use {'numToStr/Comment.nvim'}
+    use {
+        'numToStr/Comment.nvim',
+        config = function() require('Comment').setup() end
+    }
     use {'nvim-lualine/lualine.nvim'}
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-    use {'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {'nvim-lua/plenary.nvim'},
+        module = {"telescope.builtin", "telescope"},
+        cmd = {"Telescope"},
+        config = function()
+            require('telescope').setup({
+                defaults = {
+                    layout_strategy = 'vertical',
+                    layout_config = {
+                        height = 0.99,
+                        width = 0.99,
+                        preview_height = 0.45
+                    }
+                }
+            })
+            require('telescope').load_extension('fzf')
+        end
+    }
     use {'nvim-treesitter/nvim-treesitter'}
     use {'olical/conjure', ft = {'clojure'}}
     use {'p00f/nvim-ts-rainbow'}
-    use {'phaazon/hop.nvim'}
-    use {'raimondi/delimitmate'}
+    use {
+        'phaazon/hop.nvim',
+        cmd = {
+            'HopWord', 'HopLine', 'HopChar1', 'HopWord', 'HopLine', 'HopChar1',
+            'HopWord', 'HopLine', 'HopChar1'
+        },
+        config = function()
+            require('hop').setup({
+                keys = 'fjdksla;rueiwovmcxtyz',
+                term_seq_bias = 0.5
+            })
+        end
+    }
+    use {'raimondi/delimitmate', event = {'InsertEnter'}}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
     use {'tpope/vim-fugitive', cmd = {'Git', 'Gvdiffsplit'}}
