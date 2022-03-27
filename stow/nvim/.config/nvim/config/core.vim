@@ -102,6 +102,12 @@ nnoremap <leader>osc :set spell!<cr>:set spell?<cr>
 nnoremap <leader>oss :lua ToggleSmoothScroll()<cr>
 nnoremap <leader>ow  :set wrap!<cr>:set wrap?<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
