@@ -1,0 +1,18 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: ep"
+}
+
+display_summary() {
+    echo -e "Enter Project: Find active tmux projects and enter the selected project\n"
+}
+
+if [ $# -eq 0 ]; then
+    PROJECT_ENTER_SELECTION=$(tmux list-sessions | sed -E 's/:.*$//g' | fzf)
+    tmux attach -t $PROJECT_ENTER_SELECTION
+else
+    display_summary
+    display_usage
+fi
+
