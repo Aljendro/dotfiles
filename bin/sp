@@ -1,0 +1,28 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: sp"
+}
+
+display_summary() {
+    echo -e "Start Project: Find projects with executable setup scripts (open_project.local.sh). For the selected projects, run the setup scripts.\n"
+}
+
+if [ $# -eq 0 ]; then
+    SELECTION=$(cd $HOME; fd --type executable --absolute-path --no-ignore open_project.local.sh | gxargs dirname | fzf --multi)
+
+    IFS=$'\n' read -rd '' -a SELECTION_ARRAY <<<"$SELECTION"
+    for directory in "${SELECTION_ARRAY[@]}"
+    do
+        PROJECT_NAME=$(basename $directory)
+        echo "Entering $directory"
+        cd "$directory"
+        echo "Starting project setup: $PROJECT_NAME"
+        ./open_project.local.sh
+        echo "Finished project setup: $PROJECT_NAME"
+    done
+else
+    display_summary
+    display_usage
+fi
+
