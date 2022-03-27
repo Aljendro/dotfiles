@@ -85,7 +85,7 @@ cnoreabbrev <expr> tah CommandAbbreviation('tah', 'tab help') . ' '
 " Change filetype
 cnoreabbrev <expr> ft CommandAbbreviation('ft', 'set ft=')
 " Split line by a character
-cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\(\)/\1\r/g<left><left><left><left><left><left><left><left><left>')
+cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\v()/\1\r/gc<left><left><left><left><left><left><left><left><left>')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Options
