@@ -45,6 +45,7 @@ set nrformats-=octal
 set number
 set relativenumber
 set scrolloff=1
+set showtabline=2
 set shortmess+=c
 set signcolumn=yes
 set smartcase
