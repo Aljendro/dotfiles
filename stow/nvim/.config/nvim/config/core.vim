@@ -123,14 +123,14 @@ nnoremap <leader>q :q<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between quickfix list easily
-nnoremap <M-s> :cNfile<cr>zz
-nnoremap <M-d> :cprevious<cr>zz
-nnoremap <M-f> :cnext<cr>zz
-nnoremap <M-g> :cnfile<cr>zz
+nnoremap <M-h> :cNfile<cr>zz
+nnoremap <M-j> :cnext<cr>zz
+nnoremap <M-k> :cprevious<cr>zz
+nnoremap <M-l> :cnfile<cr>zz
 
 " Move between location list easily
-nnoremap <M-e> :lprevious<cr>zz
-nnoremap <M-r> :lnext<cr>zz
+nnoremap <M-m> :lprevious<cr>zz
+nnoremap <M-,> :lnext<cr>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
@@ -154,12 +154,6 @@ nnoremap sj <C-w><C-j>
 nnoremap sl <C-w><C-l>
 nnoremap sh <C-w><C-h>
 
-" Scroll window easily
-xnoremap <C-j> <C-d>
-xnoremap <C-k> <C-u>
-xnoremap <M-j> <C-f>
-xnoremap <M-k> <C-b>
-
 " Move windows easily
 nnoremap <C-w>j <C-w>J
 nnoremap <C-w>k <C-w>K
@@ -167,10 +161,10 @@ nnoremap <C-w>l <C-w>L
 nnoremap <C-w>h <C-w>H
 
 " Resize windows
-nnoremap <M-c> :resize -4<cr>
-nnoremap <M-v> :resize +4<cr>
-nnoremap <M-b> :vertical resize +16<cr>
-nnoremap <M-x> :vertical resize -16<cr>
+nnoremap <M-d> :resize -4<cr>
+nnoremap <M-e> :resize +4<cr>
+nnoremap <M-s> :vertical resize +16<cr>
+nnoremap <M-f> :vertical resize -16<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
@@ -300,9 +294,6 @@ xnoremap . :normal .<cr>
 " Faster shifting
 nnoremap <Left> zH
 nnoremap <Right> zL
-
-" Insert moving everything to the right down a line
-nnoremap <M-i> mii<cr><esc>`ii
 
 " Make Ctrl-c exactly like esc (trigger InsertLeave)
 inoremap <C-c> <esc>
