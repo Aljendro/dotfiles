@@ -31,13 +31,13 @@ function ToggleSmoothScroll()
         local t = {}
         -- Syntax: t[keys] = {function, {function arguments}}
         t['<C-k>'] = {
-            'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '150'}
+            'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '250'}
         }
         t['<C-j>'] = {
-            'scroll', {'vim.api.nvim_win_get_height(0)', 'true', '150'}
+            'scroll', {'vim.api.nvim_win_get_height(0)', 'true', '250'}
         }
-        t['<Up>'] = {'scroll', {'-0.10', 'false', '25'}}
-        t['<Down>'] = {'scroll', {'0.10', 'false', '25'}}
+        t['<Up>'] = {'scroll', {'-0.20', 'false', '150'}}
+        t['<Down>'] = {'scroll', {'0.20', 'false', '150'}}
 
         require('neoscroll.config').set_mappings(t)
     end
