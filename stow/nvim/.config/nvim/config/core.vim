@@ -115,8 +115,7 @@ tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Faster saving
-nnoremap <leader>w :w<cr>
-nnoremap <leader>q :q<cr>
+nnoremap <leader>q :bd!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Quickfix
@@ -129,8 +128,8 @@ nnoremap <M-k> :cprevious<cr>zz
 nnoremap <M-l> :cnfile<cr>zz
 
 " Move between location list easily
-nnoremap <M-m> :lprevious<cr>zz
-nnoremap <M-,> :lnext<cr>zz
+nnoremap <M-m> :lnext<cr>zz
+nnoremap <M-,> :lprevious<cr>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
