@@ -10,7 +10,7 @@ display_summary() {
 }
 
 if [ $# -eq 0 ]; then
-    PROJECT_STARTUP_SELECTION=$(cd $HOME; fd --type executable --absolute-path --no-ignore start_project.local.sh | gxargs dirname | fzf --multi)
+    PROJECT_STARTUP_SELECTION=$(cd $HOME; fd --type executable --absolute-path start_project.local.sh | gxargs -I{} dirname {} | fzf --multi)
 
     IFS=$'\n' read -rd '' -a SELECTION_ARRAY <<<"$PROJECT_STARTUP_SELECTION"
     for directory in "${SELECTION_ARRAY[@]}"
