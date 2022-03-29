@@ -24,7 +24,7 @@ function tdtk_env_name {
     else
       IS_SIGNED_IN="%F{red}✘%F"
     fi
-    echo "%F{250}TDTK_ENV%F %F{245}($(echo $TDTK_ENV) $IS_SIGNED_IN%F{245} )%F "
+    echo "%F{250}TDTK_ENV%F %F{245}($(echo $TDTK_ENV) $IS_SIGNED_IN%F{245} )%F"
   else
     echo ''
   fi
@@ -55,7 +55,7 @@ function node_env_name {
 }
 
 function go_env_name {
-  EXTRACTED_VERSION=$(go version | awk -F' ' '{print $3}')
+  EXTRACTED_VERSION=$(go version | cut -d" " -f 3)
   echo "%F{250}Go%F %F{245}($EXTRACTED_VERSION)%F"
 }
 
@@ -64,10 +64,15 @@ function java_env_name {
   echo "%F{250}Java%F %F{245}($EXTRACTED_VERSION)%F"
 }
 
+function rust_env_name {
+  EXTRACTED_VERSION=$(rustc --version | cut -d" " -f2)
+  echo "%F{250}Rust%F %F{245}($EXTRACTED_VERSION)%F"
+}
+
 function load_env_info {
   if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
     echo "
-│ $(tdtk_env_name)$(node_env_name)%{$reset_color%}"
+│ $(tdtk_env_name) $(node_env_name) $(rust_env_name) $(go_env_name)%{$reset_color%}"
   else
     echo ""
   fi
