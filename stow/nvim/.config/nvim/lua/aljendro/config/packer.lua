@@ -35,7 +35,7 @@ return require('packer').startup(function()
         ft = {'clojure'}
     }
     use {'folke/tokyonight.nvim'}
-    use {'godlygeek/tabular', cmd = 'Tabularize'}
+    use {'godlygeek/tabular'}
     use {'guns/vim-sexp', ft = {'clojure'}}
     use {
         'hrsh7th/nvim-cmp',

@@ -576,7 +576,7 @@ let g:nrrw_topbot_leftright = 'botright'
 xmap <leader>z <Plug>NrrwrgnDo
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Tabular
+"" Tabularize
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Fast column formatting
@@ -588,3 +588,4 @@ cnoreabbrev <expr> t CommandAbbreviation('t', "Tab /")
 
 nnoremap ;d :NvimTreeFindFile<cr>
 nnoremap ;D :NvimTreeToggle<cr>
+
