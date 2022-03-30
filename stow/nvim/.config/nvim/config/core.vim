@@ -250,7 +250,7 @@ nnoremap <leader>sd :wall \| call LoadSession('default')<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Profile everything
-nnoremap <leader>p :profile start profile-all.txt \| profile file * \| profile func *<cr>
+nnoremap <leader>pp :profile start profile-all.local.txt \| profile file * \| profile func *<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Macros
