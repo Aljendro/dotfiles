@@ -92,7 +92,6 @@ cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\v()/\1\r/gc<left><left><left
 "" Options
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <expr> <leader><leader>c ':set colorcolumn=' . (&colorcolumn == '' ? '+1' : '') . '<cr>:set colorcolumn?<cr>'
 nnoremap <leader>oh  :set cursorcolumn!<cr>:set cursorcolumn?<cr>
 nnoremap <leader>of  :set foldenable!<cr>:set foldenable?<cr>
 nnoremap <leader>ol  :set lazyredraw!<cr>:set lazyredraw?<cr>
