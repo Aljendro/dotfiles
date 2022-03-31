@@ -9,7 +9,7 @@ display_summary() {
 }
 
 if [ $# -eq 0 ]; then
-    WORKTREE_SELECTION=$(git worktree list | cut -d" " -f 1 | fzf)
+    WORKTREE_SELECTION=$(git worktree list | cut -d" " -f 1 | grep -v -E "^$(pwd)$" | fzf)
     if [[ ! -z "$WORKTREE_SELECTION" ]]; then
         cd $WORKTREE_SELECTION
     fi
