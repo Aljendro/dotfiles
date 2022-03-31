@@ -44,13 +44,7 @@ return require('packer').startup(function()
             {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
         }
     }
-    use {
-        'iamcco/markdown-preview.nvim',
-        run = 'cd app && yarn install',
-        cmd = {
-            'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle'
-        }
-    }
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use {'junegunn/fzf'}
     use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}
@@ -73,8 +67,6 @@ return require('packer').startup(function()
     use {
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/plenary.nvim'},
-        module = {"telescope.builtin", "telescope"},
-        cmd = {"Telescope"},
         config = function()
             require('telescope').setup({
                 defaults = {
