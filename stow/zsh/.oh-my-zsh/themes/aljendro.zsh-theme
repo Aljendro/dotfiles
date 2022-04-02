@@ -55,7 +55,7 @@ function node_env_name {
 }
 
 function go_env_name {
-  EXTRACTED_VERSION=$(go version | cut -d" " -f 3)
+  EXTRACTED_VERSION=$(go version | cut -d" " -f 3 | sed 's/go//g')
   echo "%F{250}Go%F %F{245}($EXTRACTED_VERSION)%F"
 }
 
