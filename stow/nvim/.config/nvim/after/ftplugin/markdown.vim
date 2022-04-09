@@ -1,4 +1,4 @@
 " Reflow bases on column length
-nnoremap <localleader>fc vapgq
+nnoremap <leader>fm vapgq
 
-nnoremap <localleader>p :MarkdownPreviewToggle<cr>
+nnoremap <C-f> :MarkdownPreviewToggle<cr>
