@@ -27,11 +27,11 @@ cmp.setup({
     mapping = {
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-        ['<C-e>'] = cmp.mapping({
+        ['<C-k>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close()
         }),
-        ['<cr>'] = cmp.mapping.confirm({select = true}),
+        ['<C-j>'] = cmp.mapping.confirm({select = true}),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if vim.fn.complete_info()['selected'] == -1 and
