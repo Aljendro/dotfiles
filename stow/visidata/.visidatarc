@@ -1,0 +1,2 @@
+# Sheet.addCommand('i', '')
+# TableSheet.bindkey('i', 'edit-cell')
