@@ -1,8 +1,5 @@
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
-local opts = {noremap = true, silent = true}
-
-vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_group_empty = 1
 vim.g.nvim_tree_show_icons = {
     ['git'] = 1,
@@ -36,7 +33,8 @@ local list = {
 }
 
 require('nvim-tree').setup({
-    actions = {change_dir = { global = true }},
+    actions = {change_dir = {global = true}},
     update_cwd = true,
-    view = {mappings = {custom_only = true, list = list}}
+    view = {mappings = {custom_only = true, list = list}},
+    renderer = {indent_markers = {enable = true}}
 })
