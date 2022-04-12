@@ -18,13 +18,15 @@ export FZF_DEFAULT_COMMAND="fd --type file --hidden -E .git"
 export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
 
 alias n='nvim'
+alias nn='nvim -u NONE'
 alias c='code'
 alias nf='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim $VAL'
+alias nfn='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim -u NONE $VAL'
 alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-case . | fzf --ansi); [ ! -z $VAL ] && nvim +$(cut -d":" -f2 <<<$VAL) $(cut -d":" -f1 <<<$VAL)'
 alias nz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
 alias e='exit'
-alias luamake=$HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server/3rd/luamake/luamake
+# alias luamake=$HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server/3rd/luamake/luamake
 
 ZSH_THEME="aljendro"
 DISABLE_MAGIC_FUNCTIONS=true
