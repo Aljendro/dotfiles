@@ -12,7 +12,7 @@ local on_attach = function(client)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     helper.buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>',
                           opts)
-    helper.buf_set_keymap('n', 'gK',
+    helper.buf_set_keymap('n', 'gk',
                           '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
     helper.buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     helper.buf_set_keymap('n', 'gT',
@@ -25,7 +25,7 @@ local on_attach = function(client)
                           opts)
     helper.buf_set_keymap('n', 'gi',
                           '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    helper.buf_set_keymap('n', 'gk', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    helper.buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     helper.buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>',
                           opts)
     helper.buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>',
