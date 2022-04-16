@@ -9,26 +9,25 @@ vim.cmd('source $HOME/.config/nvim/config/core.vim')
 
 require('luatab').setup({})
 require('gitsigns').setup({
-    on_attach = function()
-        local helper = require('aljendro/config/helper')
+    on_attach = function(bufnr)
         local opts = {noremap = true, silent = true}
-        helper.buf_set_keymap('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>',
-                              opts)
-        helper.buf_set_keymap('v', '<leader>hs', ':Gitsigns stage_hunk<CR>',
-                              opts)
-        helper.buf_set_keymap('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>',
-                              opts)
-        helper.buf_set_keymap('v', '<leader>hr', ':Gitsigns reset_hunk<CR>',
-                              opts)
-        helper.buf_set_keymap('n', '<leader>hu',
-                              '<cmd>Gitsigns undo_stage_hunk<CR>', opts)
-        helper.buf_set_keymap('n', '<leader>hp',
-                              '<cmd>Gitsigns preview_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>hs',
+                                    '<cmd>Gitsigns stage_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>hs',
+                                    ':Gitsigns stage_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>hr',
+                                    '<cmd>Gitsigns reset_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>hr',
+                                    ':Gitsigns reset_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>hu',
+                                    '<cmd>Gitsigns undo_stage_hunk<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>hp',
+                                    '<cmd>Gitsigns preview_hunk<CR>', opts)
     end
 })
 require('nvim-ts-autotag').setup({})
 require('nvim-treesitter.configs').setup({
-    ensure_installed = 'maintained',
+    ensure_installed = 'all',
     highlight = {enable = true, additional_vim_regex_highlighting = false},
     incremental_selection = {
         enable = true,
@@ -40,7 +39,7 @@ require('nvim-treesitter.configs').setup({
     },
     indent = {enable = true}
 })
-require('lualine').setup({options = {theme = 'tokyonight'}})
+require('lualine').setup({options = {theme = 'tokyonight', globalstatus = true}})
 
 require('aljendro/config/lsp');
 require('aljendro/config/auto-completion');
