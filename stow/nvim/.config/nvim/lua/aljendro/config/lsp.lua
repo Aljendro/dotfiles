@@ -7,50 +7,56 @@ vim.diagnostic.config({virtual_text = false})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client)
+local on_attach = function(_, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    helper.buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gk',
-                          '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    helper.buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    helper.buf_set_keymap('n', 'gT',
-                          '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    helper.buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>',
-                          opts)
-    helper.buf_set_keymap('v', 'ga',
-                          '<cmd>lua vim.lsp.buf.range_code_action()<cr>', opts)
-    helper.buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gi',
-                          '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    helper.buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    helper.buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'glf', '<cmd>lua vim.lsp.buf.formatting()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gs',
-                          '<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gt',
-                          '<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gla',
-                          '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'glr',
-                          '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'glw',
-                          '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>',
-                          opts)
-    helper.buf_set_keymap('n', 'gld',
-                          '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-    helper.buf_set_keymap('n', 'glq',
-                          '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
-    helper.buf_set_keymap('n', 'glQ', '<cmd>lua vim.diagnostic.setqflist()<cr>',
-                          opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
+                                '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gk',
+                                '<cmd>lua vim.lsp.buf.signature_help()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR',
+                                '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gT',
+                                '<cmd>lua vim.lsp.buf.type_definition()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga',
+                                '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'v', 'ga',
+                                '<cmd>lua vim.lsp.buf.range_code_action()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
+                                '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
+                                '<cmd>lua vim.lsp.buf.implementation()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
+                                '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',
+                                '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glf',
+                                '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs',
+                                '<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gt',
+                                '<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gla',
+                                '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glr',
+                                '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glw',
+                                '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>',
+                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gld',
+                                '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glq',
+                                '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glQ',
+                                '<cmd>lua vim.diagnostic.setqflist()<cr>', opts)
 
 end
 
@@ -120,9 +126,9 @@ lspconfig.tsserver.setup({
             '/tsserver/node_modules/.bin/typescript-language-server', '--stdio'
     },
     capabilities = capabilities,
-    on_attach = function(client)
+    on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
-        on_attach(client)
+        on_attach(client, bufnr)
     end,
     flags = {debounce_text_changes = 150}
 })
@@ -211,7 +217,10 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 require('lspconfig').sumneko_lua.setup({
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        on_attach(client, bufnr)
+    end,
     settings = {
         Lua = {
             runtime = {
@@ -252,10 +261,6 @@ local eslint = {
 
 lspconfig.efm.setup({
     cmd = {helper.lsp_dir .. '/efm/efm-langserver'},
-    on_attach = function()
-        helper.buf_set_keymap('n', 'gef',
-                              '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
-    end,
     init_options = {documentFormatting = true},
     filetypes = {
         'lua', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'

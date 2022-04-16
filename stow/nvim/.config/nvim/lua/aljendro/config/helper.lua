@@ -14,13 +14,6 @@ function _G.put(...)
     return ...
 end
 
-function M.buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-function M.buf_del_keymap(...) vim.api.nvim_buf_uset_keymap(bufnr, ...) end
-function M.buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-function M.set_keymap(...) vim.api.nvim_set_keymap(...) end
-function M.del_keymap(...) vim.api.nvim_del_keymap(...) end
-
 -- Merge two tables together
 function M.merge(t0, t1)
     local c = {}
