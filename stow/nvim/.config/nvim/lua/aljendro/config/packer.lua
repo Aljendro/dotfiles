@@ -22,13 +22,7 @@ return require('packer').startup(function()
     }
     use {'kyazdani42/nvim-web-devicons'}
     use {'alvarosevilla95/luatab.nvim'}
-    use {
-        'benmills/vimux',
-        cmd = {
-            'VimuxPromptCommand', 'VimuxRunLastCommand', 'VimuxInspectRunner',
-            'VimuxCloseRunner', 'VimuxInterruptRunner'
-        }
-    }
+    use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
     use {
         'eraserhd/parinfer-rust',

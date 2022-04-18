@@ -514,9 +514,15 @@ nnoremap <leader>vl :VimuxRunLastCommand<cr>
 " Inspect runner pane
 nnoremap <leader>vi :VimuxInspectRunner<cr>
 " Close vim tmux runner opened by VimuxRunCommand
-nnoremap <leader>vc :VimuxCloseRunner<cr>
-" Interrupt any command running in the runner pane
-nnoremap <leader>vp :VimuxInterruptRunner<cr>
+nnoremap <leader>vq :VimuxCloseRunner<cr>
+" Stop the process
+nnoremap <leader>vs :VimuxInterruptRunner<cr>
+" Clear Pane
+nnoremap <leader>vc :VimuxClearTerminalScreen<cr>
+" Clear history
+nnoremap <leader>vC :VimuxClearRunnerHistory<cr>
+" Zoom Runner
+nnoremap <leader>vz :VimuxZoomRunner<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Delimitmate
