@@ -8,6 +8,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on
 colorscheme tokyonight
+match errorMsg /\s\+$/
 
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
@@ -34,6 +35,7 @@ set hidden
 set ignorecase
 set inccommand=nosplit
 set iskeyword+=-
+set list
 set mouse=a
 set noshowmode
 set noswapfile
@@ -44,8 +46,8 @@ set nrformats-=octal
 set number
 set relativenumber
 set scrolloff=1
-set showtabline=2
 set shortmess+=c
+set showtabline=2
 set signcolumn=yes
 set smartcase
 set smartindent
@@ -310,8 +312,6 @@ augroup customVim
       autocmd Filetype * set formatoptions-=o
       " Set the last known tab when switching tabs
       autocmd TabLeave * let g:lastTab = tabpagenr()
-      " Delete trailing spaces
-      autocmd BufWritePre <buffer> :call DeleteTrailingSpacesSilent()
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
       " Open quickfix after command that populates it is run
