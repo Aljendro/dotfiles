@@ -40,6 +40,7 @@ require('nvim-treesitter.configs').setup({
     indent = {enable = true}
 })
 require('lualine').setup({options = {theme = 'tokyonight', globalstatus = true}})
+require('autosave').setup({})
 
 require('aljendro/config/lsp');
 require('aljendro/config/auto-completion');

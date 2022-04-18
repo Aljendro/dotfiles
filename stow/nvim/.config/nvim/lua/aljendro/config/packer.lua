@@ -5,6 +5,7 @@ return require('packer').startup(function()
         module = {'telescope'},
         config = function() require('neoclip').setup({}) end
     }
+    use {"Pocco81/AutoSave.nvim"}
     use {
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
