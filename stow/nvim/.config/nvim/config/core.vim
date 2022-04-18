@@ -339,6 +339,9 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 
 let snippetPath=$HOME.'/.config/nvim/ultisnips'
 let g:UltiSnipsSnippetDirectories=[snippetPath]
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Git Plugins (Fugitive, Gitgutter, etc.)
