@@ -1,5 +1,6 @@
 local cmp = require('cmp')
 local cmp_ultisnips = require("cmp_nvim_ultisnips.mappings")
+local helper = require('aljendro/config/helper')
 
 cmp.setup({
     experimental = {ghost_text = true},
@@ -27,15 +28,37 @@ cmp.setup({
     mapping = {
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-        ['<C-k>'] = cmp.mapping(cmp.mapping.close(), {'i', 'c'}),
-        ['<C-j>'] = cmp.mapping.confirm({select = true}),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-        ['<C-n>'] = cmp.mapping(function(fallback)
+        ['<C-e>'] = cmp.mapping(cmp.mapping.close(), {'i'}),
+        ['<Tab>'] = cmp.mapping(function(fallback)
             cmp_ultisnips.expand_or_jump_forwards(fallback)
         end, {'i', 's'}),
-        ['<C-p>'] = cmp.mapping(function(fallback)
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
             cmp_ultisnips.jump_backwards(fallback)
-        end, {'i', 's'})
+        end, {'i', 's'}),
+        ['<C-n>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
+            else
+                fallback()
+            end
+        end, {'i'}),
+        ['<C-p>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item({behavior = cmp.SelectBehavior.Select})
+            else
+                fallback()
+            end
+        end, {'i'}),
+        ['<C-Space>'] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = true
+                })
+            else
+                cmp.mapping.complete()
+            end
+        end, {'i'})
     }
 })
 
