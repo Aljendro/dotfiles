@@ -30,10 +30,10 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
         ['<C-e>'] = cmp.mapping(cmp.mapping.close(), {'i'}),
         ['<Tab>'] = cmp.mapping(function(fallback)
-            cmp_ultisnips.expand_or_jump_forwards(fallback)
+            cmp_ultisnips.compose {"expand", "jump_forwards"}(fallback)
         end, {'i', 's'}),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
-            cmp_ultisnips.jump_backwards(fallback)
+            cmp_ultisnips.compose {"jump_backwards"}(fallback)
         end, {'i', 's'}),
         ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
