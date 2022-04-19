@@ -1,9 +1,9 @@
 snippet pr "Print" i
-print!($1);
+print!(${VISUAL}$1)
 endsnippet
 
 snippet prl "Print with newline" i
-println!($1);
+println!(${VISUAL}$1)
 endsnippet
 
 snippet const "Const declaration"
@@ -38,13 +38,17 @@ struct $1 {
 }
 endsnippet
 
+snippet ste "Enum Struct"
+struct $1 ($2);
+endsnippet
+
 snippet en "Enum"
 enum $1 {
 	$2
 }
 endsnippet
 
-snippet impl "Implementation"
+snippet impl "Method Implementation"
 impl$2 $1$2 {
 	fn $3($4) -> $5 {
 		$6
@@ -52,9 +56,16 @@ impl$2 $1$2 {
 }
 endsnippet
 
+snippet implf "Method Implementation for a Trait"
+impl $1 for $2 {
+	$3
+}
+endsnippet
+
+
 snippet trait "Trait"
 trait $1 {
-	fn $3(self$4) -> $5;
+	fn $2(self$3) -> $4;
 }
 endsnippet
 
