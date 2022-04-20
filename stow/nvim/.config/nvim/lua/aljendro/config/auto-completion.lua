@@ -1,6 +1,5 @@
 local cmp = require('cmp')
 local cmp_ultisnips = require("cmp_nvim_ultisnips.mappings")
-local helper = require('aljendro/config/helper')
 
 cmp.setup({
     experimental = {ghost_text = true},
@@ -26,37 +25,34 @@ cmp.setup({
         }, {name = 'path'}
     }),
     mapping = {
-        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-        ['<C-e>'] = cmp.mapping(cmp.mapping.close(), {'i'}),
         ['<Tab>'] = cmp.mapping(function(fallback)
             cmp_ultisnips.compose {"expand", "jump_forwards"}(fallback)
         end, {'i', 's'}),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             cmp_ultisnips.compose {"jump_backwards"}(fallback)
         end, {'i', 's'}),
-        ['<C-n>'] = cmp.mapping(function(fallback)
+        ['<M-j>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i'}),
+        ['<M-k>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i'}),
+        ['<C-j>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
             else
                 fallback()
             end
         end, {'i'}),
-        ['<C-p>'] = cmp.mapping(function(fallback)
+        ['<C-k>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item({behavior = cmp.SelectBehavior.Select})
             else
                 fallback()
             end
         end, {'i'}),
-        ['<C-Space>'] = cmp.mapping(function()
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i'}),
+        ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true
-                })
+                cmp.confirm({select = true})
             else
-                cmp.mapping.complete()
+                fallback()
             end
         end, {'i'})
     }
