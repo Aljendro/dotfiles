@@ -131,6 +131,9 @@ nnoremap <M-l> :cnfile<cr>zz
 nnoremap <M-m> :lnext<cr>zz
 nnoremap <M-,> :lprevious<cr>zz
 
+" Remove folds for all files in quickfix
+cnoreabbrev <expr> qnf CommandAbbreviation('qnf', 'cfdo set nofoldenable')
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
 """""""""""""""""""""""""""""""""""""""""""""""""
