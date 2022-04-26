@@ -48,6 +48,14 @@ cmp.setup({
             end
         end, {'i'}),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i'}),
+        ['<C-e>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.mapping.abort()
+                cmp.mapping.close()
+            else
+                fallback()
+            end
+        end, {'i'}),
         ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({select = true})
