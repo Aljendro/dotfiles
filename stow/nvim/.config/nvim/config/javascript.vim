@@ -2,6 +2,7 @@
 iabbrev <buffer> d; debugger;
 
 let g:test#javascript#runner = 'jest'
+let g:test#javascript#jest#file_pattern = '\v(__tests__/.*|(spec|test|integration))\.(js|jsx|ts|tsx)$'
 
 " Run node scripts
 noremap <expr> <leader>rr  ':call VimuxRunCommand("node ' . expand("%:p") . ' ")<left><left>'
