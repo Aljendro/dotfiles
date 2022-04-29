@@ -266,6 +266,8 @@ xnoremap <expr> <leader>e ':norm! @' . nr2char(getchar()) . '<cr>'
 nnoremap Q @@
 xnoremap Q :norm! @@<cr>
 
+nnoremap <silent> <leader>an :call AppendNewlineToRegister()<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Miscellaneous
 """""""""""""""""""""""""""""""""""""""""""""""""

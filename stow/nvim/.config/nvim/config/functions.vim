@@ -68,6 +68,21 @@ function! RecordMacro()
   exec "normal! q" . l:register . "q" . "q" . l:register
 endfunction
 
+function! AppendNewlineToRegister()
+  try
+    echo 'Register > '
+    let l:register = toupper(nr2char(getchar()))
+    exec ':let @' . l:register . '=' . '"\<C-j>"'
+    redraw
+    echo 'Appended newline to register: ' . l:register
+  catch
+    redraw
+    echohl ErrorMsg
+    echo 'Unable to append newline to register'
+    echohl NONE
+  endtry
+endfunction
+
 " Prettier folding
 " https://coderwall.com/p/usd_cw/a-pretty-vim-foldtext-function
 function! FoldText()
