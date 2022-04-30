@@ -196,12 +196,40 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+"" Args
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move between args easily
+nnoremap sm :previous<cr>
+nnoremap s, :next<cr>
+nnoremap sn :first<cr>
+nnoremap s. :last<cr>
+
+" Add current buffer to the argument list
+nnoremap saa :$argadd<cr>
+" Quickly add to arg list
+nnoremap sad :argd<cr>
+nnoremap saD :%argd<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" Buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move between buffers easily
+noremap su :bprevious<cr>
+noremap si :bnext<cr>
+
+" Quickly delete buffer
+noremap sd :bdelete<cr>
+noremap sD :bdelete!<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between tabs easily
-noremap su gT
-noremap si gt
+noremap sy gT
+noremap so gt
 " Move a window into a new tabpage
 nnoremap <leader>tw <C-w>T
 " Move tabs around
