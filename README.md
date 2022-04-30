@@ -9,7 +9,7 @@ intervention as possible.
 ## Environments
 
 * Supported
-  * Fedora (Latest)
+  * MacOS (Latest)
 
 ## Quickstart
 
