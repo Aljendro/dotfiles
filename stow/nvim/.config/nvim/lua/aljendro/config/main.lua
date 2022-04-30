@@ -7,7 +7,6 @@ require('aljendro/config/packer');
 vim.cmd('source $HOME/.config/nvim/config/functions.vim')
 vim.cmd('source $HOME/.config/nvim/config/core.vim')
 
-require('luatab').setup({})
 require('gitsigns').setup({
     on_attach = function(bufnr)
         local opts = {noremap = true, silent = true}
@@ -39,7 +38,18 @@ require('nvim-treesitter.configs').setup({
     },
     indent = {enable = true}
 })
-require('lualine').setup({options = {theme = 'tokyonight', globalstatus = true}})
+require('lualine').setup({
+    options = {theme = 'tokyonight', globalstatus = true},
+    sections = {lualine_c = {{'filename', path = 1}}},
+    tabline = {
+        lualine_a = {{'buffers', mode = 0}},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {'tabs'}
+    }
+})
 require('autosave').setup({})
 
 require('aljendro/config/lsp');

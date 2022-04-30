@@ -21,7 +21,6 @@ return require('packer').startup(function()
         end
     }
     use {'kyazdani42/nvim-web-devicons'}
-    use {'alvarosevilla95/luatab.nvim'}
     use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
     use {
