@@ -114,12 +114,12 @@ function! FoldText()
   return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
 
-func EatChar(pat)
+function! EatChar(pat)
   let c = nr2char(getchar(0))
   return (c =~ a:pat) ? '' : c
 endfunc
 
-func CommandAbbreviation(abbreviation, substitution, ...)
+function! CommandAbbreviation(abbreviation, substitution, ...)
   if (getcmdtype() ==# ':')
     " Do not place EatChar here, it will always EatChar in command mode
     " and you need to press <cr> twice when typing
@@ -134,4 +134,9 @@ func CommandAbbreviation(abbreviation, substitution, ...)
   return a:abbreviation
 endfunc
 
-
+function! Toggle(name, message)
+  let b:{a:name} = !get(b:, a:name, 0)
+  let trueFalseStr = b:{a:name} ? 'true': 'false'
+  echo a:message . trueFalseStr
+  return b:{a:name}
+endfunction

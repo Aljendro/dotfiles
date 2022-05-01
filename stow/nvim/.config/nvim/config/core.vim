@@ -216,20 +216,26 @@ nnoremap saD :%argd<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between buffers easily
-noremap su :bprevious<cr>
-noremap si :bnext<cr>
+nnoremap su :bprevious<cr>
+nnoremap si :bnext<cr>
 
 " Quickly delete buffer
-noremap sd :bdelete<cr>
-noremap sD :bdelete!<cr>
+nnoremap sd :bdelete<cr>
+nnoremap sD :bdelete!<cr>
+
+" Toggle pinned buffers
+nnoremap sp  :call Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
+" Delete unpinned buffers
+nnoremap sbd :bufdo if get(b:, 'aljendro_is_buffer_pinned', 0) == 0 \| exec 'bd' \| endif<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Move between tabs easily
-noremap sy gT
-noremap so gt
+nnoremap sy gT
+nnoremap so gt
 " Move a window into a new tabpage
 nnoremap <leader>tw <C-w>T
 " Move tabs around
@@ -425,19 +431,13 @@ let g:fzf_command_prefix = 'F'
 let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
 let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
 
-" Do not search the file path with rip grep
-" (using with_preview 'options' parameter)
-command! -bang -nargs=* FARg
-      \ call fzf#vim#grep(
-      \   'rg --multiline --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'up:80%:hidden', 'ctrl-/'), <bang>0)
-
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
 xnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
-nnoremap ;a    :FARg<cr>
-nnoremap ;A    :FRg<cr>
+nnoremap ;a    :FRg<cr>
+nnoremap ;A    :lua require('telescope.builtin').autocommands()<cr>
 nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
+nnoremap ;B    :lua require('telescope.builtin').builtin()<cr>
 nnoremap ;c    :lua require('telescope.builtin').commands()<cr>
 nnoremap ;f    :lua require('telescope.builtin').find_files({hidden=true})<cr>
 nnoremap ;gc   :lua require('telescope.builtin').git_bcommits()<cr>
@@ -450,6 +450,7 @@ nnoremap ;gS   :lua require('telescope.builtin').git_stash()<cr>
 nnoremap ;h    :lua require('telescope.builtin').help_tags()<cr>
 nnoremap ;j    :lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>
 nnoremap ;k    :lua require('telescope.builtin').keymaps()<cr>
+nnoremap ;ll   :lua require('telescope.builtin').loclist()<cr>
 nnoremap ;la   :lua require('telescope.builtin').lsp_code_actions()<cr>
 " TODO: Figure out why this is not working with visual selection
 " vnoremap ;la   :lua require('telescope.builtin').lsp_range_code_actions()<cr>
@@ -461,6 +462,8 @@ nnoremap ;lS   :lua require('telescope.builtin').lsp_workspace_symbols({query=''
 nnoremap ;m    :lua require('telescope.builtin').marks()<cr>
 nnoremap ;n    :lua require('telescope').extensions.neoclip.default()<cr>
 nnoremap ;of   :lua require('telescope.builtin').oldfiles()<cr>
+nnoremap ;p    :lua require('telescope.builtin').pickers()<cr>
+nnoremap ;q    :lua require('telescope.builtin').quickfix()<cr>
 nnoremap ;r    :lua require('telescope.builtin').resume()<cr>
 nnoremap ;R    :lua require('telescope.builtin').registers()<cr>
 nnoremap ;s    :lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>
@@ -468,7 +471,7 @@ nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
 nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
 nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
 nnoremap ;w    :Telescope grep_string<cr>
-xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=true search=<C-R>=@/<cr><cr>
+xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=false search=<C-R>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
@@ -626,4 +629,11 @@ cnoreabbrev <expr> t CommandAbbreviation('t', "Tab /")
 
 nnoremap ;d :NvimTreeFindFile<cr>
 nnoremap ;D :NvimTreeToggle<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"" vim-visual-multi (multiple cursors)
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:VM_leader = '<bslash>'
+let g:VM_mouse_mappings = v:true
 

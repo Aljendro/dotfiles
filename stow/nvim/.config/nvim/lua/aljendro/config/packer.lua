@@ -51,10 +51,11 @@ return require('packer').startup(function()
     }
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     -- use {'mfussenegger/nvim-dap', config = function() require('aljendro/config/dap') end }
+    use {'mg979/vim-visual-multi'}
     use {'neovim/nvim-lspconfig'}
     use {
         'numToStr/Comment.nvim',
-        config = function() require('Comment').setup() end
+        config = function() require('Comment').setup({}) end
     }
     use {'nvim-lualine/lualine.nvim'}
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
@@ -64,11 +65,13 @@ return require('packer').startup(function()
         config = function()
             require('telescope').setup({
                 defaults = {
-                    layout_strategy = 'vertical',
+                    cache_picker = {num_pickers = 20},
+                    layout_strategy = 'flex',
                     layout_config = {
                         height = 0.99,
                         width = 0.99,
-                        preview_height = 0.45
+                        vertical = {preview_height = 0.45},
+                        horizontal = {preview_width = 0.50}
                     }
                 }
             })
