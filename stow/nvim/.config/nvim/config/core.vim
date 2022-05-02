@@ -102,6 +102,7 @@ nnoremap <leader>ob  :set scrollbind!<cr>:set scrollbind?<cr>
 nnoremap <leader>osc :set spell!<cr>:set spell?<cr>
 nnoremap <leader>oss :lua ToggleSmoothScroll()<cr>
 nnoremap <leader>ow  :set wrap!<cr>:set wrap?<cr>
+nnoremap <leader>op  :call Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Terminal
@@ -221,13 +222,8 @@ nnoremap si :bnext<cr>
 
 " Quickly delete buffer
 nnoremap sd :bdelete<cr>
-nnoremap sD :bdelete!<cr>
-
-" Toggle pinned buffers
-nnoremap sp  :call Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
 " Delete unpinned buffers
-nnoremap sbd :bufdo if get(b:, 'aljendro_is_buffer_pinned', 0) == 0 \| exec 'bd' \| endif<cr>
-
+nnoremap sD :bufdo if get(b:, 'aljendro_is_buffer_pinned', 0) == 0 \| exec 'bd' \| endif<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Tabs
