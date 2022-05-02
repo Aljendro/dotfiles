@@ -467,7 +467,11 @@ nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
 nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
 nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
 nnoremap ;w    :Telescope grep_string<cr>
+<<<<<<< Updated upstream
 xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string use_regex=false search=<C-R>=@/<cr><cr>
+=======
+xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string additional_args={'-F'} search='<C-R>=@/<cr>'<cr>
+>>>>>>> Stashed changes
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
