@@ -630,6 +630,11 @@ nnoremap ;D :NvimTreeToggle<cr>
 "" vim-visual-multi (multiple cursors)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+" Settings
+let g:VM_theme = 'neon'
+let g:VM_silent_exit = v:true
+
+" Keybindings
 let g:VM_leader = '<bslash>'
 let g:VM_mouse_mappings = v:true
 
