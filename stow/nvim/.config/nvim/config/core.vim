@@ -425,8 +425,8 @@ cnoreabbrev <expr> gstp CommandAbbreviation('gstp', 'Git stash pop')
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.99 } }
-let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let g:fzf_preview_window = ['right:60%:hidden', 'ctrl-/']
 
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
