@@ -140,3 +140,9 @@ function! Toggle(name, message)
   echo a:message . trueFalseStr
   return b:{a:name}
 endfunction
+
+function! ToggleOff(name, message)
+  let b:{a:name} = 0
+  echo a:message . 'false'
+  return b:{a:name}
+endfunction
