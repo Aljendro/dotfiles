@@ -68,8 +68,8 @@ return require('packer').startup(function()
                     cache_picker = {num_pickers = 20},
                     layout_strategy = 'flex',
                     layout_config = {
-                        height = 0.99,
-                        width = 0.99,
+                        height = 0.95,
+                        width = 0.95,
                         vertical = {preview_height = 0.45},
                         horizontal = {preview_width = 0.50}
                     }
