@@ -24,6 +24,7 @@ alias nf='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :
 alias nfn='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim -u NONE $VAL'
 alias nr='VAL=$(rg --column --line-number --no-heading --color=always --smart-case . | fzf --ansi); [ ! -z $VAL ] && nvim +$(cut -d":" -f2 <<<$VAL) $(cut -d":" -f1 <<<$VAL)'
 alias nz='nvim ~/.zshrc'
+alias ni='node --inspect-brk'
 alias sz='source ~/.zshrc'
 alias e='exit'
 # alias luamake=$HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server/3rd/luamake/luamake
