@@ -19,7 +19,6 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_tutor_mode_plugin = 1
 
 set autowrite
-set clipboard=unnamed,unnamedplus
 set completeopt=menu,menuone,noselect
 set cursorline
 set dictionary+=/usr/share/dict/words
@@ -302,6 +301,9 @@ nnoremap <silent> <leader>an :call AppendNewlineToRegister()<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Miscellaneous
 """""""""""""""""""""""""""""""""""""""""""""""""
+
+" Save
+xnoremap <C-s> "+y
 
 " Undo breakpoints
 inoremap , ,<c-g>u
