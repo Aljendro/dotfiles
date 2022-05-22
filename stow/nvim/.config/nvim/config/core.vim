@@ -622,8 +622,8 @@ cnoreabbrev <expr> t CommandAbbreviation('t', "Tab /")
 "" Nvim-tree
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap ;d :NvimTreeFindFile<cr>
-nnoremap ;D :NvimTreeToggle<cr>
+nnoremap ;df :NvimTreeFindFile<cr>
+nnoremap ;dd :NvimTreeToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" vim-visual-multi (multiple cursors)
