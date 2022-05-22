@@ -426,15 +426,10 @@ cnoreabbrev <expr> gstp CommandAbbreviation('gstp', 'Git stash pop')
 "" Fuzzy Finder (Telescope)
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:fzf_command_prefix = 'F'
-let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
-let g:fzf_preview_window = ['right:60%:hidden', 'ctrl-/']
-
 nnoremap ;/    :lua require('telescope.builtin').search_history()<cr>
 nnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
 xnoremap ;;    :lua require('telescope.builtin').command_history()<cr>
-nnoremap ;a    :FRg<cr>
-nnoremap ;A    :lua require('telescope.builtin').autocommands()<cr>
+nnoremap ;a    :lua require('telescope.builtin').autocommands()<cr>
 nnoremap ;b    :lua require('telescope.builtin').buffers({sort_mru=true})<cr>
 nnoremap ;B    :lua require('telescope.builtin').builtin()<cr>
 nnoremap ;c    :lua require('telescope.builtin').commands()<cr>

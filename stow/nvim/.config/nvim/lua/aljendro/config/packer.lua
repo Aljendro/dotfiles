@@ -39,8 +39,6 @@ return require('packer').startup(function()
         }
     }
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
-    use {'junegunn/fzf'}
-    use {'junegunn/fzf.vim'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
     use {'karb94/neoscroll.nvim'}
