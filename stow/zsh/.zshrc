@@ -16,6 +16,7 @@ export LOAD_ENV_INFO=0
 export FZF_DEFAULT_OPTS="--bind ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,tab:toggle-out,shift-tab:toggle-in,ctrl-/:toggle-preview"
 export FZF_DEFAULT_COMMAND="fd --type file --hidden -E .git"
 export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
+export FZF_CTRL_T_COMMAND="fd --type file --hidden -E .git"
 
 alias n='nvim'
 alias nn='nvim -u NONE'
