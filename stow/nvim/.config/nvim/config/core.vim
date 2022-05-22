@@ -606,7 +606,8 @@ cnoreabbrev <expr> jqs CommandAbbreviation('jqcs', "%!jq -c -s ''<left>", "!jq -
 "" NrrwRgn
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:nrrw_topbot_leftright = 'botright'
+let g:nrrw_rgn_vert = 1
+let g:nrrw_rgn_resize_window = 'relative'
 
 xmap <leader>z <Plug>NrrwrgnDo
 
