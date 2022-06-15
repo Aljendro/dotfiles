@@ -69,21 +69,27 @@ function rust_env_name {
   echo "%F{250}Rust%F %F{245}($EXTRACTED_VERSION)%F"
 }
 
+function load_env_vars {
+  echo "
+│ $(tdtk_env_name)%{$reset_color%}"
+}
+
 function load_env_info {
   if [[ "$LOAD_ENV_INFO" -eq 1 ]]; then
     echo "
-│ $(tdtk_env_name) $(node_env_name) $(rust_env_name) $(go_env_name)%{$reset_color%}"
+│ $(node_env_name) $(rust_env_name) $(go_env_name)%{$reset_color%}"
   else
     echo ""
   fi
 }
 
+local load_env_vars_line='$(load_env_vars)'
 local load_env_line='$(load_env_info)'
 local git_info='$(git_prompt_info)'
 
 PROMPT="
 ╭─%F{green}%n%F%F{247}@%F%F{33}$(box_name)%{$reset_color%} ${git_info}
-│ %B%F{226}%~%{$reset_color%}${load_env_line}
+│ %B%F{226}%~%{$reset_color%}${load_env_vars_line}${load_env_line}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
