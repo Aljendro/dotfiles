@@ -56,6 +56,13 @@ for await (const item of $1) {
 }
 endsnippet
 
+snippet reduce "Reduce results"
+${VISUAL}$1.reduce((accum, item) => {
+	$3
+	return accum;
+}, $2)
+endsnippet
+
 snippet if "If statement (highlighted in if block)"
 if ($1) {
 	${VISUAL}$2
@@ -158,3 +165,4 @@ snippet //* "Component body comment"
 ${VISUAL}
 */}
 endsnippet
+
