@@ -1,3 +1,5 @@
+[alias]
+    changes = "!f() { git diff \"$1^\" \"$1\"; }; f"
 [user]
   name   = Alejandro Alvarado
   email  = alejandro.alvarado0650144@gmail.com
