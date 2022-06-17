@@ -169,6 +169,8 @@ nnoremap <M-e> :resize +4<cr>
 nnoremap <M-s> :vertical resize +16<cr>
 nnoremap <M-f> :vertical resize -16<cr>
 
+cnoreabbrev <expr> wdt CommandAbbreviation('wdt', 'windo diffthis')
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -301,6 +303,10 @@ nnoremap <silent> <leader>an :call AppendNewlineToRegister()<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Miscellaneous
 """""""""""""""""""""""""""""""""""""""""""""""""
+
+" Go onto folded lines
+nnoremap j gj
+nnoremap k gk
 
 " Save
 xnoremap <C-s> "+y
