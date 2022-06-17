@@ -57,19 +57,6 @@ local on_attach = function(client, bufnr)
                                 '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'glQ',
                                 '<cmd>lua vim.diagnostic.setqflist()<cr>', opts)
-
-    if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
-          " hi LspReferenceRead cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-          " hi LspReferenceText cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-          " hi LspReferenceWrite cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-          augroup lsp_document_highlight
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-          augroup END
-        ]], false)
-    end
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
