@@ -11,7 +11,7 @@ function box_name {
 
 function tdtk_env_name {
   if [[ ! -z "$TDTK_ENV" ]]; then
-    if [[ "$TDTK_ENV" = "prod" || "$TDTK_ENV" = "preprod" ]]; then
+    if [[ "$TDTK_ENV" = "prod" || "$TDTK_ENV" = "preprod" || "$TDTK_ENV" = "preprod2" ]]; then
       THEME_PROFILE_NAME=$THEME_PROFILE_PROD_NAME
     else
       THEME_PROFILE_NAME=$THEME_PROFILE_NONPROD_NAME
