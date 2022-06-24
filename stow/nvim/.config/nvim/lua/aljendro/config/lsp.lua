@@ -205,7 +205,8 @@ lspconfig.jsonls.setup({
         '--stdio'
     },
     capabilities = capabilities,
-    settings = {json = {schemas = schemas}}
+    settings = {json = {schemas = schemas}},
+    on_attach = on_attach
 })
 
 --------------------------------------------------
