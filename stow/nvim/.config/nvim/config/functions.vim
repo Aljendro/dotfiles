@@ -103,7 +103,7 @@ function! FoldText()
   let l:end = substitute(substitute(getline(v:foldend), '\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
 
   let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+  let l:infolen = strlen(substitute(l:info, '.', 'x', 'g')) + 1
   let l:width = winwidth(0) - l:lpadding - l:infolen
 
   let l:separator = ' … '
@@ -111,7 +111,7 @@ function! FoldText()
   let l:start = strpart(l:start , 0, l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
   let l:text = l:start . ' … ' . l:end
 
-  return l:text . repeat(' ', l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+  return l:text . ' ' . repeat('=', l:width - strlen(substitute(l:text, ".", "x", "g")) - 1) . l:info
 endfunction
 
 function! EatChar(pat)
