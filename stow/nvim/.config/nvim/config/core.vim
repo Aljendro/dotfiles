@@ -6,9 +6,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""" Settings """"""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent on
-colorscheme tokyonight
-match errorMsg /\s\+$/
 
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
@@ -54,6 +51,14 @@ set splitbelow
 set splitright
 set updatetime=100
 set virtualedit=block,onemore
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""" Theme """"""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype plugin indent on
+colorscheme tokyonight
+match errorMsg /\s\+$/
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 """"""""" Configurations/Keybindings """"""""""""
