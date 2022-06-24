@@ -24,6 +24,7 @@ set expandtab
 set fillchars+=diff:\ ,fold:.
 set foldcolumn=1
 set foldtext=FoldText()
+set foldlevel=99
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading
 set guitablabel=%t
