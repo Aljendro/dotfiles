@@ -16,6 +16,7 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_tutor_mode_plugin = 1
 
 set autowrite
+set clipboard=unnamed
 set completeopt=menu,menuone,noselect
 set cursorline
 set dictionary+=/usr/share/dict/words
@@ -23,8 +24,8 @@ set display=truncate
 set expandtab
 set fillchars+=diff:\ ,fold:.
 set foldcolumn=1
-set foldtext=FoldText()
 set foldlevel=99
+set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading
 set guitablabel=%t
@@ -313,9 +314,6 @@ nnoremap <silent> <leader>an :call AppendNewlineToRegister()<cr>
 " Go onto folded lines
 nnoremap j gj
 nnoremap k gk
-
-" Save
-xnoremap <C-s> "+y
 
 " Undo breakpoints
 inoremap , ,<c-g>u
