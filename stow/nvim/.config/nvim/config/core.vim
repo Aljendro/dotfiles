@@ -512,7 +512,7 @@ nnoremap <leader>ds  :lua require('dap').close()<cr>
 nnoremap <leader>dl  :lua require('dap').run_last()<cr>
 nnoremap <leader>dr  :lua require('dap').repl.open({}, 'tab')<cr>
 nnoremap <leader>de  :lua require('dap').set_exception_breakpoints({"all"})<cr>
-nnoremap <leader>da  :lua require('config/debug-helper').attach()<cr>
+nnoremap <leader>da  :lua require('config/plugins/debug-helper').attach()<cr>
 nnoremap <leader>dh  :lua require('dap.ui.widgets').hover()<cr>
 xnoremap <leader>dh  :lua require('dap.ui.widgets').visual_hover()<cr>
 nnoremap <leader>dv  :lua local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<cr>gg

@@ -5,7 +5,10 @@ return require('packer').startup(function()
         module = {'telescope'},
         config = function() require('neoclip').setup({}) end
     }
-    use {"Pocco81/AutoSave.nvim"}
+    use {
+        "Pocco81/AutoSave.nvim",
+        config = function() require('autosave').setup({}) end
+    }
     use {
         'Pocco81/DAPInstall.nvim',
         cmd = {'DIInstall', 'DIUninstall', 'DIList'}
@@ -36,47 +39,52 @@ return require('packer').startup(function()
         requires = {
             {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
             {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
-        }
+        },
+        config = function()
+            require('aljendro/config/plugins/auto-completion');
+        end
     }
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
-    use {'karb94/neoscroll.nvim'}
+    use {
+        'karb94/neoscroll.nvim',
+        config = function() require('aljendro/config/plugins/neoscroll') end
+    }
     use {
         'kyazdani42/nvim-tree.lua',
         cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
         config = function() require('aljendro/config/plugins/nvim-tree') end
     }
-    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-    -- use {'mfussenegger/nvim-dap', config = function() require('aljendro/config/dap') end }
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {'nvim-lua/plenary.nvim'},
+        config = function() require('aljendro/config/plugins/gitsigns') end
+    }
+    -- use {'mfussenegger/nvim-dap', config = function() require('aljendro/config/plugins/dap') end }
     use {'mg979/vim-visual-multi'}
-    use {'neovim/nvim-lspconfig'}
+    use {
+        'neovim/nvim-lspconfig',
+        config = function() require('aljendro/config/plugins/lsp'); end
+    }
     use {
         'numToStr/Comment.nvim',
         config = function() require('Comment').setup({}) end
     }
-    use {'nvim-lualine/lualine.nvim'}
+    use {
+        'nvim-lualine/lualine.nvim',
+        config = function() require('aljendro/config/plugins/lualine') end
+    }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/plenary.nvim'},
-        config = function()
-            require('telescope').setup({
-                defaults = {
-                    cache_picker = {num_pickers = 20},
-                    layout_strategy = 'flex',
-                    layout_config = {
-                        height = 0.95,
-                        width = 0.95,
-                        vertical = {preview_height = 0.45},
-                        horizontal = {preview_width = 0.50}
-                    }
-                }
-            })
-            require('telescope').load_extension('fzf')
-        end
+        config = function() require('aljendro/config/plugins/telescope') end
     }
-    use {'nvim-treesitter/nvim-treesitter'}
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        config = function() require('aljendro/config/plugins/treesitter') end
+    }
     use {'olical/conjure', ft = {'clojure'}}
     use {'p00f/nvim-ts-rainbow'}
     use {
@@ -112,6 +120,9 @@ return require('packer').startup(function()
             'LspUninstallAll'
         }
     }
-    use {'windwp/nvim-ts-autotag'}
+    use {
+        'windwp/nvim-ts-autotag',
+        config = function() require('nvim-ts-autotag').setup({}) end
+    }
 
 end)

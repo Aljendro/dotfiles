@@ -1,13 +1,5 @@
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 
-vim.g.nvim_tree_group_empty = 1
-vim.g.nvim_tree_show_icons = {
-    ['git'] = 1,
-    ['folders'] = 1,
-    ['files'] = 1,
-    ['folder_arrows'] = 0
-}
-
 -- default mappings
 local list = {
     {key = {'CD'}, cb = tree_cb('cd')},
@@ -36,5 +28,16 @@ require('nvim-tree').setup({
     actions = {change_dir = {global = true}},
     update_cwd = true,
     view = {mappings = {custom_only = true, list = list}},
-    renderer = {indent_markers = {enable = true}}
+    renderer = {
+        group_empty = true,
+        indent_markers = {enable = true},
+        icons = {
+            show = {
+                git = true,
+                folder = true,
+                file = true,
+                folder_arrow = false
+            }
+        }
+    }
 })
