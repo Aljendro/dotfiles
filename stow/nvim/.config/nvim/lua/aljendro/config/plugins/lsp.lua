@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
-local helper = require('aljendro/config/helper')
+local utility = require('aljendro/config/utility')
 
 local opts = {noremap = true, silent = true}
 
@@ -68,7 +68,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
 --------------------------------------------------
 
 lspconfig.rust_analyzer.setup({
-    cmd = {helper.lsp_dir .. '/rust/rust-analyzer'},
+    cmd = {utility.lsp_dir .. '/rust/rust-analyzer'},
     capabilities = capabilities,
     on_attach = on_attach
 })
@@ -79,7 +79,7 @@ lspconfig.rust_analyzer.setup({
 
 lspconfig.dockerls.setup({
     cmd = {
-        helper.lsp_dir .. '/dockerfile/node_modules/.bin/docker-langserver',
+        utility.lsp_dir .. '/dockerfile/node_modules/.bin/docker-langserver',
         '--stdio'
     },
     capabilities = capabilities
@@ -97,7 +97,7 @@ lspconfig.clojure_lsp
 --------------------------------------------------
 
 lspconfig.gopls.setup({
-    cmd = {helper.lsp_dir .. '/go/gopls'},
+    cmd = {utility.lsp_dir .. '/go/gopls'},
     capabilities = capabilities,
     on_attach = on_attach
 })
@@ -108,7 +108,7 @@ lspconfig.gopls.setup({
 
 lspconfig.pyright.setup({
     cmd = {
-        helper.lsp_dir .. '/python/node_modules/.bin/pyright-langserver',
+        utility.lsp_dir .. '/python/node_modules/.bin/pyright-langserver',
         '--stdio'
     },
     capabilities = capabilities,
@@ -121,7 +121,7 @@ lspconfig.pyright.setup({
 
 lspconfig.tsserver.setup({
     cmd = {
-        helper.lsp_dir ..
+        utility.lsp_dir ..
             '/tsserver/node_modules/.bin/typescript-language-server', '--stdio'
     },
     capabilities = capabilities,
@@ -138,7 +138,7 @@ lspconfig.tsserver.setup({
 
 lspconfig.html.setup({
     cmd = {
-        helper.lsp_dir ..
+        utility.lsp_dir ..
             '/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server',
         '--stdio'
     },
@@ -151,7 +151,7 @@ lspconfig.html.setup({
 
 lspconfig.cssls.setup({
     cmd = {
-        helper.lsp_dir ..
+        utility.lsp_dir ..
             '/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server',
         '--stdio'
     },
@@ -200,7 +200,7 @@ local schemas = {
 
 lspconfig.jsonls.setup({
     cmd = {
-        helper.lsp_dir ..
+        utility.lsp_dir ..
             '/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server',
         '--stdio'
     },
@@ -260,7 +260,7 @@ local eslint = {
 }
 
 lspconfig.efm.setup({
-    cmd = {helper.lsp_dir .. '/efm/efm-langserver'},
+    cmd = {utility.lsp_dir .. '/efm/efm-langserver'},
     init_options = {documentFormatting = true},
     filetypes = {
         'lua', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'
