@@ -106,8 +106,8 @@ nnoremap <leader>or  :set relativenumber!<cr>:set relativenumber?<cr>
 nnoremap <leader>ob  :set scrollbind!<cr>:set scrollbind?<cr>
 nnoremap <leader>osc :set spell!<cr>:set spell?<cr>
 nnoremap <leader>oss :lua ToggleSmoothScroll()<cr>
-nnoremap <leader>oww  :set wrap!<cr>:set wrap?<cr>
-nnoremap <leader>ows  :set wrapscan!<cr>:set wrapscan?<cr>
+nnoremap <leader>oww :set wrap!<cr>:set wrap?<cr>
+nnoremap <leader>ows :set wrapscan!<cr>:set wrapscan?<cr>
 nnoremap <leader>op  :call Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
 nnoremap <leader>oP  mZ:bufdo call ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z
 
