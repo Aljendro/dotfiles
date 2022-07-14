@@ -146,3 +146,8 @@ function! ToggleOff(name, message)
   echo a:message . 'false'
   return b:{a:name}
 endfunction
+
+function! DiffContext(reverse) abort
+  call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', a:reverse ? 'bW' : 'W')
+  execute "normal! zz"
+endfunction

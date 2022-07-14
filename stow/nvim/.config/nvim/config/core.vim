@@ -403,16 +403,18 @@ nnoremap <leader>gd :tab split<cr>:Gvdiffsplit<cr>
 nnoremap <leader>gq :Git difftool<cr>:cclose<cr>
 " Load diffs into tabs
 nnoremap <leader>gD :Git difftool -y<cr>:cclose<cr>
-" Open merge conflicts in different tabs
-nnoremap <leader>gC :Git mergetool -y<cr>:cclose<cr>
 " Open git blame with commit and author
 nmap <leader>gb :Git blame<cr>A
 " Refresh difftool
 nnoremap <leader>gu :diffupdate<cr>
 " Choose left buffer
-nnoremap <expr> <leader>gj ':diffget //2/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
+nnoremap <leader>gh :diffget //2<cr>
 " Choose the right buffer
-nnoremap <expr> <leader>gk ':diffget //3/' . GetFilePathFromGitRoot(expand('%')) . '<cr>'
+nnoremap <leader>gl :diffget //3<cr>
+
+" Traverse git merge conflict markers
+nnoremap [n :<C-U>call DiffContext(1)<CR>
+nnoremap ]n :<C-U>call DiffContext(0)<CR>
 
 cnoreabbrev <expr> gf CommandAbbreviation('gf', 'Git fetch origin')
 cnoreabbrev <expr> gb CommandAbbreviation('gb', 'Git branch')
