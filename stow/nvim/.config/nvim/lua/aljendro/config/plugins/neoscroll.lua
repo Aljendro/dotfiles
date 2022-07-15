@@ -1,6 +1,6 @@
 require('neoscroll').setup({mappings = {}, hide_cursor = true})
 
-local toggled = false
+local toggled = true
 function ToggleSmoothScroll()
 
     pcall(vim.api.nvim_del_keymap, 'n', '<C-k>')
