@@ -1,5 +1,5 @@
 set smarttab
-set smartindent
+set nosmartindent
 set noexpandtab
 
 set shiftwidth=4
