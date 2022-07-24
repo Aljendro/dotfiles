@@ -70,8 +70,6 @@ nnoremap <space> <Nop>
 let mapleader = " "
 let maplocalleader= "\\"
 
-" Quick edit vimrc (plus cursor disappearing workaround (!ls<cr><cr>))
-nnoremap <F1> :tabedit $DOTFILES_DIR/stow/nvim/.config/nvim/config/core.vim<cr>
 " Quick save
 nnoremap <silent> <leader>r :lua require('plenary.reload').reload_module('aljendro', true)<cr>:source $MYVIMRC<cr>
 
@@ -115,14 +113,13 @@ nnoremap <leader>oP  mZ:bufdo call ToggleOff('aljendro_is_buffer_pinned', 'Buffe
 "" Terminal
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" tnoremap <Esc> <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Saves
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Faster saving
+" Faster buffer delete quitting
 nnoremap <leader>q :bd!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -254,9 +251,6 @@ nnoremap <leader>tn :tabnew<cr>:tabmove<cr>
 nnoremap <leader>ts :tabnew +setl\ buftype=nofile<cr>:tabmove<cr>
 " Close the tab
 nnoremap <leader>tc :tabclose<cr>
-" Go to last visited tab
-let g:lastTab = 1
-nnoremap <leader>tp :exec "tabn " . g:lastTab<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Folds
@@ -342,9 +336,6 @@ xnoremap . :normal .<cr>
 nnoremap <Left> zH
 nnoremap <Right> zL
 
-" Make Ctrl-c exactly like esc (trigger InsertLeave)
-inoremap <C-c> <esc>
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -356,10 +347,6 @@ augroup customVim
                         \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
                         \ |   exe "normal! g`\""
                         \ | endif
-      " Removing the o option removes adding a comment when open new line
-      autocmd Filetype * set formatoptions-=o
-      " Set the last known tab when switching tabs
-      autocmd TabLeave * let g:lastTab = tabpagenr()
       " Create a default session when vim leaves
       autocmd VimLeave * :call MakeSession()
       " Open quickfix after command that populates it is run
@@ -487,13 +474,6 @@ highlight LspReference guifg=NONE guibg=#665c54 guisp=NONE gui=NONE cterm=NONE c
 highlight! link LspReferenceText LspReference
 highlight! link LspReferenceRead LspReference
 highlight! link LspReferenceWrite LspReference
-
-augroup customLSP
-  autocmd!
-  " autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
-  " autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
-  " autocmd CursorMoved * lua vim.lsp.buf.clear_references()
-augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" DAP Client
