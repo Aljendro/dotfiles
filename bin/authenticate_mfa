@@ -13,7 +13,7 @@ if [ $# -eq 1 ]; then
     EXPIRATION=$(aws configure get session_expiration --profile $1 || echo "1970-01-01")
 
     now=$(date +%s)
-    expires=$(date -d $EXPIRATION +%s)
+    expires=$(date -j -f "%Y-%m-%d" $EXPIRATION +%s)
 
     if [[ $? -eq 0 && now -ge expires ]]; then
         printf "Enter MFA code for %s: " $1
