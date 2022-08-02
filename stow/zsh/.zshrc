@@ -8,7 +8,9 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.19.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
+# TODO: _stability_ Make sure 18.7.0 is stable for system
+# export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.19.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
+export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v18.7.0/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
@@ -17,6 +19,8 @@ export FZF_DEFAULT_OPTS="--bind ctrl-d:preview-half-page-down,ctrl-u:preview-hal
 export FZF_DEFAULT_COMMAND="fd --type file --hidden -E .git"
 export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
 export FZF_CTRL_T_COMMAND="fd --type file --hidden -E .git"
+export TIMER_FORMAT='[%d]'
+export TIMER_PRECISION=2
 
 alias n='nvim'
 alias nn='nvim -u NONE'
@@ -32,7 +36,7 @@ alias e='exit'
 
 ZSH_THEME="aljendro"
 DISABLE_MAGIC_FUNCTIONS=true
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64 timer)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

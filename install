@@ -73,9 +73,9 @@ source $HOME/.nvm/nvm.sh
 
 NODE_VERSION_CHECK=$(node --version)
 
-if [ $NODE_VERSION_CHECK != 'v14.19.1' ];then
-  nvm install 14.19.1
-  nvm alias default 14.19.1
+if [ $NODE_VERSION_CHECK != 'v18.7.0' ];then
+  nvm install 18.7.0
+  nvm alias default 18.7.0
 fi
 
 #################### Packer ######################
