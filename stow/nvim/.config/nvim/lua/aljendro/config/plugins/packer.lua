@@ -6,8 +6,8 @@ return require('packer').startup(function()
         config = function() require('neoclip').setup({}) end
     }
     use {
-        "Pocco81/AutoSave.nvim",
-        config = function() require('autosave').setup({}) end
+        "Pocco81/auto-save.nvim",
+        config = function() require('auto-save').setup({}) end
     }
     use {
         'Pocco81/DAPInstall.nvim',
