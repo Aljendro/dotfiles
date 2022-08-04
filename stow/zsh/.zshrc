@@ -8,9 +8,7 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-# TODO: _stability_ Make sure 18.7.0 is stable for system
-# export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.19.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
-export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v18.7.0/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
+export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v14.19.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
@@ -93,6 +91,11 @@ npx() {
 nvm() {
   lazy_load_nvm
   nvm $@
+}
+
+nvim () {
+  # Make sure nvim always uses the same nodejs version
+  PATH=$NVM_DIR/versions/node/v18.7.0/bin:$PATH /usr/local/bin/nvim "$@"
 }
 
 toggle_env_line() {
