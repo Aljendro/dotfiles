@@ -1,5 +1,10 @@
 [alias]
-    changes = "!f() { git diff \"$1^\" \"$1\"; }; f"
+  changes = "!f() { git diff \"$1^\" \"$1\"; }; f"
+  dbranches = "!f() { git branch | fzf --multi | sed -E 's/(\\*|\\+| ) //' | gxargs git branch -d; }; f"
+  Dbranches = "!f() { git branch | fzf --multi | sed -E 's/(\\*|\\+| ) //' | gxargs git branch -D; }; f"
+  undo = "!f() { git reset --soft HEAD^; }; f"
+  hard = "!f() { git reset --hard $1; }; f"
+  soft = "!f() { git reset --soft $1; }; f"
 [user]
   name   = Alejandro Alvarado
   email  = alejandro.alvarado0650144@gmail.com
