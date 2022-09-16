@@ -47,13 +47,11 @@ cmp.setup({
                 fallback()
             end
         end, {'i'}),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i'}),
-        ['<C-e>'] = cmp.mapping(function(fallback)
+        ['<C-Space>'] = cmp.mapping(function()
             if cmp.visible() then
-                cmp.mapping.abort()
-                cmp.mapping.close()
+                cmp.close()
             else
-                fallback()
+                cmp.complete()
             end
         end, {'i'}),
         ['<CR>'] = cmp.mapping(function(fallback)
