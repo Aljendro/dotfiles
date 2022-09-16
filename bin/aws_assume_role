@@ -1,0 +1,19 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: aws_assume_role <role_arn> <aws_profile>"
+}
+
+display_summary() {
+    echo -e "Assumes a role using AWS sts and sets the AWS cli env variables\n"
+}
+
+if [ $# -eq 2 ]; then
+    STS_RESPONSE=$(aws sts assume-role --role-arn "$1" --role-session-name "testing-${now}" --profile "$2");\
+    export AWS_ACCESS_KEY_ID=$(echo $STS_RESPONSE | jq -r '.Credentials''.AccessKeyId');\
+    export AWS_SECRET_ACCESS_KEY=$(echo $STS_RESPONSE | jq -r '.Credentials''.SecretAccessKey');\
+    export AWS_SESSION_TOKEN=$(echo $STS_RESPONSE | jq -r '.Credentials''.SessionToken');
+else
+    display_summary
+    display_usage
+fi
