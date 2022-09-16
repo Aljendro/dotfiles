@@ -27,10 +27,16 @@ function! GetSelectedText()
   let l:saved_reg = @"
   execute "normal! vgvy"
 
-  let l:pattern = escape(@", "\\/.*'$^~[] ")
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let @/ = escape(@", "\\/.*'$^~[]")
+  let @" = l:saved_reg
+endfunction
 
-  let @/ = l:pattern
+" https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
+function! GetSelectedTextGrep()
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let @/ = escape(@", " ")
   let @" = l:saved_reg
 endfunction
 

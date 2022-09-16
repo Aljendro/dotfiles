@@ -82,7 +82,8 @@ iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 " Quick Grep and Location/Quickfix List opens
 cnoreabbrev <expr> grep CommandAbbreviation('grep', "silent grep  \| copen<left><left><left><left><left><left><left><left>")
 cnoreabbrev <expr> lgrep CommandAbbreviation('lgrep', "silent lgrep  <C-r>=expand('%:p')<cr> \| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>")
-noreabbrev --ml --multiline --multiline-dotall
+noreabbrev --ml --multiline
+noreabbrev --mla --multiline --multiline-dotall
 " Non Greedy *
 cnoreabbrev *? <left>\{-}<C-r>=EatChar('\s')<cr>
 " Always open help in new tab
@@ -464,7 +465,7 @@ nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
 nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
 nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
 nnoremap ;w    :Telescope grep_string<cr>
-xnoremap ;w    :call GetSelectedText()<cr>:Telescope grep_string additional_args={'-F'} use_regex=false search=<C-R>=@/<cr><cr>
+xnoremap ;w    :call GetSelectedTextGrep()<cr>:Telescope grep_string additional_args={'-F'} search=<C-R>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
