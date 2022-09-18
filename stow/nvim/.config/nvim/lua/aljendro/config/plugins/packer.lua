@@ -33,10 +33,7 @@ return require('packer').startup(function()
             })
         end
     }
-    use {
-        'Pocco81/DAPInstall.nvim',
-        cmd = {'DIInstall', 'DIUninstall', 'DIList'}
-    }
+    -- use { 'Pocco81/DAPInstall.nvim', cmd = {'DIInstall', 'DIUninstall', 'DIList'} }
     use {
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'},
