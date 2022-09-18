@@ -6,8 +6,9 @@ return require('packer').startup(function()
     }
     use {
         'AckslD/nvim-neoclip.lua',
-        module = {'telescope'},
-        config = function() require('neoclip').setup({}) end
+        config = function()
+            require('neoclip').setup({default_register = {'"', '+', '*'}})
+        end
     }
     use {
         "doubleloop/auto-save.nvim",
