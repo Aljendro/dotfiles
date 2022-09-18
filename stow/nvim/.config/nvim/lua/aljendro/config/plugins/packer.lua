@@ -63,7 +63,8 @@ return require('packer').startup(function()
         'hrsh7th/nvim-cmp',
         requires = {
             {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
+            {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'},
+            {'hrsh7th/cmp-cmdline'}, {'hrsh7th/cmp-nvim-lsp-signature-help'}
         },
         config = function()
             require('aljendro/config/plugins/auto-completion');
