@@ -1,5 +1,18 @@
-require('telescope').setup({
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+
+telescope.setup({
     defaults = {
+        mappings = {
+            i = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous
+            },
+            n = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous
+            }
+        },
         cache_picker = {num_pickers = 20},
         layout_strategy = 'flex',
         layout_config = {
