@@ -129,7 +129,7 @@ return require('packer').startup(function()
     use {'raimondi/delimitmate', event = {'InsertEnter'}}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
-    use {'tpope/vim-fugitive', cmd = {'Git', 'Gvdiffsplit'}}
+    use {'tpope/vim-fugitive'}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
     use {'tpope/vim-surround'}
