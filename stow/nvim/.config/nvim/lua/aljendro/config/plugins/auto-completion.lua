@@ -59,19 +59,8 @@ cmp.setup({
         format = function(entry, vim_item)
             vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind],
                                           vim_item.kind) -- Concatonate the icons with name of the item-kind
-            vim_item.menu = ({
-                nvim_lsp = '[LSP]',
-                spell = '[Spellings]',
-                zsh = '[Zsh]',
-                buffer = '[Buffer]',
-                ultisnips = '[Snip]',
-                treesitter = '[Treesitter]',
-                calc = '[Calculator]',
-                nvim_lua = '[Lua]',
-                path = '[Path]',
-                nvim_lsp_signature_help = '[Signature]',
-                cmdline = '[Vim Command]'
-            })[entry.source.name]
+
+            vim_item.menu = ''
             return vim_item
         end
     },
