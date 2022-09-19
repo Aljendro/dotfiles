@@ -176,6 +176,8 @@ nnoremap <M-f> :vertical resize -16<cr>
 
 cnoreabbrev <expr> wdt CommandAbbreviation('wdt', 'windo diffthis')
 
+highlight WinSeparator guifg=#999999
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Search
 """""""""""""""""""""""""""""""""""""""""""""""""
