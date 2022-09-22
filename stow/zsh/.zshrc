@@ -93,11 +93,6 @@ nvm() {
   nvm $@
 }
 
-nvim () {
-  # Make sure nvim always uses the same nodejs version
-  PATH=$NVM_DIR/versions/node/v18.7.0/bin:$PATH /usr/local/bin/nvim "$@"
-}
-
 toggle_env_line() {
   if [[ $LOAD_ENV_INFO -eq 1 ]]; then
     LOAD_ENV_INFO=0
