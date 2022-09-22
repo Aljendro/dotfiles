@@ -6,8 +6,9 @@ return require('packer').startup(function()
     }
     use {
         'AckslD/nvim-neoclip.lua',
-        module = {'telescope'},
-        config = function() require('neoclip').setup({}) end
+        config = function()
+            require('neoclip').setup({default_register = {'"', '+', '*'}})
+        end
     }
     use {
         "doubleloop/auto-save.nvim",
@@ -32,10 +33,7 @@ return require('packer').startup(function()
             })
         end
     }
-    use {
-        'Pocco81/DAPInstall.nvim',
-        cmd = {'DIInstall', 'DIUninstall', 'DIList'}
-    }
+    -- use { 'Pocco81/DAPInstall.nvim', cmd = {'DIInstall', 'DIUninstall', 'DIList'} }
     use {
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'},
@@ -65,7 +63,8 @@ return require('packer').startup(function()
         'hrsh7th/nvim-cmp',
         requires = {
             {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'}
+            {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'},
+            {'hrsh7th/cmp-cmdline'}, {'hrsh7th/cmp-nvim-lsp-signature-help'}
         },
         config = function()
             require('aljendro/config/plugins/auto-completion');
@@ -130,7 +129,7 @@ return require('packer').startup(function()
     use {'raimondi/delimitmate', event = {'InsertEnter'}}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
-    use {'tpope/vim-fugitive', cmd = {'Git', 'Gvdiffsplit'}}
+    use {'tpope/vim-fugitive'}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
     use {'tpope/vim-surround'}

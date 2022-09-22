@@ -93,6 +93,10 @@ switch ($1) {
 }
 endsnippet
 
+snippet fc "Function Call" i
+$1(${VISUAL}$2)$3
+endsnippet
+
 snippet fna "Async Lambda Function" i
 async ($1) => {
 	${VISUAL}$2
@@ -125,7 +129,7 @@ endsnippet
 
 snippet td "Jest Describe"
 describe('$1', () => {
-	$2
+	${VISUAL}$2
 });
 endsnippet
 
