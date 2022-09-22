@@ -9,7 +9,7 @@
 
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
-let g:node_host_prog = expand("~/.nvm/versions/node/v18.7.0/bin/neovim-node-host")
+let g:node_host_prog = expand("~/.nvm/versions/node/v16.17.0/bin/neovim-node-host")
 let g:python3_host_prog = expand("/usr/bin/python3")
 
 let g:loaded_netrwPlugin = 1
