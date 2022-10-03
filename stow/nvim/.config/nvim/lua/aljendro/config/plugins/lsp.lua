@@ -126,7 +126,7 @@ lspconfig.tsserver.setup({
     },
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = false
         on_attach(client, bufnr)
     end,
     flags = {debounce_text_changes = 150}
@@ -218,7 +218,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 require('lspconfig').sumneko_lua.setup({
     on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = false
         on_attach(client, bufnr)
     end,
     settings = {
