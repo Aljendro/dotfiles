@@ -74,6 +74,12 @@ return require('packer').startup(function()
         config = function() require('aljendro/config/plugins/neoscroll') end
     }
     use {
+        'kosayoda/nvim-lightbulb',
+        config = function()
+            require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+        end
+    }
+    use {
         'kyazdani42/nvim-tree.lua',
         cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
         config = function() require('aljendro/config/plugins/nvim-tree') end
