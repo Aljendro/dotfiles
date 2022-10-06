@@ -44,10 +44,6 @@ return require('packer').startup(function()
             })
         end
     }
-    use {
-        'j-hui/fidget.nvim',
-        config = function() require('fidget').setup({}) end
-    }
     use {'kyazdani42/nvim-web-devicons'}
     use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
