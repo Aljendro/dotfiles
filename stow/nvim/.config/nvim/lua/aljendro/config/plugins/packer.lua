@@ -128,7 +128,6 @@ return require('packer').startup(function()
             })
         end
     }
-    use {'raimondi/delimitmate', event = {'InsertEnter'}}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
     use {'tpope/vim-fugitive'}
