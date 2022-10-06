@@ -152,5 +152,13 @@ return require('packer').startup(function()
         'windwp/nvim-ts-autotag',
         config = function() require('nvim-ts-autotag').setup({}) end
     }
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup({
+                disable_filetype = {"TelescopePrompt", "clojure"}
+            })
+        end
+    }
 
 end)
