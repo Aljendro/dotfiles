@@ -44,10 +44,6 @@ return require('packer').startup(function()
             })
         end
     }
-    use {
-        'j-hui/fidget.nvim',
-        config = function() require('fidget').setup({}) end
-    }
     use {'kyazdani42/nvim-web-devicons'}
     use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
@@ -76,6 +72,12 @@ return require('packer').startup(function()
     use {
         'karb94/neoscroll.nvim',
         config = function() require('aljendro/config/plugins/neoscroll') end
+    }
+    use {
+        'kosayoda/nvim-lightbulb',
+        config = function()
+            require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+        end
     }
     use {
         'kyazdani42/nvim-tree.lua',
@@ -126,7 +128,6 @@ return require('packer').startup(function()
             })
         end
     }
-    use {'raimondi/delimitmate', event = {'InsertEnter'}}
     use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
     use {'tpope/vim-fugitive'}
@@ -149,6 +150,14 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-ts-autotag',
         config = function() require('nvim-ts-autotag').setup({}) end
+    }
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup({
+                disable_filetype = {"TelescopePrompt", "clojure"}
+            })
+        end
     }
 
 end)
