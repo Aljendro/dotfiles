@@ -552,15 +552,6 @@ nnoremap <leader>vC :VimuxClearRunnerHistory<cr>
 nnoremap <leader>vz :VimuxZoomRunner<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-"" Delimitmate
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-let delimitMate_excluded_ft = "clojure"
-let delimitMate_expand_cr = 2
-let delimitMate_expand_space = 1
-let delimitMate_expand_inside_quotes = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
 "" Vim Test
 """""""""""""""""""""""""""""""""""""""""""""""""
 
