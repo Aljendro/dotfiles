@@ -1,9 +1,16 @@
 """"""""""""""""""" Conjure
-let g:conjure#mapping#def_word="d"
+
+let g:conjure#highlight#enabled = v:true
+let g:conjure#highlight#timeout = 250
 let conjure#log#wrap = v:true
 
 " Opening the REPL
 nmap <leader>cc <localleader>lv
+nmap <leader>ct <localleader>lt
+" Clear the REPL window
+nmap <leader>cr <localleader>lr
+" Reset the REPL
+nmap <leader>cR <localleader>lR
 " Closing the REPL
 nmap <leader>cq <localleader>lq
 
@@ -27,7 +34,7 @@ nmap <leader>ef <localleader>ef
 "" Evaluate File from buffer
 nmap <leader>eb <localleader>eb
 "" Go to documentation file
-nmap <leader>ed <localleader>d
+nmap <leader>ed <localleader>gd
 "" Evaluate form at mark
 nmap <expr> <leader>em '<localleader>em' . nr2char(getchar())
 
