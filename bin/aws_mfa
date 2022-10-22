@@ -1,0 +1,98 @@
+#!/usr/bin/env bb
+
+(ns aljendro.aws-mfa
+  (:require [clojure.java.shell :refer [sh]]
+            [clojure.string :as str]
+            [cheshire.core :as json])
+  (:import (java.time Instant OffsetDateTime)))
+
+(def session-duration 21600) ; 6 hours in seconds
+(def default-timestamp "1970-01-01T00:00:00Z")
+
+(defn run [command & {:keys [error-message]}]
+  (let [split-command (str/split command #" ")
+        result (apply sh split-command)]
+    (if (= (:exit result) 0)
+      (:out result)
+      (do
+        (println error-message)
+        (throw (Exception. (:err result)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn get-mfa-serial-number [profile-name]
+  (->
+   (run
+    (str "aws configure get mfa_serial --profile " profile-name)
+    :error-message "Unable to get the serial number for profile.")
+   str/trim-newline))
+
+(defn get-token-expiration [profile-name]
+  (->
+   (try
+     (run
+      (str "aws configure get session_expiration --profile " profile-name)
+      :error-message "Unable to get the expiration for the profile.")
+     (catch Exception e
+       (println "Defaulting to" default-timestamp)
+       default-timestamp))
+   str/trim-newline
+   OffsetDateTime/parse
+   .toString))
+
+(defn configure-set [profile-name field value]
+  (run
+   (str "aws configure set " field " " value " --profile " profile-name)
+   :error-message (str "Unable to set (" field ") " "to value (" value ") for profile (" profile-name ").")))
+
+(defn get-new-token [mfa-serial-number mfa-input]
+  (run
+   (str "aws sts get-session-token --serial-number " mfa-serial-number " --token-code " mfa-input " --duration-seconds " session-duration)
+   :error-message "Unable to get an aws sts token."))
+
+(defn get-mfa-input []
+  (print "Enter MFA code: ")
+  (flush)
+  (read-line))
+
+(defn parse-rfc3339-to-iso8601 [rfc3339-timestamp]
+  (.toString (OffsetDateTime/parse rfc3339-timestamp)))
+
+(defn is-expired? [iso8601-timestamp]
+  (let [iso8601-now (.toString (Instant/now))]
+    (>= (.compareTo iso8601-now iso8601-timestamp) 0)))
+
+(defn refresh-token [profile-name mfa-serial-number]
+  (let [mfa-input (get-mfa-input)
+        token-result (get-new-token mfa-serial-number mfa-input)
+        parsed-token-result (json/parse-string token-result true)
+        credentials (:Credentials parsed-token-result)
+        {:keys [AccessKeyId Expiration SecretAccessKey SessionToken]} credentials
+        parsed-expiration (parse-rfc3339-to-iso8601 Expiration)]
+    (configure-set profile-name "session_expiration" Expiration)
+    (configure-set profile-name "aws_access_key_id" AccessKeyId)
+    (configure-set profile-name "aws_secret_access_key" SecretAccessKey)
+    (configure-set profile-name "aws_session_token" SessionToken)
+    (println (str "Token set successfully with expiration (" parsed-expiration ")."))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Main
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(try
+  (if (= (count *command-line-args*) 1)
+    (let [profile-name (first *command-line-args*)
+          mfa-serial-number (get-mfa-serial-number profile-name)
+          token-expiration (get-token-expiration profile-name)]
+      (if (is-expired? token-expiration)
+        (refresh-token profile-name mfa-serial-number)
+        (println (str "Token is still valid with expiration (" token-expiration ")."))))
+    (do
+      (println "Usage: aws_mfa <profile>")
+      (println "Authenticate using MFA device for AWS CLI Access.\n")))
+  (catch Exception e
+    (print (.getMessage e))))
+
+
