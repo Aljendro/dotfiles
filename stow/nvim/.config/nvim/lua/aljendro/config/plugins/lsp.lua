@@ -22,9 +22,8 @@ local on_attach = function(client, bufnr)
                                 opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga',
                                 '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'v', 'ga',
-                                '<cmd>lua vim.lsp.buf.range_code_action()<cr>',
-                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'x', 'ga',
+                                '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
                                 '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
@@ -59,9 +58,9 @@ local on_attach = function(client, bufnr)
                                 '<cmd>lua vim.diagnostic.setqflist()<cr>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
-                                                                     .protocol
-                                                                     .make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
+                                                                      .protocol
+                                                                      .make_client_capabilities())
 
 --------------------------------------------------
 -------------------- Rust ------------------------
