@@ -149,6 +149,7 @@ Cargo.lock
 
 .clj-kondo
 .cpcache
+.nrepl-port
 
 ####################### RipGrep ########################
 
