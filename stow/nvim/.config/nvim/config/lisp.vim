@@ -4,20 +4,31 @@ let conjure#log#wrap = v:true
 
 " Opening the REPL
 nmap <leader>cc <localleader>lv
+" Closing the REPL
 nmap <leader>cq <localleader>lq
 
 " Working with REPL
 nnoremap <leader>ci Go
 
 " Evaluations
+
+"" Evaluate Form Under Cursor
 nmap <leader>ee <localleader>ee
+"" Evaluate Root Form Under Cursor
 nmap <leader>er <localleader>er
+"" Evaluate Editor Line
 nmap <leader>el <S-v><localleader>E
+"" Evaluate Form under cursor and replace with result
 nmap <leader>eo <localleader>e!
+"" Evaluate Word under cursor
 nmap <leader>ew <localleader>ew
+"" Evaluate File from disk
 nmap <leader>ef <localleader>ef
+"" Evaluate File from buffer
 nmap <leader>eb <localleader>eb
+"" Go to documentation file
 nmap <leader>ed <localleader>d
+"" Evaluate form at mark
 nmap <expr> <leader>em '<localleader>em' . nr2char(getchar())
 
 """""""""""""""""" sexp
@@ -68,12 +79,12 @@ let g:sexp_mappings = {
   \ 'sexp_square_tail_wrap_element':  '',
   \ 'sexp_curly_head_wrap_element':   '',
   \ 'sexp_curly_tail_wrap_element':   '',
-  \ 'sexp_insert_at_list_head':       '<localleader>i',
-  \ 'sexp_insert_at_list_tail':       '<localleader>a',
-  \ 'sexp_splice_list':               '<localleader>@',
-  \ 'sexp_convolute':                 '<localleader>?',
-  \ 'sexp_raise_list':                '<localleader>o',
-  \ 'sexp_raise_element':             '<localleader>O',
+  \ 'sexp_insert_at_list_head':       '<leader>si',
+  \ 'sexp_insert_at_list_tail':       '<leader>sa',
+  \ 'sexp_splice_list':               '<leader>ss',
+  \ 'sexp_convolute':                 '<leader>sc',
+  \ 'sexp_raise_list':                '<leader>srl',
+  \ 'sexp_raise_element':             '<leader>sre',
   \ 'sexp_swap_list_backward':        '<M-k>',
   \ 'sexp_swap_list_forward':         '<M-j>',
   \ 'sexp_swap_element_backward':     '<M-h>',
