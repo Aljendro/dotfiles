@@ -51,6 +51,9 @@ bindkey "^[OB" down-line-or-beginning-search
 bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
 
+### Edit commands with neovim
+bindkey -M vicmd "^n" edit-command-line
+
 ### Remove mode switching delay.
 KEYTIMEOUT=5
 

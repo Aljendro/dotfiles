@@ -1,4 +1,5 @@
 [alias]
+  mentions = "!f() { git log --oneline -S\"$1\" | awk '{print $1}' | gxargs -d '\n' -I{} git changes {}; }; f"
   changes = "!f() { git diff \"$1^\" \"$1\"; }; f"
   dbranches = "!f() { git branch | fzf --multi | sed -E 's/(\\*|\\+| ) //' | gxargs git branch -d; }; f"
   Dbranches = "!f() { git branch | fzf --multi | sed -E 's/(\\*|\\+| ) //' | gxargs git branch -D; }; f"
