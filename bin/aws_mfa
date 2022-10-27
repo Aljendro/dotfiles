@@ -87,7 +87,7 @@
         (refresh-token profile mfa-serial-number)
         (println (str "Token is still valid with expiration (" token-expiration ")."))))
     (do
-      (println "Usage: aws_mfa <profile>")
+      (println "Usage: aws_mfa <aws_profile>")
       (println "Authenticate using MFA device for AWS CLI Access.\n")))
   (catch Exception e
     (print (.getMessage e))))
