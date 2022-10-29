@@ -173,6 +173,9 @@ cmp.setup({
 
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
+    completion = {
+       autocomplete = false,
+    },
     sources = cmp.config.sources({
         {name = 'path', keyword_length = 3, group_index = 1},
         {name = 'cmdline', keyword_length = 3, group_index = 2},
