@@ -31,3 +31,5 @@ EOF
 
 nnoremap <silent> <leader><leader>c :lua toggleListItem("✅")<cr>
 nnoremap <silent> <leader><leader>p :lua toggleListItem("🚧")<cr>
+nnoremap <silent> <leader><leader>r :lua toggleListItem("🚀")<cr>
+
