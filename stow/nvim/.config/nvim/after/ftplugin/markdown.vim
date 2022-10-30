@@ -1,3 +1,6 @@
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
 " Reflow bases on column length
 nnoremap <leader>fm vapgq
 
