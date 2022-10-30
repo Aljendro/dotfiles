@@ -6,6 +6,6 @@ require('aljendro/config/plugins/packer');
 
 require('tokyonight').setup({dim_inactive = true})
 
-vim.cmd('source $HOME/.config/nvim/config/functions.vim')
+require('aljendro/config/functions');
 vim.cmd('source $HOME/.config/nvim/config/core.vim')
 

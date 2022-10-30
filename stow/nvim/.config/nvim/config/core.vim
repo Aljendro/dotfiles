@@ -25,7 +25,6 @@ set expandtab
 set fillchars+=diff:\ ,fold:.
 set foldcolumn=1
 set foldlevel=99
-set foldtext=FoldText()
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set grepprg=rg\ --vimgrep\ --no-heading
 set guitablabel=%t
@@ -80,18 +79,18 @@ nnoremap <silent> <leader>r :lua require('plenary.reload').reload_module('aljend
 " Code signature
 iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 " Quick Grep and Location/Quickfix List opens
-cnoreabbrev <expr> grep CommandAbbreviation('grep', "silent grep  \| copen<left><left><left><left><left><left><left><left>")
-cnoreabbrev <expr> lgrep CommandAbbreviation('lgrep', "silent lgrep  <C-r>=expand('%:p')<cr> \| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>")
+cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', "silent grep  \| copen<left><left><left><left><left><left><left><left>")
+cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', "silent lgrep  <C-r>=expand('%:p')<cr> \| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>")
 noreabbrev --ml --multiline
 noreabbrev --mla --multiline --multiline-dotall
 " Non Greedy *
-cnoreabbrev *? <left>\{-}<C-r>=EatChar('\s')<cr>
+cnoreabbrev *? <left>\{-}<C-r>=v:lua.EatChar('\s')<cr>
 " Always open help in new tab
-cnoreabbrev <expr> tah CommandAbbreviation('tah', 'tab help') . ' '
+cnoreabbrev <expr> tah v:lua.CommandAbbreviation('tah', 'tab help') . ' '
 " Change filetype
-cnoreabbrev <expr> ft CommandAbbreviation('ft', 'set ft=')
+cnoreabbrev <expr> ft v:lua.CommandAbbreviation('ft', 'set ft=')
 " Split line by a character
-cnoreabbrev <expr> sl CommandAbbreviation('sl', 's/\v()/\r/gc<left><left><left><left><left><left><left>')
+cnoreabbrev <expr> sl v:lua.CommandAbbreviation('sl', 's/\v()/\r/gc<left><left><left><left><left><left><left>')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Options
@@ -107,8 +106,8 @@ nnoremap <leader>osc :set spell!<cr>:set spell?<cr>
 nnoremap <leader>oss :lua ToggleSmoothScroll()<cr>
 nnoremap <leader>oww :set wrap!<cr>:set wrap?<cr>
 nnoremap <leader>ows :set wrapscan!<cr>:set wrapscan?<cr>
-nnoremap <leader>op  :call Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
-nnoremap <leader>oP  mZ:bufdo call ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z
+nnoremap <leader>op  :call v:lua.Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>
+nnoremap <leader>oP  mZ:bufdo call v:lua.ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Terminal
@@ -138,7 +137,7 @@ nnoremap <M-m> :lnext<cr>zz
 nnoremap <M-,> :lprevious<cr>zz
 
 " Remove folds for all files in quickfix
-cnoreabbrev <expr> qnf CommandAbbreviation('qnf', 'cfdo set nofoldenable')
+cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofoldenable')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Splits/Windows
@@ -174,7 +173,7 @@ nnoremap <M-e> :resize +4<cr>
 nnoremap <M-s> :vertical resize +16<cr>
 nnoremap <M-f> :vertical resize -16<cr>
 
-cnoreabbrev <expr> wdt CommandAbbreviation('wdt', 'windo diffthis')
+cnoreabbrev <expr> wdt v:lua.CommandAbbreviation('wdt', 'windo diffthis')
 
 highlight WinSeparator guifg=#999999
 
@@ -192,8 +191,8 @@ xmap <leader>/w *Ncgn
 nmap <leader>/w g*cgn
 
 " Visual mode pressing * or # searches for the current selection
-xnoremap <silent> * :call GetSelectedText()<cr>/<C-R>=@/<cr><cr>
-xnoremap <silent> # :call GetSelectedText()<cr>?<C-R>=@/<cr><cr>
+xnoremap <silent> * mi:call v:lua.GetSelectedText()<cr>/<C-R>=@/<cr><cr>`i
+xnoremap <silent> # mi:call v:lua.GetSelectedText()<cr>?<C-R>=@/<cr><cr>`i
 
 " Maintain position when you hit * or #
 nnoremap * :keepjumps normal! mi*`i<cr>
@@ -281,9 +280,9 @@ nnoremap <leader>fr zx
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Quick Session
-nnoremap <expr> <leader>ss ':wall \| call MakeSession(' . nr2char(getchar()) . ')<cr>'
-nnoremap <expr> <leader>sr ':wall \| call MakeSession() \| tabonly \| call LoadSession(' . nr2char(getchar()) . ')<cr>'
-nnoremap <leader>sd :wall \| call LoadSession('default')<cr>
+nnoremap <expr> <leader>ss ':wall \| call v:lua.MakeSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <expr> <leader>sr ':wall \| call v:lua.MakeSession("default") \| tabonly \| call v:lua.LoadSession(' . nr2char(getchar()) . ')<cr>'
+nnoremap <leader>sd :wall \| call v:lua.LoadSession('default')<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Profiling
@@ -297,11 +296,11 @@ nnoremap <leader>pp :profile start profile-all.local.txt \| profile file * \| pr
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easier macro execution
-nnoremap <silent> <leader>m :call RecordMacro()<cr>
+nnoremap <silent> <leader>m :call v:lua.RecordMacro()<cr>
 nnoremap Q @@
 xnoremap Q :norm! @@<cr>
 
-nnoremap <silent> <leader>an :call AppendNewlineToRegister()<cr>
+nnoremap <silent> <leader>an :call v:lua.AppendNewlineToRegister()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Miscellaneous
@@ -350,7 +349,7 @@ augroup customVim
                         \ |   exe "normal! g`\""
                         \ | endif
       " Create a default session when vim leaves
-      autocmd VimLeave * :call MakeSession()
+      autocmd VimLeave * :call v:lua.MakeSession('default')
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
@@ -402,26 +401,26 @@ nnoremap <leader>gh :diffget //2<cr>
 nnoremap <leader>gl :diffget //3<cr>
 
 " Traverse git merge conflict markers
-nnoremap [n :<C-U>call DiffContext(1)<CR>
-nnoremap ]n :<C-U>call DiffContext(0)<CR>
+nnoremap [n :<C-U>call v:lua.DiffContext(true)<CR>
+nnoremap ]n :<C-U>call v:lua.DiffContext(false)<CR>
 
-cnoreabbrev <expr> gf CommandAbbreviation('gf', 'Git fetch origin')
-cnoreabbrev <expr> gb CommandAbbreviation('gb', 'Git branch')
-cnoreabbrev <expr> gbd CommandAbbreviation('gbd', 'Git branch -d')
-cnoreabbrev <expr> gbdr CommandAbbreviation('gbdr', 'Git push origin --delete')
-cnoreabbrev <expr> gpl CommandAbbreviation('gpl', 'Git pull')
-cnoreabbrev <expr> ggpull CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')
-cnoreabbrev <expr> gp CommandAbbreviation('gp', 'Git push')
-cnoreabbrev <expr> ggpush CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')
-cnoreabbrev <expr> gco CommandAbbreviation('gco', 'Git checkout')
-cnoreabbrev <expr> gcb CommandAbbreviation('gcb', 'Git checkout -b')
-cnoreabbrev <expr> gcd CommandAbbreviation('gcd', 'Git checkout develop')
-cnoreabbrev <expr> gcm CommandAbbreviation('gcm', 'Git checkout master')
-cnoreabbrev <expr> gac CommandAbbreviation('gac', 'Git commit -a -m')
-cnoreabbrev <expr> gsta CommandAbbreviation('gsta', 'Git stash push -u -m')
-cnoreabbrev <expr> gstd CommandAbbreviation('gstd', 'Git stash drop')
-cnoreabbrev <expr> gstl CommandAbbreviation('gstl', 'Git stash list')
-cnoreabbrev <expr> gstp CommandAbbreviation('gstp', 'Git stash pop')
+cnoreabbrev <expr> gf v:lua.CommandAbbreviation('gf', 'Git fetch origin')
+cnoreabbrev <expr> gb v:lua.CommandAbbreviation('gb', 'Git branch')
+cnoreabbrev <expr> gbd v:lua.CommandAbbreviation('gbd', 'Git branch -d')
+cnoreabbrev <expr> gbdr v:lua.CommandAbbreviation('gbdr', 'Git push origin --delete')
+cnoreabbrev <expr> gpl v:lua.CommandAbbreviation('gpl', 'Git pull')
+cnoreabbrev <expr> ggpull v:lua.CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gp v:lua.CommandAbbreviation('gp', 'Git push')
+cnoreabbrev <expr> ggpush v:lua.CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gco v:lua.CommandAbbreviation('gco', 'Git checkout')
+cnoreabbrev <expr> gcb v:lua.CommandAbbreviation('gcb', 'Git checkout -b')
+cnoreabbrev <expr> gcd v:lua.CommandAbbreviation('gcd', 'Git checkout develop')
+cnoreabbrev <expr> gcm v:lua.CommandAbbreviation('gcm', 'Git checkout master')
+cnoreabbrev <expr> gac v:lua.CommandAbbreviation('gac', 'Git commit -a -m')
+cnoreabbrev <expr> gsta v:lua.CommandAbbreviation('gsta', 'Git stash push -u -m')
+cnoreabbrev <expr> gstd v:lua.CommandAbbreviation('gstd', 'Git stash drop')
+cnoreabbrev <expr> gstl v:lua.CommandAbbreviation('gstl', 'Git stash list')
+cnoreabbrev <expr> gstp v:lua.CommandAbbreviation('gstp', 'Git stash pop')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Fuzzy Finder (Telescope)
@@ -466,7 +465,7 @@ nnoremap ;t    :lua require('telescope.builtin').treesitter()<cr>
 nnoremap ;vf   :lua require('telescope.builtin').filetypes()<cr>
 nnoremap ;vo   :lua require('telescope.builtin').vim_options()<cr>
 nnoremap ;w    :Telescope grep_string<cr>
-xnoremap ;w    :call GetSelectedTextGrep()<cr>:Telescope grep_string additional_args={'-F'} search=<C-R>=@/<cr><cr>
+xnoremap ;w    :call v:lua.GetSelectedTextGrep()<cr>:Telescope grep_string additional_args={'-F'} search=<C-R>=@/<cr><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" LSP Client
@@ -582,10 +581,10 @@ nnoremap <leader>so :lua require("harpoon.ui").nav_file(9)<cr>
 "" JQ
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-cnoreabbrev <expr> jq CommandAbbreviation('jq', "%!jq ''<left>", "!jq ''<left>")
-cnoreabbrev <expr> jqc CommandAbbreviation('jqc', "%!jq -c ''<left>", "!jq -c ''<left>")
-cnoreabbrev <expr> jqs CommandAbbreviation('jqs', "%!jq -s ''<left>", "!jq -s ''<left>")
-cnoreabbrev <expr> jqs CommandAbbreviation('jqcs', "%!jq -c -s ''<left>", "!jq -c -s ''<left>")
+cnoreabbrev <expr> jq v:lua.CommandAbbreviation('jq', "%!jq ''<left>", "!jq ''<left>")
+cnoreabbrev <expr> jqc v:lua.CommandAbbreviation('jqc', "%!jq -c ''<left>", "!jq -c ''<left>")
+cnoreabbrev <expr> jqs v:lua.CommandAbbreviation('jqs', "%!jq -s ''<left>", "!jq -s ''<left>")
+cnoreabbrev <expr> jqs v:lua.CommandAbbreviation('jqcs', "%!jq -c -s ''<left>", "!jq -c -s ''<left>")
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" NrrwRgn
@@ -601,7 +600,7 @@ xmap <leader>z <Plug>NrrwrgnDo
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Fast column formatting
-cnoreabbrev <expr> t CommandAbbreviation('t', "Tab /")
+cnoreabbrev <expr> t v:lua.CommandAbbreviation('t', "Tab /")
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "" Nvim-tree
