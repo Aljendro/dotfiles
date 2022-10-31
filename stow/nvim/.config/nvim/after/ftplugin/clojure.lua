@@ -1,0 +1,1 @@
+require('aljendro/config/lisp')
