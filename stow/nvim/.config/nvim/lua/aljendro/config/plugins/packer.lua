@@ -81,7 +81,6 @@ return require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
         config = function() require('aljendro/config/plugins/nvim-tree') end
     }
     use {
