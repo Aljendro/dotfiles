@@ -50,11 +50,11 @@ return require('packer').startup(function()
     use {
         'eraserhd/parinfer-rust',
         run = 'cargo build --release',
-        ft = {'clojure'}
+        ft = {'clojure', 'fennel'}
     }
     use {'folke/tokyonight.nvim'}
     use {'godlygeek/tabular'}
-    use {'guns/vim-sexp', ft = {'clojure'}}
+    use {'guns/vim-sexp', ft = {'clojure', 'fennel'}}
     use {
         'hrsh7th/nvim-cmp',
         requires = {
@@ -112,7 +112,8 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         config = function() require('aljendro/config/plugins/treesitter') end
     }
-    use {'olical/conjure', ft = {'clojure'}}
+    use {'olical/aniseed'}
+    use {'olical/conjure', ft = {'clojure', 'fennel'}}
     use {'p00f/nvim-ts-rainbow'}
     use {
         'phaazon/hop.nvim',

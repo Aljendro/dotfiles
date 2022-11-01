@@ -47,6 +47,7 @@ let g:sexp_mappings = {}
 let g:sexp_enable_insert_mode_mappings = 0
 
 " vim-sexp internal mappings
+" TODO: Conflict keymaps remove
 let g:sexp_mappings = {
   \ 'sexp_outer_list':                'af',
   \ 'sexp_inner_list':                'if',
@@ -70,8 +71,8 @@ let g:sexp_mappings = {
   \ 'sexp_flow_to_next_leaf_head':    '<M-S-w>',
   \ 'sexp_flow_to_prev_leaf_tail':    '<M-S-g>',
   \ 'sexp_flow_to_next_leaf_tail':    '<M-S-e>',
-  " \ 'sexp_move_to_prev_top_element':  '',
-  " \ 'sexp_move_to_next_top_element':  '',
+  \ 'sexp_move_to_prev_top_element':  '',
+  \ 'sexp_move_to_next_top_element':  '',
   \ 'sexp_select_prev_element':       '[e',
   \ 'sexp_select_next_element':       ']e',
   \ 'sexp_indent':                    '==',
@@ -94,10 +95,10 @@ let g:sexp_mappings = {
   \ 'sexp_convolute':                 '<leader>sc',
   \ 'sexp_raise_list':                '<leader>srl',
   \ 'sexp_raise_element':             '<leader>sre',
-  " \ 'sexp_swap_list_backward':        '<M-k>', TODO: Conflict, change these out
-  " \ 'sexp_swap_list_forward':         '<M-j>',
-  " \ 'sexp_swap_element_backward':     '<M-h>',
-  " \ 'sexp_swap_element_forward':      '<M-l>',
+  \ 'sexp_swap_list_backward':        '<M-k>',
+  \ 'sexp_swap_list_forward':         '<M-j>',
+  \ 'sexp_swap_element_backward':     '<M-h>',
+  \ 'sexp_swap_element_forward':      '<M-l>',
   \ 'sexp_emit_head_element':         '<M-S-j>',
   \ 'sexp_emit_tail_element':         '<M-S-k>',
   \ 'sexp_capture_prev_element':      '<M-S-h>',
