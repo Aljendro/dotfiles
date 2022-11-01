@@ -161,7 +161,7 @@ cmp.setup({
                 cmp.complete()
             end
         end, {'i', 'c'}),
-        ['<C-y>'] = cmp.mapping(function(fallback)
+        ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({select = true})
             else
