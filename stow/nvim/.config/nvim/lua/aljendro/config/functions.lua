@@ -3,6 +3,18 @@
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
 
+-- Pretty print
+function Put(...)
+    local objects = {}
+    for i = 1, select('#', ...) do
+        local v = select(i, ...)
+        table.insert(objects, vim.inspect(v))
+    end
+
+    print(table.concat(objects, '\n'))
+    return ...
+end
+
 function DeleteTrailingSpaces()
     local search_register_value = vim.fn.getreg("/")
     vim.cmd([[%s/\s\+$//e]])

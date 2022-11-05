@@ -190,5 +190,3 @@
                            :typescript [prettier eslint]
                            :typescriptreact [prettier eslint]}}})
 
-
-

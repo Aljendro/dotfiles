@@ -46,3 +46,4 @@
     (set toggled (not toggled)))
 
 (ToggleSmoothScroll)
+

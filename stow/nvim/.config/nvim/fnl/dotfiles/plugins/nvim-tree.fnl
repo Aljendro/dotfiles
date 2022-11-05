@@ -1,5 +1,6 @@
-(module dotfiles.plugins.tree
-  {autoload {: nvim-tree
+(module dotfiles.plugins.nvim-tree
+  {autoload {{: kmap} dotfiles.core.common
+             : nvim-tree
              nvim-tree-config nvim-tree.config}})
 
 ;; default mappings
@@ -47,4 +48,7 @@
                              :folder true
                              :file true
                              :folder_arrow false}}}})
+
+(kmap :n ";df" ':NvimTreeFindFileToggle<cr>')
+(kmap :n ";dd" ':NvimTreeToggle<cr>')
 

@@ -86,7 +86,7 @@ require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        config = function() require('dotfiles.plugins.tree') end
+        config = function() require('dotfiles.plugins.nvim-tree') end
     }
     use {
         'lewis6991/gitsigns.nvim',
@@ -166,6 +166,75 @@ require('packer').startup(function()
     }
 
 end)
+
+vim.cmd([[
+
+" Code signature
+iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
+" Quick Grep and Location/Quickfix List opens
+cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', "silent grep  \| copen<left><left><left><left><left><left><left><left>")
+cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', "silent lgrep  <C-r>=expand('%:p')<cr> \| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>")
+noreabbrev _ml --multiline
+noreabbrev _mla --multiline --multiline-dotall
+" Non Greedy *
+cnoreabbrev *? <left>\{-}<C-r>=v:lua.EatChar('\s')<cr>
+" Always open help in new tab
+cnoreabbrev <expr> tah v:lua.CommandAbbreviation('tah', 'tab help') . ' '
+" Change filetype
+cnoreabbrev <expr> ft v:lua.CommandAbbreviation('ft', 'set ft=')
+" Split line by a character
+
+cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofoldenable')
+
+cnoreabbrev <expr> wdt v:lua.CommandAbbreviation('wdt', 'windo diffthis')
+
+highlight WinSeparator guifg=#999999
+
+augroup customVim
+      autocmd!
+      " When editing a file, always jump to the last known cursor position.
+      autocmd BufReadPost *
+                        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+                        \ |   exe "normal! g`\""
+                        \ | endif
+      " Create a default session when vim leaves
+      autocmd VimLeave * :call v:lua.MakeSession('default')
+      " Open quickfix after command that populates it is run
+      autocmd QuickFixCmdPost [^l]* cwindow
+      autocmd QuickFixCmdPost l* lwindow
+      " Highlight the movement selection
+      autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=150 }
+augroup END
+
+let g:nremap = {'s': 'S'}
+let g:xremap = {'s': 'S'}
+
+cnoreabbrev <expr> gf v:lua.CommandAbbreviation('gf', 'Git fetch origin')
+cnoreabbrev <expr> gb v:lua.CommandAbbreviation('gb', 'Git branch')
+cnoreabbrev <expr> gbd v:lua.CommandAbbreviation('gbd', 'Git branch -d')
+cnoreabbrev <expr> gbdr v:lua.CommandAbbreviation('gbdr', 'Git push origin --delete')
+cnoreabbrev <expr> gpl v:lua.CommandAbbreviation('gpl', 'Git pull')
+cnoreabbrev <expr> ggpull v:lua.CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gp v:lua.CommandAbbreviation('gp', 'Git push')
+cnoreabbrev <expr> ggpush v:lua.CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')
+cnoreabbrev <expr> gco v:lua.CommandAbbreviation('gco', 'Git checkout')
+cnoreabbrev <expr> gcb v:lua.CommandAbbreviation('gcb', 'Git checkout -b')
+cnoreabbrev <expr> gcd v:lua.CommandAbbreviation('gcd', 'Git checkout develop')
+cnoreabbrev <expr> gcm v:lua.CommandAbbreviation('gcm', 'Git checkout master')
+cnoreabbrev <expr> gac v:lua.CommandAbbreviation('gac', 'Git commit -a -m')
+cnoreabbrev <expr> gsta v:lua.CommandAbbreviation('gsta', 'Git stash push -u -m')
+cnoreabbrev <expr> gstd v:lua.CommandAbbreviation('gstd', 'Git stash drop')
+cnoreabbrev <expr> gstl v:lua.CommandAbbreviation('gstl', 'Git stash list')
+cnoreabbrev <expr> gstp v:lua.CommandAbbreviation('gstp', 'Git stash pop')
+
+highlight LspReference guifg=NONE guibg=#665c54 guisp=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=59
+highlight! link LspReferenceText LspReference
+highlight! link LspReferenceRead LspReference
+highlight! link LspReferenceWrite LspReference
+
+cnoreabbrev <expr> t v:lua.CommandAbbreviation('t', "Tab /")
+
+]])
 
 -- Enable Aniseed's automatic compilation and loading of Fennel source code.
 vim.g["aniseed#env"] = {module = "dotfiles.init", compile = false}
