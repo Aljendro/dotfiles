@@ -2,6 +2,7 @@
 --
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
+
 function DeleteTrailingSpaces()
     local search_register_value = vim.fn.getreg("/")
     vim.cmd([[%s/\s\+$//e]])
