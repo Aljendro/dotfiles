@@ -219,8 +219,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Quick Session
-(kmap :n "<leader>ss" ":wall | call v:lua.MakeSession(\" . nr2char(getchar()) . \")<cr>'" {:expr true})
-(kmap :n "<leader>sr" ":wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession(\" . nr2char(getchar()) . \")<cr>'" {:expr true})
+(kmap :n "<leader>ss" "':wall | call v:lua.MakeSession(\"' . nr2char(getchar()) . '\")<cr>'" {:expr true})
+(kmap :n "<leader>sr" "':wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession(\"' . nr2char(getchar()) . '\")<cr>'" {:expr true})
 (kmap :n "<leader>sd" ":wall | call v:lua.LoadSession(\"default\")<cr>")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
