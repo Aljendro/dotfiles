@@ -2,7 +2,7 @@
   {autoload {{: kbmap : current-buf} dotfiles.core.common}})
 
 (set vim.opt_local.foldmethod "expr")
-(set vim.opt_local.foldexpr (. vim.g "nvim_treesitter#foldexpr()"))
+(set vim.opt_local.foldexpr "nvim_treesitter#foldexpr()")
 
 ;; Reflow bases on column length
 (kbmap current-buf :n "<leader>fm" "vapgq" {:silent true})

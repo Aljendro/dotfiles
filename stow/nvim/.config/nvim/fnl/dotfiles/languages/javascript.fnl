@@ -3,7 +3,7 @@
 
 (vim.cmd "iabbrev <buffer> d; debugger;")
 (set vim.opt_local.foldmethod "expr")
-(set vim.opt_local.foldexpr (. vim.g "nvim_treesitter#foldexpr()"))
+(set vim.opt_local.foldexpr "nvim_treesitter#foldexpr()")
 
 (tset vim.g "test#javascript#runner" "jest")
 (tset vim.g "test#javascript#jest#file_pattern" "\\v(__tests__/.*|(spec|test|integration))\\.(js|jsx|ts|tsx)$")
