@@ -1,8 +1,7 @@
 #!/usr/bin/env bb
 
 (ns aljendro.aws-mfa
-  (:require [clojure.java.shell :refer [sh]]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [cheshire.core :as json])
   (:import (java.time Instant OffsetDateTime)))
 

@@ -12,3 +12,4 @@ stow/fzf/.fzf
 stow/clojure/.clojure
 stow/tmux/.tmux-themepack
 stow/nvim/.config/nvim/plugin/packer_compiled.lua
+stow/nvim/.config/nvim/lua/dotfiles/
