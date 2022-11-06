@@ -2,5 +2,5 @@
   {autoload {{: kbmap : current-buf} dotfiles.core.common}})
 
 (defn setup []
-  (kbmap current-buf :n "<localleader>j" ":%!csvtojson | jq -c '.[]'<cr>" {:noremap true}))
+  (kbmap current-buf :n "<leader>j" ":%!csvtojson | jq -c '.[]'<cr>"))
 
