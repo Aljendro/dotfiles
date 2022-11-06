@@ -4,7 +4,44 @@
 (let [(ok? treesitter) (pcall require "nvim-treesitter.configs")]
   (when ok?
     (treesitter.setup
-      {:ensure_installed "all"
+      {:ensure_installed ["bash"
+                          "c"
+                          "clojure"
+                          "comment"
+                          "cpp"
+                          "css"
+                          "diff"
+                          "dockerfile"
+                          "fennel"
+                          "git_rebase"
+                          "gitattributes"
+                          "gitignore"
+                          "go"
+                          "gomod"
+                          "gowork"
+                          "graphql"
+                          "help"
+                          "html"
+                          "javascript"
+                          "jsdoc"
+                          "json"
+                          "JSON with comments"
+                          "lua"
+                          "make"
+                          "markdown"
+                          "pug"
+                          "python"
+                          "Tree-sitter query language"
+                          "regex"
+                          "rust"
+                          "scss"
+                          "sql"
+                          "toml"
+                          "tsx"
+                          "typescript"
+                          "vim"
+                          "yaml"]
+
        :indent {:enable true}
        :highlight {:enable true
                    :additional_vim_regex_highlighting false}
