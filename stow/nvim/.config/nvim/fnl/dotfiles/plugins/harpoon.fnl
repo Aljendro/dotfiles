@@ -4,7 +4,7 @@
 (kmap :n "<leader>sa" ":lua require('harpoon.mark').add_file()<cr>")
 (kmap :n "<leader>sA" ":lua require('harpoon.ui').toggle_quick_menu()<cr>")
 (kmap :n "<leader>sm" ":lua require('harpoon.ui').nav_file(1)<cr>")
-(kmap :n "<leader>s" ":lua require('harpoon.ui').nav_file(2)<cr>")
+(kmap :n "<leader>s," ":lua require('harpoon.ui').nav_file(2)<cr>")
 (kmap :n "<leader>s." ":lua require('harpoon.ui').nav_file(3)<cr>")
 (kmap :n "<leader>sj" ":lua require('harpoon.ui').nav_file(4)<cr>")
 (kmap :n "<leader>sk" ":lua require('harpoon.ui').nav_file(5)<cr>")
