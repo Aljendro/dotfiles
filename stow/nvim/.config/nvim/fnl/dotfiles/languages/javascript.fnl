@@ -11,5 +11,5 @@
    (tset vim.g "test#javascript#jest#options" "--testMatch \"**/__tests__/**/*.[jt]s?(x)\", \"**/?(*.)+(spec|test|integration).[jt]s?(x)\"")
 
    (kbmap current-buf :n "<leader>rr" ":call VimuxRunCommand('node ' . expand('%:p') . ' ')<left><left>")
-   (kbmap current-buf :n "<leader>ri" ":call VimuxRunCommand('node --inspect' . expand('%:p') . ' ')<left><left>"))
+   (kbmap current-buf :n "<leader>ri" ":call VimuxRunCommand('node --inspect-brk ' . expand('%:p') . ' ')<left><left>"))
 
