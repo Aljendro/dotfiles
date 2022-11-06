@@ -1,4 +1,4 @@
-(module dotfiles.plugins.cmp
+(module dotfiles.languages.lisp
   {autoload {{: kbmap : current-buf} dotfiles.core.common}})
 
 (tset vim.g "conjure#highlight#enabled" true)

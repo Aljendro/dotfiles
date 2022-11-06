@@ -1,4 +1,4 @@
-(module dotfiles.languages.markdown
+(module dotfiles.languages.qf
   {autoload {{: kbmap : current-buf} dotfiles.core.common}})
 
 ;; Do not lose focus of quickfix when pressing enter
