@@ -1,1 +1,2 @@
-require('aljendro/config/lisp')
+require('dotfiles.languages.lisp')
+

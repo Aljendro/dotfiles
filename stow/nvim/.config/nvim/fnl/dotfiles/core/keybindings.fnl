@@ -8,7 +8,29 @@
 (set vim.g.maplocalleader "\\")
 
 ;; Quick reload
-(kmap :n "<leader>r" ":lua require('plenary.reload').reload_module('aljendro', true)<cr>:source $MYVIMRC<cr>")
+(kmap :n "<leader>r" ":lua require('plenary.reload').reload_module('dotfiles', true)<cr>:source $MYVIMRC<cr>")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Abbreviations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Code signature
+(vim.cmd "iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>")
+;; Quick Grep and Location/Quickfix List opens
+(vim.cmd "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep \\| copen<left><left><left><left><left><left><left><left>\")")
+(vim.cmd "cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")")
+(vim.cmd "noreabbrev _ml --multiline")
+(vim.cmd "noreabbrev _mla --multiline --multiline-dotall")
+;; Non Greedy *
+(vim.cmd "cnoreabbrev *? <left>\\{-}<C-r>=v:lua.EatChar('\\s')<cr>")
+;; Always open help in new tab
+(vim.cmd "cnoreabbrev <expr> tah v:lua.CommandAbbreviation('tah', 'tab help') . ' '")
+;; Change filetype
+(vim.cmd "cnoreabbrev <expr> ft v:lua.CommandAbbreviation('ft', 'set ft=')")
+;; Diff files in window
+(vim.cmd "cnoreabbrev <expr> wdt v:lua.CommandAbbreviation('wdt', 'windo diffthis')")
+;; Tabularize
+(vim.cmd "cnoreabbrev <expr> t v:lua.CommandAbbreviation('t', 'Tab /')")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Options Toggles
@@ -47,6 +69,8 @@
 ;; Move between location list easily
 (kmap :n "<M-m>" ":lnext<cr>zz")
 (kmap :n "<M-,>" ":lprevious<cr>zz")
+
+(vim.cmd "cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofoldenable')")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Splits/Windows

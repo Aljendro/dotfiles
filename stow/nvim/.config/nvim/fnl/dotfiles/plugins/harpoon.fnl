@@ -1,9 +1,5 @@
 (module dotfiles.plugins.harpoon
-  {autoload {{: kmap} dotfiles.core.common
-             : harpoon}})
-
-(harpoon.setup
-  {:menu {:width (- (vim.api.nvim_win_get_width 0) 4)}})
+  {autoload {{: kmap} dotfiles.core.common}})
 
 (kmap :n "<leader>sa" ":lua require('harpoon.mark').add_file()<cr>")
 (kmap :n "<leader>sA" ":lua require('harpoon.ui').toggle_quick_menu()<cr>")

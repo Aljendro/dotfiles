@@ -2,8 +2,6 @@
     {require [aljendro.config.functions
               dotfiles.core.settings
               dotfiles.core.keybindings
-              dotfiles.plugins.surround
-              dotfiles.plugins.ultisnips
               dotfiles.plugins.cmp
               dotfiles.plugins.fugitive
               dotfiles.plugins.gitsigns

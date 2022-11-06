@@ -1,1 +1,2 @@
-require('aljendro/config/javascript')
+require('dotfiles.languages.javascript')
+

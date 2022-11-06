@@ -1,10 +1,5 @@
 (module dotfiles.plugins.hop
-  {autoload {{: kmap} dotfiles.core.common
-             : hop}})
-
-(hop.setup 
-  {:keys "fjdksla;rueiwovmcxtyz",
-   :term_seq_bias 0.5})
+  {autoload {{: kmap} dotfiles.core.common}})
 
 ;; 1-character
 (kmap :n "<leader>k" "<cmd>HopWord<cr>" {:silent true})

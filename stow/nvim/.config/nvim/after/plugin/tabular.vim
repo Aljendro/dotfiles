@@ -1,5 +1,3 @@
-vim.cmd([[
-
 " Some useful patterns for the Tabularize plugin
 "
 " Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
@@ -12,4 +10,3 @@ vim.cmd([[
       \ map(a:lines, "substitute(v:val, '\s\{1,}', ' ', 'g')")
       \   | tabular#TabularizeStrings(a:lines, ' ', 'l0')
 
-]])
