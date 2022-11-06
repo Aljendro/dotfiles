@@ -36,7 +36,7 @@
 ;; Options Toggles
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(kmap :n "<leader>oh" ":set cursorcolumn!<cr>:set cursorcolumn?<cr>")
+(kmap :n "<leader>oc" ":set cursorcolumn!<cr>:set cursorcolumn?<cr>")
 (kmap :n "<leader>of" ":set foldenable!<cr>:set foldenable?<cr>")
 (kmap :n "<leader>ol" ":set lazyredraw!<cr>:set lazyredraw?<cr>")
 (kmap :n "<leader>on" ":set number!<cr>:set number?<cr>")
