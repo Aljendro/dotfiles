@@ -10,7 +10,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (lspconfig.tsserver.setup
-       {:cmd [(.. lsp-dir  "/tsserver/node_modules/.bin/typescript-language-server" "--stdio")]
+       {:cmd [(.. lsp-dir  "/tsserver/node_modules/.bin/typescript-language-server") "--stdio"]
         :capabilities capabilities
         :on_attach (fn [client bufnr]
                      (tset client :server_capabilities :document_formatting false)
@@ -31,7 +31,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (lspconfig.dockerls.setup
-       {:cmd [(.. lsp-dir  "/dockerfile/node_modules/.bin/docker-langserver" "--stdio")]
+       {:cmd [(.. lsp-dir  "/dockerfile/node_modules/.bin/docker-langserver") "--stdio"]
         :capabilities capabilities})
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -57,7 +57,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (lspconfig.pyright.setup
-       {:cmd [(.. lsp-dir  "/python/node_modules/.bin/pyright-langserver" "--stdio")]
+       {:cmd [(.. lsp-dir  "/python/node_modules/.bin/pyright-langserver") "--stdio"]
         :capabilities capabilities
         :on_attach on-attach})
 
@@ -66,7 +66,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (lspconfig.html.setup
-      {:cmd [(.. lsp-dir  "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server" "--stdio")]
+      {:cmd [(.. lsp-dir  "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server") "--stdio"]
        :capabilities capabilities})
 
 
@@ -75,7 +75,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     (lspconfig.cssls.setup
-       {:cmd [(.. lsp-dir  "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server" "--stdio")]
+       {:cmd [(.. lsp-dir  "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server") "--stdio"]
         :capabilities capabilities})
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -109,7 +109,7 @@
          :url "https://json.schemastore.org/package.json"}])
 
     (lspconfig.jsonls.setup
-        {:cmd [(.. lsp-dir "/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server" "--stdio")]
+        {:cmd [(.. lsp-dir "/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server") "--stdio"]
          :capabilities capabilities
          :settings {:json {:schemas schemas}}
          :on_attach on-attach})
