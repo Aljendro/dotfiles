@@ -8,10 +8,9 @@
 (set vim.g.loaded_tutor_mode_plugin 0)
 
 (vim.opt.dictionary:append "/usr/share/dict/words")
-(vim.opt.iskeyword:remove "-")
+(vim.opt.iskeyword:append "-")
 (vim.opt.shortmess:append "c")
 
-(set vim.opt.termguicolors true)
 (set vim.opt.clipboard [:unnamed])
 (set vim.opt.completeopt [:menu :menuone :noselect])
 (set vim.opt.cursorline true)
