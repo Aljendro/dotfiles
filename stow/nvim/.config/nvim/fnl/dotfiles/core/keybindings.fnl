@@ -116,8 +116,8 @@
 (kmap :n "<leader>/c" ":%s///gn<cr>")
 
 ;; Change word under cursor giving the ability to reapply with .
-(kmap :x "<leader>/w" "*Ncgn")
-(kmap :n "<leader>/w" "g*cgn")
+(kmap :x "<leader>/w" "*Ncgn" {:noremap false})
+(kmap :n "<leader>/w" "g*cgn" {:noremap false})
 
 ;; Visual mode pressing * or # searches for the current selection
 (kmap :x "*" "mi:call v:lua.GetSelectedText()<cr>/<C-R>=@/<cr><cr>`i")
@@ -141,7 +141,7 @@
 
 ;; Move between args easily
 (kmap :n "sm" ":previous<cr>")
-(kmap :n "s" ":next<cr>")
+(kmap :n "s," ":next<cr>")
 (kmap :n "sn" ":first<cr>")
 (kmap :n "s." ":last<cr>")
 
@@ -162,7 +162,7 @@
 ;; Quickly delete buffer
 (kmap :n "sd" ":bdelete<cr>")
 ;; Delete unpinned buffers
-(kmap :n "sD" "bufdo if get(b:, \"aljendro_is_buffer_pinned\") == 0 | exec 'bd' | endif<cr>")
+(kmap :n "sD" ":bufdo if get(b:, \"aljendro_is_buffer_pinned\") == 0 | exec 'bd' | endif<cr>")
 
 ;; Faster shifting
 (kmap :n "<Left>" "zH")
@@ -185,10 +185,9 @@
 ;; Create a new tab at the end
 (kmap :n "<leader>tn" ":tabnew<cr>:tabmove<cr>")
 ;; Create a new scratch buffer tab at the end
-(kmap :n "<leader>ts" ":tabnew +setl buftype=nofile<cr>:tabmove<cr>")
+(kmap :n "<leader>ts" ":tabnew +setl\\ buftype=nofile<cr>:tabmove<cr>")
 ;; Close the tab
 (kmap :n "<leader>tc" ":tabclose<cr>")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Folds
@@ -235,7 +234,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Easier macro execution
-(kmap :n "<leader>m" ":call v:lua.RecordMacro()<cr>")
+(kmap :n "<leader>m" ":call v:lua.RecordMacro()<cr>" {:silent true})
 (kmap :n "Q" "@@")
 (kmap :x "Q" ":norm! @@<cr>")
 
