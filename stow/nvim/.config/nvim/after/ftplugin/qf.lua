@@ -1,2 +1,2 @@
-require('dotfiles.languages.qf')
+require('dotfiles.languages.qf').setup()
 

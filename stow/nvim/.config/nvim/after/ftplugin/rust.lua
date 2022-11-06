@@ -1,2 +1,2 @@
-require('dotfiles.languages.rust')
+require('dotfiles.languages.rust').setup()
 

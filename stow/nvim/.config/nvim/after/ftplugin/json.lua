@@ -1,2 +1,2 @@
-require('dotfiles.languages.json')
+require('dotfiles.languages.json').setup()
 

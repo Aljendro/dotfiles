@@ -1,2 +1,2 @@
-require('dotfiles.languages.csv')
+require('dotfiles.languages.csv').setup()
 

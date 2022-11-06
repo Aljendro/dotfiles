@@ -1,2 +1,2 @@
-require('dotfiles.languages.lisp')
+require('dotfiles.languages.lisp').setup()
 

@@ -1,2 +1,2 @@
-require('dotfiles.languages.markdown')
+require('dotfiles.languages.markdown').setup()
 

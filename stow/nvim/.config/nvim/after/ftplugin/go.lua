@@ -1,2 +1,2 @@
-require('dotfiles.languages.go')
+require('dotfiles.languages.go').setup()
 

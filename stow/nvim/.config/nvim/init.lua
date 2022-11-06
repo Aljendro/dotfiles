@@ -2,6 +2,7 @@
 --
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
+
 vim.o.termguicolors = true
 require('packer').startup(function()
 
