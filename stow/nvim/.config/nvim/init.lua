@@ -113,6 +113,7 @@ require('packer').startup(function()
     }
     use {
         'nvim-treesitter/nvim-treesitter',
+        requires = {'nvim-treesitter/playground'},
         config = function() require('dotfiles.plugins.treesitter') end
     }
     use {'olical/aniseed'}
