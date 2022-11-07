@@ -23,7 +23,7 @@ require('packer').startup(function()
             'VimuxPromptCommand', 'VimuxRunLastCommand', 'VimuxInspectRunner',
             'VimuxCloseRunner', 'VimuxInterruptRunner',
             'VimuxClearTerminalScreen', 'VimuxClearRunnerHistory',
-            'VimuxZoomRunner'
+            'VimuxZoomRunner', 'VimuxRunCommand'
         }
     }
     use {'chrisbra/NrrwRgn'}
