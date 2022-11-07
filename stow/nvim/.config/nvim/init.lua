@@ -2,57 +2,30 @@
 --
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
-
 vim.o.termguicolors = true
 require('packer').startup(function()
 
     use {
         'norcalli/nvim-colorizer.lua',
+        ft = {'css', 'scss', 'html'},
         config = function() require('colorizer').setup() end
-    }
-    use {
-        'AckslD/nvim-neoclip.lua',
-        config = function()
-            require('neoclip').setup({default_register = {'"', '+', '*'}})
-        end
-    }
-    use {
-        "doubleloop/auto-save.nvim",
-        commit = "2f52da487b26a2eafed289ff78a6e8df52995f6f",
-        config = function()
-            require('auto-save').setup({
-                trigger_events = {"InsertLeave", "TextChanged"}, -- vim events that trigger auto-save. See :h events
-                -- function that determines whether to save the current buffer or not
-                -- return true: if buffer is ok to be saved
-                -- return false: if it's not ok to be saved
-                condition = function(buf)
-                    local fn = vim.fn
-                    local utils = require("auto-save.utils.data")
-
-                    local saveableFileType =
-                        utils.not_in(fn.getbufvar(buf, "&filetype"),
-                                     {'TelescopePrompt', 'TelescopeResults'});
-                    if fn.getbufvar(buf, "&modifiable") == 1 and
-                        saveableFileType then
-                        return true -- met condition(s), can save
-                    end
-                    return false -- can't save
-                end
-            })
-        end
     }
     use {
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'},
         module = {'harpoon.mark', 'harpoon.ui'},
-        config = function()
-            require('harpoon').setup({
-                menu = {width = vim.api.nvim_win_get_width(0) - 4}
-            })
-        end
+        config = function() require('dotfiles.plugins.harpoon').setup() end
     }
     use {'kyazdani42/nvim-web-devicons'}
-    use {'benmills/vimux'}
+    use {
+        'benmills/vimux',
+        cmd = {
+            'VimuxPromptCommand', 'VimuxRunLastCommand', 'VimuxInspectRunner',
+            'VimuxCloseRunner', 'VimuxInterruptRunner',
+            'VimuxClearTerminalScreen', 'VimuxClearRunnerHistory',
+            'VimuxZoomRunner'
+        }
+    }
     use {'chrisbra/NrrwRgn'}
     use {
         'eraserhd/parinfer-rust',
@@ -62,20 +35,16 @@ require('packer').startup(function()
     use {'folke/tokyonight.nvim'}
     use {'godlygeek/tabular'}
     use {
-        'hrsh7th/nvim-cmp',
-        requires = {
-            {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'},
-            {'hrsh7th/cmp-cmdline'}, {'hrsh7th/cmp-nvim-lsp-signature-help'}
-        },
-        config = function() require('dotfiles.plugins.cmp'); end
+        'iamcco/markdown-preview.nvim',
+        ft = {'markdown'},
+        run = 'cd app && yarn install'
     }
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use {'kana/vim-textobj-entire'}
     use {'kana/vim-textobj-user'}
     use {
         'karb94/neoscroll.nvim',
-        config = function() require('dotfiles.plugins.neoscroll') end
+        module = {'neoscroll', 'neoscroll.config'},
+        config = function() require('dotfiles.plugins.neoscroll').setup() end
     }
     use {
         'kosayoda/nvim-lightbulb',
@@ -85,7 +54,8 @@ require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        config = function() require('dotfiles.plugins.nvim-tree') end
+        cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
+        config = function() require('dotfiles.plugins.nvim-tree').setup() end
     }
     use {
         'lewis6991/gitsigns.nvim',
@@ -95,7 +65,23 @@ require('packer').startup(function()
     use {'mg979/vim-visual-multi'}
     use {
         'neovim/nvim-lspconfig',
-        config = function() require('dotfiles.plugins.lspconfig'); end
+        requires = {
+            'hrsh7th/nvim-cmp',
+            requires = {
+                {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
+                {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'},
+                {'hrsh7th/cmp-cmdline'}, {'hrsh7th/cmp-nvim-lsp-signature-help'}
+            },
+            config = function()
+                require('dotfiles.plugins.cmp').setup()
+            end
+        },
+        ft = {
+            'javascript', 'javascriptreact', 'typescript', 'typescriptreact',
+            'json', 'html', 'css', 'lua', 'clojure', 'dockerfile', 'rust', 'go',
+            'python'
+        },
+        config = function() require('dotfiles.plugins.lspconfig').setup() end
     }
     use {
         'numToStr/Comment.nvim',
@@ -105,11 +91,22 @@ require('packer').startup(function()
         'nvim-lualine/lualine.nvim',
         config = function() require('dotfiles.plugins.lualine') end
     }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {
         'nvim-telescope/telescope.nvim',
-        requires = {'nvim-lua/plenary.nvim'},
-        config = function() require('dotfiles.plugins.telescope') end
+        cmd = {'Telescope'},
+        module = {'telescope', 'telescope.builtin'},
+        requires = {
+            'nvim-lua/plenary.nvim',
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}, {
+                'AckslD/nvim-neoclip.lua',
+                config = function()
+                    require('neoclip').setup({
+                        default_register = {'"', '+', '*'}
+                    })
+                end
+            }
+        },
+        config = function() require('dotfiles.plugins.telescope').setup() end
     }
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -121,10 +118,7 @@ require('packer').startup(function()
     use {'p00f/nvim-ts-rainbow'}
     use {
         'phaazon/hop.nvim',
-        cmd = {
-            'HopWord', 'HopLine', 'HopChar1', 'HopWord', 'HopLine', 'HopChar1',
-            'HopWord', 'HopLine', 'HopChar1'
-        },
+        cmd = {'HopWord', 'HopChar1'},
         config = function()
             require('hop').setup({
                 keys = 'fjdksla;rueiwovmcxtyz',
@@ -132,7 +126,7 @@ require('packer').startup(function()
             })
         end
     }
-    use {'sirver/ultisnips'}
+    use {'sirver/ultisnips', event = {"InsertEnter"}}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
     use {'tpope/vim-fugitive'}
     use {'tpope/vim-repeat'}
@@ -143,7 +137,6 @@ require('packer').startup(function()
         cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
     }
     use {'wbthomason/packer.nvim'}
-    use {'wellle/targets.vim'}
     use {'WhoIsSethDaniel/lualine-lsp-progress.nvim'}
     use {
         'williamboman/nvim-lsp-installer',
@@ -154,13 +147,15 @@ require('packer').startup(function()
     }
     use {
         'windwp/nvim-ts-autotag',
+        ft = {'javascriptreact', 'typescriptreact', 'html'},
         config = function() require('nvim-ts-autotag').setup({}) end
     }
     use {
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({
-                disable_filetype = {"TelescopePrompt", "clojure"}
+                disable_filetype = {"TelescopePrompt", "clojure", "fennel"}
             })
         end
     }
