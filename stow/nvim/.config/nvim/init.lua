@@ -26,15 +26,7 @@ require('packer').startup(function()
         config = function() require('dotfiles.plugins.harpoon').setup() end
     }
     use {'kyazdani42/nvim-web-devicons'}
-    use {
-        'benmills/vimux',
-        cmd = {
-            'VimuxPromptCommand', 'VimuxRunLastCommand', 'VimuxInspectRunner',
-            'VimuxCloseRunner', 'VimuxInterruptRunner',
-            'VimuxClearTerminalScreen', 'VimuxClearRunnerHistory',
-            'VimuxZoomRunner', 'VimuxRunCommand'
-        }
-    }
+    use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
     use {
         'eraserhd/parinfer-rust',
