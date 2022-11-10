@@ -66,7 +66,6 @@ require('packer').startup(function()
     use {'mg979/vim-visual-multi'}
     use {
         'neovim/nvim-lspconfig',
-
         ft = {
             'javascript', 'javascriptreact', 'typescript', 'typescriptreact',
             'json', 'html', 'css', 'lua', 'clojure', 'dockerfile', 'rust', 'go',
