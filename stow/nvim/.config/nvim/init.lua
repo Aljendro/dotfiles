@@ -66,17 +66,6 @@ require('packer').startup(function()
     use {'mg979/vim-visual-multi'}
     use {
         'neovim/nvim-lspconfig',
-        requires = {
-            'hrsh7th/nvim-cmp',
-            requires = {
-                {'quangnguyen30192/cmp-nvim-ultisnips'}, {'hrsh7th/cmp-buffer'},
-                {'hrsh7th/cmp-nvim-lsp'}, {'hrsh7th/cmp-path'},
-                {'hrsh7th/cmp-cmdline'}, {'hrsh7th/cmp-nvim-lsp-signature-help'}
-            },
-            config = function()
-                require('dotfiles.plugins.cmp').setup()
-            end
-        },
         ft = {
             'javascript', 'javascriptreact', 'typescript', 'typescriptreact',
             'json', 'html', 'css', 'lua', 'clojure', 'dockerfile', 'rust', 'go',
