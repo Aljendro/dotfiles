@@ -26,7 +26,7 @@
 (set vim.opt.mouse "a")
 (set vim.opt.number true)
 (set vim.opt.relativenumber true)
-(set vim.opt.scrolloff 1)
+(set vim.opt.scrolloff 999)
 (set vim.opt.showmode false)
 (set vim.opt.showtabline 2)
 (set vim.opt.signcolumn "yes")
