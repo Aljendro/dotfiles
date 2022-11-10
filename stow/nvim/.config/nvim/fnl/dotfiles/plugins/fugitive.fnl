@@ -22,8 +22,8 @@
 ;; Choose the right buffer
 (kmap :n "<leader>gl" ":diffget //3<cr>")
 ;; Traverse git merge conflict markers
-(kmap :n "]n" ":call v:lua.DiffContext(true)<CR>")
-(kmap :n "[n" ":call v:lua.DiffContext(false)<CR>")
+(kmap :n "]n" ":lua DiffContext(true)<cr>")
+(kmap :n "[n" ":lua DiffContext(false)<cr>")
 
 (vim.cmd "cnoreabbrev <expr> gf v:lua.CommandAbbreviation('gf', 'Git fetch origin')")
 (vim.cmd "cnoreabbrev <expr> gb v:lua.CommandAbbreviation('gb', 'Git branch')")
