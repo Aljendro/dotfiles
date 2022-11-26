@@ -104,6 +104,7 @@ require('packer').startup(function()
             })
         end
     }
+    use {'sirver/ultisnips'}
     use {'stefandtw/quickfix-reflector.vim', ft = {'qf'}}
     use {'tpope/vim-fugitive'}
     use {'tpope/vim-repeat'}

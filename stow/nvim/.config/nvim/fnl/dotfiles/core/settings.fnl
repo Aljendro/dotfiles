@@ -2,7 +2,7 @@
 
 (set vim.g.loaded_perl_provider 0)
 (set vim.g.loaded_ruby_provider 0)
-(set vim.g.node_host_prog (vim.fn.expand "~/.nvm/versions/node/v16.17.0/bin/neovim-node-host"))
+(set vim.g.node_host_prog (vim.fn.expand "~/.nvm/versions/node/v16.18.1/bin/neovim-node-host"))
 (set vim.g.python3_host_prog (vim.fn.expand "/usr/bin/python3"))
 (set vim.g.loaded_netrwPlugin 0)
 (set vim.g.loaded_tutor_mode_plugin 0)
@@ -26,7 +26,6 @@
 (set vim.opt.mouse "a")
 (set vim.opt.number true)
 (set vim.opt.relativenumber true)
-(set vim.opt.scrolloff 1)
 (set vim.opt.showmode false)
 (set vim.opt.showtabline 2)
 (set vim.opt.signcolumn "yes")
