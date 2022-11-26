@@ -82,6 +82,27 @@ require('packer').startup(function()
         config = function() require('dotfiles.plugins.lualine') end
     }
     use {
+        "nvim-neorg/neorg",
+        -- tag = "*",
+        ft = "norg",
+        after = "nvim-treesitter", -- You may want to specify Telescope here as well
+        config = function()
+            require('neorg').setup({
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.norg.dirman"] = {
+                        config = {
+                            workspaces = {
+                                work = "$DOTFILES_DIR/.config/nvim/notes/work",
+                                home = "$DOTFILES_DIR/.config/nvim/notes/home"
+                            }
+                        }
+                    }
+                }
+            })
+        end
+    }
+    use {
         'nvim-telescope/telescope.nvim',
         cmd = {'Telescope'},
         module = {'telescope', 'telescope.builtin'},
@@ -142,7 +163,6 @@ require('packer').startup(function()
     }
     use {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({
                 disable_filetype = {"TelescopePrompt", "clojure", "fennel"}
