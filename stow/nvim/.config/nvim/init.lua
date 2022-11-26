@@ -7,7 +7,6 @@ require('packer').startup(function()
 
     use {
         'norcalli/nvim-colorizer.lua',
-        ft = {'css', 'scss', 'html'},
         config = function() require('colorizer').setup() end
     }
     use {
@@ -22,7 +21,6 @@ require('packer').startup(function()
     use {
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'},
-        module = {'harpoon.mark', 'harpoon.ui'},
         config = function() require('dotfiles.plugins.harpoon').setup() end
     }
     use {'kyazdani42/nvim-web-devicons'}
@@ -44,7 +42,6 @@ require('packer').startup(function()
     use {'kana/vim-textobj-user'}
     use {
         'karb94/neoscroll.nvim',
-        module = {'neoscroll', 'neoscroll.config'},
         config = function() require('dotfiles.plugins.neoscroll').setup() end
     }
     use {
@@ -55,7 +52,6 @@ require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        cmd = {'NvimTreeFindFile', 'NvimTreeToggle'},
         config = function() require('dotfiles.plugins.nvim-tree').setup() end
     }
     use {
@@ -66,11 +62,6 @@ require('packer').startup(function()
     use {'mg979/vim-visual-multi'}
     use {
         'neovim/nvim-lspconfig',
-        ft = {
-            'javascript', 'javascriptreact', 'typescript', 'typescriptreact',
-            'json', 'html', 'css', 'lua', 'clojure', 'dockerfile', 'rust', 'go',
-            'python'
-        },
         config = function() require('dotfiles.plugins.lspconfig').setup() end
     }
     use {
@@ -83,8 +74,6 @@ require('packer').startup(function()
     }
     use {
         'nvim-telescope/telescope.nvim',
-        cmd = {'Telescope'},
-        module = {'telescope', 'telescope.builtin'},
         requires = {
             'nvim-lua/plenary.nvim',
             {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}, {
@@ -108,7 +97,6 @@ require('packer').startup(function()
     use {'p00f/nvim-ts-rainbow'}
     use {
         'phaazon/hop.nvim',
-        cmd = {'HopWord', 'HopChar1'},
         config = function()
             require('hop').setup({
                 keys = 'fjdksla;rueiwovmcxtyz',
@@ -122,10 +110,7 @@ require('packer').startup(function()
     use {'tpope/vim-repeat'}
     use {'tpope/vim-sleuth'}
     use {'tpope/vim-surround'}
-    use {
-        'vim-test/vim-test',
-        cmd = {'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'}
-    }
+    use {'vim-test/vim-test'}
     use {'wbthomason/packer.nvim'}
     use {'WhoIsSethDaniel/lualine-lsp-progress.nvim'}
     use {
@@ -142,7 +127,6 @@ require('packer').startup(function()
     }
     use {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({
                 disable_filetype = {"TelescopePrompt", "clojure", "fennel"}
