@@ -6,7 +6,7 @@
       {:ensure_installed ["bash" "c" "clojure" "comment" "commonlisp" "cpp" "css" "diff"
                           "dockerfile" "fennel" "git_rebase" "gitattributes" "gitignore" "go" "gomod"
                           "gowork" "graphql" "help" "html" "http" "javascript" "jsdoc" "json" "json5"
-                          "jsonc" "lua" "make" "markdown" "markdown_inline" "pug" "python" "query"
+                          "jsonc" "lua" "make" "markdown" "markdown_inline" "norg" "pug" "python" "query"
                           "regex" "rust" "scss" "sql" "todotxt" "toml" "tsx" "typescript" "vim" "yaml"]
        :indent {:enable true}
        :highlight {:enable true
