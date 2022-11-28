@@ -1,0 +1,184 @@
+# Move this file to: `~/.amethyst.yml`
+# In order to register changes restart Amethyst.
+# If you experience issues pulling in the changes you can also quit Amethyst and run: 
+# rm ~/Library/Preferences/com.amethyst.Amethyst.plist
+# This removes the current preferences and causes a re-load of this file when amethyst restarts.
+
+################################################################################
+## Settings
+################################################################################
+
+# true to display the name of the layout when moving to a new space (default true).
+enables-layout-hud-on-space-change: false
+
+# Boolean flag for whether or not to add margins betwen windows (default false).
+window-margins: true
+
+# Add x px margin between windows
+# The size of the margins between windows (in px, default 0).
+window-margin-size: 5
+
+# List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
+floating:
+  - "com.apple.systempreferences"
+
+# true if windows smaller than a 500px square should be floating by default (default true)
+float-small-windows: true
+
+# true if dragging and dropping windows on to each other should swap their positions (default false).
+mouse-swaps-windows: true
+
+# true if changing the frame of a window with the mouse should update the layout to accommodate the change (default false). Note that not all layouts will be able to respond to the change.
+mouse-resizes-windows: true
+
+# true to automatically move to a space when throwing a window to it (default true).
+follow-space-thrown-windows: true
+
+# The integer percentage of the screen dimension to increment and decrement main pane ratios by (default 5).
+window-resize-step: 5
+
+# true to maintain layout state across application executions (default true).
+restore-layouts-on-launch: true
+
+layouts:
+  - tall
+  - fullscreen
+
+################################################################################
+## Keybindings
+################################################################################
+
+mod1:
+  - option
+  - shift
+
+mod2:
+  - option
+  - shift
+  - control
+
+# Commands:
+# special key values
+# "space"
+# "enter"
+# "up"
+# "right"
+# "down"
+# "left"
+
+# Focus the next window in the list going clockwise.
+focus-cw:
+  mod: mod1
+  key: j
+
+# Swap the position of the currently focused window with the next window in the list going clockwise.
+swap-cw:
+  mod: mod2
+  key: j
+
+# Focus the next window in the list going counter-clockwise.
+focus-ccw:
+  mod: mod1
+  key: k
+
+# Swap the position of the currently focused window with the next window in the list going counter-clockwise.
+swap-ccw:
+  mod: mod2
+  key: k
+
+# Focus the next screen in the list going clockwise.
+focus-screen-cw:
+  mod: mod1
+  key: u
+
+# Move the currently focused window onto the next screen in the list going clockwise.
+swap-screen-cw:
+  mod: mod2
+  key: u
+
+# Focus the next screen in the list going counter-clockwise.
+focus-screen-ccw:
+  mod: mod1
+  key: i
+
+# Move the currently focused window onto the next screen in the list going counter-clockwise.
+swap-screen-ccw:
+  mod: mod2
+  key: i
+
+# Focus the main window in the list.
+focus-main:
+  mod: mod1
+  key: m
+
+# Swap the position of the currently focused window with the main window in the list.
+swap-main:
+  mod: mod2
+  key: m
+
+throw-space-1:
+  mod: mod2
+  key: 1
+
+throw-space-2:
+  mod: mod2
+  key: 2
+
+throw-space-3:
+  mod: mod2
+  key: 3
+
+focus-screen-1:
+  mod: mod1
+  key: 4
+
+throw-screen-1:
+  mod: mod2
+  key: 4
+
+focus-screen-2:
+  mod: mod1
+  key: 5
+
+throw-screen-2:
+  mod: mod2
+  key: 5
+
+focus-screen-3:
+  mod: mod1
+  key: 6
+
+throw-screen-2:
+  mod: mod2
+  key: 6
+
+# Move the currently focused window to the space to the left.
+throw-space-left:
+  mod: mod2
+  key: "left"
+
+# Move currently the focused window to the space to the right.
+throw-space-right:
+  mod: mod2
+  key: "right"
+
+# Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
+toggle-float:
+  mod: mod1
+  key: f
+
+# Turn on or off tiling entirely.
+toggle-tiling:
+  mod: mod1
+  key: t
+
+# Rerun the current layout's algorithm.
+reevaluate-windows:
+  mod: mod1
+  key: z
+
+# Automatically quit and reopen Amethyst.
+relaunch-amethyst:
+  mod: mod1
+  key: r
+
