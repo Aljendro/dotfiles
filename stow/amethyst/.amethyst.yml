@@ -50,21 +50,12 @@ layouts:
 
 mod1:
   - option
-  - shift
+  - command
 
 mod2:
-  - option
-  - shift
   - control
-
-# Commands:
-# special key values
-# "space"
-# "enter"
-# "up"
-# "right"
-# "down"
-# "left"
+  - option
+  - command
 
 # Focus the next window in the list going clockwise.
 focus-cw:
@@ -86,99 +77,27 @@ swap-ccw:
   mod: mod2
   key: k
 
-# Focus the next screen in the list going clockwise.
-focus-screen-cw:
-  mod: mod1
-  key: u
-
-# Move the currently focused window onto the next screen in the list going clockwise.
-swap-screen-cw:
-  mod: mod2
-  key: u
-
-# Focus the next screen in the list going counter-clockwise.
-focus-screen-ccw:
-  mod: mod1
-  key: i
-
-# Move the currently focused window onto the next screen in the list going counter-clockwise.
-swap-screen-ccw:
-  mod: mod2
-  key: i
-
-# Focus the main window in the list.
-focus-main:
-  mod: mod1
-  key: m
-
-# Swap the position of the currently focused window with the main window in the list.
-swap-main:
-  mod: mod2
-  key: m
-
-throw-space-1:
-  mod: mod2
-  key: 1
-
-throw-space-2:
-  mod: mod2
-  key: 2
-
-throw-space-3:
-  mod: mod2
-  key: 3
-
 focus-screen-1:
   mod: mod1
-  key: 4
+  key: s
 
 throw-screen-1:
   mod: mod2
-  key: 4
+  key: s
 
 focus-screen-2:
   mod: mod1
-  key: 5
+  key: d
 
 throw-screen-2:
   mod: mod2
-  key: 5
+  key: d
 
 focus-screen-3:
   mod: mod1
-  key: 6
-
-throw-screen-2:
-  mod: mod2
-  key: 6
-
-# Move the currently focused window to the space to the left.
-throw-space-left:
-  mod: mod2
-  key: "left"
-
-# Move currently the focused window to the space to the right.
-throw-space-right:
-  mod: mod2
-  key: "right"
-
-# Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
-toggle-float:
-  mod: mod1
   key: f
 
-# Turn on or off tiling entirely.
-toggle-tiling:
-  mod: mod1
-  key: t
-
-# Rerun the current layout's algorithm.
-reevaluate-windows:
-  mod: mod1
-  key: z
-
-# Automatically quit and reopen Amethyst.
-relaunch-amethyst:
-  mod: mod1
-  key: r
+throw-screen-3:
+  mod: mod2
+  key: f
 
