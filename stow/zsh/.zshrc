@@ -8,7 +8,7 @@ source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v16.17.0/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
+export -U PATH=$PATH:$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v16.18.1/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
