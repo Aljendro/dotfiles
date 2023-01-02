@@ -84,7 +84,6 @@ require('packer').startup(function()
     }
     use {
         "nvim-neorg/neorg",
-        tag = "*",
         config = function()
             require('neorg').setup({
                 load = {
@@ -92,8 +91,9 @@ require('packer').startup(function()
                     ["core.norg.dirman"] = {
                         config = {
                             workspaces = {
-                                work = "$DOTFILES_DIR/.config/nvim/notes/work",
-                                home = "$DOTFILES_DIR/.config/nvim/notes/home"
+                                work = "~/neorg/work",
+                                home = "~/neorg/home",
+                                gtd = "~/neorg/gtd"
                             }
                         }
                     }
