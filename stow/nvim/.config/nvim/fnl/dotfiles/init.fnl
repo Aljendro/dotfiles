@@ -3,6 +3,7 @@
               dotfiles.core.settings
               dotfiles.core.keybindings
               dotfiles.plugins.cmp
+              dotfiles.plugins.comment-plugin
               dotfiles.plugins.fugitive
               dotfiles.plugins.gitsigns
               dotfiles.plugins.harpoon

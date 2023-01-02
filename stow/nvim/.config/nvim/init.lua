@@ -75,7 +75,8 @@ require('packer').startup(function()
     }
     use {
         'numToStr/Comment.nvim',
-        config = function() require('Comment').setup({}) end
+        requires = {'JoosepAlviste/nvim-ts-context-commentstring'},
+        config = function() require('dotfiles.plugins.comment-plugin').setup() end
     }
     use {
         'nvim-lualine/lualine.nvim',

@@ -9,6 +9,8 @@
                           "jsonc" "lua" "make" "markdown" "markdown_inline" "norg" "pug" "python" "query"
                           "regex" "rust" "scss" "sql" "todotxt" "toml" "tsx" "typescript" "vim" "yaml"]
        :indent {:enable true}
+       :context_commentstring {:enable true
+                               :enable_autocmd false}
        :highlight {:enable true
                    :additional_vim_regex_highlighting false}
        :incremental_selection {:enable true
