@@ -29,8 +29,10 @@
 
 (defn setup []
   (let [(cmp-ok? cmp) (pcall require "cmp")
-        (cmp-ultisnips-ok? cmp-ultisnips) (pcall require "cmp_nvim_ultisnips.mappings")]
-    (when (and cmp-ok? cmp-ultisnips-ok?)
+        (cmp-ultisnips-ok? cmp-ultisnips) (pcall require "cmp_nvim_ultisnips.mappings")
+        (cmp-npm-ok? cmp-npm) (pcall require "cmp-npm")]
+    (when (and cmp-ok? cmp-ultisnips-ok? cmp-npm-ok?)
+      (cmp-npm.setup {})
       (cmp.setup
         {:experimental {:ghost_text true}
          :formatting {:format
@@ -43,7 +45,8 @@
          :window {:completion (cmp.config.window.bordered)
                   :documentation (cmp.config.window.bordered)}
          :sources (cmp.config.sources
-                    [{:name "nvim_lsp" :preselect true :keyword_length 2 :group_index 1}
+                    [{:name "npm" :keyword_length 4}
+                     {:name "nvim_lsp" :preselect true :keyword_length 2 :group_index 1}
                      {:name "ultisnips" :preselect true :keyword_length 2 :group_index 1}
                      {:name "buffer" :preselect true :keyword_length 4 :max_item_count 20 :option {:keyword_pattern "\\k\\k\\k\\+"} :group_index 2}
                      {:name "nvim_lsp_signature_help" :group_index 3}
