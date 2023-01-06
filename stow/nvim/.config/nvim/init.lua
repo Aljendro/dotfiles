@@ -99,7 +99,6 @@ require('packer').startup(function()
                             workspaces = {
                                 work = "~/neorg/work",
                                 home = "~/neorg/home",
-                                gtd = "~/neorg/gtd"
                             }
                         }
                     }
