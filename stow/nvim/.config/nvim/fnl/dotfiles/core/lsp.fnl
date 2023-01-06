@@ -31,6 +31,7 @@
     (kbmap bufnr "n" "K" "<cmd>lua vim.lsp.buf.hover()<cr>" opts)
     (kbmap bufnr "n" "gr" "<cmd>lua vim.lsp.buf.references()<cr>" opts)
     (kbmap bufnr "n" "glf" "<cmd>lua vim.lsp.buf.format({ async = true })<cr>" opts)
+    (kbmap bufnr "x" "glf" "<cmd>lua vim.lsp.buf.format({ async = true })<cr>" opts)
     (kbmap bufnr "n" "gs" "<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>" opts)
     (kbmap bufnr "n" "gt" "<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>" opts)
     (kbmap bufnr "n" "gla" "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>" opts)
