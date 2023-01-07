@@ -5,6 +5,18 @@
 vim.o.termguicolors = true
 require('packer').startup(function()
 
+    use { 'anuvyklack/pretty-fold.nvim',
+        config = function()
+            require('pretty-fold').setup({
+                fill_char = '━',
+                sections = {
+                    left = {
+                        'content'
+                    },
+                }
+            })
+        end
+    }
     use {
         'norcalli/nvim-colorizer.lua',
         ft = { 'css', 'scss', 'html' },
