@@ -101,24 +101,6 @@ require('packer').startup(function()
         config = function() require('dotfiles.plugins.lualine') end
     }
     use {
-        "nvim-neorg/neorg",
-        config = function()
-            require('neorg').setup({
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.norg.dirman"] = {
-                        config = {
-                            workspaces = {
-                                work = "~/neorg/work",
-                                home = "~/neorg/home",
-                            }
-                        }
-                    }
-                }
-            })
-        end
-    }
-    use {
         'nvim-telescope/telescope.nvim',
         cmd = { 'Telescope' },
         module = { 'telescope', 'telescope.builtin' },
