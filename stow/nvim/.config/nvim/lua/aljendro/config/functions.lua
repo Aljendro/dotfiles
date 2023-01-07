@@ -111,7 +111,7 @@ function CommandAbbreviation(abbreviation, substitution, range_substitution)
 end
 
 function Toggle(name, message)
-    vim.b[name] = not(vim.b[name] or false);
+    vim.b[name] = not (vim.b[name] or false);
     local trueFalseStr
     if vim.b[name] then
         trueFalseStr = 'true'
@@ -150,8 +150,8 @@ function ToggleListItem(character)
         local offset = string.len(character) + 2
         local replacement = {}
         if (star_position + 2) ~= check_position then
-                offset = 1
-                replacement = {character .. " "}
+            offset = 1
+            replacement = { character .. " " }
         end
         vim.api.nvim_buf_set_text(0, cursor_row, star_position + 1, cursor_row, star_position + offset, replacement)
     end
