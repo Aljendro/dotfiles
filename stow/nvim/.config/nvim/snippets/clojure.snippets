@@ -1,0 +1,52 @@
+snippet def "Defines a var"
+	(def $1 $2)
+
+snippet defn "Defines a function"
+	(defn $1
+		[$2]$3)
+
+snippet let "Let statement"
+	(let [$1] ${VISUAL}$2)
+
+snippet if "If Statement"
+	(if $1 ${VISUAL})
+
+snippet if "When Statement"
+	(when $1 ${VISUAL})
+
+snippet defp "Defines a protocol"
+	(defprotocol $1
+		($2)$3)
+
+snippet dk "Destructure keys" i
+	{:keys [$1]}$2
+
+snippet lr "Loop Recur"
+	(loop [$1]
+		${VISUAL}$2
+		(recur $3))
+
+snippet tc "Try Catch"
+	(try
+		${VISUAL}$1
+		(catch $2 e$3))
+
+snippet tc "Try Finally"
+	(try
+		${VISUAL}$1
+		(finally$2))
+
+snippet tcf "Try Catch Finally"
+	(try
+		${VISUAL}$1
+		(catch $2 e
+			$3)
+		$4
+		(finally
+			$5))
+
+snippet clg "JS console log" i
+	(js/console.log "$1"$2)
+
+snippet cle "JS console error" i
+	(js/console.error "$1"$2)
