@@ -17,7 +17,6 @@
               dotfiles.plugins.telescope
               dotfiles.plugins.tokyonight
               dotfiles.plugins.treesitter
-              dotfiles.plugins.ultisnips
               dotfiles.plugins.vim-test
               dotfiles.plugins.vim-visual-multi
               dotfiles.plugins.vimux]})

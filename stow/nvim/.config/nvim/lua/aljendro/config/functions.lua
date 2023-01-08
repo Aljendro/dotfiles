@@ -156,4 +156,3 @@ function ToggleListItem(character)
         vim.api.nvim_buf_set_text(0, cursor_row, star_position + 1, cursor_row, star_position + offset, replacement)
     end
 end
-

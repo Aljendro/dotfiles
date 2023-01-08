@@ -25,7 +25,7 @@ require('packer').startup(function()
     use {
         'hrsh7th/nvim-cmp',
         requires = {
-            { 'quangnguyen30192/cmp-nvim-ultisnips' }, { 'hrsh7th/cmp-buffer' },
+            { 'saadparwaiz1/cmp_luasnip' }, { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-nvim-lsp' }, { 'hrsh7th/cmp-path' },
             { 'hrsh7th/cmp-cmdline' }, { 'hrsh7th/cmp-nvim-lsp-signature-help' }
         },
@@ -75,6 +75,19 @@ require('packer').startup(function()
         'kyazdani42/nvim-tree.lua',
         cmd = { 'NvimTreeFindFile', 'NvimTreeToggle' },
         config = function() require('dotfiles.plugins.nvim-tree').setup() end
+    }
+    use {
+        "L3MON4D3/LuaSnip",
+        tag = "v1.*",
+        requires = { 'rafamadriz/friendly-snippets' },
+        config = function()
+            require('luasnip').config.set_config({
+                update_events = "TextChanged,TextChangedI",
+                store_selection_keys = '<tab>',
+            })
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_snipmate").load({ path = { os.getenv("HOME") .. "/.config/nvim/snippets" } })
+        end
     }
     use {
         'lewis6991/gitsigns.nvim',
@@ -135,7 +148,6 @@ require('packer').startup(function()
             })
         end
     }
-    use { 'sirver/ultisnips' }
     use { 'stefandtw/quickfix-reflector.vim', ft = { 'qf' } }
     use { 'tpope/vim-fugitive' }
     use { 'tpope/vim-repeat' }
