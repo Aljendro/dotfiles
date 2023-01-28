@@ -1,5 +1,5 @@
 snippet req "CommonJS Require"
-	const ${3:\{$2\}} = require('$1');
+	const { $2 } = require('$1');
 
 snippet const "Const variables"
 	const $1 = $2;
@@ -8,7 +8,7 @@ snippet let "Let variables"
 	let $1 = $2;
 
 snippet imp "ES6 Import"
-	import ${3:\{$2\}} from '$1';
+	import { $2 } from '$1';
 
 snippet mc "Multiline JSDoc Comment"
 	/**
@@ -18,17 +18,17 @@ snippet mc "Multiline JSDoc Comment"
 snippet try "try catch block"
 	try {
 		${VISUAL}$1
-	} catch (err) {
-		$2
+	} catch (${2:error}) {
+		$3
 	}
 
 snippet tryf "try catch finally block"
 	try {
 		${VISUAL}$1
-	} catch (err) {
-		$2
-	} finally {
+	} catch (${2:error}) {
 		$3
+	} finally {
+		$4
 	}
 
 snippet fori "For statement (highlighted in for block)"
