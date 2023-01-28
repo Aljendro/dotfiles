@@ -3,6 +3,7 @@
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
 vim.o.termguicolors = true
+
 require('packer').startup(function()
 
     use { 'anuvyklack/pretty-fold.nvim',
@@ -193,6 +194,8 @@ augroup customVim
                         \ | endif
       " Create a default session when vim leaves
       autocmd VimLeave * :call v:lua.MakeSession('default')
+      " Autosave when files change text
+      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.css,*.js,*.ts,*.jsx,*.tsx,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
