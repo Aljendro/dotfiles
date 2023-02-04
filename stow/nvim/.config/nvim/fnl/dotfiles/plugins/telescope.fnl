@@ -34,6 +34,7 @@
 (kmap :n ";gb" ":lua require('telescope.builtin').git_branches()<cr>")
 (kmap :n ";gf" ":lua require('telescope.builtin').git_files()<cr>")
 (kmap :n ";gg" ":lua require('telescope.builtin').live_grep()<cr>")
+(kmap :n ";gr" ":Telescope grep_string search=")
 (kmap :n ";gs" ":lua require('telescope.builtin').git_stash()<cr>")
 (kmap :n ";h" ":lua require('telescope.builtin').help_tags()<cr>")
 (kmap :n ";j" ":lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>")
