@@ -143,16 +143,16 @@ function ToggleListItem(character)
     local cursor_row = unpack(vim.api.nvim_win_get_cursor(0))
     cursor_row = cursor_row - 1
     local line_contents = vim.api.nvim_get_current_line()
-    local star_position = string.find(line_contents, "*")
+    local list_item_char_position = string.find(line_contents, "[%*%-]")
 
-    if star_position then
+    if list_item_char_position then
         local check_position = string.find(line_contents, character)
         local offset = string.len(character) + 2
         local replacement = {}
-        if (star_position + 2) ~= check_position then
+        if (list_item_char_position + 2) ~= check_position then
             offset = 1
             replacement = { character .. " " }
         end
-        vim.api.nvim_buf_set_text(0, cursor_row, star_position + 1, cursor_row, star_position + offset, replacement)
+        vim.api.nvim_buf_set_text(0, cursor_row, list_item_char_position + 1, cursor_row, list_item_char_position + offset, replacement)
     end
 end
