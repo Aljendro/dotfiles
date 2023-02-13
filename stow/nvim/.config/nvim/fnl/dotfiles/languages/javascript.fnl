@@ -15,6 +15,7 @@
    ;; Testing
    (tset vim.g "test#javascript#runner" "jest")
    (tset vim.g "test#javascript#jest#file_pattern" "\\v(__tests__/.*|(spec|test|integration))\\.(js|jsx|ts|tsx)$")
+   (tset vim.g "test#javascript#jest#options" "--testRegex=\"(/__tests__/.*|(\\.|/)(test|spec|integration))\\.[jt]sx?$\"")
    (vim.cmd "iabbrev <buffer> d; debugger;")
    (kbmapset current-buf :n "<leader>ti" jest-debug-nearest)
 
