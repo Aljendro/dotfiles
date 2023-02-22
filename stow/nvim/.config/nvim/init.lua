@@ -74,6 +74,7 @@ require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
+        commit = '8b8d457',
         cmd = { 'NvimTreeFindFile', 'NvimTreeToggle' },
         config = function() require('dotfiles.plugins.nvim-tree').setup() end
     }

@@ -81,6 +81,16 @@ snippet ss "Switch Statment"
 snippet fc "Function Call" i
 	$1(${VISUAL}$2)$3
 
+snippet funa "Async Function" i
+	async function $1($2) {
+		${VISUAL}$3
+	}
+
+snippet fun "Function" i
+	function $1($2) {
+		${VISUAL}$3
+	}
+
 snippet fna "Async Lambda Function" i
 	async ($1) => {
 		${VISUAL}$2
@@ -142,5 +152,5 @@ snippet main "Main function"
 	async function main($1) {
 		${VISUAL}$3
 	}
-	
+
 	main()

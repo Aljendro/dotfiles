@@ -53,14 +53,14 @@
                      {:name "path" :group_index 4}])
          :mapping {"<Tab>" (cmp.mapping
                              (fn [fallback]
-                               (if (cmp.visible) (cmp.select_next_item)
-                                   (cmp-luasnip.expand_or_jumpable) (cmp-luasnip.expand_or_jump)
+                               (if (cmp-luasnip.expand_or_jumpable)
+                                   (cmp-luasnip.expand_or_jump)
                                    (fallback)))
                              ["i" "s"])
                    "<S-Tab>" (cmp.mapping
                                (fn [fallback]
-                                 (if (cmp.visible) (cmp.select_prev_item)
-                                     (cmp-luasnip.jumpable -1) (cmp-luasnip.jump -1)
+                                 (if (cmp-luasnip.jumpable -1)
+                                     (cmp-luasnip.jump -1)
                                      (fallback)))
                                ["i" "s"])
                    "<M-j>" (cmp.mapping (cmp.mapping.scroll_docs 4) ["i"])

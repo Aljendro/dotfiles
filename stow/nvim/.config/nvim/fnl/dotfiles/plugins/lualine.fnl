@@ -7,7 +7,8 @@
                               (table.insert val "filename")
                               (tset val :path 1)
                               val)]
-                :lualine_x ["lsp_progress" "encoding" "fileformat" "filetype"]}
+                :lualine_x ["encoding" "fileformat" "filetype"]}
+                ;; :lualine_x ["lsp_progress" "encoding" "fileformat" "filetype"]}
      :tabline {:lualine_a [(let [val {}]
                              (table.insert val "buffers")
                              (tset val :mode 0)

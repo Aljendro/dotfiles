@@ -50,4 +50,5 @@
 
 (kmap :n ";df" ":NvimTreeFindFile<cr>")
 (kmap :n ";dd" ":NvimTreeToggle<cr>")
+(kmap :n ";dc" ":NvimTreeCollapse<cr>")
 
