@@ -87,7 +87,6 @@ require('packer').startup(function()
                 update_events = "TextChanged,TextChangedI",
                 store_selection_keys = '<tab>',
             })
-            require("luasnip.loaders.from_vscode").lazy_load()
             require("luasnip.loaders.from_snipmate").load({ path = { os.getenv("HOME") .. "/.config/nvim/snippets" } })
         end
     }
@@ -196,7 +195,7 @@ augroup customVim
       " Create a default session when vim leaves
       autocmd VimLeave * :call v:lua.MakeSession('default')
       " Autosave when files change text
-      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.css,*.js,*.ts,*.jsx,*.tsx,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
+      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
