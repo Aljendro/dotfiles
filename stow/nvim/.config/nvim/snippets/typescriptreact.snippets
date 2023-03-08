@@ -1,12 +1,12 @@
 extends javascript
 
 snippet rc "React functional component"
-	import React from 'react';
-	
-	const `!p snip.rv = snip.basename`: React.FC = ($1) => {
-	  return (
-	    $2
-	  );
+	function $TM_FILENAME_BASE(${1:props}) {
+		return (
+			<div className="$TM_FILENAME_BASE">
+				$2
+			</div>
+		);
 	}
-	
-	export default `!p snip.rv = snip.basename`;
+
+	export default $TM_FILENAME_BASE;
