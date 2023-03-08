@@ -110,6 +110,10 @@
 ;; Search
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Center when jumping
+(kmap :n "<C-o>" "<C-o>zz")
+(kmap :n "<C-i>" "<C-i>zz")
+
 ;; Easier search and/or replace
 (kmap :n "<leader>/r" ":%s//gci<Left><Left><Left><Left>")
 ;; Count the number of possible replacements (occurrences and lines)
