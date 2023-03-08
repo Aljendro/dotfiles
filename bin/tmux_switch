@@ -1,0 +1,35 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: tmux_switch"
+}
+
+display_summary() {
+    echo -e "Find projects with executable setup scripts (start_project.local.sh).\n"
+    echo -e "For the selected projects, run the setup script and enter/switch to the tmux session.\n"
+}
+
+
+if [ $# -eq 0 ]; then
+
+    CACHE_FILE="/tmp/tmux_projects_cache"
+
+    if [ -f "$CACHE_FILE" ]; then
+        PROJECT_STARTUP_SELECTION=$(cat "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
+    else
+        PROJECT_STARTUP_SELECTION=$(cd $HOME; fd --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
+    fi
+
+    cd "$PROJECT_STARTUP_SELECTION"
+    PROJECT_TMUX_SESSION_NAME=$(./start_project.local.sh)
+    if [ -z "$TMUX" ]; then
+        tmux attach -t $PROJECT_TMUX_SESSION_NAME
+    else
+        tmux switch-client -t $PROJECT_TMUX_SESSION_NAME
+    fi
+
+else
+    display_summary
+    display_usage
+fi
+
