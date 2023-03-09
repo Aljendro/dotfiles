@@ -101,7 +101,7 @@ require('packer').startup(function()
         ft = {
             'javascript', 'javascriptreact', 'typescript', 'typescriptreact',
             'json', 'html', 'css', 'lua', 'clojure', 'dockerfile', 'rust', 'go',
-            'python'
+            'python', 'bash', 'sh'
         },
         config = function() require('dotfiles.plugins.lspconfig').setup() end
     }
@@ -160,13 +160,6 @@ require('packer').startup(function()
     }
     use { 'wbthomason/packer.nvim' }
     use { 'WhoIsSethDaniel/lualine-lsp-progress.nvim' }
-    use {
-        'williamboman/nvim-lsp-installer',
-        cmd = {
-            'LspInstall', 'LspInstallInfo', 'LspInstallLog', 'LspUninstall',
-            'LspUninstallAll'
-        }
-    }
     use {
         'windwp/nvim-ts-autotag',
         ft = { 'javascriptreact', 'typescriptreact', 'html' },

@@ -11,8 +11,7 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.tsserver.setup
-         {:cmd [(.. lsp-dir  "/tsserver/node_modules/.bin/typescript-language-server") "--stdio"]
-          :capabilities capabilities
+         {:capabilities capabilities
           :on_attach (fn [client bufnr]
                        (tset client :server_capabilities :document_formatting false)
                        (on-attach client bufnr))
@@ -32,8 +31,7 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.dockerls.setup
-         {:cmd [(.. lsp-dir  "/dockerfile/node_modules/.bin/docker-langserver") "--stdio"]
-          :capabilities capabilities})
+         {:capabilities capabilities})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;; Clojure ;;;;;;;;;;;;;;;;;;;;;;
@@ -48,8 +46,7 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.gopls.setup
-         {:cmd [(.. lsp-dir  "/go/gopls")]
-          :capabilities capabilities
+         {:capabilities capabilities
           :on_attach on-attach})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -57,7 +54,15 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.pyright.setup
-         {:cmd [(.. lsp-dir  "/python/node_modules/.bin/pyright-langserver") "--stdio"]
+         {:capabilities capabilities
+          :on_attach on-attach})
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;;;;;;;;;;;;;;;;;;; Bash ;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+      (lspconfig.bashls.setup
+         {:filetypes ["sh" "bash"]
           :capabilities capabilities
           :on_attach on-attach})
 
@@ -66,16 +71,14 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.html.setup
-        {:cmd [(.. lsp-dir  "/html/node_modules/vscode-langservers-extracted/bin/vscode-html-language-server") "--stdio"]
-         :capabilities capabilities})
+        {:capabilities capabilities})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;;; CSS ;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.cssls.setup
-         {:cmd [(.. lsp-dir  "/cssls/node_modules/vscode-langservers-extracted/bin/vscode-css-language-server") "--stdio"]
-          :capabilities capabilities})
+         {:capabilities capabilities})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;; JSON ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -108,8 +111,7 @@
            :url "https://json.schemastore.org/package.json"}])
 
       (lspconfig.jsonls.setup
-          {:cmd [(.. lsp-dir "/jsonls/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server") "--stdio"]
-           :capabilities capabilities
+          {:capabilities capabilities
            :settings {:json {:schemas schemas}}
            :on_attach on-attach})
 
@@ -146,8 +148,7 @@
           :lintFormats ["%f:%l:%c: %m"]})
 
       (lspconfig.efm.setup
-         {:cmd [(.. lsp-dir "/efm/efm-langserver")]
-          :init_options {:documentFormatting true}
+         {:init_options {:documentFormatting true}
           :filetypes ["lua" "javascript" "javascriptreact" "typescript" "typescriptreact"]
           :settings {:rootMarkers [".git/"]
                      :languages {:lua [{:formatCommand "lua-format -i" :formatStdin true}]
