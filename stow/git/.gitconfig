@@ -6,6 +6,7 @@
   undo = "!f() { git reset --soft HEAD^; }; f"
   hard = "!f() { git reset --hard $1; }; f"
   soft = "!f() { git reset --soft $1; }; f"
+  wta = "!f() { git_worktree_add \"$1\" \"$2\"; }; f"
 [user]
   name   = Alejandro Alvarado
   email  = alejandro.alvarado0650144@gmail.com

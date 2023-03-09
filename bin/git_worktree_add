@@ -1,0 +1,32 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: git_worktree_add <worktree name suffix> <branch>"
+}
+
+display_summary() {
+    echo -e "Customize adding a worktree with `git worktree add` using a worktree_add.local.sh script.\n"
+}
+
+if [ $# -eq 2 ]; then
+    # Check if we're in the root of a Git repo
+    if [ "$(git rev-parse --show-toplevel)" != "$PWD" ]; then
+      echo "Not in root of Git repo"
+      exit 1
+    fi
+
+    # Get the name of the current directory
+    CURRENT_DIR=$(basename "$PWD")
+    # Get the name of the worktree
+    WORKTREE_NAME="${CURRENT_DIR}_$1"
+
+    # Create the worktree in the parent directory
+    git worktree add "../$WORKTREE_NAME" "$2"
+
+    if [ -f worktree_add.local.sh ]; then
+        ./worktree_add.local.sh "$WORKTREE_NAME" "$1" "$2"
+    fi
+else
+    display_summary
+    display_usage
+fi
