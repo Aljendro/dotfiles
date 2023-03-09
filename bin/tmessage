@@ -11,7 +11,7 @@ display_summary() {
 }
 
 if [ $# -eq 1 ]; then
-    aws sns publish --phone-number "$TMESSAGE_PHONE_NUMBER" --message "$1" --profile "$TMESSAGE_PROFILE"
+    aws sns publish --no-cli-pager --phone-number "$TMESSAGE_PHONE_NUMBER" --message "$1" --profile "$TMESSAGE_PROFILE"
 else
     display_usage
     display_summary
