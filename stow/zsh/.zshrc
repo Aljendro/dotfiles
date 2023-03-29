@@ -33,6 +33,7 @@ alias e='exit'
 # alias luamake=$HOME/.local/share/nvim/lsp_servers/sumneko_lua/lua-language-server/3rd/luamake/luamake
 
 ZSH_THEME="aljendro"
+SHOW_AWS_PROMPT=false
 DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64 timer)
 source $ZSH/oh-my-zsh.sh

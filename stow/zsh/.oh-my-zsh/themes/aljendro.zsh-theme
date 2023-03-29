@@ -92,6 +92,8 @@ PROMPT="
 │ %B%F{226}%~%{$reset_color%}${load_env_vars_line}${load_env_line}
 ╰─%(?:%B%F{green}λ:%B%F{red}λ)%{$reset_color%} "
 
+RPROMPT="[%D{%Y-%m-%dT%H:%M:%S%z}]"
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[255]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[202]%}✘"
