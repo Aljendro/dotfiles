@@ -1,11 +1,11 @@
 (ns aws-mfa
   (:require
-   [promesa.core :as p]
-   [clojure.string :refer [blank?]]
-   [preload :refer [printp with-open get-readline prompt]]
-   ["node:child_process" :refer [execSync]]
    ["@aws-sdk/client-sts" :refer [STS]]
-   ["@aws-sdk/shared-ini-file-loader" :as aws-file-loader]))
+   ["@aws-sdk/shared-ini-file-loader" :as aws-file-loader]
+   ["node:child_process" :refer [execSync]]
+   [clojure.string :refer [blank?]]
+   [preload :refer [get-readline prompt with-open]]
+   [promesa.core :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Constants
@@ -89,7 +89,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn -main []
-  #_{:clj-kondo/ignore [:unresolved-symbol]}
   (let [profile (get js/process.argv 4)]
     (if (blank? profile)
       (do

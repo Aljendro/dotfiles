@@ -1,7 +1,7 @@
 (ns preload
   (:require
-   ["node:util" :as util]
-   ["node:readline" :as readline]))
+   ["node:readline" :as readline]
+   ["node:util" :as util]))
 
 (defmacro with-open
   "bindings => [name init ...]
