@@ -50,3 +50,18 @@ snippet clg "JS console log" i
 
 snippet cle "JS console error" i
 	(js/console.error "$1"$2)
+
+snippet jpp "Pretty Print Promise Result (import printp)"
+	(printp ${VISUAL}$1)
+
+snippet jp "JSON stringify"
+	(println (js/JSON.stringify ${VISUAL}$1))
+
+snippet prn "Print to Console with Newline"
+	(println $1${VISUAL})
+
+snippet pr "Print to Console"
+	(print $1${VISUAL})
+
+snippet rp "Resolve promise into global variable"
+	(p/let [results $1${VISUAL}] (def $2 results))
