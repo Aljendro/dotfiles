@@ -40,6 +40,7 @@
 (kmap :n "<leader>of" ":set foldenable!<cr>:set foldenable?<cr>")
 (kmap :n "<leader>ol" ":set lazyredraw!<cr>:set lazyredraw?<cr>")
 (kmap :n "<leader>on" ":set number!<cr>:set number?<cr>")
+(kmap :n "<leader>om" ":setlocal modifiable! readonly!<cr>:setlocal modifiable? readonly?<cr>")
 (kmap :n "<leader>or" ":set relativenumber!<cr>:set relativenumber?<cr>")
 (kmap :n "<leader>ob" ":set scrollbind!<cr>:set scrollbind?<cr>")
 (kmap :n "<leader>osc" ":set spell!<cr>:set spell?<cr>")
