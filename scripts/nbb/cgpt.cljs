@@ -21,7 +21,7 @@
   (.. openai-api
       (createChatCompletion
        (clj->js {:model model
-                 :messages [{:role "user" :content query}]}))))
+                 :messages (concat context [{:role "user" :content query}])}))))
 
 (defn get-response-content [response]
   (let [response (js->clj response)]
