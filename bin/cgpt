@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd "$DOTFILES_DIR/scripts/nbb"
-nbb -m cgpt
+nbb -m cgpt "$1"

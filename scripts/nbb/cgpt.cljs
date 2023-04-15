@@ -5,31 +5,37 @@
    [promesa.core :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper Functions
+;; Setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (.config dotenv)
-
 ;; Setup openai configuration and api instance
 (def configuration (new (.-Configuration openai) (clj->js {:apiKey (.-OPENAI_API_KEY (.-env js/process))})))
 (def openai-api (new (.-OpenAIApi openai) configuration))
 
-(defn create-chat-completion []
-  #_{:clj-kondo/ignore [:unresolved-symbol]}
-  (p/let [result (.. openai-api
-                     (createChatCompletion (clj->js {:model "gpt-3.5-turbo"
-                                                     :messages [{:role "user" :content "What is pi to the 7th digit"}]})))]
-    (js/console.log
-     (js/JSON.stringify
-      result
-      (fn [k v]
-        (if (= k "request")
-          nil
-          v))))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn request-completion [query & {:keys [model context] :or {model "gpt-3.5-turbo" context []}}]
+  (.. openai-api
+      (createChatCompletion
+       (clj->js {:model model
+                 :messages [{:role "user" :content query}]}))))
+
+(defn get-response-content [response]
+  (let [response (js->clj response)]
+    (get-in response ["data" "choices" 0 "message" "content"])))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn -main []
-  (create-chat-completion))
+(defn -main
+  "main function intended for simple commandline interaction,
+  Prefer to use `request-completion` from repl instead."
+  []
+  (let [input (get js/process.argv 4)]
+    #_{:clj-kondo/ignore [:unresolved-symbol]}
+    (p/let [response (request-completion input)]
+      (println (get-response-content response)))))
