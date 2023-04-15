@@ -28,6 +28,8 @@
 
   ; Evaluate Form Under Cursor
   (kbmap current-buf :n "<leader>ee" "<localleader>ee" {:noremap false})
+  ; Evaluate Form in Visual Area
+  (kbmap current-buf :v "<leader>ee" "<localleader>E" {:noremap false})
   ; Evaluate Root Form Under Cursor
   (kbmap current-buf :n "<leader>er" "<localleader>er" {:noremap false})
   ; Evaluate Editor Line
