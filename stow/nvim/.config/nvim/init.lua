@@ -5,7 +5,6 @@
 vim.o.termguicolors = true
 
 require('packer').startup(function()
-
     use { 'anuvyklack/pretty-fold.nvim',
         config = function()
             require('pretty-fold').setup({
@@ -121,13 +120,13 @@ require('packer').startup(function()
         requires = {
             'nvim-lua/plenary.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }, {
-                'AckslD/nvim-neoclip.lua',
-                config = function()
-                    require('neoclip').setup({
-                        default_register = { '"', '+', '*' }
-                    })
-                end
-            }
+            'AckslD/nvim-neoclip.lua',
+            config = function()
+                require('neoclip').setup({
+                    default_register = { '"', '+', '*' }
+                })
+            end
+        }
         },
         config = function() require('dotfiles.plugins.telescope').setup() end
     }
@@ -137,6 +136,7 @@ require('packer').startup(function()
         config = function() require('dotfiles.plugins.treesitter') end
     }
     use { 'olical/aniseed' }
+    use { 'olical/nvim-local-fennel' }
     use { 'olical/conjure', ft = { 'clojure', 'fennel' } }
     use { 'p00f/nvim-ts-rainbow' }
     use {
@@ -173,7 +173,6 @@ require('packer').startup(function()
             })
         end
     }
-
 end)
 
 vim.cmd([[
@@ -188,7 +187,7 @@ augroup customVim
       " Create a default session when vim leaves
       autocmd VimLeave * :call v:lua.MakeSession('default')
       " Autosave when files change text
-      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
+      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow

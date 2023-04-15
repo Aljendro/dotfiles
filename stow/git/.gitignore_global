@@ -12,6 +12,9 @@ notes
 
 tags
 tags.*
+.lnvim.fnl
+.lnvim.lua
+.lnvim.cljs
 
 ########################## VSCode #########################
 
