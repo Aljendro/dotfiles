@@ -71,14 +71,16 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.html.setup
-        {:capabilities capabilities})
+        {:capabilities capabilities
+         :on_attach on-attach})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;;; CSS ;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (lspconfig.cssls.setup
-         {:capabilities capabilities})
+         {:capabilities capabilities
+          :on_attach on-attach})
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;;;;;;;;;;;;;;;;;;; JSON ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -149,9 +151,11 @@
 
       (lspconfig.efm.setup
          {:init_options {:documentFormatting true}
-          :filetypes ["lua" "javascript" "javascriptreact" "typescript" "typescriptreact"]
+          :filetypes ["css" "html" "lua" "javascript" "javascriptreact" "typescript" "typescriptreact"]
           :settings {:rootMarkers [".git/"]
                      :languages {:lua [{:formatCommand "lua-format -i" :formatStdin true}]
+                                 :css [prettier]
+                                 :html [prettier]
                                  :javascript [prettier eslint]
                                  :javascriptreact [prettier eslint]
                                  :typescript [prettier eslint]
