@@ -74,7 +74,8 @@ require('packer').startup(function()
         tag = "v1.*",
         requires = {'rafamadriz/friendly-snippets'},
         config = function()
-            require('luasnip').config.set_config({
+            local ls = require('luasnip')
+            ls.config.set_config({
                 enable_autosnippets = true,
                 history = true,
                 update_events = "TextChanged,TextChangedI",
@@ -86,6 +87,13 @@ require('packer').startup(function()
             require("luasnip.loaders.from_lua").load({
                 paths = os.getenv("HOME") .. "/.config/nvim/snippets"
             })
+            vim.api.nvim_create_user_command('LuaSnipEdit', function()
+                require("luasnip.loaders").edit_snippet_files({
+                    edit = function(fileName)
+                        vim.cmd("vsplit " .. fileName)
+                    end
+                })
+            end, {})
         end
     }
     use {
@@ -188,7 +196,7 @@ augroup customVim
       " Create a default session when vim leaves
       autocmd VimLeave * :call v:lua.MakeSession('default')
       " Autosave when files change text
-      autocmd TextChanged,TextChangedI *.txt,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
+      autocmd TextChanged,TextChangedI *.txt,*.sh,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc silent! w
       " Open quickfix after command that populates it is run
       autocmd QuickFixCmdPost [^l]* cwindow
       autocmd QuickFixCmdPost l* lwindow
