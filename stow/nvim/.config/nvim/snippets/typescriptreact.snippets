@@ -1,12 +1,23 @@
 extends javascript
 
-snippet rc "React functional component"
-	function $TM_FILENAME_BASE(${1:props}) {
-		return (
-			<div className="$TM_FILENAME_BASE">
-				$2
-			</div>
-		);
-	}
+snippet rur "React useRef"
+	const $1 = useRef($2);
 
-	export default $TM_FILENAME_BASE;
+snippet rue "React useEffect"
+	useEffect(() => {
+		$3
+	}, []);
+
+snippet rc "React functional component"
+	import React from 'react'
+	import './${TM_FILENAME_BASE}.css';
+
+	interface ${TM_FILENAME_BASE}Props {}
+
+	const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = () => {
+		return (
+			<div>${TM_FILENAME_BASE}</div>
+		);
+	};
+
+	export default ${TM_FILENAME_BASE};
