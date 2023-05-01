@@ -46,8 +46,8 @@
                   :documentation (cmp.config.window.bordered)}
          :sources (cmp.config.sources
                     [{:name "npm" :keyword_length 4}
-                     {:name "nvim_lsp" :preselect true :keyword_length 2 :group_index 1}
                      {:name "luasnip" :preselect true :keyword_length 2 :group_index 1}
+                     {:name "nvim_lsp" :preselect true :keyword_length 2 :group_index 1}
                      {:name "buffer" :preselect true :keyword_length 4 :max_item_count 20 :option {:keyword_pattern "\\k\\k\\k\\+"} :group_index 2}
                      {:name "nvim_lsp_signature_help" :group_index 3}
                      {:name "path" :group_index 4}])
@@ -67,16 +67,18 @@
                    "<M-k>" (cmp.mapping (cmp.mapping.scroll_docs -4) ["i"])
                    "<C-j>" (cmp.mapping
                              (fn [fallback]
-                               (if (cmp.visible)
-                                 (cmp.select_next_item {:behavior cmp.SelectBehavior.Select})
+                               (if
+                                 (cmp.visible) (cmp.select_next_item {:behavior cmp.SelectBehavior.Select})
+                                 (cmp-luasnip.choice_active) (cmp-luasnip.change_choice 1)
                                  (fallback)))
-                             ["i" "c"])
+                             ["i" "s" "c"])
                    "<C-k>" (cmp.mapping
                              (fn [fallback]
-                               (if (cmp.visible)
-                                 (cmp.select_prev_item {:behavior cmp.SelectBehavior.Select})
+                               (if
+                                 (cmp.visible) (cmp.select_prev_item {:behavior cmp.SelectBehavior.Select})
+                                 (cmp-luasnip.choice_active) (cmp-luasnip.change_choice -1)
                                  (fallback)))
-                             ["i" "c"])
+                             ["i" "s" "c"])
                    "<C-Space>" (cmp.mapping
                                  (fn []
                                    (if (cmp.visible)
