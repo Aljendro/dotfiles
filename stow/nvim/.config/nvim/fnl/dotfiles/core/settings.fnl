@@ -17,7 +17,6 @@
 (set vim.opt.display [:truncate])
 (set vim.opt.expandtab true)
 (set vim.opt.fillchars {:diff " " :fold "."})
-(set vim.opt.foldcolumn "1")
 (set vim.opt.foldlevel 99)
 (set vim.opt.grepformat "%f:%l:%c:%m,%f:%l:%m")
 (set vim.opt.grepprg "rg --vimgrep --no-heading")
