@@ -45,12 +45,12 @@
          :window {:completion (cmp.config.window.bordered)
                   :documentation (cmp.config.window.bordered)}
          :sources (cmp.config.sources
-                    [{:name "npm" :keyword_length 4}
-                     {:name "luasnip" :preselect true :keyword_length 2 :group_index 1}
+                    [{:name "npm" :preselect true :keyword_length 4}
                      {:name "nvim_lsp" :preselect true :keyword_length 2 :group_index 1}
-                     {:name "buffer" :preselect true :keyword_length 4 :max_item_count 20 :option {:keyword_pattern "\\k\\k\\k\\+"} :group_index 2}
-                     {:name "nvim_lsp_signature_help" :group_index 3}
-                     {:name "path" :group_index 4}])
+                     {:name "luasnip" :preselect true :keyword_length 2 :group_index 2}
+                     {:name "buffer" :preselect true :keyword_length 4 :max_item_count 20 :option {:keyword_pattern "\\k\\k\\k\\+"} :group_index 3}
+                     {:name "nvim_lsp_signature_help" :group_index 4}
+                     {:name "path" :group_index 5}])
          :mapping {"<Tab>" (cmp.mapping
                              (fn [fallback]
                                (if (cmp-luasnip.expand_or_jumpable)
