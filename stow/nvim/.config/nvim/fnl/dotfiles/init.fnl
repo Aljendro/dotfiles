@@ -18,6 +18,4 @@
               dotfiles.plugins.tokyonight
               dotfiles.plugins.treesitter
               dotfiles.plugins.vim-test
-              dotfiles.plugins.vim-visual-multi
-              dotfiles.plugins.vimux]})
-
+              dotfiles.plugins.vim-visual-multi]})

@@ -20,6 +20,6 @@
    (kbmapset current-buf :n "<leader>ti" jest-debug-nearest)
 
    ;; Running scripts
-   (kbmap current-buf :n "<leader>rr" ":call VimuxRunCommand('node ' . expand('%:p') . ' ')<left><left>")
-   (kbmap current-buf :n "<leader>ri" ":call VimuxRunCommand('node --inspect-brk ' . expand('%:p') . ' ')<left><left>"))
+   (kbmap current-buf :n "<leader>rr" ":lua require('harpoon.term').sendCommand(1, 'node ' . expand('%:p') . ' ')<left><left>")
+   (kbmap current-buf :n "<leader>ri" ":lua require('harpoon.term').sendCommand(1, 'node --inspect-brk ' . expand('%:p') . ' ')<left><left>"))
 

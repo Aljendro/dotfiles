@@ -5,6 +5,7 @@
   (let [(ok? harpoon) (pcall require "harpoon")]
     (harpoon.setup {:menu {:width (- (vim.api.nvim_win_get_width 0) 4)}})))
 
+; Regular Files
 (kmap :n "<leader>sa" ":lua require('harpoon.mark').add_file()<cr>")
 (kmap :n "<leader>sA" ":lua require('harpoon.ui').toggle_quick_menu()<cr>")
 (kmap :n "<leader>sm" ":lua require('harpoon.ui').nav_file(1)<cr>")
@@ -16,4 +17,9 @@
 (kmap :n "<leader>su" ":lua require('harpoon.ui').nav_file(7)<cr>")
 (kmap :n "<leader>si" ":lua require('harpoon.ui').nav_file(8)<cr>")
 (kmap :n "<leader>so" ":lua require('harpoon.ui').nav_file(9)<cr>")
+
+; Terminals
+(kmap :n "<leader>sM" ":lua require('harpoon.term').gotoTerminal(1)<cr>")
+
+
 

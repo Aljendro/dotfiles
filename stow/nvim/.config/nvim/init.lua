@@ -31,11 +31,12 @@ require('packer').startup(function()
     use {
         'ThePrimeagen/harpoon',
         requires = {'nvim-lua/plenary.nvim'},
-        module = {'harpoon.mark', 'harpoon.ui'},
+        module = {
+            'harpoon.mark', 'harpoon.ui', 'harpoon.cmd-ui', 'harpoon.term'
+        },
         config = function() require('dotfiles.plugins.harpoon').setup() end
     }
     use {'kyazdani42/nvim-web-devicons'}
-    use {'benmills/vimux'}
     use {'chrisbra/NrrwRgn'}
     use {'David-Kunz/cmp-npm', requires = {'nvim-lua/plenary.nvim'}}
     use {
