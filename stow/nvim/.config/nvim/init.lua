@@ -183,6 +183,10 @@ require('packer').startup(function()
             })
         end
     }
+    use {
+        "github/copilot.vim",
+        config = function() require('dotfiles.plugins.copilot') end
+    }
 end)
 
 local customVim = vim.api.nvim_create_augroup('customVim', {clear = true})

@@ -4,6 +4,7 @@
               dotfiles.core.keybindings
               dotfiles.plugins.cmp
               dotfiles.plugins.comment-plugin
+              dotfiles.plugins.copilot
               dotfiles.plugins.fugitive
               dotfiles.plugins.gitsigns
               dotfiles.plugins.harpoon
