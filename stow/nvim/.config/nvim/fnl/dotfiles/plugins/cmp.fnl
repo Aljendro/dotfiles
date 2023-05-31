@@ -34,7 +34,7 @@
     (when (and cmp-ok? cmp-luasnip-ok? cmp-npm-ok?)
       (cmp-npm.setup {})
       (cmp.setup
-        {:experimental {:ghost_text true}
+        {:experimental {:ghost_text false}
          :formatting {:format
                       (fn [_ vim_item]
                         (set vim_item.kind (string.format "%s %s" (. kind_icons vim_item.kind) vim_item.kind))
