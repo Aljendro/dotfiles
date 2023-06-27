@@ -140,8 +140,8 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
       (def prettier
-         {:formatCommand "prettier --stdin-filepath ${INPUT}"
-          :formatStdin true})
+         {:formatCommand "cat ${INPUT} | prettier --stdin-filepath ${INPUT}"
+          :formatStdin false})
 
       (def eslint
          {:lintCommand "eslint_d -f unix --stdin --stdin-filename ${INPUT}"
