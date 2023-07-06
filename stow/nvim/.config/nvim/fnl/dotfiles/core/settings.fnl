@@ -2,7 +2,7 @@
 
 (set vim.g.loaded_perl_provider 0)
 (set vim.g.loaded_ruby_provider 0)
-(set vim.g.node_host_prog (vim.fn.expand "~/.nvm/versions/node/v16.18.1/bin/neovim-node-host"))
+(set vim.g.node_host_prog (vim.fn.expand "~/.nvm/versions/node/v16.20.0/bin/neovim-node-host"))
 (set vim.g.python3_host_prog (vim.fn.expand "/usr/bin/python3"))
 (set vim.g.loaded_netrwPlugin 0)
 (set vim.g.loaded_tutor_mode_plugin 0)
