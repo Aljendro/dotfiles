@@ -12,11 +12,11 @@ if [ $# -eq 2 ]; then
     FOLDER_NAME="$1-$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
     FILES_SEARCH_REGEX="$2"
 
-    mkdir $FOLDER_NAME
     FILES=$(fd --max-depth 1 --type file --regex "$FILES_SEARCH_REGEX")
     IFS=$'\n' read -rd '' -a FILES_ARRAY <<<"$FILES"
     for file_name in "${FILES_ARRAY[@]}"
     do
+        [ ! -d "$FOLDER_NAME" ] && mkdir $FOLDER_NAME
         mv "$file_name" $FOLDER_NAME
     done
 else
