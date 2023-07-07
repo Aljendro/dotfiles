@@ -43,12 +43,12 @@ require('lazy').setup({
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
-             'saadparwaiz1/cmp_luasnip' ,
-             'hrsh7th/cmp-buffer' ,
-             'hrsh7th/cmp-nvim-lsp' ,
-             'hrsh7th/cmp-path' ,
-             'hrsh7th/cmp-cmdline' ,
-             'hrsh7th/cmp-nvim-lsp-signature-help' ,
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-nvim-lsp-signature-help',
         },
         config = function() require('dotfiles.plugins.cmp').setup() end,
     },
@@ -59,7 +59,7 @@ require('lazy').setup({
     },
     { 'kyazdani42/nvim-web-devicons' },
     { 'chrisbra/NrrwRgn' },
-    { 'David-Kunz/cmp-npm',          dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'David-Kunz/cmp-npm', dependencies = { 'nvim-lua/plenary.nvim' } },
     {
         'eraserhd/parinfer-rust',
         build = 'cargo build --release',
@@ -191,9 +191,7 @@ require('lazy').setup({
     { 'tpope/vim-repeat' },
     { 'tpope/vim-sleuth' },
     { 'tpope/vim-surround' },
-    {
-        'vim-test/vim-test',
-    },
+    { 'vim-test/vim-test' },
     { 'WhoIsSethDaniel/lualine-lsp-progress.nvim' },
     {
         'windwp/nvim-ts-autotag',
@@ -233,8 +231,7 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 })
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
     group = customVim,
-    pattern =
-    '*.txt,*.sh,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc',
+    pattern = '*.txt,*.sh,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc',
     callback = function() vim.cmd('silent! w') end,
 })
 vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
@@ -254,4 +251,3 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
         vim.highlight.on_yank { higroup = 'IncSearch', timeout = 150 }
     end,
 })
-
