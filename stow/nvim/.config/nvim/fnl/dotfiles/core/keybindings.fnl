@@ -1,12 +1,6 @@
 (module dotfiles.core.keybindings
   {require {{: kmap} dotfiles.core.common}})
 
-;; Leader Keys
-(kmap :n "<space>" "<nop>")
-(kmap :n "<Bslash>" "<nop>")
-(set vim.g.mapleader " ")
-(set vim.g.maplocalleader "\\")
-
 ;; Quick reload
 (kmap :n "<leader>r" ":lua require('plenary.reload').reload_module('dotfiles', true)<cr>:source $MYVIMRC<cr>")
 
