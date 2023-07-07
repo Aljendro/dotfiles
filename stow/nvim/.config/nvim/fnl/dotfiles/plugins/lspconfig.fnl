@@ -153,7 +153,7 @@
          {:init_options {:documentFormatting true}
           :filetypes ["css" "html" "lua" "javascript" "javascriptreact" "typescript" "typescriptreact"]
           :settings {:rootMarkers [".git/"]
-                     :languages {:lua [{:formatCommand "lua-format -i" :formatStdin true}]
+                     :languages {:lua [{:formatCommand "lua-format -i --extra-sep-at-table-end --double-quote-to-single-quote --chop-down-table" :formatStdin true}]
                                  :css [prettier]
                                  :html [prettier]
                                  :javascript [prettier eslint]
