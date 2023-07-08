@@ -1,0 +1,21 @@
+return {
+    "neovim/nvim-lspconfig",
+    ft = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "json",
+        "html",
+        "css",
+        "lua",
+        "clojure",
+        "dockerfile",
+        "rust",
+        "go",
+        "python",
+        "bash",
+        "sh",
+    },
+    config = function() require("dotfiles.plugins.lspconfig").setup() end,
+}
