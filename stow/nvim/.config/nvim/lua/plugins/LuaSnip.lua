@@ -3,8 +3,7 @@ return {
     version = "v1.*",
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
-        local ls = require("luasnip")
-        ls.config.set_config({
+        require("luasnip").config.set_config({
             enable_autosnippets = true,
             history = true,
             update_events = "TextChanged,TextChangedI",
