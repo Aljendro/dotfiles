@@ -3,8 +3,6 @@ local function require_lsp()
     local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
     local requires_ok = lspconfig_ok and cmp_nvim_lsp_ok
 
-    print(lspconfig_ok, cmp_nvim_lsp_ok, requires_ok)
-
     if not requires_ok then
         return { false }
     else
