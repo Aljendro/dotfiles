@@ -1,6 +1,11 @@
 return {
     "kyazdani42/nvim-tree.lua",
     commit = "8b8d457",
+    keys = {
+        { ";df", ":NvimTreeFindFile<cr>" },
+        { ";dd", ":NvimTreeToggle<cr>" },
+        { ";dc", ":NvimTreeCollapse<cr>" },
+    },
     config = function()
         local c = require("common")
         local nvim_tree = require("nvim-tree")
@@ -57,8 +62,5 @@ return {
                 },
             },
         })
-        c.kmap("n", ";df", ":NvimTreeFindFile<cr>")
-        c.kmap("n", ";dd", ":NvimTreeToggle<cr>")
-        c.kmap("n", ";dc", ":NvimTreeCollapse<cr>")
     end,
 };

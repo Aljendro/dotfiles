@@ -1,5 +1,6 @@
 return {
     "mg979/vim-visual-multi",
+    event = "VimEnter",
     config = function()
         -- Settings
         vim.g.VM_theme = "neon"

@@ -1,30 +1,32 @@
 return {
     "tpope/vim-fugitive",
+    keys = {
+        -- Open up Fugitive in a tab
+        { "<leader>gg", ":tab Git<cr>" },
+        -- Create diffsplit
+        { "<leader>gd", ":tab split<cr>:Gvdiffsplit<cr>" },
+        -- Load changes into quickfix list
+        { "<leader>gq", ":Git difftool<cr>:cclose<cr>" },
+        -- Load diffs into tabs
+        { "<leader>gD", ":Git difftool -y<cr>:cclose<cr>" },
+        -- Open git blame with commit and author
+        { "<leader>gb", ":Git blame<cr>A" },
+        -- Refresh difftool
+        { "<leader>gu", ":diffupdate<cr>" },
+        -- Choose left buffer
+        { "<leader>gh", ":diffget //2<cr>" },
+        -- Choose the right buffer
+        { "<leader>gl", ":diffget //3<cr>" },
+        -- Traverse git merge conflict markers
+        { "]n", ":lua DiffContext(true)<cr>" },
+        { "[n", ":lua DiffContext(false)<cr>" },
+
+    },
     config = function()
         local c = require("common")
         -- Replace conflict keybindings
         vim.cmd("let g:nremap = {'s': 'S'}")
         vim.cmd("let g:xremap = {'s': 'S'}")
-
-        -- Open up Fugitive in a tab
-        c.kmap("n", "<leader>gg", ":tab Git<cr>")
-        -- Create diffsplit
-        c.kmap("n", "<leader>gd", ":tab split<cr>:Gvdiffsplit<cr>")
-        -- Load changes into quickfix list
-        c.kmap("n", "<leader>gq", ":Git difftool<cr>:cclose<cr>")
-        -- Load diffs into tabs
-        c.kmap("n", "<leader>gD", ":Git difftool -y<cr>:cclose<cr>")
-        -- Open git blame with commit and author
-        c.kmap("n", "<leader>gb", ":Git blame<cr>A")
-        -- Refresh difftool
-        c.kmap("n", "<leader>gu", ":diffupdate<cr>")
-        -- Choose left buffer
-        c.kmap("n", "<leader>gh", ":diffget //2<cr>")
-        -- Choose the right buffer
-        c.kmap("n", "<leader>gl", ":diffget //3<cr>")
-        -- Traverse git merge conflict markers
-        c.kmap("n", "]n", ":lua DiffContext(true)<cr>")
-        c.kmap("n", "[n", ":lua DiffContext(false)<cr>")
 
         vim.cmd(
             "cnoreabbrev <expr> gf v:lua.CommandAbbreviation('gf', 'Git fetch origin')")

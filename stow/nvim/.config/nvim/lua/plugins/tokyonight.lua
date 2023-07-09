@@ -1,8 +1,6 @@
 return {
     "folke/tokyonight.nvim",
     config = function()
-        local c = require("common")
-
         local tokyonight = require("tokyonight")
 
         vim.o.termguicolors = true

@@ -1,5 +1,6 @@
 return {
     "github/copilot.vim",
+    event = "InsertEnter",
     config = function()
         local c = require("common")
         vim.g.copilot_no_tab_map = true

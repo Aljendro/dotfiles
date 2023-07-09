@@ -1,5 +1,6 @@
 return {
     "numtostr/comment.nvim",
+    event = "VimEnter",
     dependencies = { "joosepalviste/nvim-ts-context-commentstring" },
     config = function()
         require("Comment").setup({

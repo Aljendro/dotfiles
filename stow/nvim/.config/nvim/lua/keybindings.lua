@@ -223,22 +223,6 @@ c.kmap("n", "<leader>tc", ":tabclose<cr>")
 -- Folds
 ------------------------------------------------------------------------------------------------------------------------
 
--- Easier folds
-c.kmap("n", "<leader>fj", "zrzz")
-c.kmap("n", "<leader>fk", "zmzz")
-c.kmap("n", "<leader>fh", "zMzz")
-c.kmap("n", "<leader>fl", "zRzz")
-c.kmap("n", "<leader>fo", "zozz")
-c.kmap("x", "<leader>fo", "zozz")
-c.kmap("n", "<leader>fO", "zOzz")
-c.kmap("x", "<leader>fO", "zOzz")
-c.kmap("n", "<leader>fc", "zczz")
-c.kmap("x", "<leader>fc", "zczz")
-c.kmap("n", "<leader>fC", "zCzz")
-c.kmap("x", "<leader>fC", "zCzz")
-c.kmap("n", "<leader>fe", "mazMzv`azczOzz")
--- Reset Folds
-c.kmap("n", "<leader>fr", "zx")
 -- Go onto folded lines
 c.kmap("n", "j", "gj")
 c.kmap("n", "k", "gk")

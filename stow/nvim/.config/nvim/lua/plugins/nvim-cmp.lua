@@ -1,7 +1,9 @@
 return {
     "hrsh7th/nvim-cmp",
+    event = { "InsertEnter" },
     dependencies = {
         { "david-kunz/cmp-npm", dependencies = { "nvim-lua/plenary.nvim" } },
+        "l3mon4d3/luasnip",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",

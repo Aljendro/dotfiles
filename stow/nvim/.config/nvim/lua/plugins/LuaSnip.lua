@@ -1,5 +1,6 @@
 return {
     "l3mon4d3/luasnip",
+    lazy = true,
     version = "v1.*",
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
