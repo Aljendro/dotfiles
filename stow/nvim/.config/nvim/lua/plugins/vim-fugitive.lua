@@ -1,5 +1,9 @@
 return {
     "tpope/vim-fugitive",
+    cmd = {
+        "Gread",
+        "Gwrite",
+    },
     keys = {
         -- Open up Fugitive in a tab
         { "<leader>gg", ":tab Git<cr>" },
