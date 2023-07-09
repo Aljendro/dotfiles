@@ -1,0 +1,27 @@
+return {
+    "anuvyklack/pretty-fold.nvim",
+    keys = {
+        -- Easier folds
+        { "<leader>fj", "zrzz" },
+        { "<leader>fk", "zmzz" },
+        { "<leader>fh", "zMzz" },
+        { "<leader>fl", "zRzz" },
+        { "<leader>fo", "zozz" },
+        { "<leader>fo", "zozz" },
+        { "<leader>fO", "zOzz" },
+        { "<leader>fO", "zOzz" },
+        { "<leader>fc", "zczz" },
+        { "<leader>fc", "zczz" },
+        { "<leader>fC", "zCzz" },
+        { "<leader>fC", "zCzz" },
+        { "<leader>fe", "mazMzv`azczOzz" },
+        -- Reset Folds
+        { "<leader>fr", "zx" },
+    },
+    config = function()
+        require("pretty-fold").setup({
+            fill_char = "━",
+            sections = { left = { "content" } },
+        })
+    end,
+}
