@@ -1,6 +1,6 @@
 return {
     "lewis6991/gitsigns.nvim",
-    dependencies = {"nvim-lua/plenary.nvim"},
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local c = require("common")
         require("gitsigns").setup({
@@ -16,7 +16,7 @@ return {
                         end)
                         return "<Ignore>"
                     end
-                end, {expr = true})
+                end, { expr = true })
                 c.kbmapset(bufnr, "n", "[c", function()
                     if vim.wo.diff then
                         return "[c"
@@ -27,7 +27,7 @@ return {
                         end)
                         return "<Ignore>"
                     end
-                end, {expr = true})
+                end, { expr = true })
                 c.kbmapset(bufnr, "n", "<leader>hs", ":Gitsigns stage_hunk<cr>")
                 c.kbmapset(bufnr, "v", "<leader>hs", ":Gitsigns stage_hunk<cr>")
                 c.kbmapset(bufnr, "n", "<leader>hr", ":Gitsigns reset_hunk<cr>")
@@ -39,7 +39,7 @@ return {
                 c.kbmapset(bufnr, "n", "<leader>ho", gs.toggle_deleted)
                 c.kbmapset(bufnr, "n", "<leader>hb",
                            function()
-                    gs.blame_line({full = true})
+                    gs.blame_line({ full = true })
                 end)
                 c.kbmapset(bufnr, "n", "<leader>hd",
                            function() gs.diffthis() end)

@@ -1,10 +1,10 @@
 return {
     "theprimeagen/harpoon",
-    dependencies = {"nvim-lua/plenary.nvim"},
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local c = require("common")
         require("harpoon").setup({
-            menu = {width = vim.api.nvim_win_get_width(0) - 4},
+            menu = { width = vim.api.nvim_win_get_width(0) - 4 },
         })
         -- Regular Files
         c.kmap("n", "<leader>sa", ":lua require('harpoon.mark').add_file()<cr>")

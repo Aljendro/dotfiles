@@ -5,7 +5,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Quick reload
-c.kmap("n", "<leader>r", ":lua require('plenary.reload').reload_module('dotfiles', true)<cr>:source $MYVIMRC<cr>")
+c.kmap("n", "<leader>r",
+       ":lua require('plenary.reload').reload_module('dotfiles', true)<cr>:source $MYVIMRC<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Scrolling
@@ -31,18 +32,22 @@ c.kmap("x", "<Down>", "5<C-e>")
 -- Code signature
 vim.cmd("iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>")
 -- Quick Grep and Location/Quickfix List opens
-vim.cmd("cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")")
-vim.cmd("cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep  <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")")
+vim.cmd(
+    "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")")
+vim.cmd(
+    "cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep  <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")")
 vim.cmd("noreabbrev _ml --multiline")
 vim.cmd("noreabbrev _mla --multiline --multiline-dotall")
 -- Non Greedy *
 vim.cmd("cnoreabbrev *? <left>\\{-}<C-r>=v:lua.EatChar('\\s')<cr>")
 -- Always open help in new tab
-vim.cmd("cnoreabbrev <expr> tah v:lua.CommandAbbreviation('tah', 'tab help') . ' '")
+vim.cmd(
+    "cnoreabbrev <expr> tah v:lua.CommandAbbreviation('tah', 'tab help') . ' '")
 -- Change filetype
 vim.cmd("cnoreabbrev <expr> ft v:lua.CommandAbbreviation('ft', 'set ft=')")
 -- Diff files in window
-vim.cmd("cnoreabbrev <expr> wdt v:lua.CommandAbbreviation('wdt', 'windo diffthis')")
+vim.cmd(
+    "cnoreabbrev <expr> wdt v:lua.CommandAbbreviation('wdt', 'windo diffthis')")
 -- Tabularize
 vim.cmd("cnoreabbrev <expr> t v:lua.CommandAbbreviation('t', 'Tab /')")
 
@@ -54,15 +59,19 @@ c.kmap("n", "<leader>oc", ":set cursorcolumn!<cr>:set cursorcolumn?<cr>")
 c.kmap("n", "<leader>of", ":set foldenable!<cr>:set foldenable?<cr>")
 c.kmap("n", "<leader>ol", ":set lazyredraw!<cr>:set lazyredraw?<cr>")
 c.kmap("n", "<leader>on", ":set number!<cr>:set number?<cr>")
-c.kmap("n", "<leader>om", ":setlocal modifiable! readonly!<cr>:setlocal modifiable? readonly?<cr>")
+c.kmap("n", "<leader>om",
+       ":setlocal modifiable! readonly!<cr>:setlocal modifiable? readonly?<cr>")
 c.kmap("n", "<leader>or", ":set relativenumber!<cr>:set relativenumber?<cr>")
 c.kmap("n", "<leader>ob", ":set scrollbind!<cr>:set scrollbind?<cr>")
 c.kmap("n", "<leader>osc", ":set spell!<cr>:set spell?<cr>")
-c.kmap("n", "<leader>oss", ":lua require('dotfiles.plugins.neoscroll').ToggleSmoothScroll()<cr>")
+c.kmap("n", "<leader>oss",
+       ":lua require('dotfiles.plugins.neoscroll').ToggleSmoothScroll()<cr>")
 c.kmap("n", "<leader>oww", ":set wrap!<cr>:set wrap?<cr>")
 c.kmap("n", "<leader>ows", ":set wrapscan!<cr>:set wrapscan?<cr>")
-c.kmap("n", "<leader>op", ":call v:lua.Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>")
-c.kmap("n", "<leader>oP", "mZ:bufdo call v:lua.ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z")
+c.kmap("n", "<leader>op",
+       ":call v:lua.Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>")
+c.kmap("n", "<leader>oP",
+       "mZ:bufdo call v:lua.ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Saving
@@ -85,7 +94,8 @@ c.kmap("n", "<M-l>", ":cnfile<cr>zz")
 c.kmap("n", "<M-m>", ":lnext<cr>zz")
 c.kmap("n", "<M-,>", ":lprevious<cr>zz")
 
-vim.cmd("cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofoldenable')")
+vim.cmd(
+    "cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofoldenable')")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Splits/Windows
@@ -135,8 +145,8 @@ c.kmap("n", "<leader>/r", ":%s//gci<Left><Left><Left><Left>")
 c.kmap("n", "<leader>/c", ":%s///gn<cr>")
 
 -- Change word under cursor giving the ability to reapply with .
-c.kmap("x", "<leader>/w", "*Ncgn", {noremap = false})
-c.kmap("n", "<leader>/w", "g*cgn", {noremap = false})
+c.kmap("x", "<leader>/w", "*Ncgn", { noremap = false })
+c.kmap("n", "<leader>/w", "g*cgn", { noremap = false })
 
 -- Visual mode pressing * or # searches for the current selection
 c.kmap("x", "*", "mi:call v:lua.GetSelectedText()<cr>/<C-R>=@/<cr><cr>`i")
@@ -181,7 +191,8 @@ c.kmap("n", "si", ":bnext<cr>")
 -- Quickly delete buffer
 c.kmap("n", "sd", ":bdelete<cr>")
 -- Delete unpinned buffers
-c.kmap("n", "sD", ":bufdo if get(b:, \"aljendro_is_buffer_pinned\") == 0 | exec 'bd' | endif<cr>")
+c.kmap("n", "sD",
+       ":bufdo if get(b:, \"aljendro_is_buffer_pinned\") == 0 | exec 'bd' | endif<cr>")
 
 -- Faster shifting
 c.kmap("n", "<Left>", "zH")
@@ -237,8 +248,12 @@ c.kmap("n", "k", "gk")
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Quick Session
-c.kmap("n", "<leader>ss", "':wall | call v:lua.MakeSession(\"' . nr2char(getchar()) . '\")<cr>'", {expr = true})
-c.kmap("n", "<leader>sr", "':wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession(\"' . nr2char(getchar()) . '\")<cr>'", {expr = true})
+c.kmap("n", "<leader>ss",
+       "':wall | call v:lua.MakeSession(\"' . nr2char(getchar()) . '\")<cr>'",
+       { expr = true })
+c.kmap("n", "<leader>sr",
+       "':wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession(\"' . nr2char(getchar()) . '\")<cr>'",
+       { expr = true })
 c.kmap("n", "<leader>sd", ":wall | call v:lua.LoadSession(\"default\")<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -246,14 +261,15 @@ c.kmap("n", "<leader>sd", ":wall | call v:lua.LoadSession(\"default\")<cr>")
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Profile everything
-c.kmap("n", "<leader>pp", ":profile start profile-all.local.txt | profile file * | profile func *<cr>")
+c.kmap("n", "<leader>pp",
+       ":profile start profile-all.local.txt | profile file * | profile func *<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Macros
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Easier macro execution
-c.kmap("n", "<leader>m", ":call v:lua.RecordMacro()<cr>", {silent = true})
+c.kmap("n", "<leader>m", ":call v:lua.RecordMacro()<cr>", { silent = true })
 c.kmap("n", "Q", "@@")
 c.kmap("x", "Q", ":norm! @@<cr>")
 
@@ -288,4 +304,3 @@ c.kmap("x", "<leader>;", ";")
 
 -- Use the . to execute once for each line of a visual selection
 c.kmap("x", ".", ":normal .<cr>")
-

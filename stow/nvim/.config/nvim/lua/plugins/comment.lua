@@ -1,6 +1,6 @@
 return {
     "numtostr/comment.nvim",
-    dependencies = {"joosepalviste/nvim-ts-context-commentstring"},
+    dependencies = { "joosepalviste/nvim-ts-context-commentstring" },
     config = function()
         require("Comment").setup({
             pre_hook = require(
