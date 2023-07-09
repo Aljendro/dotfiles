@@ -2,8 +2,10 @@ return {
     "folke/tokyonight.nvim",
     config = function()
         local c = require("common")
+
         local tokyonight = require("tokyonight")
 
+        vim.o.termguicolors = true
         tokyonight.setup({ dim_inactive = true })
         vim.cmd("filetype plugin indent on")
         vim.cmd("colorscheme tokyonight")

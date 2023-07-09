@@ -1,2 +1,2 @@
-require('dotfiles.languages.javascript').setup()
+require('languages.javascript').setup()
 
