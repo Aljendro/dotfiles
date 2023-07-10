@@ -36,3 +36,13 @@ vim.opt.updatetime = 100
 vim.opt.virtualedit = { "block", "onemore" }
 vim.opt.wrap = false
 vim.opt.writebackup = false
+
+vim.cmd([[
+let g:copilot_no_tab_map = v:true
+let g:VM_theme = "neon"
+let g:VM_silent_exit = v:true
+let g:VM_leader = "<bslash>"
+let g:VM_mouse_mappings = v:true
+]])
+
+
