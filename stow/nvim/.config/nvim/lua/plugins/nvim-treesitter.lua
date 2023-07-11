@@ -1,6 +1,5 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = { "VimEnter" },
     dependencies = { "nvim-treesitter/playground" },
     config = function()
         require("nvim-treesitter.configs").setup {
