@@ -1,6 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "nvim-treesitter/playground" },
+    -- dependencies = { "nvim-treesitter/playground" },
     config = function()
         require("nvim-treesitter.configs").setup {
             ensure_installed = {
@@ -62,7 +62,7 @@ return {
                 },
             },
             playground = {
-                enable = true,
+                enable = false,
                 disable = {},
                 updatetime = 25,
                 persist_queries = false,

@@ -7,7 +7,6 @@ return {
         { ";dc", ":NvimTreeCollapse<cr>" },
     },
     config = function()
-        local c = require("common")
         local nvim_tree = require("nvim-tree")
         local nvim_tree_config = require("nvim-tree.config")
         local list = {
@@ -42,13 +41,29 @@ return {
             { key = "[c", action = "prev_git_item" },
             { key = "]c", action = "next_git_item" },
             { key = "-", action = "dir_up" },
-            { key = "q", action = "close" },
+            { key = "<C-c>", action = "close" },
+            { key = "<esc>", action = "close" },
             { key = "g?", action = "toggle_help" },
         }
+
+        local wwidth = vim.api.nvim_win_get_width(0)
+        local wheight = vim.api.nvim_win_get_height(0)
         nvim_tree.setup({
             actions = { change_dir = { global = true } },
             update_cwd = true,
-            view = { mappings = { custom_only = true, list = list } },
+            view = {
+                mappings = { custom_only = true, list = list },
+                float = {
+                    enable = true,
+                    open_win_config = {
+                        relative = "editor",
+                        width = wwidth - math.floor(wwidth / 3),
+                        height = wheight - math.floor(wheight / 3),
+                        row = math.floor(wheight / 6),
+                        col = math.floor(wwidth / 6),
+                    },
+                },
+            },
             renderer = {
                 group_empty = true,
                 indent_markers = { enable = true },

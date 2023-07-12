@@ -8,7 +8,7 @@ return {
                 lualine_x = { "encoding", "fileformat", "filetype" },
             },
             tabline = {
-                lualine_a = { { "buffers", mode = 0 } },
+                lualine_a = { { "buffers", mode = 4 } },
                 lualine_b = {},
                 lualine_c = {},
                 lualine_x = {},

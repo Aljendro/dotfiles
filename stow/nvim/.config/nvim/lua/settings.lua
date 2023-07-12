@@ -3,8 +3,11 @@ vim.g.loaded_ruby_provider = 0
 vim.g.node_host_prog = vim.fn.expand(
                            "~/.nvm/versions/node/v16.20.0/bin/neovim-node-host")
 vim.g.python3_host_prog = vim.fn.expand("/usr/bin/python3")
-vim.g.loaded_netrwPlugin = 0
-vim.g.loaded_tutor_mode_plugin = 0
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_tutor_mode_plugin = 1
+
+vim.o.termguicolors = true
 
 vim.opt.dictionary:append("/usr/share/dict/words")
 vim.opt.iskeyword:append("-")

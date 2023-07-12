@@ -29,10 +29,14 @@ return {
                         return "<Ignore>"
                     end
                 end, { expr = true })
-                c.kbmapset(bufnr, "n", "<leader>hs", ":Gitsigns stage_hunk<cr>")
-                c.kbmapset(bufnr, "v", "<leader>hs", ":Gitsigns stage_hunk<cr>")
-                c.kbmapset(bufnr, "n", "<leader>hr", ":Gitsigns reset_hunk<cr>")
-                c.kbmapset(bufnr, "v", "<leader>hr", ":Gitsigns reset_hunk<cr>")
+                c.kbmapset(bufnr, "n", "<leader>hs", gs.stage_hunk)
+                c.kbmapset(bufnr, "v", "<leader>hs", function()
+                    gs.stage_hunk { vim.fn.line("."), vim.fn.line("v") }
+                end)
+                c.kbmapset(bufnr, "n", "<leader>hr", gs.reset_hunk)
+                c.kbmapset(bufnr, "v", "<leader>hr", function()
+                    gs.reset_hunk { vim.fn.line("."), vim.fn.line("v") }
+                end)
                 c.kbmapset(bufnr, "n", "<leader>hS", gs.stage_buffer)
                 c.kbmapset(bufnr, "n", "<leader>hu", gs.undo_stage_hunk)
                 c.kbmapset(bufnr, "n", "<leader>hR", gs.reset_buffer)

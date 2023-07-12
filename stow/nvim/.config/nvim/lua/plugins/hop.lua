@@ -1,11 +1,11 @@
 return {
     "phaazon/hop.nvim",
+    branch = 'v2',
     keys = {
-        { "<leader>k", "<cmd>HopWord<cr>", mode = { "n", "x", "o" } },
-        { "<leader>l", "<cmd>HopChar1<cr>", mode = { "n", "x", "o" } },
+        { "<leader>k", "<cmd>HopWordMW<cr>", mode = { "n", "x", "o" } },
+        { "<leader>l", "<cmd>HopChar1MW<cr>", mode = { "n", "x", "o" } },
     },
     config = function()
-        local c = require("common")
         require("hop").setup({
             keys = "fjdksla;rueiwovmcxtyz",
             term_seq_bias = 0.5,

@@ -1,6 +1,18 @@
 return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        { "nvim-telescope/telescope-live-grep-args.nvim" },
+        {
+            "AckslD/nvim-neoclip.lua",
+            config = function()
+                require("neoclip").setup(
+                    { default_register = { "\"", "+", "*" } })
+            end,
+        },
+    },
     keys = {
         { ";/", ":lua require('telescope.builtin').search_history()<cr>" },
         {
@@ -21,9 +33,11 @@ return {
         { ";gC", ":lua require('telescope.builtin').git_commits()<cr>" },
         { ";gb", ":lua require('telescope.builtin').git_branches()<cr>" },
         { ";gf", ":lua require('telescope.builtin').git_files()<cr>" },
-        { ";gg", ":lua require('telescope.builtin').live_grep()<cr>" },
+        {
+            ";gg",
+            ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
+        },
         { ";gr", ":Telescope grep_string search=" },
-        { ";gs", ":lua require('telescope.builtin').git_stash()<cr>" },
         { ";h", ":lua require('telescope.builtin').help_tags()<cr>" },
         {
             ";j",
@@ -50,6 +64,7 @@ return {
             ";s",
             ":lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>",
         },
+        { ";S", ":lua require('telescope.builtin').spell_suggest()<cr>" },
         { ";t", ":lua require('telescope.builtin').treesitter()<cr>" },
         { ";vf", ":lua require('telescope.builtin').filetypes()<cr>" },
         { ";vo", ":lua require('telescope.builtin').vim_options()<cr>" },
@@ -60,21 +75,10 @@ return {
             mode = "x",
         },
     },
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        {
-            "AckslD/nvim-neoclip.lua",
-            config = function()
-                require("neoclip").setup(
-                    { default_register = { "\"", "+", "*" } })
-            end,
-        },
-    },
     config = function()
-        local c = require("common")
         local telescope_actions = require("telescope.actions")
         local telescope = require("telescope")
+        local lga_actions = require("telescope-live-grep-args.actions")
         telescope.setup {
             defaults = {
                 mappings = {
@@ -94,6 +98,22 @@ return {
                     width = 0.95,
                     horizontal = { preview_width = 0.5 },
                     vertical = { preview_height = 0.45 },
+                },
+            },
+            extensions = {
+                live_grep_args = {
+                    auto_quoting = true, -- enable/disable auto-quoting
+                    -- define mappings, e.g.
+                    mappings = { -- extend mappings
+                        i = {
+                            ["<C-h>"] = lga_actions.quote_prompt({
+                                postfix = " --iglob ",
+                            }),
+                            ["<C-n>"] = lga_actions.quote_prompt({
+                                postfix = " --multiline --multiline-dotall ",
+                            }),
+                        },
+                    },
                 },
             },
         }

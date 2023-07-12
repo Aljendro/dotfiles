@@ -3,7 +3,6 @@ return {
     config = function()
         local tokyonight = require("tokyonight")
 
-        vim.o.termguicolors = true
         tokyonight.setup({ dim_inactive = true })
         vim.cmd("filetype plugin indent on")
         vim.cmd("colorscheme tokyonight")
