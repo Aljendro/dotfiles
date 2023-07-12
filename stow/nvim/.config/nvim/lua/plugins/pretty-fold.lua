@@ -18,10 +18,5 @@ return {
         -- Reset Folds
         { "<leader>fr", "zx" },
     },
-    config = function()
-        require("pretty-fold").setup({
-            fill_char = "━",
-            sections = { left = { "content" } },
-        })
-    end,
+    config = function() require("pretty-fold").setup({ fill_char = "━", sections = { left = { "content" } } }) end,
 }

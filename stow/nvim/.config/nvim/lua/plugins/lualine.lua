@@ -3,10 +3,7 @@ return {
     config = function()
         require("lualine").setup {
             options = { theme = "tokyonight", globalstatus = true },
-            sections = {
-                lualine_c = { { "filename", path = 1 } },
-                lualine_x = { "encoding", "fileformat", "filetype" },
-            },
+            sections = { lualine_c = { { "filename", path = 1 } }, lualine_x = { "encoding", "fileformat", "filetype" } },
             tabline = {
                 lualine_a = { { "buffers", mode = 4 } },
                 lualine_b = {},

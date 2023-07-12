@@ -49,16 +49,13 @@ return {
             },
             indent = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-            },
+            highlight = { enable = true, additional_vim_regex_highlighting = false },
             incremental_selection = {
                 enable = true,
                 keymaps = {
                     init_selection = "<leader>y",
                     node_decremental = "<leader>u",
-                    node_incremental = "<leader>i",
+                    node_incremental = "<leader>i"
                 },
             },
             playground = {

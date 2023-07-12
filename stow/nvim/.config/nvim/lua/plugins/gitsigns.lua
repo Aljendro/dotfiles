@@ -42,14 +42,9 @@ return {
                 c.kbmapset(bufnr, "n", "<leader>hR", gs.reset_buffer)
                 c.kbmapset(bufnr, "n", "<leader>hp", gs.preview_hunk)
                 c.kbmapset(bufnr, "n", "<leader>ho", gs.toggle_deleted)
-                c.kbmapset(bufnr, "n", "<leader>hb",
-                           function()
-                    gs.blame_line({ full = true })
-                end)
-                c.kbmapset(bufnr, "n", "<leader>hd",
-                           function() gs.diffthis() end)
-                c.kbmapset(bufnr, "n", "<leader>hD",
-                           function() gs.diffthis("~") end)
+                c.kbmapset(bufnr, "n", "<leader>hb", function() gs.blame_line({ full = true }) end)
+                c.kbmapset(bufnr, "n", "<leader>hd", function() gs.diffthis() end)
+                c.kbmapset(bufnr, "n", "<leader>hD", function() gs.diffthis("~") end)
             end,
         })
     end,

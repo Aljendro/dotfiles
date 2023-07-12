@@ -6,8 +6,7 @@ local function require_lsp()
     if not requires_ok then
         return { false }
     else
-        local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol
-                                                                   .make_client_capabilities())
+        local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
         return { true, lspconfig, capabilities }
     end
 end
@@ -29,21 +28,13 @@ local function on_attach(_, bufnr)
     c.kbmap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
     c.kbmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
     c.kbmap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-    c.kbmap(bufnr, "n", "glf",
-            "<cmd>lua vim.lsp.buf.format({ async = false })<cr>", opts)
-    c.kbmap(bufnr, "x", "glf",
-            "<cmd>lua vim.lsp.buf.format({ async = false })<cr>", opts)
-    c.kbmap(bufnr, "n", "gs",
-            "<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
-    c.kbmap(bufnr, "n", "gt",
-            "<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
-    c.kbmap(bufnr, "n", "gla",
-            "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", opts)
-    c.kbmap(bufnr, "n", "glr",
-            "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", opts)
-    c.kbmap(bufnr, "n", "glw",
-            "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>",
-            opts)
+    c.kbmap(bufnr, "n", "glf", "<cmd>lua vim.lsp.buf.format({ async = false })<cr>", opts)
+    c.kbmap(bufnr, "x", "glf", "<cmd>lua vim.lsp.buf.format({ async = false })<cr>", opts)
+    c.kbmap(bufnr, "n", "gs", "<cmd>vsplit<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
+    c.kbmap(bufnr, "n", "gt", "<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
+    c.kbmap(bufnr, "n", "gla", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", opts)
+    c.kbmap(bufnr, "n", "glr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", opts)
+    c.kbmap(bufnr, "n", "glw", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", opts)
     c.kbmap(bufnr, "n", "gld", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
     c.kbmap(bufnr, "n", "glq", "<cmd>lua vim.diagnostic.setloclist()<cr>", opts)
     c.kbmap(bufnr, "n", "glQ", "<cmd>lua vim.diagnostic.setqflist()<cr>", opts)
@@ -79,24 +70,24 @@ return {
             ------------ Javascript/Typescript ---------------
             --------------------------------------------------
 
-            lspconfig.tsserver.setup({
-                capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.document_formatting = false
-                    on_attach(client, bufnr)
-                end,
-                flags = { debounce_text_changes = 150 },
-            })
+            lspconfig.tsserver.setup(
+                {
+                    capabilities = capabilities,
+                    on_attach = function(client, bufnr)
+                        client.server_capabilities.document_formatting = false
+                        on_attach(client, bufnr)
+                    end,
+                    flags = { debounce_text_changes = 150 },
+                }
+            )
 
             --------------------------------------------------
             -------------------- Rust ------------------------
             --------------------------------------------------
 
-            lspconfig.rust_analyzer.setup({
-                cmd = { lsp_dir .. "/rust/rust-analyzer" },
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.rust_analyzer.setup(
+                { cmd = { lsp_dir .. "/rust/rust-analyzer" }, capabilities = capabilities, on_attach = on_attach }
+            )
 
             --------------------------------------------------
             ------------------- Docker -----------------------
@@ -108,56 +99,37 @@ return {
             ------------------- Clojure ----------------------
             --------------------------------------------------
 
-            lspconfig.clojure_lsp.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.clojure_lsp.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             --------------------- Go -------------------------
             --------------------------------------------------
 
-            lspconfig.gopls.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.gopls.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             ------------------- Python -----------------------
             --------------------------------------------------
 
-            lspconfig.pyright.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             ------------------- Bash -------------------------
             --------------------------------------------------
 
-            lspconfig.bashls.setup({
-                filetypes = { "sh", "bash" },
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.bashls.setup({ filetypes = { "sh", "bash" }, capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             --------------------- HTML -----------------------
             --------------------------------------------------
 
-            lspconfig.html.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             --------------------- CSS ------------------------
             --------------------------------------------------
 
-            lspconfig.cssls.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             -------------------- JSON ------------------------
@@ -176,11 +148,7 @@ return {
                 },
                 {
                     description = "Babel configuration",
-                    fileMatch = {
-                        ".babelrc.json",
-                        ".babelrc",
-                        "babel.config.json",
-                    },
+                    fileMatch = { ".babelrc.json", ".babelrc", "babel.config.json" },
                     url = "https://json.schemastore.org/babelrc.json",
                 },
                 {
@@ -190,25 +158,20 @@ return {
                 },
                 {
                     description = "Prettier config",
-                    fileMatch = {
-                        ".prettierrc",
-                        ".prettierrc.json",
-                        "prettier.config.json",
-                    },
+                    fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
                     url = "https://json.schemastore.org/prettierrc",
                 },
                 {
-                    description = "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
+                    description =
+                    "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
                     fileMatch = { "*.cf.json", "cloudformation.json" },
-                    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
+                    url =
+                    "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
                 },
                 {
-                    description = "The AWS Serverless Application Model (AWS SAM previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs AWS Lambda functions and Amazon DynamoDB tables needed by your serverless application.",
-                    fileMatch = {
-                        "serverless.template",
-                        "*.sam.json",
-                        "sam.json",
-                    },
+                    description =
+                    "The AWS Serverless Application Model (AWS SAM previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs AWS Lambda functions and Amazon DynamoDB tables needed by your serverless application.",
+                    fileMatch = { "serverless.template", "*.sam.json", "sam.json" },
                     url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json",
                 },
                 {
@@ -218,11 +181,9 @@ return {
                 },
             }
 
-            lspconfig.jsonls.setup({
-                capabilities = capabilities,
-                settings = { json = { schemas = schemas } },
-                on_attach = on_attach,
-            })
+            lspconfig.jsonls.setup(
+                { capabilities = capabilities, settings = { json = { schemas = schemas } }, on_attach = on_attach }
+            )
 
             --------------------------------------------------
             --------------------- Lua ------------------------
@@ -231,31 +192,29 @@ return {
             local runtime_path = vim.split(package.path, ";")
             table.insert(runtime_path, "lua/?.lua")
             table.insert(runtime_path, "lua/?/init.lua")
-            lspconfig.lua_ls.setup({
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.document_formatting = false
-                    on_attach(client, bufnr)
-                end,
-                settings = {
-                    Lua = {
-                        runtime = { version = "LuaJIT", path = runtime_path },
-                        diagnostics = { globals = { "vim", "use" } },
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file("", true),
+            lspconfig.lua_ls.setup(
+                {
+                    on_attach = function(client, bufnr)
+                        client.server_capabilities.document_formatting = false
+                        on_attach(client, bufnr)
+                    end,
+                    settings = {
+                        Lua = {
+                            runtime = { version = "LuaJIT", path = runtime_path },
+                            diagnostics = { globals = { "vim", "use" } },
+                            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                            telemetry = { enable = false },
                         },
-                        telemetry = { enable = false },
                     },
-                },
-            })
+                }
+            )
 
             --------------------------------------------------
             --------------------- EFM ------------------------
             --------------------------------------------------
 
-            local prettier = {
-                formatCommand = "cat ${INPUT} | prettier --stdin-filepath ${INPUT}",
-                formatStdin = false,
-            }
+            local prettier =
+            { formatCommand = "cat ${INPUT} | prettier --stdin-filepath ${INPUT}", formatStdin = false }
 
             local eslint = {
                 lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
@@ -264,35 +223,53 @@ return {
                 lintFormats = { "%f:%l:%c: %m" },
             }
 
-            lspconfig.efm.setup({
-                init_options = { documentFormatting = true },
-                filetypes = {
-                    "css",
-                    "html",
-                    "lua",
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                },
-                settings = {
-                    rootMarkers = { ".git/" },
-                    languages = {
-                        lua = {
-                            {
-                                formatCommand = "lua-format -i --extra-sep-at-table-end --single-quote-to-double-quote --chop-down-table --spaces-inside-table-braces",
-                                formatStdin = true,
+            lspconfig.efm.setup(
+                {
+                    init_options = { documentFormatting = true },
+                    filetypes = { "css", "html", "lua", "javascript", "javascriptreact", "typescript",
+                        "typescriptreact" },
+                    settings = {
+                        rootMarkers = { ".git/" },
+                        languages = {
+                            lua = {
+                                {
+                                    formatCommand = table.concat(
+                                        {
+                                            "lua-format -i",
+                                            "--align-args",
+                                            "--align-parameter",
+                                            "--align-table-field",
+                                            "--break-after-functioncall-lp",
+                                            "--break-after-functiondef-lp",
+                                            "--break-after-table-lb",
+                                            "--break-before-functioncall-rp",
+                                            "--break-before-functiondef-rp",
+                                            "--break-before-table-rb",
+                                            "--chop-down-kv-table",
+                                            "--chop-down-table",
+                                            "--chop-down-parameter",
+                                            "--column-limit=120",
+                                            "--extra-sep-at-table-end",
+                                            "--no-keep-simple-function-one-line",
+                                            "--line-breaks-after-function-body",
+                                            "--single-quote-to-double-quote",
+                                            "--spaces-around-equals-in-field",
+                                            "--spaces-inside-table-braces",
+                                        }, " "
+                                    ),
+                                    formatStdin = true,
+                                },
                             },
+                            css = { prettier },
+                            html = { prettier },
+                            javascript = { prettier, eslint },
+                            javascriptreact = { prettier, eslint },
+                            typescript = { prettier, eslint },
+                            typescriptreact = { prettier, eslint },
                         },
-                        css = { prettier },
-                        html = { prettier },
-                        javascript = { prettier, eslint },
-                        javascriptreact = { prettier, eslint },
-                        typescript = { prettier, eslint },
-                        typescriptreact = { prettier, eslint },
                     },
-                },
-            })
+                }
+            )
         end
     end,
 }

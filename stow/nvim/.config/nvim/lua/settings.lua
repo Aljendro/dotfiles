@@ -1,7 +1,6 @@
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
-vim.g.node_host_prog = vim.fn.expand(
-                           "~/.nvm/versions/node/v16.20.0/bin/neovim-node-host")
+vim.g.node_host_prog = vim.fn.expand("~/.nvm/versions/node/v16.20.0/bin/neovim-node-host")
 vim.g.python3_host_prog = vim.fn.expand("/usr/bin/python3")
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -47,5 +46,3 @@ let g:VM_silent_exit = v:true
 let g:VM_leader = "<bslash>"
 let g:VM_mouse_mappings = v:true
 ]])
-
-

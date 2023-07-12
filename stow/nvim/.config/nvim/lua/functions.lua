@@ -38,9 +38,7 @@ end
 function MakeSession(session_name)
     local session_dir = os.getenv("HOME") .. "/.config/nvim/sessions/"
 
-    if vim.fn.filewritable(session_dir) ~= 2 then
-        os.execute("mkdir -p " .. session_dir)
-    end
+    if vim.fn.filewritable(session_dir) ~= 2 then os.execute("mkdir -p " .. session_dir) end
 
     local filename = session_dir .. "session-" .. session_name .. ".vim"
     vim.cmd([[execute 'mksession! ]] .. filename .. "'")
@@ -152,8 +150,7 @@ function ToggleListItem(character)
             offset = 1
             replacement = { character .. " " }
         end
-        vim.api.nvim_buf_set_text(0, cursor_row, list_item_char_position + 1,
-                                  cursor_row, list_item_char_position + offset,
-                                  replacement)
+        vim.api.nvim_buf_set_text(0, cursor_row, list_item_char_position + 1, cursor_row,
+            list_item_char_position + offset, replacement)
     end
 end
