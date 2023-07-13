@@ -94,8 +94,8 @@ return {
                     -- define mappings, e.g.
                     mappings = {         -- extend mappings
                         i = {
-                            ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-                            ["<C-n>"] = lga_actions.quote_prompt({ postfix = " --multiline --multiline-dotall " }),
+                            ["<C-h>"] = lga_actions.quote_prompt({ postfix = " -g " }),
+                            ["<C-n>"] = lga_actions.quote_prompt({ postfix = " -U --multiline-dotall " }),
                         },
                     },
                 },
