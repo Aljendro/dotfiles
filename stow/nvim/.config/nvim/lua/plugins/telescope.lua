@@ -25,8 +25,15 @@ return {
         { ";gc", ":lua require('telescope.builtin').git_bcommits()<cr>" },
         { ";gC", ":lua require('telescope.builtin').git_commits()<cr>" },
         { ";gb", ":lua require('telescope.builtin').git_branches()<cr>" },
-        { ";gf", ":lua require('telescope.builtin').git_files()<cr>" },
         { ";gg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>" },
+        {
+            ";gf",
+            ":lua require('telescope.builtin').grep_string({ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' })<cr>"
+        },
+        {
+            ";gF",
+            ":lua require('telescope.builtin').grep_string({ shorten_path = true, word_match = '-w', only_sort_text = false, search = '' })<cr>"
+        },
         { ";gr", ":Telescope grep_string search=" },
         { ";h",  ":lua require('telescope.builtin').help_tags()<cr>" },
         { ";j",  ":lua require('telescope.builtin').jumplist({ignore_filename=false})<cr>" },
