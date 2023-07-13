@@ -25,8 +25,28 @@ vim.api.nvim_create_autocmd(
     { "TextChanged", "TextChangedI" },
     {
         group = customVim,
-        pattern =
-        "*.txt,*.sh,*.md,*.html,*.yml,*.yaml,*.css,*.js,*.ts,*.jsx,*.tsx,*.json,*.jsonl,*.py,*.rs,*.go,*.lua,*.fnl,*.clj,*.cljs,*.cljc",
+        pattern = table.concat({
+            "*.clj",
+            "*.cljc",
+            "*.cljs",
+            "*.css",
+            "*.fnl",
+            "*.go",
+            "*.html",
+            "*.js",
+            "*.json",
+            "*.jsonl",
+            "*.jsx",
+            "*.lua",
+            "*.md",
+            "*.py",
+            "*.rs",
+            "*.ts",
+            "*.tsx",
+            "*.txt",
+            "*.yaml",
+            "*.yml",
+        }, ","),
         callback = function() vim.cmd("silent! w") end,
     }
 )
