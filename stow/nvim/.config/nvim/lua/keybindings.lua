@@ -35,12 +35,12 @@ vim.cmd(
     "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")")
 vim.cmd(
     "cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep  <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")")
-vim.cmd("noreabbrev _ml -U ")
-vim.cmd("noreabbrev _mla -U --multiline-dotall ")
-vim.cmd("noreabbrev _r10 .{0,10}?")
-vim.cmd("noreabbrev _r20 .{0,20}?")
-vim.cmd("noreabbrev _r50 .{0,50}?")
-vim.cmd("noreabbrev _r100 .{0,100}?")
+vim.cmd("noreabbrev _ml -U")
+vim.cmd("noreabbrev _mla -U --multiline-dotall")
+vim.cmd("noreabbrev _r10 <left>.{0,10}?")
+vim.cmd("noreabbrev _r20 <left>.{0,20}?")
+vim.cmd("noreabbrev _r50 <left>.{0,50}?")
+vim.cmd("noreabbrev _r100 <left>.{0,100}?")
 -- Non Greedy *
 vim.cmd("cnoreabbrev *? <left>\\{-}<C-r>=v:lua.EatChar('\\s')<cr>")
 -- Always open help in new tab
