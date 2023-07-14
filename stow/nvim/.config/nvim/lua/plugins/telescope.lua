@@ -25,6 +25,7 @@ return {
         { ";gc", ":lua require('telescope.builtin').git_bcommits()<cr>" },
         { ";gC", ":lua require('telescope.builtin').git_commits()<cr>" },
         { ";gb", ":lua require('telescope.builtin').git_branches()<cr>" },
+        { ";gs", ":lua require('telescope.builtin').git_stash()<cr>" },
         { ";gg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>" },
         {
             ";gf",
