@@ -5,7 +5,7 @@ local function on_attach(bufnr)
         return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
     end
 
-    vim.keymap.set("n", "CD", api.tree.change_root_to_node, opts("CD"))
+    vim.keymap.set("n", "<C-d>", api.tree.change_root_to_node, opts("CD"))
     vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
     vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
     vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))

@@ -124,8 +124,8 @@ c.kmap("n", "<C-w>h", "<C-w>H")
 -- Resize windows
 c.kmap("n", "<M-d>", ":resize -4<cr>")
 c.kmap("n", "<M-e>", ":resize +4<cr>")
-c.kmap("n", "<M-s>", ":vertical resize +4<cr>")
-c.kmap("n", "<M-f>", ":vertical resize -4<cr>")
+c.kmap("n", "<M-s>", ":vertical resize +8<cr>")
+c.kmap("n", "<M-f>", ":vertical resize -8<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Search
