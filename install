@@ -78,13 +78,6 @@ if [ $NODE_VERSION_CHECK != 'v18.7.0' ];then
   nvm alias default 18.7.0
 fi
 
-#################### Packer ######################
-
-if [ ! -f $HOME/.local/share/nvim/site/pack/start/packer.vim ];then
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-   $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
-fi
-
 ##################################################
 ################### Packages #####################
 ##################################################
