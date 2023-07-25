@@ -19,6 +19,7 @@ export FZF_ALT_C_COMMAND="fd --type directory -E 'node_modules/*'"
 export FZF_CTRL_T_COMMAND="fd --type file --hidden -E .git"
 export TIMER_FORMAT='[%d]'
 export TIMER_PRECISION=2
+export HOMEBREW_NO_ANALYTICS=1
 
 alias n='nvim'
 alias nn='nvim -u NONE'
