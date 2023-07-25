@@ -74,7 +74,7 @@ return {
                 {
                     capabilities = capabilities,
                     on_attach = function(client, bufnr)
-                        client.server_capabilities.document_formatting = false
+                        client.server_capabilities.documentFormattingProvider = false
                         on_attach(client, bufnr)
                     end,
                     flags = { debounce_text_changes = 150 },
@@ -204,68 +204,6 @@ return {
                             diagnostics = { globals = { "vim", "use" } },
                             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
                             telemetry = { enable = false },
-                        },
-                    },
-                }
-            )
-
-            --------------------------------------------------
-            --------------------- EFM ------------------------
-            --------------------------------------------------
-
-            local prettier =
-            { formatCommand = "cat ${INPUT} | prettier --stdin-filepath ${INPUT}", formatStdin = false }
-
-            local eslint = {
-                lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-                lintIgnoreExitCode = true,
-                lintStdin = true,
-                lintFormats = { "%f:%l:%c: %m" },
-            }
-
-            lspconfig.efm.setup(
-                {
-                    init_options = { documentFormatting = true },
-                    filetypes = { "css", "html", "lua", "javascript", "javascriptreact", "typescript",
-                        "typescriptreact" },
-                    settings = {
-                        rootMarkers = { ".git/" },
-                        languages = {
-                            lua = {
-                                {
-                                    formatCommand = table.concat(
-                                        {
-                                            "lua-format -i",
-                                            "--align-args",
-                                            "--align-parameter",
-                                            "--align-table-field",
-                                            "--break-after-functioncall-lp",
-                                            "--break-after-functiondef-lp",
-                                            "--break-after-table-lb",
-                                            "--break-before-functioncall-rp",
-                                            "--break-before-functiondef-rp",
-                                            "--break-before-table-rb",
-                                            "--chop-down-kv-table",
-                                            "--chop-down-table",
-                                            "--chop-down-parameter",
-                                            "--column-limit=120",
-                                            "--extra-sep-at-table-end",
-                                            "--no-keep-simple-function-one-line",
-                                            "--line-breaks-after-function-body",
-                                            "--single-quote-to-double-quote",
-                                            "--spaces-around-equals-in-field",
-                                            "--spaces-inside-table-braces",
-                                        }, " "
-                                    ),
-                                    formatStdin = true,
-                                },
-                            },
-                            css = { prettier },
-                            html = { prettier },
-                            javascript = { prettier, eslint },
-                            javascriptreact = { prettier, eslint },
-                            typescript = { prettier, eslint },
-                            typescriptreact = { prettier, eslint },
                         },
                     },
                 }
