@@ -1,0 +1,80 @@
+#!/usr/bin/osascript
+
+global startOffset
+global endOffset
+global availabilityMessage
+
+display dialog "Enter the start time offset in minutes:" default answer "25"
+set startOffset to text returned of result as integer
+set endOffset to startOffset + 5
+
+set availabilityMessage to my getAvailabilityMessage()
+
+on getAvailabilityMessage()
+	set currentTime to current date
+	set startTime to currentTime + (startOffset * minutes)
+	set endTime to currentTime + (endOffset * minutes)
+
+	set startTimeString to time string of startTime
+	set endTimeString to time string of endTime
+
+	set message to "Available (ET): " & startTimeString & " - " & endTimeString
+
+	return message
+end getAvailabilityMessage
+
+tell application "Google Chrome"
+	activate
+	if not (exists window 1) then make new window
+	tell window 1
+		set active tab index to 1
+		set URL of tab 1 to "https://teams.microsoft.com/"
+	end tell
+
+	delay 7
+
+	tell tab 1 of window 1
+		execute javascript "document.getElementById('personDropdown').click();"
+		delay 1
+		execute javascript "document.getElementById('personal-skype-status-text').click();"
+		delay 1
+		execute javascript "document.querySelector('[aria-label=\"Busy\"] > button').click();"
+		delay 1
+		execute javascript "document.getElementById('settings-dropdown-update-status-button').click();"
+		delay 1
+		execute javascript "document.querySelector('[aria-label=\"Status Message\"]').click();"
+		delay 1
+		tell application "System Events"
+			keystroke availabilityMessage
+			delay 1
+			key code 48
+			delay 1
+			key code 36
+		end tell
+		delay 1
+		execute javascript "document.getElementById('setStatusNoteDone').click()"
+	end tell
+end tell
+
+delay (startOffset * 60)
+
+tell application "Google Chrome"
+	activate
+	if not (exists window 1) then make new window
+	tell window 1
+		set active tab index to 1
+		set URL of tab 1 to "https://teams.microsoft.com/"
+	end tell
+
+	delay 7
+
+	tell tab 1 of window 1
+		execute javascript "document.getElementById('personDropdown').click();"
+		delay 2
+		execute javascript "document.getElementById('personal-skype-status-text').click();"
+		delay 2
+		execute javascript "document.querySelector('[aria-label=\"Available\"] > button').click();"
+		delay 2
+		execute javascript "document.querySelector('[aria-label=\"Delete this status message\"]').click();"
+	end tell
+end tell
