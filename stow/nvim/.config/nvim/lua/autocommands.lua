@@ -46,6 +46,7 @@ vim.api.nvim_create_autocmd(
             "*.txt",
             "*.yaml",
             "*.yml",
+            "*.hbs",
         }, ","),
         callback = function() vim.cmd("silent! w") end,
     }

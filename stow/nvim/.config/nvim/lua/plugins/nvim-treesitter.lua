@@ -20,6 +20,7 @@ return {
                 "gitattributes",
                 "gitcommit",
                 "gitignore",
+                "glimmer",
                 "go",
                 "gomod",
                 "gosum",
