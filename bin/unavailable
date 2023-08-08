@@ -2,24 +2,21 @@
 
 global startOffset
 global endOffset
-global availabilityMessage
 
 display dialog "Enter the start time offset in minutes:" default answer "25"
 set startOffset to text returned of result as integer
 set endOffset to startOffset + 5
 
-set availabilityMessage to my getAvailabilityMessage()
-
 on getAvailabilityMessage()
 	set currentTime to current date
 	set startTime to currentTime + (startOffset * minutes)
 	set endTime to currentTime + (endOffset * minutes)
-
+	
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime
-
+	
 	set message to "Available (ET): " & startTimeString & " - " & endTimeString
-
+	
 	return message
 end getAvailabilityMessage
 
@@ -30,9 +27,9 @@ tell application "Google Chrome"
 		set active tab index to 1
 		set URL of tab 1 to "https://teams.microsoft.com/"
 	end tell
-
+	
 	delay 7
-
+	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 1
@@ -45,6 +42,7 @@ tell application "Google Chrome"
 		execute javascript "document.querySelector('[aria-label=\"Status Message\"]').click();"
 		delay 1
 		tell application "System Events"
+			set availabilityMessage to my getAvailabilityMessage()
 			keystroke availabilityMessage
 			delay 1
 			key code 48
@@ -65,9 +63,9 @@ tell application "Google Chrome"
 		set active tab index to 1
 		set URL of tab 1 to "https://teams.microsoft.com/"
 	end tell
-
+	
 	delay 7
-
+	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 2
