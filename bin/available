@@ -11,11 +11,11 @@ tell application "Google Chrome"
 	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
-		delay 2
+		delay 1
 		execute javascript "document.getElementById('personal-skype-status-text').click();"
-		delay 2
+		delay 1
 		execute javascript "document.querySelector('[aria-label=\"Available\"] > button').click();"
-		delay 2
+		delay 1
 		execute javascript "document.querySelector('[aria-label=\"Delete this status message\"]').click();"
 	end tell
 end tell
