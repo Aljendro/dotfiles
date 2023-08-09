@@ -1,5 +1,3 @@
-#!/usr/bin/osascript
-
 global startOffset
 global endOffset
 
@@ -7,18 +5,10 @@ display dialog "Enter the start time offset in minutes:" default answer "25"
 set startOffset to text returned of result as integer
 set endOffset to startOffset + 5
 
-on getAvailabilityMessage()
-	set currentTime to current date
-	set startTime to currentTime + (startOffset * minutes)
-	set endTime to currentTime + (endOffset * minutes)
-	
-	set startTimeString to time string of startTime
-	set endTimeString to time string of endTime
-	
-	set message to "Available (ET): " & startTimeString & " - " & endTimeString
-	
-	return message
-end getAvailabilityMessage
+-- Activate Timer
+tell application "System Events"
+	key code 36 using {shift down, command down}
+end tell
 
 tell application "Google Chrome"
 	activate
@@ -26,20 +16,20 @@ tell application "Google Chrome"
 	tell window 1
 		set active tab index to 1
 	end tell
-	
 	delay 1
-	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 1
 		execute javascript "document.getElementById('personal-skype-status-text').click();"
 		delay 1
+		-- Set Busy
 		execute javascript "document.querySelector('[aria-label=\"Busy\"] > button').click();"
 		delay 1
 		execute javascript "document.getElementById('settings-dropdown-update-status-button').click();"
 		delay 1
 		execute javascript "document.querySelector('[aria-label=\"Status Message\"]').click();"
 		delay 1
+		-- Set Message, with notification option
 		tell application "System Events"
 			set availabilityMessage to my getAvailabilityMessage()
 			keystroke availabilityMessage
@@ -49,6 +39,7 @@ tell application "Google Chrome"
 			key code 36
 		end tell
 		delay 1
+		-- Submit form
 		execute javascript "document.getElementById('setStatusNoteDone').click()"
 	end tell
 end tell
@@ -61,16 +52,31 @@ tell application "Google Chrome"
 	tell window 1
 		set active tab index to 1
 	end tell
-	
+
 	delay 1
-	
+
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 1
 		execute javascript "document.getElementById('personal-skype-status-text').click();"
 		delay 1
+		-- Set Available
 		execute javascript "document.querySelector('[aria-label=\"Available\"] > button').click();"
 		delay 1
+		-- Remove status message
 		execute javascript "document.querySelector('[aria-label=\"Delete this status message\"]').click();"
 	end tell
 end tell
+
+on getAvailabilityMessage()
+	set currentTime to current date
+	set startTime to currentTime + (startOffset * minutes)
+	set endTime to currentTime + (endOffset * minutes)
+
+	set startTimeString to time string of startTime
+	set endTimeString to time string of endTime
+
+	set message to "Reading Message at " & startTimeString & " - " & endTimeString & " ET"
+
+	return message
+end getAvailabilityMessage
