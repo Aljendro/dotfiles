@@ -1,3 +1,8 @@
+#!/usr/bin/osascript
+
+-- Add to User Scripts Folder in MacOS
+-- /Users/<user>/Library/
+
 global startOffset
 global endOffset
 
@@ -16,7 +21,9 @@ tell application "Google Chrome"
 	tell window 1
 		set active tab index to 1
 	end tell
+	
 	delay 1
+	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 1
@@ -41,6 +48,8 @@ tell application "Google Chrome"
 		delay 1
 		-- Submit form
 		execute javascript "document.getElementById('setStatusNoteDone').click()"
+		-- Close Status Dropdown
+		execute javascript "document.getElementById('personDropdown').click();"
 	end tell
 end tell
 
@@ -52,9 +61,9 @@ tell application "Google Chrome"
 	tell window 1
 		set active tab index to 1
 	end tell
-
+	
 	delay 1
-
+	
 	tell tab 1 of window 1
 		execute javascript "document.getElementById('personDropdown').click();"
 		delay 1
@@ -65,6 +74,8 @@ tell application "Google Chrome"
 		delay 1
 		-- Remove status message
 		execute javascript "document.querySelector('[aria-label=\"Delete this status message\"]').click();"
+		-- Close Status Dropdown
+		execute javascript "document.getElementById('personDropdown').click();"
 	end tell
 end tell
 
