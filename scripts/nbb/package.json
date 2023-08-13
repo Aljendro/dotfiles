@@ -1,1 +1,11 @@
-{"dependencies":{"@aws-sdk/client-sts":"^3.360.0","@aws-sdk/shared-ini-file-loader":"^3.310.0","dotenv":"^16.0.3","openai":"^3.2.1"}}
+{
+  "name": "nbb-scripting",
+  "version": "1.0.0",
+  "description": "Scripts that require nbb",
+  "dependencies": {
+    "@aws-sdk/client-sts": "^3.360.0",
+    "@aws-sdk/shared-ini-file-loader": "^3.310.0",
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
+  }
+}
