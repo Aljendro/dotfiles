@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd "$DOTFILES_DIR/scripts/node"
+node replay.js "$1"
