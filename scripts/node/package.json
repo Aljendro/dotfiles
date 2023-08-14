@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Scripts that require node",
   "dependencies": {
-    "@puppeteer/replay": "^2.13.3",
-    "puppeteer-core": "^21.0.3"
+    "@puppeteer/replay": "2.13.3",
+    "puppeteer-core": "21.0.2"
   },
   "devDependencies": {
     "eslint": "^8.47.0",
-    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.0"
   }
 }
