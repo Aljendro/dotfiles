@@ -40,7 +40,14 @@ DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64 timer)
 source $ZSH/oh-my-zsh.sh
 
+[ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
+[ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # User configuration
+
+### Remove mode switching delay.
+KEYTIMEOUT=5
 
 ## Use vim bindings
 bindkey -v
@@ -54,12 +61,19 @@ bindkey "^[OB" down-line-or-beginning-search
 bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
 
+### Yank to the system clipboard
+function vi-yank-xclip {
+    zle vi-yank
+   echo "$CUTBUFFER" | pbcopy
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
 ### Edit commands with neovim
 bindkey -M vicmd "^n" edit-command-line
 
-### Remove mode switching delay.
-KEYTIMEOUT=5
-
+### Change cursor types when switching vi modes
 zle-keymap-select () {
 case $KEYMAP in
   vicmd) echo -ne '\e[1 q';; # block cursor
@@ -74,9 +88,7 @@ _fix_cursor() {
 precmd_functions+=(_fix_cursor)
 zle -N zle-keymap-select
 
-[ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
-[ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
-
+### Lazy load nvm
 lazy_load_nvm() {
   unset -f node
   unset -f npx
@@ -99,6 +111,7 @@ nvm() {
   nvm $@
 }
 
+### Toggle informational line
 toggle_env_line() {
   if [[ $LOAD_ENV_INFO -eq 1 ]]; then
     LOAD_ENV_INFO=0
@@ -111,5 +124,3 @@ toggle_env_line() {
 zle -N toggle_env_line{,}
 bindkey "\eOQ" toggle_env_line
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
