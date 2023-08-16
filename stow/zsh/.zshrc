@@ -40,10 +40,6 @@ DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting aws node npm encode64 timer)
 source $ZSH/oh-my-zsh.sh
 
-[ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
-[ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # User configuration
 
 ### Remove mode switching delay.
@@ -62,7 +58,7 @@ bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
 
 ### Yank to the system clipboard
-function vi-yank-xclip {
+vi-yank-xclip() {
     zle vi-yank
    echo "$CUTBUFFER" | pbcopy
 }
@@ -123,4 +119,8 @@ toggle_env_line() {
 
 zle -N toggle_env_line{,}
 bindkey "\eOQ" toggle_env_line
+
+[ -f $FZF_DIR/shell/key-bindings.zsh ] && source $FZF_DIR/shell/key-bindings.zsh
+[ -f $FZF_DIR/shell/completion.zsh ] && source $FZF_DIR/shell/completion.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
