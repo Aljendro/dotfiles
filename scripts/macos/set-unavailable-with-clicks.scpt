@@ -29,7 +29,7 @@ end delayKeystroke
 on run -- {input, parameter}
 	set delaySec to 0.5
 	
-	display dialog "Enter the start time offset in minutes:" default answer "20"
+	display dialog "Enter the start time offset in minutes:" default answer "25"
 	set workOffset to text returned of result as integer
 	set startOffset to workOffset + 5
 	set endOffset to startOffset + 5
