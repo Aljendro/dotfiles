@@ -84,3 +84,14 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+
+vim.api.nvim_create_autocmd(
+    { "BufEnter" },
+    {
+        group = customVim,
+        pattern = "*",
+        callback = function()
+            vim.opt_local.formatoptions:remove({"c", "r", "o"})
+        end,
+    }
+)

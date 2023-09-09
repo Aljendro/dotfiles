@@ -1,4 +1,19 @@
 #!/bin/bash
 
-cd "$DOTFILES_DIR/scripts/node"
-node replay.mjs "$1"
+if [ -z "$1" ]; then
+    CHOICE=$(ls "$DOTFILES_DIR/scripts/node/recordings" | fzf);
+    if [ -f "$DOTFILES_DIR/scripts/node/recordings/$CHOICE" ]; then
+        echo "info: running ($CHOICE)"
+        node "$DOTFILES_DIR/scripts/node/recordings/$CHOICE";
+    else
+        echo "error: no recording found for ($CHOICE)"
+    fi
+else 
+    if [ -f "$DOTFILES_DIR/scripts/node/recordings/$1" ]; then
+        echo "info: running ($1)"
+        node "$DOTFILES_DIR/scripts/node/recordings/$1";
+    else
+        echo "error: no recording found for ($1)"
+    fi
+fi 
+

@@ -1,6 +1,5 @@
 return {
     "github/copilot.vim",
-    event = "InsertEnter",
     config = function()
         local c = require("common")
         c.kmap("i", "<C-h>", "<Plug>(copilot-suggest)", { silent = true })
