@@ -50,7 +50,7 @@ return {
         { ";lm", ":lua require('telescope.builtin').man_pages()<cr>" },
         { ";ls", ":lua require('telescope.builtin').lsp_document_symbols()<cr>" },
         { ";lS", ":lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>" },
-        { ";m",  ":lua require('telescope.builtin').marks()<cr>" },
+        { ";vm",  ":lua require('telescope.builtin').marks()<cr>" },
         { ";n",  ":lua require('telescope').extensions.neoclip.default()<cr>" },
         { ";of", ":lua require('telescope.builtin').oldfiles()<cr>" },
         { ";p",  ":lua require('telescope.builtin').pickers()<cr>" },

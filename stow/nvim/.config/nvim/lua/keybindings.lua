@@ -242,7 +242,7 @@ c.kmap("n", "<leader>pp", ":profile start profile-all.local.txt | profile file *
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Easier macro execution
-c.kmap("n", "<leader>m", ":call v:lua.RecordMacro()<cr>", { silent = true })
+c.kmap("n", "<leader><leader>m", ":call v:lua.RecordMacro()<cr>", { silent = true })
 c.kmap("n", "Q", "@@")
 c.kmap("x", "Q", ":norm! @@<cr>")
 
