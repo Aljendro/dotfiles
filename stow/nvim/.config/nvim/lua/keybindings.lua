@@ -97,9 +97,6 @@ vim.cmd("cnoreabbrev <expr> qnf v:lua.CommandAbbreviation('qnf', 'cfdo set nofol
 -- Splits/Windows
 ------------------------------------------------------------------------------------------------------------------------
 
--- Only split
-c.kmap("n", "ss", "<C-w>o")
-
 -- Tab split
 c.kmap("n", "st", ":tab split<cr>")
 
