@@ -3,6 +3,9 @@
 -- Maintainer: Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>
 --
 -- Pretty print
+
+local c = require("common")
+
 function Put(...)
     local objects = {}
     for i = 1, select("#", ...) do
@@ -153,4 +156,55 @@ function ToggleListItem(character)
         vim.api.nvim_buf_set_text(0, cursor_row, list_item_char_position + 1, cursor_row,
             list_item_char_position + offset, replacement)
     end
+end
+
+local toggled = false
+function ToggleSmoothScroll()
+    pcall(vim.api.nvim_del_keymap, 'n', '<C-k>')
+    pcall(vim.api.nvim_del_keymap, 'n', '<C-j>')
+    pcall(vim.api.nvim_del_keymap, 'n', '<Up>')
+    pcall(vim.api.nvim_del_keymap, 'n', '<Down>')
+    pcall(vim.api.nvim_del_keymap, 'n', '<PageDown>')
+    pcall(vim.api.nvim_del_keymap, 'n', '<PageUp>')
+
+    pcall(vim.api.nvim_del_keymap, 'x', '<C-k>')
+    pcall(vim.api.nvim_del_keymap, 'x', '<C-j>')
+    pcall(vim.api.nvim_del_keymap, 'x', '<Up>')
+    pcall(vim.api.nvim_del_keymap, 'x', '<Down>')
+    pcall(vim.api.nvim_del_keymap, 'x', '<PageDown>')
+    pcall(vim.api.nvim_del_keymap, 'x', '<PageUp>')
+
+    -- Scrolling (ref: smooth_scrolling)
+    if toggled then
+        -- Reset the keybindings with the base ones
+        c.kmap("n", "<C-k>", "<C-u>")
+        c.kmap("n", "<C-j>", "<C-d>")
+        c.kmap("n", "<PageUp>", "<C-b>")
+        c.kmap("n", "<PageDown>", "<C-f>")
+        c.kmap("n", "<Up>", "5<C-y>")
+        c.kmap("n", "<Down>", "5<C-e>")
+
+        c.kmap("x", "<C-k>", "<C-u>")
+        c.kmap("x", "<C-j>", "<C-d>")
+        c.kmap("x", "<PageUp>", "<C-b>")
+        c.kmap("x", "<PageDown>", "<C-f>")
+        c.kmap("x", "<Up>", "5<C-y>")
+        c.kmap("x", "<Down>", "5<C-e>")
+    else
+        local t = {}
+        t['<C-j>'] = { 'scroll', { 'vim.wo.scroll', 'true', '150' } }
+        t['<C-k>'] = { 'scroll', { '-vim.wo.scroll', 'true', '150' } }
+        t['<PageDown>'] = {
+            'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '250' }
+        }
+        t['<PageUp>'] = {
+            'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '250' }
+        }
+        t['<Up>'] = { 'scroll', { '-0.20', 'false', '100' } }
+        t['<Down>'] = { 'scroll', { '0.20', 'false', '100' } }
+
+        require('neoscroll.config').set_mappings(t)
+    end
+
+    toggled = not toggled
 end

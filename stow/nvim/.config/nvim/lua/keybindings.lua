@@ -8,23 +8,6 @@ vim.g.maplocalleader = "\\"
 c.kmap("n", "<leader>r", ":lua require('plenary.reload').reload_module('dotfiles', true)<cr>:source $MYVIMRC<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
--- Scrolling
-------------------------------------------------------------------------------------------------------------------------
-
-c.kmap("n", "<C-k>", "<C-u>")
-c.kmap("n", "<C-j>", "<C-d>")
-c.kmap("n", "<PageUp>", "<C-b>")
-c.kmap("n", "<PageDown>", "<C-f>")
-c.kmap("n", "<Up>", "5<C-y>")
-c.kmap("n", "<Down>", "5<C-e>")
-c.kmap("x", "<C-k>", "<C-u>")
-c.kmap("x", "<C-j>", "<C-d>")
-c.kmap("x", "<PageUp>", "<C-b>")
-c.kmap("x", "<PageDown>", "<C-f>")
-c.kmap("x", "<Up>", "5<C-y>")
-c.kmap("x", "<Down>", "5<C-e>")
-
-------------------------------------------------------------------------------------------------------------------------
 -- Abbreviations
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -64,7 +47,7 @@ c.kmap("n", "<leader>om", ":setlocal modifiable! readonly!<cr>:setlocal modifiab
 c.kmap("n", "<leader>or", ":set relativenumber!<cr>:set relativenumber?<cr>")
 c.kmap("n", "<leader>ob", ":set scrollbind!<cr>:set scrollbind?<cr>")
 c.kmap("n", "<leader>osc", ":set spell!<cr>:set spell?<cr>")
-c.kmap("n", "<leader>oss", ":lua require('dotfiles.plugins.neoscroll').ToggleSmoothScroll()<cr>")
+c.kmap("n", "<leader>oss", ":lua ToggleSmoothScroll()<cr>")
 c.kmap("n", "<leader>oww", ":set wrap!<cr>:set wrap?<cr>")
 c.kmap("n", "<leader>ows", ":set wrapscan!<cr>:set wrapscan?<cr>")
 c.kmap("n", "<leader>op", ":call v:lua.Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>")
