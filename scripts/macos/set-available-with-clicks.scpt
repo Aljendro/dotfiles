@@ -4,22 +4,8 @@ on run -- {input, parameter}
 	set delaySec to 0.5
 	
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams"
-		activate
-		tell application "System Events"
-			-- remove fullscreen
-			keystroke "f" using {command down, control down}
-			delay delaySec * 3
-			
-			-- move to main screen
-			keystroke "d" using {command down, option down, control down}
-			delay delaySec * 3
-			
-			-- put into fullscreen
-			keystroke "f" using {command down, control down}
-			delay delaySec * 3
-		end tell
-	end tell
+	tell application "Microsoft Teams" to activate
+	delay delaySec
 	
 	-- dropdown
 	do shell script "/opt/homebrew/bin/cliclick c:1700,60"

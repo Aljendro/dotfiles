@@ -6,8 +6,8 @@ global delaySec
 
 on getAvailabilityMessage()
 	set currentTime to current date
-	set startTime to currentTime + (startOffset * minutes)
-	set endTime to currentTime + (endOffset * minutes)
+	set startTime to currentTime + (startOffset * minutes) + (3 * hours)
+	set endTime to currentTime + (endOffset * minutes) + (3 * hours)
 	
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime

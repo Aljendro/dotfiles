@@ -6,8 +6,8 @@ global delaySec
 
 on getAvailabilityMessage()
 	set currentTime to current date
-	set startTime to currentTime + (startOffset * minutes)
-	set endTime to currentTime + (endOffset * minutes)
+	set startTime to currentTime + (startOffset * minutes) + (3 * hours)
+	set endTime to currentTime + (endOffset * minutes) + (3 * hours)
 	
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime
@@ -35,22 +35,8 @@ on run -- {input, parameter}
 	set endOffset to startOffset + 5
 	
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams"
-		activate
-		tell application "System Events"
-			-- remove fullscreen
-			keystroke "f" using {command down, control down}
-			delay delaySec * 3
-			
-			-- move to main screen
-			keystroke "d" using {command down, option down, control down}
-			delay delaySec * 3
-			
-			-- put into fullscreen
-			keystroke "f" using {command down, control down}
-			delay delaySec * 3
-		end tell
-	end tell
+	tell application "Microsoft Teams" to activate
+	delay delaySec
 	
 	-- Activate Timer
 	tell application "System Events"
