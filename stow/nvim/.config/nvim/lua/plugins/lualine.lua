@@ -12,7 +12,7 @@ return {
                     symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                 }
                 },
-                lualine_c = { { "filename", path = 1, file_status = true, symbols = { modified = '✏️' } } }
+                lualine_c = { { "filename", path = 1, file_status = true, symbols = { modified = '' } } }
             },
             tabline = {
                 lualine_a = { { "tabs", use_mode_colors = true } },
