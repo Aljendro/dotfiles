@@ -110,16 +110,18 @@ function CommandAbbreviation(abbreviation, substitution, range_substitution)
     return abbreviation
 end
 
-function Toggle(name, message)
-    vim.b[name] = not (vim.b[name] or false);
-    local trueFalseStr
-    if vim.b[name] then
-        trueFalseStr = "true"
-    else
-        trueFalseStr = "false"
-    end
+function BToggle(name, message)
+    vim.b[name] = not vim.b[name]
+    local trueFalseStr = vim.b[name] and "true" or "false"
     print(message .. trueFalseStr)
     return vim.b[name]
+end
+
+function TToggle(name, message)
+    vim.t[name] = not vim.t[name]
+    local trueFalseStr = vim.t[name] and "true" or "false"
+    print(message .. trueFalseStr)
+    return vim.t[name]
 end
 
 function ToggleOff(name, message)

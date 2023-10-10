@@ -50,8 +50,9 @@ c.kmap("n", "<leader>osc", ":set spell!<cr>:set spell?<cr>")
 c.kmap("n", "<leader>oss", ":lua ToggleSmoothScroll()<cr>")
 c.kmap("n", "<leader>oww", ":set wrap!<cr>:set wrap?<cr>")
 c.kmap("n", "<leader>ows", ":set wrapscan!<cr>:set wrapscan?<cr>")
-c.kmap("n", "<leader>op", ":call v:lua.Toggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>")
+c.kmap("n", "<leader>op", ":call v:lua.BToggle('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>")
 c.kmap("n", "<leader>oP", "mZ:bufdo call v:lua.ToggleOff('aljendro_is_buffer_pinned', 'Buffer pinned: ')<cr>`Z")
+c.kmap("n", "<leader>ot", ":call v:lua.TToggle('aljendro_is_tab_pinned', 'Tab pinned: ')<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Saving
@@ -85,6 +86,9 @@ c.kmap("n", "st", ":tab split<cr>")
 
 -- Vertical split
 c.kmap("n", "sv", "<C-w>v")
+
+-- Horizontal split
+c.kmap("n", "ss", "<C-w>s")
 
 -- Close split
 c.kmap("n", "sc", "<C-w>c")
@@ -185,14 +189,14 @@ c.kmap("n", "<leader>tw", "<C-w>T")
 -- Move tabs around
 c.kmap("n", "<leader>tj", ":-1tabm<cr>")
 c.kmap("n", "<leader>tk", ":+1tabm<cr>")
--- Only keep current tab
-c.kmap("n", "<leader>to", ":tabo<cr>")
 -- Create a new tab at the end
 c.kmap("n", "<leader>tn", ":tabnew<cr>:tabmove<cr>")
 -- Create a new scratch buffer tab at the end
 c.kmap("n", "<leader>ts", ":tabnew +setl\\ buftype=nofile<cr>:tabmove<cr>")
 -- Close the tab
 c.kmap("n", "<leader>tc", ":tabclose<cr>")
+-- Delete unpinned tabs
+c.kmap("n", "<leader>tD", ":tabdo if get(t:, \"aljendro_is_tab_pinned\") == 0 | exec 'tabclose' | endif<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Folds
