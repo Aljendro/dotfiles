@@ -1,0 +1,20 @@
+#!/bin/bash
+
+display_usage() {
+    echo -e "Usage: . unlock"
+}
+
+display_summary() {
+    echo -e "Bitwarden Unlock, set the session variable"
+}
+
+if [ $# -eq 0 ]; then
+    BW_SESSION=$(bw unlock --raw)
+    if [[ ! -z "$BW_SESSION" ]]; then
+        export BW_SESSION="$BW_SESSION"
+    fi
+else
+    display_summary
+    display_usage
+fi
+
