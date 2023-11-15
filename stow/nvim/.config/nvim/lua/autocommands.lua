@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd(
     {
         group = customVim,
         pattern = table.concat({
+            "*.edn",
             "*.clj",
             "*.cljc",
             "*.cljs",
