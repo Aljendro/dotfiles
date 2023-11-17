@@ -58,6 +58,7 @@ function LoadSession(session_name)
 end
 
 function RecordMacro()
+    print("Register: ")
     local register = vim.fn.nr2char(vim.fn.getchar())
     -- Clear out the register and start recording
     vim.cmd([[execute 'normal! q]] .. register .. "qq" .. register .. "'")
@@ -194,8 +195,8 @@ function ToggleSmoothScroll()
         c.kmap("x", "<Down>", "5<C-e>")
     else
         local t = {}
-        t['<C-j>'] = { 'scroll', { 'vim.wo.scroll', 'true', '150' } }
-        t['<C-k>'] = { 'scroll', { '-vim.wo.scroll', 'true', '150' } }
+        t['<C-j>'] = { 'scroll', { 'vim.wo.scroll', 'true', '200' } }
+        t['<C-k>'] = { 'scroll', { '-vim.wo.scroll', 'true', '200' } }
         t['<PageDown>'] = {
             'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '250' }
         }
