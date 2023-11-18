@@ -43,12 +43,21 @@ function MakeSession(session_name)
 
     if vim.fn.filewritable(session_dir) ~= 2 then os.execute("mkdir -p " .. session_dir) end
 
+    if session_name == "" or session_name == nil then
+        session_name = vim.fn.input("Save session name: ")
+    end
+
     local filename = session_dir .. "session-" .. session_name .. ".vim"
     vim.cmd([[execute 'mksession! ]] .. filename .. "'")
 end
 
 function LoadSession(session_name)
     local session_dir = os.getenv("HOME") .. "/.config/nvim/sessions/"
+
+    if session_name == "" or session_name == nil then
+        session_name = vim.fn.input("Load session name: ")
+    end
+
     local filename = session_dir .. "session-" .. session_name .. ".vim"
     if vim.fn.filereadable(filename) then
         vim.cmd([[source ]] .. filename)

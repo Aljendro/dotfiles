@@ -211,10 +211,8 @@ c.kmap("n", "k", "gk")
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Quick Session
-c.kmap("n", "<leader>ss", "':wall | call v:lua.MakeSession(\"' . nr2char(getchar()) . '\")<cr>'", { expr = true })
-c.kmap("n", "<leader>sr",
-    "':wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession(\"' . nr2char(getchar()) . '\")<cr>'",
-    { expr = true })
+c.kmap("n", "<leader>ss", ":wall | call v:lua.MakeSession()<cr>")
+c.kmap("n", "<leader>sr", ":wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession()<cr>")
 c.kmap("n", "<leader>sd", ":wall | call v:lua.LoadSession(\"default\")<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
