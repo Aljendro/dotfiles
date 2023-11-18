@@ -11,21 +11,19 @@ function M.setup()
     ------------------------------------------------------------------------------------------------------------------------
 
     -- Opening the REPL
-    c.kbmap(c.current_buf, "n", "<leader><leader>cc", "<localleader>lv",
+    c.kbmap(c.current_buf, "n", "<leader>lc", "<localleader>lv",
             { noremap = false })
-    c.kbmap(c.current_buf, "n", "<leader><leader>ct", "<localleader>lt",
+    c.kbmap(c.current_buf, "n", "<leader>lt", "<localleader>lt",
             { noremap = false })
     -- Clear the REPL window
-    c.kbmap(c.current_buf, "n", "<leader><leader>cr", "<localleader>lr",
+    c.kbmap(c.current_buf, "n", "<leader>lr", "<localleader>lr",
             { noremap = false })
     -- Reset the REPL
-    c.kbmap(c.current_buf, "n", "<leader><leader>cR", "<localleader>lR",
+    c.kbmap(c.current_buf, "n", "<leader>lR", "<localleader>lR",
             { noremap = false })
     -- Closing the REPL
-    c.kbmap(c.current_buf, "n", "<leader><leader>cq", "<localleader>lq",
+    c.kbmap(c.current_buf, "n", "<leader>lq", "<localleader>lq",
             { noremap = false })
-    -- Enter at bottom of REPL
-    c.kbmap(c.current_buf, "n", "<leader><leader>ci", "Go", { noremap = true })
 
     ------------------------------------------------------------------------------------------------------------------------
     -- Evaluations
