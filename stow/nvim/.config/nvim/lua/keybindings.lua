@@ -12,7 +12,7 @@ c.kmap("n", "<leader>r", ":lua require('plenary.reload').reload_module('dotfiles
 ------------------------------------------------------------------------------------------------------------------------
 
 -- Code signature
-vim.cmd("iabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>")
+vim.cmd("inoreabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>")
 -- Quick Grep and Location/Quickfix List opens
 vim.cmd(
     "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")")

@@ -20,7 +20,7 @@ function M.setup()
         "\\v(__tests__/.*|(spec|test|integration))\\.(js|jsx|ts|tsx)$"
     vim.g["test#javascript#jest#options"] =
         "--testRegex=\"(/__tests__/.*|(\\.|/)(test|spec|integration))\\.[jt]sx?$\""
-    vim.cmd("iabbrev <buffer> d; debugger;")
+    vim.cmd("inoreabbrev <buffer> d; debugger;")
     c.kbmapset(c.current_buf, "n", "<leader>ti", jest_debug_nearest)
 
     -- Running scripts
