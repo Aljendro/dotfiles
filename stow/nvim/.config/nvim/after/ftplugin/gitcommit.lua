@@ -1,0 +1,10 @@
+vim.cmd("inoreabbrev u: update:")
+vim.cmd("inoreabbrev f: feat:")
+vim.cmd("inoreabbrev b: build:")
+vim.cmd("inoreabbrev d: docs:")
+vim.cmd("inoreabbrev s: style:")
+vim.cmd("inoreabbrev r: refactor:")
+vim.cmd("inoreabbrev p: perf:")
+vim.cmd("inoreabbrev t: test:")
+vim.cmd("inoreabbrev bc: BREAKING CHANGE:")
+
