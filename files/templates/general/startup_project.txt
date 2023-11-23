@@ -1,0 +1,20 @@
+#!/bin/bash
+
+session="{{input.name}}"
+tmux has-session -t $session 2>/dev/null
+
+if [ $? != 0 ]; then
+    tmux new -d -t $session
+    # Main
+    tmux rename-window -t $session "Main"
+    tmux send -t $session "nvim README.md" C-m
+    sleep 0.5
+    tmux split-window -v -t $session
+    tmux select-pane -U -t $session
+    tmux resize-pane -Z -t $session
+
+    # Switch to Main
+    tmux select-window -t $session:1
+fi
+
+echo "$session"
