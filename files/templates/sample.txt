@@ -1,0 +1,6 @@
+Hello everybody, from the {{env.DOTFILES_DIR}}
+
+HERE are some newlines and other stuff
+
+Here is where you ran the command originally {{cwd}}
+
