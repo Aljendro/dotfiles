@@ -10,6 +10,7 @@
           file-path (str cwd "/" file-name)]
       (when (not (fs/exists? file-path))
         (println "creating file:" file-name "in:" cwd)
+        (fs/create-dirs (fs/parent file-path))
         (fs/create-file file-path)
         (when-let [template (:template input)]
           (let [template-path (str common/templates-dir "/" template)
