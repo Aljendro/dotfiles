@@ -15,8 +15,7 @@
           (let [template-path (str common/templates-dir "/" template-name)
                 template-content (slurp template-path)
                 rendered-content (selmer/render template-content context)]
-            (spit file-path rendered-content :append true)
-            (flush)))))
+            (spit file-path rendered-content :append true)))))
     (throw (IllegalArgumentException.
             (str "Missing file-name argument in create-file: " input)))))
 

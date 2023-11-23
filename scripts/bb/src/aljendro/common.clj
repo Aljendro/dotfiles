@@ -26,9 +26,7 @@
        (string/join \newline errors)))
 
 (defn exit [_status msg]
-  (println msg)
-  ;; TODO: remove once generator is done (ref: gen-done)
-  #_(System/exit status))
+  (println msg))
 
 (defn load-files [path]
   (let [file  (java.io.File. path)
