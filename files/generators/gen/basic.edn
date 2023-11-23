@@ -1,0 +1,13 @@
+{:name "gen/basic"
+ :description "A basic template for the gen command"
+ :input [["-n" "--name NAME" "Name of file to add"
+          :missing "You must provide a name for the generator with -n or --name"]
+         ["-d" "--description NAME" "Name of file to add"
+          :missing "You must provide a description for the generator to add with -d or --description"]
+         ["-h" "--help" "Show help"]]
+ :steps
+ [{:fn :create-file
+   :input {:file-name "{{input.name}}.edn"
+           :template "gen/basic.txt"
+           :cwd "{{env.DOTFILES_DIR}}/files/generators"}}]}
+
