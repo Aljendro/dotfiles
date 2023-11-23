@@ -7,14 +7,14 @@
  [{:id :create-init-file
    :fn :create-file
    :input {:file-name "{{input.name}}.txt"
-           :template-name "sample.txt"
+           :template "sample.txt"
            :cwd "{{env.DOTFILES_DIR}}/files/generators"}}
   {:fn :nvim
    :input {:file-name "{{input.name}}.txt"
            :cwd "{{env.DOTFILES_DIR}}/files/generators"
-           :macro "/somee\"cP"
+           :macro "/somee\"bP"
            :registers {:a {:template "sample.txt" :type :linewise}
-                       :b {:template "sample.txt" :type :charwise}
+                       :b {:template "nested/sample.txt" :type :charwise}
                        :c {:text "This is regular text {{input.name}}" :type :linewise}}}}]}
 
 
