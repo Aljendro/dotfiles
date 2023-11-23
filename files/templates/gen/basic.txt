@@ -1,0 +1,6 @@
+{:name "{{input.name}}"
+ :description "{{input.description}}"
+ :input [["-h" "--help" "Show help"]]
+ :steps
+ []}
+
