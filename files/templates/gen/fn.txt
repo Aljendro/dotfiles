@@ -1,0 +1,5 @@
+(ns aljendro.gen.actions.fns.{{input.name|kebab-case}}
+  (:require [aljendro.gen.actions.fns :refer [gen-fns]]))
+
+(defmethod gen-fns :{{input.name|kebab-case}} [_fn-kw input context]
+  (println (str "Running :{{input.name|kebab-case}} input:" input " context:" context )))

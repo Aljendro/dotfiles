@@ -1,0 +1,11 @@
+{:name "gen/fn.edn"
+ :description "Add a new function to the gen command"
+ :input [["-n" "--name NAME" "Name of function to add"
+          :missing "You must provide a name for the generator with -n or --name"]
+         ["-h" "--help" "Show help"]]
+ :steps
+ [{:fn :create-file
+   :input {:file-name "{{input.name|snake-case}}.edn"
+           :template "gen/fn.txt"
+           :cwd "{{env.DOTFILES_DIR}}/scripts/bb/src/aljendro/gen/actions/fns"}}]}
+
