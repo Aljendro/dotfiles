@@ -1,6 +1,7 @@
 (ns aljendro.gen.actions.run
   (:require [aljendro.common :as common]
             [aljendro.gen.actions.fns :refer [gen-fns]]
+            [camel-snake-kebab.core :as csk]
             [clojure.string :as string]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.walk :as walk]
@@ -10,6 +11,8 @@
 ;; Configure selmer templating library
 (selmer.util/turn-off-escaping!)
 (selmer.parser/set-resource-path! common/templates-dir)
+(selmer/add-filter! :snake-case csk/->snake_case_string)
+(selmer/add-filter! :kebab-case csk/->kebab-case-string)
 
 ;; Load all fns that are used in gnerators files
 (common/load-files common/fns-dir)
