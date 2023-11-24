@@ -14,7 +14,7 @@
       (fn [required-input]
         (let [input-flag (first required-input)
               input-description (nth required-input 2)]
-          (println (str input-flag " " input-description " "))
+          (println (str input-description " (" input-flag "):"))
           (print "> ")
           (flush)
           (let [input-value (read-line)]
@@ -33,6 +33,8 @@
         description (:description generator-details)
         required-fields (filter #(some #{:missing} %) inputs)
         chosen-args (extract-required-fields chosen-generator description required-fields)]
+    (println "Generated input:")
+    (println (str "gen " chosen-generator " " (string/join " " chosen-args) "\n"))
     {:chosen-generator chosen-generator :chosen-args chosen-args}))
 
 (defn -main [& args]
