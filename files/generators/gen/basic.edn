@@ -1,8 +1,8 @@
 {:name "gen/basic.edn"
  :description "Generates a generator file to be executed by the gen tool."
- :input [["-n" "--name NAME" "Name of file to add"
+ :input [["-n" "--name NAME" "Name of generator file to add"
           :missing "You must provide a name for the generator with -n or --name"]
-         ["-d" "--description NAME" "Name of file to add"
+         ["-d" "--description NAME" "Description of generator"
           :missing "You must provide a description for the generator to add with -d or --description"]
          ["-h" "--help" "Show help"]]
  :steps
