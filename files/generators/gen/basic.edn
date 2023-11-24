@@ -1,5 +1,5 @@
 {:name "gen/basic.edn"
- :description "A basic template for the gen command"
+ :description "Generates a generator file to be executed by the gen tool."
  :input [["-n" "--name NAME" "Name of file to add"
           :missing "You must provide a name for the generator with -n or --name"]
          ["-d" "--description NAME" "Name of file to add"

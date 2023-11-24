@@ -1,5 +1,5 @@
 {:name "clj/basic.edn"
- :description "A template for a basic clj project"
+ :description "Generates a basic clj project."
  :input [["-n" "--name NAME" "Name of project to add"
           :missing "You must provide a name for the file to add with -n or --name"]
          ["-h" "--help" "Show help"]]
