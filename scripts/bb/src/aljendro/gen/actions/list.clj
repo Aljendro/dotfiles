@@ -1,9 +1,14 @@
 (ns aljendro.gen.actions.list
   (:require [aljendro.common :as common]
+            [babashka.fs :as fs]
             [clojure.string :as string]))
 
 (defn list-generators []
-  (doseq [file (file-seq (java.io.File. common/generators-dir))]
-    (when (.isFile file)
-      (println (string/replace (.getPath file) common/generators-dir "")))))
-
+  (let [available-generators (atom [])]
+    (fs/walk-file-tree
+     common/generators-dir
+     {:visit-file
+      (fn [unix-path _unix-file-attrs]
+        (swap! available-generators conj (string/replace (.toString unix-path) (str common/generators-dir "/") ""))
+        :continue)})
+    @available-generators))
