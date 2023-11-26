@@ -5,9 +5,9 @@
          ["-h" "--help" "Show help"]]
  :steps
  [{:fn :create-file
-   :input {:file-name "deps.edn"
+   :input {:file-name "{{input.name}}/deps.edn"
            :template "clj/basic-deps.txt"}}
   {:fn :create-file
-   :input {:file-name "startup_project.sh"
-           :template "general/startup_project.txt"}}]}
+   :input {:file-name "{{input.name}}/start_project.local.sh"
+           :template "general/start_project.txt"}}]}
 
