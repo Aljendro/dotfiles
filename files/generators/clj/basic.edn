@@ -9,5 +9,11 @@
            :template "clj/basic-deps.txt"}}
   {:fn :create-file
    :input {:file-name "{{input.name}}/start_project.local.sh"
-           :template "general/start_project.txt"}}]}
+           :template "general/start_project.txt"}}
+  {:fn :create-file
+   :input {:file-name "{{input.name}}/src/main.clj"
+           :template "clj/basic-main.txt"}}
+  {:fn :create-file
+   :input {:file-name "{{input.name}}/README.md"
+           :template "general/README.txt"}}]}
 
