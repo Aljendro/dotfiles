@@ -4,9 +4,6 @@ return {
   config = function()
     require("oil").setup({
       columns = {
-        "permissions",
-        "size",
-        { "mtime", format = "%Y-%m-%d %X" },
         { "icon",  add_padding = false },
       },
       view_options = {
