@@ -1,4 +1,4 @@
-{:name "{{input.name}}"
+{:name "{{input.name}}.edn"
  :description "{{input.description}}"
  :input [["-h" "--help" "Show help"]]
  :steps
