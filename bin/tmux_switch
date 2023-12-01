@@ -20,12 +20,16 @@ if [ $# -eq 0 ]; then
         PROJECT_STARTUP_SELECTION=$(cd $HOME; fd --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
     fi
 
-    cd "$PROJECT_STARTUP_SELECTION"
-    PROJECT_TMUX_SESSION_NAME=$(./start_project.local.sh)
-    if [ -z "$TMUX" ]; then
-        tmux attach -t $PROJECT_TMUX_SESSION_NAME
+    if [ -n "$PROJECT_STARTUP_SELECTION" ]; then
+        cd "$PROJECT_STARTUP_SELECTION"
+        PROJECT_TMUX_SESSION_NAME=$(./start_project.local.sh)
+        if [ -z "$TMUX" ]; then
+            tmux attach -t $PROJECT_TMUX_SESSION_NAME
+        else
+            tmux switch-client -t $PROJECT_TMUX_SESSION_NAME
+        fi
     else
-        tmux switch-client -t $PROJECT_TMUX_SESSION_NAME
+        echo "No project selected."
     fi
 
 else
