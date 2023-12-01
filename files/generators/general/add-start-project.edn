@@ -1,0 +1,9 @@
+{:name "general/add-start-project.edn"
+ :description "Generates a new start_project"
+ :input [["-n" "--name NAME" "Name of project"
+          :missing "You must provide a name for the generator with -n or --name"]
+         ["-h" "--help" "Show help"]]
+ :steps
+ [{:fn :create-file
+   :input {:file-name "start_project.local.sh"
+           :template "general/start_project.txt"}}]}
