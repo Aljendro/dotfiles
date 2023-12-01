@@ -17,7 +17,7 @@ if [ $# -eq 0 ]; then
     if [ -f "$CACHE_FILE" ]; then
         PROJECT_STARTUP_SELECTION=$(cat "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
     else
-        PROJECT_STARTUP_SELECTION=$(cd $HOME; fd --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
+        PROJECT_STARTUP_SELECTION=$(cd $HOME; fd -I --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
     fi
 
     if [ -n "$PROJECT_STARTUP_SELECTION" ]; then
