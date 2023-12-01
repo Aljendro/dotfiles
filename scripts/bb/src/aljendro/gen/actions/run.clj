@@ -13,6 +13,7 @@
 (selmer.parser/set-resource-path! common/templates-dir)
 (selmer/add-filter! :snake-case csk/->snake_case_string)
 (selmer/add-filter! :kebab-case csk/->kebab-case-string)
+(selmer/add-filter! :pascal-case csk/->PascalCaseString)
 
 ;; Load all fns that are used in gnerators files
 (common/load-files common/fns-dir)

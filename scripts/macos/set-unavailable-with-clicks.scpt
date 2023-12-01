@@ -35,7 +35,7 @@ on run -- {input, parameter}
 	set endOffset to startOffset + 5
 	
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams" to activate
+	tell application "Microsoft Teams (work or school)" to activate
 	delay delaySec
 	
 	-- Activate Timer
@@ -49,19 +49,19 @@ on run -- {input, parameter}
 	delay delaySec
 	
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1478,158"
+	do shell script "/opt/homebrew/bin/cliclick c:1450,220"
 	delay delaySec
 	
 	-- "Busy"
-	do shell script "/opt/homebrew/bin/cliclick c:1433,234"
+	do shell script "/opt/homebrew/bin/cliclick c:1525,290"
 	delay delaySec
 	
 	-- set message
-	do shell script "/opt/homebrew/bin/cliclick c:1608,156"
+	do shell script "/opt/homebrew/bin/cliclick c:1450,285"
 	delay delaySec
 	
 	-- message input box
-	do shell script "/opt/homebrew/bin/cliclick c:1405,161"
+	do shell script "/opt/homebrew/bin/cliclick c:1445,175"
 	delay delaySec
 	
 	-- type message
@@ -70,11 +70,11 @@ on run -- {input, parameter}
 	delay delaySec
 	
 	-- "Show when people message me"
-	do shell script "/opt/homebrew/bin/cliclick c:1385,390"
+	do shell script "/opt/homebrew/bin/cliclick c:1435,445"
 	delay delaySec
 	
 	-- submit form
-	do shell script "/opt/homebrew/bin/cliclick c:1650,515"
+	do shell script "/opt/homebrew/bin/cliclick c:1650,575"
 	delay delaySec
 	
 	-- click out of form

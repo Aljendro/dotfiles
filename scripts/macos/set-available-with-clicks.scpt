@@ -4,7 +4,7 @@ on run -- {input, parameter}
 	set delaySec to 0.5
 	
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams" to activate
+	tell application "Microsoft Teams (work or school)" to activate
 	delay delaySec
 	
 	-- dropdown
@@ -12,15 +12,15 @@ on run -- {input, parameter}
 	delay delaySec
 	
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1478,158"
+	do shell script "/opt/homebrew/bin/cliclick c:1450,220"
 	delay delaySec
 	
 	-- "Available"
-	do shell script "/opt/homebrew/bin/cliclick c:1433,202"
+	do shell script "/opt/homebrew/bin/cliclick c:1525,258"
 	delay delaySec
 	
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1690,245"
+	do shell script "/opt/homebrew/bin/cliclick c:1700,338"
 	delay delaySec
 	
 	-- click out of form

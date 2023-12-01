@@ -2,6 +2,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export FZF_DIR="$HOME/.fzf"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgrep"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local

@@ -185,7 +185,7 @@ c.kmap("n", "<Right>", "zL")
 c.kmap("n", "sy", "gT")
 c.kmap("n", "so", "gt")
 -- Move a window into a new tabpage
-c.kmap("n", "<leader>tw", "<C-w>T")
+c.kmap("n", "<leader>!", "<C-w>T")
 -- Move tabs around
 c.kmap("n", "<leader>tj", ":-1tabm<cr>")
 c.kmap("n", "<leader>tk", ":+1tabm<cr>")
