@@ -7,7 +7,7 @@ return {
         { "nvim-telescope/telescope-live-grep-args.nvim" },
         {
             "AckslD/nvim-neoclip.lua",
-            enabled = false,
+            enabled = true,
             config = function() require("neoclip").setup({ default_register = { "\"", "+", "*" } }) end,
         },
     },

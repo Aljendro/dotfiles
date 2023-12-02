@@ -60,7 +60,8 @@ local function on_attach(bufnr)
 end
 
 return {
-    "kyazdani42/nvim-tree.lua",
+    "aljendro/nvim-tree.lua",
+    branch = "feature/fix-textyankpost",
     keys = { { ";df", ":NvimTreeFindFile<cr>" }, { ";dd", ":NvimTreeToggle<cr>" }, { ";dc", ":NvimTreeCollapse<cr>" } },
     config = function()
         local nvim_tree = require("nvim-tree")
