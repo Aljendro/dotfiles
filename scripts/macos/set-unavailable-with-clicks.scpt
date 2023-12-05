@@ -27,7 +27,7 @@ on delayKeystroke(textToType)
 end delayKeystroke
 
 on run -- {input, parameter}
-	set delaySec to 0.5
+	set delaySec to 1
 	
 	display dialog "Enter the start time offset in minutes:" default answer "25"
 	set workOffset to text returned of result as integer
@@ -70,7 +70,7 @@ on run -- {input, parameter}
 	delay delaySec
 	
 	-- "Show when people message me"
-	do shell script "/opt/homebrew/bin/cliclick c:1435,445"
+	do shell script "/opt/homebrew/bin/cliclick c:1434,445"
 	delay delaySec
 	
 	-- submit form
