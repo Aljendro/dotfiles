@@ -7,5 +7,5 @@ vim.cmd("inoreabbrev _s style:")
 vim.cmd("inoreabbrev _r refactor:")
 vim.cmd("inoreabbrev _p perf:")
 vim.cmd("inoreabbrev _t test:")
-vim.cmd("inoreabbrev _! BREAKING CHANGE:")
+vim.cmd("inoreabbrev _bc BREAKING CHANGE:")
 
