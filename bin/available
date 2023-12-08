@@ -1,0 +1,3 @@
+#!/bin/bash
+
+osascript $DOTFILES_DIR/scripts/macos/set-available-with-clicks.scpt
