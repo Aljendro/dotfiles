@@ -28,7 +28,7 @@ on delayKeystroke(textToType)
 end delayKeystroke
 
 on run -- {input, parameter}
-	set delaySec to 1
+	set delaySec to 0.75
 
 	display dialog "Enter the start time offset in minutes:" default answer "25"
 	set workOffset to text returned of result as integer
@@ -44,6 +44,10 @@ on run -- {input, parameter}
 	tell application "System Events"
 		key code 36 using {shift down, command down}
 	end tell
+	delay delaySec
+
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
 	delay delaySec
 
 	-- dropdown
@@ -71,10 +75,6 @@ on run -- {input, parameter}
 	my delayKeystroke(availabilityMessage)
 	delay delaySec
 
-	-- "Show when people message me"
-	do shell script "/opt/homebrew/bin/cliclick c:1434,445"
-	delay delaySec
-
 	-- submit form
 	do shell script "/opt/homebrew/bin/cliclick c:1650,575"
 	delay delaySec
@@ -99,6 +99,10 @@ on run -- {input, parameter}
 
 	-- Activate Teams, place it in correct position
 	tell application "Microsoft Teams (work or school)" to activate
+	delay delaySec
+
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
 	delay delaySec
 
 	-- dropdown
