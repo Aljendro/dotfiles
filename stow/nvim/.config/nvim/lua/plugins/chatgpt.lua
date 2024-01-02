@@ -7,7 +7,7 @@ return {
             edit_with_instructions = {
                 diff = false,
                 keymaps = {
-                    close = { "<C-c>" },
+                    close = "<C-c>" ,
                     accept = "<C-y>",
                     toggle_diff = "<C-d>",
                     toggle_settings = "<C-o>",
@@ -17,9 +17,8 @@ return {
             },
             chat = {
                 welcome_message = "",
-                loading_text = "Loading, please wait ...",
                 keymaps = {
-                    close = { "<C-c>" },
+                    close = "<C-c>" ,
                     yank_last = "<C-y>",
                     yank_last_code = "<C-u>",
                     scroll_up = "<C-k>",
