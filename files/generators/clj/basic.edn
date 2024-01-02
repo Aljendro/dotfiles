@@ -15,5 +15,8 @@
            :template "clj/basic-main.txt"}}
   {:fn :create-file
    :input {:file-name "{{input.name}}/README.md"
-           :template "general/README.txt"}}]}
+           :template "general/README.txt"}}
+  {:fn :create-file
+   :input {:file-name "{{input.name}}/.ignore"
+           :template "general/ignore.txt"}}]}
 

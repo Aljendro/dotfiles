@@ -6,4 +6,7 @@
  :steps
  [{:fn :create-file
    :input {:file-name "start_project.local.sh"
-           :template "general/start_project.txt"}}]}
+           :template "general/start_project.txt"}}
+  {:fn :create-file
+   :input {:file-name ".ignore"
+           :template "general/ignore.txt"}}]}
