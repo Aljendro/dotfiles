@@ -62,8 +62,6 @@ return {
     config = function()
         vim.diagnostic.config({ virtual_text = false })
 
-        local lsp_dir = vim.fn.stdpath("data") .. "/lsp_servers"
-
         local ok, lspconfig, capabilities = unpack(require_lsp())
         if ok then
             --------------------------------------------------
@@ -86,7 +84,7 @@ return {
             --------------------------------------------------
 
             lspconfig.rust_analyzer.setup(
-                { cmd = { lsp_dir .. "/rust/rust-analyzer" }, capabilities = capabilities, on_attach = on_attach }
+                { capabilities = capabilities, on_attach = on_attach }
             )
 
             --------------------------------------------------
