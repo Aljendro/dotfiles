@@ -69,7 +69,7 @@ return {
             on_attach = on_attach,
             actions = { change_dir = { global = true } },
             update_cwd = true,
-            view = { width = 30 },
+            view = { width = 40 },
             renderer = {
                 group_empty = true,
                 indent_markers = { enable = true },
