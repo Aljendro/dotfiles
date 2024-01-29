@@ -48,6 +48,10 @@ vim.api.nvim_create_autocmd(
             "*.yaml",
             "*.yml",
             "*.hbs",
+            "*.cpp",
+            "*.c",
+            "*.h",
+            "*.hpp",
         }, ","),
         callback = function() vim.cmd("silent! w") end,
     }

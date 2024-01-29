@@ -43,21 +43,23 @@ end
 return {
     "neovim/nvim-lspconfig",
     ft = {
+        "bash",
+        "c",
+        "clojure",
+        "cpp",
+        "css",
+        "dockerfile",
+        "go",
+        "html",
         "javascript",
         "javascriptreact",
+        "json",
+        "lua",
+        "python",
+        "rust",
+        "sh",
         "typescript",
         "typescriptreact",
-        "json",
-        "html",
-        "css",
-        "lua",
-        "clojure",
-        "dockerfile",
-        "rust",
-        "go",
-        "python",
-        "bash",
-        "sh",
     },
     config = function()
         vim.diagnostic.config({ virtual_text = false })
@@ -85,6 +87,22 @@ return {
 
             lspconfig.rust_analyzer.setup(
                 { capabilities = capabilities, on_attach = on_attach }
+            )
+
+
+            --------------------------------------------------
+            -------------------- C++ -------------------------
+            --------------------------------------------------
+
+            lspconfig.clangd.setup(
+                {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    cmd = {
+                        "clangd",
+                        "--offset-encoding=utf-16",
+                    },
+                }
             )
 
             --------------------------------------------------
