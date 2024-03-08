@@ -1,5 +1,6 @@
 #!/usr/bin/osascript
 
+global taskName
 global breakOffset
 global startOffset
 global endOffset
@@ -13,7 +14,7 @@ on getAvailabilityMessage()
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime
 
-	set message to "Reading messages between " & startTimeString & " - " & endTimeString & " (ET)"
+	set message to "Working on " & taskName & ". Reading messages between " & startTimeString & " - " & endTimeString & " (ET)"
 
 	return message
 end getAvailabilityMessage
@@ -22,13 +23,16 @@ on delayKeystroke(textToType)
 	tell application "System Events"
 		repeat with thisChar in textToType
 			keystroke thisChar
-			delay 0.05
+			delay 0.03
 		end repeat
 	end tell
 end delayKeystroke
 
 on run -- {input, parameter}
 	set delaySec to 0.75
+
+	display dialog "Enter task:" default answer "" buttons {"Cancel", "Continue"} default button "Continue"
+	set taskName to text returned of result
 
 	display dialog "Enter the start time offset in minutes:" default answer "25"
 	set workOffset to text returned of result as integer
@@ -44,10 +48,6 @@ on run -- {input, parameter}
 	tell application "System Events"
 		key code 36 using {shift down, command down}
 	end tell
-	delay delaySec
-
-	-- click out of form (reset UI)
-	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
 	delay delaySec
 
 	-- dropdown
@@ -79,8 +79,8 @@ on run -- {input, parameter}
 	do shell script "/opt/homebrew/bin/cliclick c:1650,575"
 	delay delaySec
 
-	-- click out of form
-	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
 	delay delaySec
 
 	------------------- WORKING ---------------------------
@@ -101,10 +101,6 @@ on run -- {input, parameter}
 	tell application "Microsoft Teams (work or school)" to activate
 	delay delaySec
 
-	-- click out of form (reset UI)
-	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
-	delay delaySec
-
 	-- dropdown
 	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
 	delay delaySec
@@ -121,8 +117,8 @@ on run -- {input, parameter}
 	do shell script "/opt/homebrew/bin/cliclick c:1700,338"
 	delay delaySec
 
-	-- click out of form
-	do shell script "/opt/homebrew/bin/cliclick c:1419,57"
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
 	delay delaySec
 end run
 
