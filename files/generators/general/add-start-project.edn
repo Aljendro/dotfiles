@@ -2,6 +2,8 @@
  :description "Generates a new start_project"
  :input [["-n" "--name NAME" "Name of project"
           :missing "You must provide a name for the generator with -n or --name"]
+         ["-d" "--description DESCRIPTION" "Description of project"
+          :missing "You must provide a description for the file to add with -d or --description"]
          ["-h" "--help" "Show help"]]
  :steps
  [{:fn :create-file
@@ -9,4 +11,7 @@
            :template "general/start_project.txt"}}
   {:fn :create-file
    :input {:file-name ".ignore"
-           :template "general/ignore.txt"}}]}
+           :template "general/ignore.txt"}}
+  {:fn :create-file
+   :input {:file-name "README.md"
+           :template "general/README.txt"}}]}
