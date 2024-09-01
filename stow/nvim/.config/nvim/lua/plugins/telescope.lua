@@ -23,15 +23,16 @@ return {
         { ";B",  ":lua require('telescope.builtin').builtin()<cr>" },
         { ";c",  ":lua require('telescope.builtin').commands()<cr>" },
         { ";f",  ":lua require('telescope.builtin').find_files({hidden = true})<cr>" },
-        { ";gc", ":lua require('telescope.builtin').git_bcommits()<cr>", },
+        { ";gc", ":lua require('telescope.builtin').git_bcommits({layout_strategy='vertical', git_command = {\"git\",\"log\",\"--format=%h %cn %cs %s\"} })<cr>" },
         {
             ";gc",
-            ":lua require('telescope.builtin').git_bcommits_range()<cr>",
+            ":lua require('telescope.builtin').git_bcommits_range({layout_strategy='vertical', git_command = {\"git\",\"log\",\"--format=%h %cn %cs %s\", \"--no-patch\", \"-L\"} })<cr>",
             mode = { "x" }
         },
         { ";gC", ":lua require('telescope.builtin').git_commits()<cr>" },
         { ";gb", ":lua require('telescope.builtin').git_branches()<cr>" },
-        { ";gs", ":lua require('telescope.builtin').git_stash()<cr>" },
+        { ";gs", ":lua require('telescope.builtin').git_status({layout_strategy='vertical'})<cr>" },
+        { ";gS", ":lua require('telescope.builtin').git_stash()<cr>" },
         { ";gg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>" },
         {
             ";gf",
@@ -51,7 +52,7 @@ return {
         { ";lm", ":lua require('telescope.builtin').man_pages()<cr>" },
         { ";ls", ":lua require('telescope.builtin').lsp_document_symbols()<cr>" },
         { ";lS", ":lua require('telescope.builtin').lsp_workspace_symbols({query=''})<left><left><left>" },
-        { ";vm",  ":lua require('telescope.builtin').marks()<cr>" },
+        { ";vm", ":lua require('telescope.builtin').marks()<cr>" },
         { ";n",  ":lua require('telescope').extensions.neoclip.default()<cr>" },
         { ";of", ":lua require('telescope.builtin').oldfiles()<cr>" },
         { ";p",  ":lua require('telescope.builtin').pickers()<cr>" },
@@ -89,10 +90,10 @@ return {
                 cache_picker = { num_pickers = 20 },
                 layout_strategy = "flex",
                 layout_config = {
-                    height = 0.95,
-                    width = 0.95,
+                    height = 0.99,
+                    width = 0.99,
                     horizontal = { preview_width = 0.5 },
-                    vertical = { preview_height = 0.45 },
+                    vertical = { preview_height = 0.55 },
                 },
             },
             extensions = {
