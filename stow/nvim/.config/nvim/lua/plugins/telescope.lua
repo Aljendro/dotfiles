@@ -22,7 +22,7 @@ return {
         { ";b",  ":lua require('telescope.builtin').buffers({sort_mru=true})<cr>" },
         { ";B",  ":lua require('telescope.builtin').builtin()<cr>" },
         { ";c",  ":lua require('telescope.builtin').commands()<cr>" },
-        { ";f",  ":lua require('telescope.builtin').find_files({hidden=true})<cr>" },
+        { ";f",  ":lua require('telescope.builtin').find_files({hidden = true})<cr>" },
         { ";gc", ":lua require('telescope.builtin').git_bcommits()<cr>", },
         {
             ";gc",

@@ -1,6 +1,5 @@
 return {
     "lewis6991/gitsigns.nvim",
-    event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local c = require("common")

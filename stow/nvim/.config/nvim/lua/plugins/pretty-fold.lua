@@ -1,5 +1,6 @@
 return {
-    "anuvyklack/pretty-fold.nvim",
+    "bbjornstad/pretty-fold.nvim",
+    commit = "ce302faec7da79ea8afb5a6eec5096b68ba28cb5",
     keys = {
         -- Easier folds
         { "<leader>fj", "zrzz" },

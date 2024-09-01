@@ -41,8 +41,8 @@ window-resize-step: 5
 restore-layouts-on-launch: true
 
 layouts:
-  - tall
   - fullscreen
+  - tall
 
 ################################################################################
 ## Keybindings

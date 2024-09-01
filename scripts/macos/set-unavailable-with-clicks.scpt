@@ -23,13 +23,13 @@ on delayKeystroke(textToType)
 	tell application "System Events"
 		repeat with thisChar in textToType
 			keystroke thisChar
-			delay 0.03
+			delay 0.04
 		end repeat
 	end tell
 end delayKeystroke
 
 on run -- {input, parameter}
-	set delaySec to 0.75
+	set delaySec to 1
 
 	display dialog "Enter task:" default answer "" buttons {"Cancel", "Continue"} default button "Continue"
 	set taskName to text returned of result
