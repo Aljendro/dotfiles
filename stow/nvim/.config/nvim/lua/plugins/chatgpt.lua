@@ -41,7 +41,7 @@ return {
                 },
             },
             openai_params = {
-                model = "gpt-4-turbo-preview",
+                model = "gpt-4-turbo",
                 frequency_penalty = 0,
                 presence_penalty = 0,
                 max_tokens = 4096,
@@ -50,7 +50,7 @@ return {
                 n = 1,
             },
             openai_edit_params = {
-                model = "gpt-4-turbo-preview",
+                model = "gpt-4-turbo",
                 frequency_penalty = 0,
                 presence_penalty = 0,
                 temperature = 0,
