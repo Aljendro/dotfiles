@@ -16,7 +16,7 @@ window-margins: true
 
 # Add x px margin between windows
 # The size of the margins between windows (in px, default 0).
-window-margin-size: 5
+window-margin-size: 0
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
 floating:
