@@ -11,7 +11,7 @@ return {
                         return "]c"
                     else
                         vim.schedule(function()
-                            gs.next_hunk()
+                            gs.nav_hunk('next')
                             vim.cmd("normal! zz")
                         end)
                         return "<Ignore>"
@@ -22,7 +22,7 @@ return {
                         return "[c"
                     else
                         vim.schedule(function()
-                            gs.prev_hunk()
+                            gs.nav_hunk('prev')
                             vim.cmd("normal! zz")
                         end)
                         return "<Ignore>"
