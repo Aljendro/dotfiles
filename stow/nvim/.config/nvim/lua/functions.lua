@@ -203,19 +203,19 @@ function ToggleSmoothScroll()
         c.kmap("x", "<Up>", "5<C-y>")
         c.kmap("x", "<Down>", "5<C-e>")
     else
-        local t = {}
-        t['<C-j>'] = { 'scroll', { 'vim.wo.scroll', 'true', '200' } }
-        t['<C-k>'] = { 'scroll', { '-vim.wo.scroll', 'true', '200' } }
-        t['<PageDown>'] = {
-            'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '250' }
+        local neoscroll = require('neoscroll')
+        local keymap = {
+            ["<C-k>"] = function() neoscroll.ctrl_u({ duration = 200 }) end,
+            ["<C-j>"] = function() neoscroll.ctrl_d({ duration = 200 }) end,
+            ["<PageUp>"] = function() neoscroll.ctrl_b({ duration = 250 }) end,
+            ["<PageDown>"] = function() neoscroll.ctrl_f({ duration = 250 }) end,
+            ["<Up>"] = function() neoscroll.scroll(-0.2, { move_cursor = false, duration = 100 }) end,
+            ["<Down>"] = function() neoscroll.scroll(0.2, { move_cursor = false, duration = 100 }) end,
         }
-        t['<PageUp>'] = {
-            'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '250' }
-        }
-        t['<Up>'] = { 'scroll', { '-0.20', 'false', '100' } }
-        t['<Down>'] = { 'scroll', { '0.20', 'false', '100' } }
-
-        require('neoscroll.config').set_mappings(t)
+        local modes = { 'n', 'v', 'x' }
+        for key, func in pairs(keymap) do
+            vim.keymap.set(modes, key, func)
+        end
     end
 
     toggled = not toggled
