@@ -1,7 +1,7 @@
 return {
     "l3mon4d3/luasnip",
     lazy = true,
-    version = "v1.*",
+    version = "v2.*",
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
         require("luasnip").config.set_config({
