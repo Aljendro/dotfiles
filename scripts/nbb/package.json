@@ -6,6 +6,6 @@
     "@aws-sdk/client-sts": "^3.360.0",
     "@aws-sdk/shared-ini-file-loader": "^3.310.0",
     "dotenv": "^16.0.3",
-    "openai": "^3.2.1"
+    "openai": "^4.57.0"
   }
 }
