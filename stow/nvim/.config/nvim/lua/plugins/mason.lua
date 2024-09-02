@@ -21,11 +21,12 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
-                "tsserver",
-                "html",
+                "bashls",
                 "cssls",
-                "lua_ls",
                 "graphql",
+                "html",
+                "lua_ls",
+                "tsserver",
             },
         })
 

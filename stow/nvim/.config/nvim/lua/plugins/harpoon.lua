@@ -15,5 +15,7 @@ return {
         { "<leader>9", ":lua require('harpoon.ui').nav_file(9)<cr>" },
         { "<leader>0", ":lua require('harpoon.ui').nav_file(10)<cr>" },
     },
-    config = function() require("harpoon").setup({ menu = { width = vim.api.nvim_win_get_width(0) - 4 } }) end,
+    config = function()
+        require("harpoon").setup({ menu = { width = vim.api.nvim_win_get_width(0) - 4 } })
+    end,
 }

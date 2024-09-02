@@ -54,13 +54,17 @@ return {
                     return vim_item
                 end,
             },
-            snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body)
+                end,
+            },
             matching = { disallow_fuzzy_matching = false },
             window = { completion = cmp.config.window.bordered(), documentation = cmp.config.window.bordered() },
             sources = cmp.config.sources({
-                { name = "npm",      preselect = true, keyword_length = 4 },
+                { name = "npm", preselect = true, keyword_length = 4 },
                 { name = "nvim_lsp", preselect = true, keyword_length = 2, group_index = 1 },
-                { name = "luasnip",  preselect = true, keyword_length = 2, group_index = 2 },
+                { name = "luasnip", preselect = true, keyword_length = 2, group_index = 2 },
                 {
                     name = "buffer",
                     preselect = true,
@@ -70,7 +74,7 @@ return {
                     group_index = 3,
                 },
                 { name = "nvim_lsp_signature_help", group_index = 4 },
-                { name = "path",                    group_index = 5 },
+                { name = "path", group_index = 5 },
             }),
             mapping = {
                 ["<Tab>"] = cmp.mapping(function(fallback)
@@ -127,9 +131,9 @@ return {
             mapping = cmp.mapping.preset.cmdline(),
             completion = { autocomplete = false },
             sources = cmp.config.sources({
-                { name = "path",    keyword_length = 3, group_index = 1 },
+                { name = "path", keyword_length = 3, group_index = 1 },
                 { name = "cmdline", keyword_length = 3, group_index = 2 },
-                { name = "buffer",  keyword_length = 3, group_index = 3 },
+                { name = "buffer", keyword_length = 3, group_index = 3 },
             }),
         })
     end,

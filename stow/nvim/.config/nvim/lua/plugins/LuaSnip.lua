@@ -13,8 +13,11 @@ return {
         require("luasnip.loaders.from_snipmate").load({ path = { os.getenv("HOME") .. "/.config/nvim/snippets" } })
         require("luasnip.loaders.from_lua").load({ paths = os.getenv("HOME") .. "/.config/nvim/snippets" })
         vim.api.nvim_create_user_command("LuaSnipEdit", function()
-            require("luasnip.loaders").edit_snippet_files(
-                { edit = function(fileName) vim.cmd("vsplit " .. fileName) end })
+            require("luasnip.loaders").edit_snippet_files({
+                edit = function(fileName)
+                    vim.cmd("vsplit " .. fileName)
+                end,
+            })
         end, {})
     end,
-};
+}

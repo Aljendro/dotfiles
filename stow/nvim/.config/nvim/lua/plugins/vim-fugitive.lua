@@ -19,9 +19,8 @@ return {
         -- Choose the right buffer
         { "<leader>gl", ":diffget //3<cr>" },
         -- Traverse git merge conflict markers
-        { "]n",         ":lua DiffContext(true)<cr>" },
-        { "[n",         ":lua DiffContext(false)<cr>" },
-
+        { "]n", ":lua DiffContext(true)<cr>" },
+        { "[n", ":lua DiffContext(false)<cr>" },
     },
     config = function()
         local c = require("common")
@@ -35,10 +34,12 @@ return {
         vim.cmd("cnoreabbrev <expr> gbdr v:lua.CommandAbbreviation('gbdr', 'Git push origin --delete')")
         vim.cmd("cnoreabbrev <expr> gpl v:lua.CommandAbbreviation('gpl', 'Git pull')")
         vim.cmd(
-            "cnoreabbrev <expr> ggpull v:lua.CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')")
+            "cnoreabbrev <expr> ggpull v:lua.CommandAbbreviation('ggpull', 'Git pull origin <C-R>=FugitiveHead()<cr>')"
+        )
         vim.cmd("cnoreabbrev <expr> gp v:lua.CommandAbbreviation('gp', 'Git push')")
         vim.cmd(
-            "cnoreabbrev <expr> ggpush v:lua.CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')")
+            "cnoreabbrev <expr> ggpush v:lua.CommandAbbreviation('ggpush', 'Git push origin <C-R>=FugitiveHead()<cr>')"
+        )
         vim.cmd("cnoreabbrev <expr> gco v:lua.CommandAbbreviation('gco', 'Git checkout')")
         vim.cmd("cnoreabbrev <expr> gcb v:lua.CommandAbbreviation('gcb', 'Git checkout -b ')")
         vim.cmd("cnoreabbrev <expr> gcd v:lua.CommandAbbreviation('gcd', 'Git checkout develop')")

@@ -26,11 +26,13 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 
 return {
-    s({ trig = "rus", dsrc = "React useState" },
-      fmt("const [{}, set{}] = useState<{}>({});", {
-        i(1, "variable"),
-        l(l._1:gsub("^%l", string.upper), 1),
-        c(2, { t("string"), t("boolean"), t("number"), i(nil, "type") }),
-        i(3),
-    })),
+    s(
+        { trig = "rus", dsrc = "React useState" },
+        fmt("const [{}, set{}] = useState<{}>({});", {
+            i(1, "variable"),
+            l(l._1:gsub("^%l", string.upper), 1),
+            c(2, { t("string"), t("boolean"), t("number"), i(nil, "type") }),
+            i(3),
+        })
+    ),
 }, {}

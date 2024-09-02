@@ -25,23 +25,25 @@ function DeleteTrailingSpaces()
 end
 
 function GetSelectedText()
-    local saved_reg = vim.fn.getreg("\"")
+    local saved_reg = vim.fn.getreg('"')
     vim.cmd([[execute "normal! vgvy"]])
-    vim.fn.setreg("/", vim.fn.escape(vim.fn.getreg("\""), "\\/.*'$^~[]"))
-    vim.fn.setreg("\"", saved_reg)
+    vim.fn.setreg("/", vim.fn.escape(vim.fn.getreg('"'), "\\/.*'$^~[]"))
+    vim.fn.setreg('"', saved_reg)
 end
 
 function GetSelectedTextGrep()
-    local saved_reg = vim.fn.getreg("\"")
+    local saved_reg = vim.fn.getreg('"')
     vim.cmd([[execute "normal! vgvy"]])
-    vim.fn.setreg("/", vim.fn.escape(vim.fn.getreg("\""), " "))
-    vim.fn.setreg("\"", saved_reg)
+    vim.fn.setreg("/", vim.fn.escape(vim.fn.getreg('"'), " "))
+    vim.fn.setreg('"', saved_reg)
 end
 
 function MakeSession(session_name)
     local session_dir = os.getenv("HOME") .. "/.config/nvim/sessions/"
 
-    if vim.fn.filewritable(session_dir) ~= 2 then os.execute("mkdir -p " .. session_dir) end
+    if vim.fn.filewritable(session_dir) ~= 2 then
+        os.execute("mkdir -p " .. session_dir)
+    end
 
     if session_name == "" or session_name == nil then
         session_name = vim.fn.input("Save session name: ")
@@ -105,10 +107,10 @@ function CommandAbbreviation(abbreviation, substitution, range_substitution)
         local parsed_start_regex = vim.regex("^" .. abbreviation)
         local parse_visual_start_regex = vim.regex("^'<,'>" .. abbreviation)
         local cmd_line_string = vim.fn.getcmdline()
-        if (parsed_start_regex:match_str(cmd_line_string)) then
+        if parsed_start_regex:match_str(cmd_line_string) then
             EatChar([[\s]])
             return substitution
-        elseif (parse_visual_start_regex:match_str(cmd_line_string)) then
+        elseif parse_visual_start_regex:match_str(cmd_line_string) then
             EatChar([[\s]])
             if range_substitution then
                 return range_substitution
@@ -165,26 +167,32 @@ function ToggleListItem(character)
             offset = 1
             replacement = { character .. " " }
         end
-        vim.api.nvim_buf_set_text(0, cursor_row, list_item_char_position + 1, cursor_row,
-            list_item_char_position + offset, replacement)
+        vim.api.nvim_buf_set_text(
+            0,
+            cursor_row,
+            list_item_char_position + 1,
+            cursor_row,
+            list_item_char_position + offset,
+            replacement
+        )
     end
 end
 
 local toggled = false
 function ToggleSmoothScroll()
-    pcall(vim.api.nvim_del_keymap, 'n', '<C-k>')
-    pcall(vim.api.nvim_del_keymap, 'n', '<C-j>')
-    pcall(vim.api.nvim_del_keymap, 'n', '<Up>')
-    pcall(vim.api.nvim_del_keymap, 'n', '<Down>')
-    pcall(vim.api.nvim_del_keymap, 'n', '<PageDown>')
-    pcall(vim.api.nvim_del_keymap, 'n', '<PageUp>')
+    pcall(vim.api.nvim_del_keymap, "n", "<C-k>")
+    pcall(vim.api.nvim_del_keymap, "n", "<C-j>")
+    pcall(vim.api.nvim_del_keymap, "n", "<Up>")
+    pcall(vim.api.nvim_del_keymap, "n", "<Down>")
+    pcall(vim.api.nvim_del_keymap, "n", "<PageDown>")
+    pcall(vim.api.nvim_del_keymap, "n", "<PageUp>")
 
-    pcall(vim.api.nvim_del_keymap, 'x', '<C-k>')
-    pcall(vim.api.nvim_del_keymap, 'x', '<C-j>')
-    pcall(vim.api.nvim_del_keymap, 'x', '<Up>')
-    pcall(vim.api.nvim_del_keymap, 'x', '<Down>')
-    pcall(vim.api.nvim_del_keymap, 'x', '<PageDown>')
-    pcall(vim.api.nvim_del_keymap, 'x', '<PageUp>')
+    pcall(vim.api.nvim_del_keymap, "x", "<C-k>")
+    pcall(vim.api.nvim_del_keymap, "x", "<C-j>")
+    pcall(vim.api.nvim_del_keymap, "x", "<Up>")
+    pcall(vim.api.nvim_del_keymap, "x", "<Down>")
+    pcall(vim.api.nvim_del_keymap, "x", "<PageDown>")
+    pcall(vim.api.nvim_del_keymap, "x", "<PageUp>")
 
     -- Scrolling (ref: smooth_scrolling)
     if toggled then
@@ -203,16 +211,28 @@ function ToggleSmoothScroll()
         c.kmap("x", "<Up>", "5<C-y>")
         c.kmap("x", "<Down>", "5<C-e>")
     else
-        local neoscroll = require('neoscroll')
+        local neoscroll = require("neoscroll")
         local keymap = {
-            ["<C-k>"] = function() neoscroll.ctrl_u({ duration = 200 }) end,
-            ["<C-j>"] = function() neoscroll.ctrl_d({ duration = 200 }) end,
-            ["<PageUp>"] = function() neoscroll.ctrl_b({ duration = 250 }) end,
-            ["<PageDown>"] = function() neoscroll.ctrl_f({ duration = 250 }) end,
-            ["<Up>"] = function() neoscroll.scroll(-0.2, { move_cursor = false, duration = 100 }) end,
-            ["<Down>"] = function() neoscroll.scroll(0.2, { move_cursor = false, duration = 100 }) end,
+            ["<C-k>"] = function()
+                neoscroll.ctrl_u({ duration = 200 })
+            end,
+            ["<C-j>"] = function()
+                neoscroll.ctrl_d({ duration = 200 })
+            end,
+            ["<PageUp>"] = function()
+                neoscroll.ctrl_b({ duration = 250 })
+            end,
+            ["<PageDown>"] = function()
+                neoscroll.ctrl_f({ duration = 250 })
+            end,
+            ["<Up>"] = function()
+                neoscroll.scroll(-0.2, { move_cursor = false, duration = 100 })
+            end,
+            ["<Down>"] = function()
+                neoscroll.scroll(0.2, { move_cursor = false, duration = 100 })
+            end,
         }
-        local modes = { 'n', 'v', 'x' }
+        local modes = { "n", "v", "x" }
         for key, func in pairs(keymap) do
             vim.keymap.set(modes, key, func)
         end

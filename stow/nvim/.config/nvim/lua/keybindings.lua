@@ -15,9 +15,11 @@ c.kmap("n", "<leader>r", ":lua require('plenary.reload').reload_module('dotfiles
 vim.cmd("inoreabbrev @@ Alejandro Alvarado <alejandro.alvarado0650144@gmail.com>")
 -- Quick Grep and Location/Quickfix List opens
 vim.cmd(
-    "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")")
+    "cnoreabbrev <expr> grep v:lua.CommandAbbreviation('grep', \"silent grep  \\| copen<left><left><left><left><left><left><left><left>\")"
+)
 vim.cmd(
-    "cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep  <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")")
+    "cnoreabbrev <expr> lgrep v:lua.CommandAbbreviation('lgrep', \"silent lgrep  <C-r>=expand('%:p')<cr> \\| lopen<C-b><right><right><right><right><right><right><right><right><right><right><right><right><right>\")"
+)
 vim.cmd("noreabbrev _ml -U")
 vim.cmd("noreabbrev _mla -U --multiline-dotall")
 vim.cmd("noreabbrev _r10 <left>.{0,10}?")
@@ -212,8 +214,8 @@ c.kmap("n", "k", "gk")
 
 -- Quick Session
 c.kmap("n", "<leader>ss", ":wall | call v:lua.MakeSession()<cr>")
-c.kmap("n", "<leader>sr", ":wall | call v:lua.MakeSession(\"default\") | tabonly | call v:lua.LoadSession()<cr>")
-c.kmap("n", "<leader>sd", ":wall | call v:lua.LoadSession(\"default\")<cr>")
+c.kmap("n", "<leader>sr", ":wall | call v:lua.MakeSession('default') | tabonly | call v:lua.LoadSession()<cr>")
+c.kmap("n", "<leader>sd", ":wall | call v:lua.LoadSession('default')<cr>")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Profiling

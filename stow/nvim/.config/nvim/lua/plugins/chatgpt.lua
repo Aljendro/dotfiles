@@ -7,7 +7,7 @@ return {
             edit_with_instructions = {
                 diff = false,
                 keymaps = {
-                    close = "<C-c>" ,
+                    close = "<C-c>",
                     accept = "<C-y>",
                     toggle_diff = "<C-d>",
                     toggle_settings = "<C-o>",
@@ -18,7 +18,7 @@ return {
             chat = {
                 welcome_message = "",
                 keymaps = {
-                    close = "<C-c>" ,
+                    close = "<C-c>",
                     yank_last = "<C-y>",
                     yank_last_code = "<C-u>",
                     scroll_up = "<C-k>",
@@ -56,7 +56,7 @@ return {
                 temperature = 0,
                 top_p = 1,
                 n = 1,
-            }
+            },
         })
 
         local c = require("common")
@@ -79,6 +79,6 @@ return {
     dependencies = {
         "MunifTanjim/nui.nvim",
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim"
-    }
+        "nvim-telescope/telescope.nvim",
+    },
 }

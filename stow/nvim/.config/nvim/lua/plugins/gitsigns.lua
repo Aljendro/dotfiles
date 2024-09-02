@@ -11,7 +11,7 @@ return {
                         return "]c"
                     else
                         vim.schedule(function()
-                            gs.nav_hunk('next')
+                            gs.nav_hunk("next")
                             vim.cmd("normal! zz")
                         end)
                         return "<Ignore>"
@@ -22,7 +22,7 @@ return {
                         return "[c"
                     else
                         vim.schedule(function()
-                            gs.nav_hunk('prev')
+                            gs.nav_hunk("prev")
                             vim.cmd("normal! zz")
                         end)
                         return "<Ignore>"
@@ -30,21 +30,27 @@ return {
                 end, { expr = true })
                 c.kbmapset(bufnr, "n", "<leader>hs", gs.stage_hunk)
                 c.kbmapset(bufnr, "v", "<leader>hs", function()
-                    gs.stage_hunk { vim.fn.line("."), vim.fn.line("v") }
+                    gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
                 end)
                 c.kbmapset(bufnr, "n", "<leader>hr", gs.reset_hunk)
                 c.kbmapset(bufnr, "v", "<leader>hr", function()
-                    gs.reset_hunk { vim.fn.line("."), vim.fn.line("v") }
+                    gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
                 end)
                 c.kbmapset(bufnr, "n", "<leader>hS", gs.stage_buffer)
                 c.kbmapset(bufnr, "n", "<leader>hu", gs.undo_stage_hunk)
                 c.kbmapset(bufnr, "n", "<leader>hR", gs.reset_buffer)
                 c.kbmapset(bufnr, "n", "<leader>hp", gs.preview_hunk)
                 c.kbmapset(bufnr, "n", "<leader>ho", gs.toggle_deleted)
-                c.kbmapset(bufnr, "n", "<leader>hb", function() gs.blame_line({ full = true }) end)
-                c.kbmapset(bufnr, "n", "<leader>hd", function() gs.diffthis() end)
-                c.kbmapset(bufnr, "n", "<leader>hD", function() gs.diffthis("~") end)
+                c.kbmapset(bufnr, "n", "<leader>hb", function()
+                    gs.blame_line({ full = true })
+                end)
+                c.kbmapset(bufnr, "n", "<leader>hd", function()
+                    gs.diffthis()
+                end)
+                c.kbmapset(bufnr, "n", "<leader>hD", function()
+                    gs.diffthis("~")
+                end)
             end,
         })
     end,
-};
+}

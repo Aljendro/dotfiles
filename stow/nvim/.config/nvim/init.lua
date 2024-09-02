@@ -21,7 +21,4 @@ require("functions")
 require("keybindings")
 require("autocommands")
 
-require("lazy").setup(
-    "plugins",
-    { change_detection = { notify = false } }
-)
+require("lazy").setup("plugins", { change_detection = { notify = false } })

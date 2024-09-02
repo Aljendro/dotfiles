@@ -68,40 +68,33 @@ return {
             ------------ Javascript/Typescript ---------------
             --------------------------------------------------
 
-            lspconfig.tsserver.setup(
-                {
-                    capabilities = capabilities,
-                    on_attach = function(client, bufnr)
-                        client.server_capabilities.documentFormattingProvider = false
-                        on_attach(client, bufnr)
-                    end,
-                    flags = { debounce_text_changes = 150 },
-                }
-            )
+            lspconfig.tsserver.setup({
+                capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.documentFormattingProvider = false
+                    on_attach(client, bufnr)
+                end,
+                flags = { debounce_text_changes = 150 },
+            })
 
             --------------------------------------------------
             -------------------- Rust ------------------------
             --------------------------------------------------
 
-            lspconfig.rust_analyzer.setup(
-                { capabilities = capabilities, on_attach = on_attach }
-            )
-
+            lspconfig.rust_analyzer.setup({ capabilities = capabilities, on_attach = on_attach })
 
             --------------------------------------------------
             -------------------- C++ -------------------------
             --------------------------------------------------
 
-            lspconfig.clangd.setup(
-                {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    cmd = {
-                        "clangd",
-                        "--offset-encoding=utf-16",
-                    },
-                }
-            )
+            lspconfig.clangd.setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+                cmd = {
+                    "clangd",
+                    "--offset-encoding=utf-16",
+                },
+            })
 
             --------------------------------------------------
             ------------------- Docker -----------------------
@@ -142,7 +135,7 @@ return {
                 on_attach = function(client, bufnr)
                     client.server_capabilities.documentFormattingProvider = false
                     on_attach(client, bufnr)
-                end
+                end,
             })
 
             --------------------------------------------------
@@ -182,15 +175,12 @@ return {
                     url = "https://json.schemastore.org/prettierrc",
                 },
                 {
-                    description =
-                    "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
+                    description = "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
                     fileMatch = { "*.cf.json", "cloudformation.json" },
-                    url =
-                    "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
+                    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
                 },
                 {
-                    description =
-                    "The AWS Serverless Application Model (AWS SAM previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs AWS Lambda functions and Amazon DynamoDB tables needed by your serverless application.",
+                    description = "The AWS Serverless Application Model (AWS SAM previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs AWS Lambda functions and Amazon DynamoDB tables needed by your serverless application.",
                     fileMatch = { "serverless.template", "*.sam.json", "sam.json" },
                     url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json",
                 },
@@ -201,9 +191,11 @@ return {
                 },
             }
 
-            lspconfig.jsonls.setup(
-                { capabilities = capabilities, settings = { json = { schemas = schemas } }, on_attach = on_attach }
-            )
+            lspconfig.jsonls.setup({
+                capabilities = capabilities,
+                settings = { json = { schemas = schemas } },
+                on_attach = on_attach,
+            })
 
             --------------------------------------------------
             --------------------- Lua ------------------------
@@ -212,22 +204,20 @@ return {
             local runtime_path = vim.split(package.path, ";")
             table.insert(runtime_path, "lua/?.lua")
             table.insert(runtime_path, "lua/?/init.lua")
-            lspconfig.lua_ls.setup(
-                {
-                    on_attach = function(client, bufnr)
-                        client.server_capabilities.document_formatting = false
-                        on_attach(client, bufnr)
-                    end,
-                    settings = {
-                        Lua = {
-                            runtime = { version = "LuaJIT", path = runtime_path },
-                            diagnostics = { globals = { "vim", "use" } },
-                            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-                            telemetry = { enable = false },
-                        },
+            lspconfig.lua_ls.setup({
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.document_formatting = false
+                    on_attach(client, bufnr)
+                end,
+                settings = {
+                    Lua = {
+                        runtime = { version = "LuaJIT", path = runtime_path },
+                        diagnostics = { globals = { "vim", "use" } },
+                        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                        telemetry = { enable = false },
                     },
-                }
-            )
+                },
+            })
         end
     end,
 }

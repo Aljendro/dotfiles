@@ -1,1 +1,1 @@
-require('languages.lisp').setup()
+require("languages.lisp").setup()

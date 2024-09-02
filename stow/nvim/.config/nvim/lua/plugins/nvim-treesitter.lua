@@ -2,7 +2,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     -- dependencies = { "nvim-treesitter/playground" },
     config = function()
-        require("nvim-treesitter.configs").setup {
+        require("nvim-treesitter.configs").setup({
             ensure_installed = {
                 "bash",
                 "c",
@@ -69,7 +69,7 @@ return {
                 keymaps = {
                     init_selection = "<leader>y",
                     node_decremental = "<leader>u",
-                    node_incremental = "<leader>i"
+                    node_incremental = "<leader>i",
                 },
             },
             playground = {
@@ -90,6 +90,6 @@ return {
                     show_help = "?",
                 },
             },
-        }
+        })
     end,
-};
+}
