@@ -273,4 +273,3 @@ export async function typeIntoElement(element, value) {
   }, value);
   await element.type(textToType);
 }
-
