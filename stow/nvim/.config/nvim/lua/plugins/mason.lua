@@ -22,19 +22,32 @@ return {
         mason_lspconfig.setup({
             ensure_installed = {
                 "bashls",
+                "clangd",
+                "clojure_lsp",
                 "cssls",
-                "graphql",
+                "dockerls",
+                "gopls",
                 "html",
+                "jsonls",
                 "lua_ls",
+                "pyright",
+                "rust_analyzer",
                 "tsserver",
             },
         })
 
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier",
-                "stylua",
+                "beautysh",
+                "black",
+                "chrome-debug-adapter",
+                "clj-kondo",
+                "cljfmt",
                 "eslint_d",
+                "luacheck",
+                "prettier",
+                "prettierd",
+                "stylua",
             },
         })
     end,
