@@ -40,7 +40,6 @@ return {
             ensure_installed = {
                 "beautysh",
                 "black",
-                "chrome-debug-adapter",
                 "clj-kondo",
                 "cljfmt",
                 "eslint_d",
