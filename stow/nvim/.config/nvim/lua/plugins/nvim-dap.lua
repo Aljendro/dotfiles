@@ -72,9 +72,14 @@ return {
                     type = "pwa-node",
                     request = "attach",
                     name = "Attach",
-                    processId = require("dap.utils").pick_process,
+                    processId = require("dap.utils").pick_process({
+                        filter = function(entry)
+                            return string.find(entry.name, "inspect") ~= nil
+                        end,
+                    }),
                     cwd = vim.fn.getcwd(),
                     sourceMaps = true,
+                    skipFiles = { "<node_internals>/**", "node_modules/**" },
                 },
                 -- Debug web applications (client side)
                 {
