@@ -18,3 +18,6 @@
 	path = stow/zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 	shallow = true
+[submodule "stow/nvimlazy/.config/starter"]
+	path = stow/nvimlazy/.config/starter
+	url = https://github.com/Aljendro/starter.git
