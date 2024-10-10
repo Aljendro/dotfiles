@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while read input_date; do
+  date -j -f "%m/%d/%y %I:%M %p" "$input_date" +"%Y-%m-%dT%H:%M:%S%z"
+done
