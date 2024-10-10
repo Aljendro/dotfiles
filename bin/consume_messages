@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Check if delete flag is provided as an argument
+DELETE_MESSAGES=${3:-false}
+
+# Function to consume messages from the SQS queue
+while true; do
+  # Receive up to 10 messages from the SQS queue
+  MESSAGES=$(aws sqs receive-message --queue-url "$2" --region "$AWS_REGION" --max-number-of-messages 10 --wait-time-seconds 1 --profile "$1")
+
+  # Check if any messages were received
+  if [ -z "$MESSAGES" ]; then
+    echo '{ "tag": "log", "message": "No more messages."}'
+    break
+  fi
+
+  # Extract the number of messages received
+  MESSAGE_COUNT=$(echo "$MESSAGES" | jq '.Messages | length')
+
+  # Loop through each message
+  for ((i = 0; i < $MESSAGE_COUNT; i++)); do
+    # Extract the receipt handle and message body
+    RECEIPT_HANDLE=$(echo "$MESSAGES" | jq -r ".Messages[$i].ReceiptHandle")
+    MESSAGE_BODY=$(echo "$MESSAGES" | jq -r ".Messages[$i].Body")
+
+    # Process the message (e.g., print the message body)
+    echo "$MESSAGE_BODY"
+
+    # Conditionally delete the message from the queue
+    if [ "$DELETE_MESSAGES" = true ]; then
+      aws sqs delete-message --queue-url "$2" --region "$AWS_REGION" --receipt-handle "$RECEIPT_HANDLE"
+      echo '{ "tag": "log", "message": "Message deleted."}'
+    else
+      echo '{ "tag": "log", "message": "Message not deleted."}'
+    fi
+  done
+done
