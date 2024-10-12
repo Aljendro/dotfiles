@@ -21,10 +21,12 @@ while true; do
   for ((i = 0; i < $MESSAGE_COUNT; i++)); do
     # Extract the receipt handle and message body
     RECEIPT_HANDLE=$(echo "$MESSAGES" | jq -r ".Messages[$i].ReceiptHandle")
+    MESSAGE_ID=$(echo "$MESSAGES" | jq -r ".Messages[$i].MessageId")
     MESSAGE_BODY=$(echo "$MESSAGES" | jq -r ".Messages[$i].Body")
 
     # Process the message (e.g., print the message body)
-    echo "$MESSAGE_BODY"
+    echo "$MESSAGE_ID $MESSAGE_BODY"
+    echo ""
 
     # Conditionally delete the message from the queue
     if [ "$DELETE_MESSAGES" = true ]; then
