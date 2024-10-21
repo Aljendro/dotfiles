@@ -1,6 +1,6 @@
 # Move this file to: `~/.amethyst.yml`
 # In order to register changes restart Amethyst.
-# If you experience issues pulling in the changes you can also quit Amethyst and run: 
+# If you experience issues pulling in the changes you can also quit Amethyst and run:
 # rm ~/Library/Preferences/com.amethyst.Amethyst.plist
 # This removes the current preferences and causes a re-load of this file when amethyst restarts.
 
@@ -20,7 +20,7 @@ window-margin-size: 2
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
 floating:
-  - "com.apple.systempreferences"
+  - 'com.apple.systempreferences'
 
 # true if windows smaller than a 500px square should be floating by default (default true)
 float-small-windows: true
@@ -43,6 +43,7 @@ restore-layouts-on-launch: true
 layouts:
   - fullscreen
   - tall
+  - row
 
 ################################################################################
 ## Keybindings
@@ -100,4 +101,3 @@ focus-screen-3:
 throw-screen-3:
   mod: mod2
   key: f
-
