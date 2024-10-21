@@ -30,7 +30,7 @@ while true; do
 
     # Conditionally delete the message from the queue
     if [ "$DELETE_MESSAGES" = true ]; then
-      aws sqs delete-message --queue-url "$2" --region "$AWS_REGION" --receipt-handle "$RECEIPT_HANDLE"
+      aws sqs delete-message --queue-url "$2" --region "$AWS_REGION" --receipt-handle "$RECEIPT_HANDLE" --profile "$1"
       echo '{ "tag": "log", "message": "Message deleted."}'
     else
       echo '{ "tag": "log", "message": "Message not deleted."}'
