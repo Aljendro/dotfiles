@@ -36,12 +36,12 @@ on run -- {input, parameter}
 
 	display dialog "Enter the start time offset in minutes:" default answer "25"
 	set workOffset to text returned of result as integer
-	set breakOffset to 5
+	set breakOffset to 10
 	set startOffset to workOffset + breakOffset
 	set endOffset to startOffset + 5
 
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams (work or school)" to activate
+	tell application "Microsoft Teams" to activate
 	delay delaySec
 
 	-- Activate Work Timer
@@ -98,7 +98,7 @@ on run -- {input, parameter}
 	----------------- END BREAK ---------------------------
 
 	-- Activate Teams, place it in correct position
-	tell application "Microsoft Teams (work or school)" to activate
+	tell application "Microsoft Teams" to activate
 	delay delaySec
 
 	-- dropdown
