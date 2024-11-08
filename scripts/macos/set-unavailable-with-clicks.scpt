@@ -14,7 +14,7 @@ on getAvailabilityMessage()
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime
 
-	set message to "Working on " & taskName & ". Reading messages between " & startTimeString & " - " & endTimeString & " (ET)"
+	set message to "Responding " & startTimeString & " - " & endTimeString & " (ET)" & ". Working on " & taskName & "."
 
 	return message
 end getAvailabilityMessage
@@ -29,13 +29,11 @@ on delayKeystroke(textToType)
 end delayKeystroke
 
 on run -- {input, parameter}
-	set delaySec to 1
+	set delaySec to 1.25
 
-	display dialog "Enter task:" default answer "" buttons {"Cancel", "Continue"} default button "Continue"
-	set taskName to text returned of result
+	set taskName to system attribute "TASK_NAME"
+	set workOffset to (system attribute "TASK_TIME") as integer
 
-	display dialog "Enter the start time offset in minutes:" default answer "25"
-	set workOffset to text returned of result as integer
 	set breakOffset to 10
 	set startOffset to workOffset + breakOffset
 	set endOffset to startOffset + 5
@@ -50,24 +48,28 @@ on run -- {input, parameter}
 	end tell
 	delay delaySec
 
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1400,80"
+	delay delaySec
+
 	-- dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
+	do shell script "/opt/homebrew/bin/cliclick c:1681,66"
 	delay delaySec
 
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1450,220"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,270"
 	delay delaySec
 
 	-- "Busy"
-	do shell script "/opt/homebrew/bin/cliclick c:1525,290"
-	delay delaySec
+	do shell script "/opt/homebrew/bin/cliclick c:1500,355"
+	delay delaySec + 1
 
 	-- set message
-	do shell script "/opt/homebrew/bin/cliclick c:1450,285"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,348"
 	delay delaySec
 
 	-- message input box
-	do shell script "/opt/homebrew/bin/cliclick c:1445,175"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,210"
 	delay delaySec
 
 	-- type message
@@ -76,11 +78,11 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- submit form
-	do shell script "/opt/homebrew/bin/cliclick c:1650,575"
+	do shell script "/opt/homebrew/bin/cliclick c:1630,705"
 	delay delaySec
 
 	-- click out of form (reset UI)
-	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
+	do shell script "/opt/homebrew/bin/cliclick c:1400,80"
 	delay delaySec
 
 	------------------- WORKING ---------------------------
@@ -102,23 +104,23 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
+	do shell script "/opt/homebrew/bin/cliclick c:1681,66"
 	delay delaySec
 
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1450,220"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,270"
 	delay delaySec
 
 	-- "Available"
-	do shell script "/opt/homebrew/bin/cliclick c:1525,258"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,315"
 	delay delaySec
 
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1700,338"
+	do shell script "/opt/homebrew/bin/cliclick c:1695,415"
 	delay delaySec
 
 	-- click out of form (reset UI)
-	do shell script "/opt/homebrew/bin/cliclick c:1700,60"
+	do shell script "/opt/homebrew/bin/cliclick c:1400,80"
 	delay delaySec
 end run
 
