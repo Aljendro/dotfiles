@@ -29,7 +29,7 @@ on delayKeystroke(textToType)
 end delayKeystroke
 
 on run -- {input, parameter}
-	set delaySec to 1.25
+	set delaySec to 1
 
 	set taskName to system attribute "TASK_NAME"
 	set workOffset to (system attribute "TASK_TIME") as integer
@@ -66,10 +66,6 @@ on run -- {input, parameter}
 
 	-- set message
 	do shell script "/opt/homebrew/bin/cliclick c:1500,348"
-	delay delaySec
-
-	-- message input box
-	do shell script "/opt/homebrew/bin/cliclick c:1500,210"
 	delay delaySec
 
 	-- type message
@@ -116,7 +112,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1695,415"
+	do shell script "/opt/homebrew/bin/cliclick c:1695,425"
 	delay delaySec
 
 	-- click out of form (reset UI)
