@@ -1,5 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-while read input_date; do
-  date -j -f "%m/%d/%y %I:%M %p" "$input_date" +"%Y-%m-%dT%H:%M:%S%z"
-done
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false,
+});
+
+rl.on('line', (inputLine) => {
+  const timestampRegex = /\b\d{13}\b/g;
+  const convertedLine = inputLine.replace(timestampRegex, (match) => {
+    const dt = new Date(parseInt(match, 10));
+    return !isNaN(dt) ? dt.toISOString() : 'Invalid date format';
+  });
+  console.log(convertedLine);
+});
