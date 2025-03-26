@@ -1,15 +1,14 @@
 #!/usr/bin/osascript
 
 global taskName
-global breakOffset
-global startOffset
-global endOffset
+global breakTime
+global unavailableTime
 global delaySec
 
 on getAvailabilityMessage()
 	set currentTime to current date
-	set startTime to currentTime + (startOffset * minutes) + (3 * hours)
-	set endTime to currentTime + (endOffset * minutes) + (3 * hours)
+	set startTime to currentTime + (unavailableTime * minutes) + (3 * hours)
+	set endTime to currentTime + (unavailableTime * minutes) + (5 * minutes) + (3 * hours)
 
 	set startTimeString to time string of startTime
 	set endTimeString to time string of endTime
@@ -32,11 +31,11 @@ on run -- {input, parameter}
 	set delaySec to 1
 
 	set taskName to system attribute "TASK_NAME"
-	set workOffset to (system attribute "TASK_TIME") as integer
 
-	set breakOffset to 10
-	set startOffset to workOffset + breakOffset
-	set endOffset to startOffset + 5
+	set taskTime to (system attribute "TASK_TIME") as integer
+	set breakTime to (system attribute "BREAK_TIME") as integer
+
+	set unavailableTime to taskTime + breakTime
 
 	-- Activate Teams, place it in correct position
 	tell application "Microsoft Teams" to activate
@@ -82,7 +81,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	------------------- WORKING ---------------------------
-	delay (workOffset * minutes)
+	delay (taskTime * minutes)
 	------------------ END WORKING ------------------------
 
 	-- Activate Break Timer
@@ -92,7 +91,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	------------------- BREAK -----------------------------
-	delay (breakOffset * minutes)
+	delay (breakTime * minutes)
 	----------------- END BREAK ---------------------------
 
 	-- Activate Teams, place it in correct position
@@ -112,7 +111,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1695,425"
+	do shell script "/opt/homebrew/bin/cliclick c:1695,418"
 	delay delaySec
 
 	-- click out of form (reset UI)
