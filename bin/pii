@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+const readline = require('readline');
+
+// Helper function to recursively sanitize PII fields
+function sanitizePII(obj) {
+  if (typeof obj === 'object' && obj !== null) {
+    for (const key in obj) {
+      if (typeof obj[key] === 'string') {
+        obj[key] = '[REDACTED]'; // Replace string values
+      } else if (typeof obj[key] === 'number') {
+        obj[key] = 0; // Replace number values
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        sanitizePII(obj[key]); // Recurse for nested objects
+      } else {
+        obj[key] = null; // Replace other types with null
+      }
+    }
+  }
+}
+
+function processJSON(input) {
+  try {
+    const json = JSON.parse(input);
+    sanitizePII(json);
+    const output = compactOutput ? JSON.stringify(json) : JSON.stringify(json, null, 2);
+    console.log(output);
+  } catch (error) {
+    console.error('Invalid JSON input:', error.message);
+  }
+}
+
+let input = '';
+let compactOutput = false;
+let slurpMode = false;
+
+// Parse command-line arguments
+process.argv.slice(2).forEach((arg) => {
+  if (arg === '-c') {
+    compactOutput = true;
+  } else if (arg === '-s') {
+    slurpMode = true;
+  }
+});
+
+// Set up readline to read from stdin
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false,
+});
+
+// Collect JSON input from stdin
+if (slurpMode) {
+  rl.on('line', (line) => {
+    input += line;
+  });
+} else {
+  rl.on('line', (line) => {
+    processJSON(line);
+  });
+}
+
+rl.on('close', () => {
+  if (slurpMode) {
+    processJSON(input);
+  }
+});
