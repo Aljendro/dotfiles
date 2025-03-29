@@ -78,6 +78,18 @@ swap-ccw:
   mod: mod2
   key: k
 
+select-fullscreen-layout:
+  mod: mod1
+  key: u
+
+select-tall-layout:
+  mod: mod1
+  key: i
+
+select-row-layout:
+  mod: mod1
+  key: o
+
 focus-screen-1:
   mod: mod1
   key: s
