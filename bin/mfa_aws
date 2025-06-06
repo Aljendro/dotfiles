@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd "$DOTFILES_DIR/scripts/nbb"
-nbb -m aws-mfa "$1"
+nbb -m mfa-aws "$1"

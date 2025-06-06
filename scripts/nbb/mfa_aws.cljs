@@ -1,4 +1,4 @@
-(ns aws-mfa
+(ns mfa-aws
   (:require
    ["@aws-sdk/client-sts" :refer [STS]]
    ["@aws-sdk/shared-ini-file-loader" :as aws-file-loader]
@@ -92,7 +92,7 @@
   (let [profile (get js/process.argv 4)]
     (if (blank? profile)
       (do
-        (println "Usage: aws_mfa <aws_profile>")
+        (println "Usage: mfa_aws <aws_profile>")
         (println "Authenticate using MFA device for AWS CLI Access.\n"))
       (refresh-token-for-profile-if-needed profile))))
 
