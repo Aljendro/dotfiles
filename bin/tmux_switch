@@ -13,14 +13,43 @@ if [ $# -eq 0 ]; then
 
   CACHE_FILE="/tmp/tmux_projects_cache"
 
+  # Get list of active tmux sessions
+  ACTIVE_SESSIONS=$(tmux list-sessions -F '#{session_name}' 2>/dev/null || echo "")
+
   if [ -f "$CACHE_FILE" ]; then
-    PROJECT_STARTUP_SELECTION=$(cat "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n')
+    PROJECT_PATHS=$(cat "$CACHE_FILE" | gxargs -I{} dirname {})
   else
-    PROJECT_STARTUP_SELECTION=$(
+    PROJECT_PATHS=$(
       cd $HOME
-      fd -H --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {} | fzf | tr -d '\n'
+      fd -H --type executable --absolute-path start_project.local.sh | tee "$CACHE_FILE" | gxargs -I{} dirname {}
     )
   fi
+
+  # Create enhanced display with session status
+  PROJECT_DISPLAY=$(echo "$PROJECT_PATHS" | while read -r project_path; do
+    if [ -n "$project_path" ]; then
+      # Get the session name that would be created by this project
+      cd "$project_path" 2>/dev/null
+      if [ -f "./start_project.local.sh" ]; then
+        # Extract session name from the script (look for session= line)
+        session_name=$(grep '^session=' "./start_project.local.sh" 2>/dev/null | cut -d'"' -f2)
+        if [ -z "$session_name" ]; then
+          session_name=$(grep "^session=" "./start_project.local.sh" 2>/dev/null | cut -d'=' -f2 | tr -d '"')
+        fi
+
+        # Check if this session is active (accounting for tmux session suffixes like "-0")
+        if echo "$ACTIVE_SESSIONS" | grep -q "^${session_name}" 2>/dev/null; then
+          echo "● $project_path"
+        else
+          echo "  $project_path"
+        fi
+      else
+        echo "  $project_path"
+      fi
+    fi
+  done)
+
+  PROJECT_STARTUP_SELECTION=$(echo "$PROJECT_DISPLAY" | fzf --ansi --header="● = Active Session" | sed 's/^[● ] *//' | tr -d '\n')
 
   if [ -n "$PROJECT_STARTUP_SELECTION" ]; then
     cd "$PROJECT_STARTUP_SELECTION"
