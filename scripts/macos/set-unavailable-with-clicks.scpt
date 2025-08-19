@@ -5,16 +5,31 @@ global breakTime
 global unavailableTime
 global delaySec
 
+on pad2(n)
+	if n < 10 then return "0" & (n as integer)
+	return (n as integer) as text
+end pad2
+
+on formatTime12(d)
+	set h to hours of d
+	set m to minutes of d
+	set s to seconds of d
+	set meridian to "AM"
+	if h is greater than or equal to 12 then set meridian to "PM"
+	set h to h mod 12
+	if h is 0 then set h to 12
+  return (h as text) & ":" & pad2(m) & " " & meridian
+end formatTime12
+
 on getAvailabilityMessage()
 	set currentTime to current date
 	set startTime to currentTime + (unavailableTime * minutes) + (3 * hours)
 	set endTime to currentTime + (unavailableTime * minutes) + (5 * minutes) + (3 * hours)
 
-	set startTimeString to time string of startTime
-	set endTimeString to time string of endTime
+	set startTimeString to my formatTime12(startTime)
+	set endTimeString to my formatTime12(endTime)
 
-	set message to "Responding " & startTimeString & " - " & endTimeString & " (ET)" & ". Working on " & taskName & "."
-
+	set message to "Responding " & startTimeString & " - " & endTimeString & " (ET). Working on " & taskName & "."
 	return message
 end getAvailabilityMessage
 
@@ -56,15 +71,15 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1500,270"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,280"
 	delay delaySec
 
 	-- "Busy"
-	do shell script "/opt/homebrew/bin/cliclick c:1500,355"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,380"
 	delay delaySec + 1
 
 	-- set message
-	do shell script "/opt/homebrew/bin/cliclick c:1500,348"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,367"
 	delay delaySec
 
 	-- type message
@@ -73,7 +88,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- submit form
-	do shell script "/opt/homebrew/bin/cliclick c:1630,705"
+	do shell script "/opt/homebrew/bin/cliclick c:1590,755"
 	delay delaySec
 
 	-- click out of form (reset UI)
@@ -98,20 +113,24 @@ on run -- {input, parameter}
 	tell application "Microsoft Teams" to activate
 	delay delaySec
 
+	-- click out of form (reset UI)
+	do shell script "/opt/homebrew/bin/cliclick c:1400,80"
+	delay delaySec
+
 	-- dropdown
 	do shell script "/opt/homebrew/bin/cliclick c:1681,66"
 	delay delaySec
 
 	-- status dropdown
-	do shell script "/opt/homebrew/bin/cliclick c:1500,270"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,280"
 	delay delaySec
 
 	-- "Available"
-	do shell script "/opt/homebrew/bin/cliclick c:1500,315"
+	do shell script "/opt/homebrew/bin/cliclick c:1500,330"
 	delay delaySec
 
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1695,418"
+	do shell script "/opt/homebrew/bin/cliclick c:1677,415"
 	delay delaySec
 
 	-- click out of form (reset UI)
