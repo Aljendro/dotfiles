@@ -23,8 +23,13 @@
     (catch RuntimeException e
       (printf "Error parsing edn file '%s': %s\n" source (.getMessage e)))))
 
-(defn absolute-path [path-str]
-  (.getAbsolutePath (io/file path-str)))
+(defn resolve-path
+  "If the user provides an absolute path, use that. Else it will resolve an absolute path relative to the cwd"
+  [cwd user-path]
+  (let [file (io/file user-path)]
+    (if (.isAbsolute file)
+      (.getAbsolutePath file)
+      (.getAbsolutePath (io/file cwd user-path)))))
 
 (defn make-relative [directory absolute-path]
   (let [dir-path (Paths/get directory (into-array String []))

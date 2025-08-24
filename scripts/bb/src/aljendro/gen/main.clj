@@ -53,7 +53,7 @@
       (let [cwd (first arguments)
             generator-file-path (second arguments)
             generator-args args]
-        (reset! common/root-dir (common/absolute-path (:root-dir options)))
+        (reset! common/root-dir (common/resolve-path cwd (:root-dir options)))
         (reset! common/generators-dir (str @common/root-dir "/generators"))
         (reset! common/templates-dir (str @common/root-dir "/templates"))
         (if-not (nil? generator-file-path)
