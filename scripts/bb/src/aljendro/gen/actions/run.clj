@@ -82,7 +82,7 @@
   (selmer/add-filter! :pascal-case csk/->PascalCaseString))
 
 (defn run-generator [cwd generator-file-path args]
-  (let [generator-file-path (str @common/templates-dir "/" generator-file-path)
+  (let [generator-file-path (str @common/generators-dir "/" generator-file-path)
         data (common/read-edn-file generator-file-path)
         input-metadata (get data :input)
         {:keys [options exit-message :ok?]} (validate-args generator-file-path args input-metadata)]
