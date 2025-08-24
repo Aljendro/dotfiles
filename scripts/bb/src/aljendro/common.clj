@@ -6,8 +6,9 @@
            [java.time.format DateTimeFormatter]))
 
 (def dotfiles-dir (System/getenv "DOTFILES_DIR"))
-(def templates-dir (str dotfiles-dir "/files/templates"))
-(def generators-dir (str dotfiles-dir "/files/generators"))
+(def root-dir (atom ""))
+(def generators-dir (atom ""))
+(def templates-dir (atom ""))
 (def fns-dir (str dotfiles-dir "/scripts/bb/src/aljendro/gen/actions/fns"))
 
 (defn read-edn-file

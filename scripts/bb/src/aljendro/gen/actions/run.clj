@@ -8,13 +8,6 @@
             [selmer.parser :as selmer]
             [selmer.util :as selmer-util]))
 
-;; Configure selmer templating library
-(selmer.util/turn-off-escaping!)
-(selmer.parser/set-resource-path! common/templates-dir)
-(selmer/add-filter! :snake-case csk/->snake_case_string)
-(selmer/add-filter! :kebab-case csk/->kebab-case-string)
-(selmer/add-filter! :pascal-case csk/->PascalCaseString)
-
 ;; Load all fns that are used in gnerators files
 (common/load-files common/fns-dir)
 
@@ -61,31 +54,46 @@
         ""]
        (string/join \newline)))
 
+(defn filter-errors [filter-fn errors]
+  (if (fn? filter-fn)
+    (filter #(not (filter-fn %)) errors)
+    errors))
+
 (defn validate-args
   "Validate command line arguments. Either return a map indicating the program
   should exit (with an error message, and optional ok status), or a map
   indicating the options provided."
-  [path args cli-options]
-  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
+  [path args cli-options & {:keys [error-filter]}]
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)
+        filtered-errors (filter-errors error-filter errors)]
     (cond
-      (:help options) ; help => exit OK with usage summary
+      (or (:help options) (:spec options)) ; help => exit OK with usage summary
       {:exit-message (usage path summary) :ok? true}
-      errors ; errors => exit with description of errors
-      {:exit-message (common/error-msg errors)}
+      (seq filtered-errors) ; errors => exit with description of errors
+      {:exit-message (common/error-msg filtered-errors)}
       :else
-      {:options options :arguments (rest arguments)})))
+      {:options options :arguments arguments})))
+
+(defn configure-selmer []
+  (selmer.parser/set-resource-path! @common/templates-dir)
+  (selmer.util/turn-off-escaping!)
+  (selmer/add-filter! :snake-case csk/->snake_case_string)
+  (selmer/add-filter! :kebab-case csk/->kebab-case-string)
+  (selmer/add-filter! :pascal-case csk/->PascalCaseString))
 
 (defn run-generator [cwd generator-file-path args]
-  (let [generator-file-path (str common/generators-dir "/" generator-file-path)
+  (let [generator-file-path (str @common/templates-dir "/" generator-file-path)
         data (common/read-edn-file generator-file-path)
         input-metadata (get data :input)
         {:keys [options exit-message :ok?]} (validate-args generator-file-path args input-metadata)]
     (if exit-message
       (common/exit (if ok? 0 1) exit-message)
-      (traverse-steps
-       data
-       (atom {:input options
-              :env (into {} (System/getenv))
-              :cwd cwd})))))
+      (do
+        (configure-selmer)
+        (traverse-steps
+         data
+         (atom {:input options
+                :env (into {} (System/getenv))
+                :cwd cwd}))))))
 
 

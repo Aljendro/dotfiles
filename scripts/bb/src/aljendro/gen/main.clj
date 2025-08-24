@@ -27,7 +27,7 @@
   (let [available-generators (actions-list/list-generators)
         fzf-input (string/join "\n" available-generators)
         chosen-generator (string/trim (:out (process/shell {:in fzf-input :out :string} "fzf")))
-        chosen-generator-path (str common/generators-dir "/" chosen-generator)
+        chosen-generator-path (str @common/generators-dir "/" chosen-generator)
         generator-details (common/read-edn-file chosen-generator-path)
         inputs (:input generator-details)
         description (:description generator-details)
@@ -37,20 +37,35 @@
     (println (str "gen " chosen-generator " " (string/join " " chosen-args) "\n"))
     {:chosen-generator chosen-generator :chosen-args chosen-args}))
 
+(def cli-options
+  [[nil "--root-dir GENERATORS_DIR" "The root directory, with the directories /templates and /generators."
+    :default (str common/dotfiles-dir "/files")]
+   ["-h" "--help" "Show help"]])
+
 (defn -main [& args]
-  (let [cwd (first args)
-        generator-file-path (second args)
-        args (rest args)]
-    (if-not (nil? generator-file-path)
-      (actions-run/run-generator
-       cwd
-       generator-file-path
-       args)
-      (let [{:keys [chosen-generator chosen-args]} (extract-generator-details)]
-        (when-not (nil? chosen-generator)
+  (let [{:keys [options arguments exit-message :ok?]} (actions-run/validate-args
+                                                       "path/to/generator/file"
+                                                       args
+                                                       cli-options
+                                                       :error-filter #(string/includes? % "Unknown option"))]
+    (if exit-message
+      (common/exit (if ok? 0 1) exit-message)
+      (let [cwd (first arguments)
+            generator-file-path (second arguments)
+            generator-args args]
+        (reset! common/root-dir (:root-dir options))
+        (reset! common/generators-dir (str @common/root-dir "/generators"))
+        (reset! common/templates-dir (str @common/root-dir "/templates"))
+        (if-not (nil? generator-file-path)
           (actions-run/run-generator
            cwd
-           chosen-generator
-           chosen-args))))))
+           generator-file-path
+           generator-args)
+          (let [{:keys [chosen-generator chosen-args]} (extract-generator-details)]
+            (when-not (nil? chosen-generator)
+              (actions-run/run-generator
+               cwd
+               chosen-generator
+               chosen-args))))))))
 
 
