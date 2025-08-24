@@ -4,7 +4,7 @@
           :missing "You must provide a name for the file to add with -n or --name"]
          ["-d" "--description DESCRIPTION" "Description of project"
           :missing "You must provide a description for the file to add with -d or --description"]
-         ["-h" "--help" "Show help"]]
+         ["-s" "--spec" "Show spec"]]
  :steps
  [{:fn :create-file
    :input {:file-name "{{input.name}}/tsconfig.json"
