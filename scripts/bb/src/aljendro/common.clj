@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn])
   (:import [java.time ZonedDateTime]
-           [java.time.format DateTimeFormatter]))
+           [java.time.format DateTimeFormatter]
+           [java.nio.file Paths]))
 
 (def dotfiles-dir (System/getenv "DOTFILES_DIR"))
 (def root-dir (atom ""))
@@ -21,6 +22,14 @@
       (printf "Couldn't open '%s': %s\n" source (.getMessage e)))
     (catch RuntimeException e
       (printf "Error parsing edn file '%s': %s\n" source (.getMessage e)))))
+
+(defn absolute-path [path-str]
+  (.getAbsolutePath (io/file path-str)))
+
+(defn make-relative [directory absolute-path]
+  (let [dir-path (Paths/get directory (into-array String []))
+        abs-path (Paths/get absolute-path (into-array String []))]
+    (str (.relativize dir-path abs-path))))
 
 (defn error-msg [errors]
   (str "The following errors occurred while parsing your command:\n\n"

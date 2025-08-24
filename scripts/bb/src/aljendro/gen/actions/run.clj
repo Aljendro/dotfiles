@@ -47,7 +47,7 @@
    steps))
 
 (defn usage [generator-name options-summary]
-  (->> [(str "Usage: gen " generator-name " [options]")
+  (->> [(str "Usage: gen " (common/make-relative @common/generators-dir generator-name) " [options]")
         ""
         "Arguments and Options:"
         options-summary
