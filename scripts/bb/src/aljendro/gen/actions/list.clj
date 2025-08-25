@@ -6,9 +6,9 @@
 (defn list-generators []
   (let [available-generators (atom [])]
     (fs/walk-file-tree
-     common/generators-dir
+     @common/generators-dir
      {:visit-file
       (fn [unix-path _unix-file-attrs]
-        (swap! available-generators conj (string/replace (.toString unix-path) (str common/generators-dir "/") ""))
+        (swap! available-generators conj (string/replace (.toString unix-path) (str @common/generators-dir "/") ""))
         :continue)})
     @available-generators))

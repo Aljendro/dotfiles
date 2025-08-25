@@ -13,7 +13,7 @@
         (fs/create-dirs (fs/parent file-path))
         (fs/create-file file-path)
         (when-let [template (:template input)]
-          (let [template-path (str common/templates-dir "/" template)
+          (let [template-path (str @common/templates-dir "/" template)
                 template-content (slurp template-path)
                 rendered-content (selmer/render template-content context)]
             (spit file-path rendered-content :append true)))))

@@ -130,7 +130,7 @@ on run -- {input, parameter}
 	delay delaySec
 
 	-- delete status message
-	do shell script "/opt/homebrew/bin/cliclick c:1677,415"
+	do shell script "/opt/homebrew/bin/cliclick c:1677,455"
 	delay delaySec
 
 	-- click out of form (reset UI)

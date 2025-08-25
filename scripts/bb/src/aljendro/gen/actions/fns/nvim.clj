@@ -16,7 +16,7 @@
         register-type (get content :type :charwise)
         register-file-name (str shada-dir "/" register-str ".txt")]
     (if-let [register-template (get content :template)]
-      (let [template-data (slurp (str common/templates-dir "/" register-template))
+      (let [template-data (slurp (str @common/templates-dir "/" register-template))
             register-content (selmer/render template-data context)]
         (spit register-file-name register-content))
       (spit register-file-name (get content :text "")))

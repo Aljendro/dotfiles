@@ -3,11 +3,13 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn])
   (:import [java.time ZonedDateTime]
-           [java.time.format DateTimeFormatter]))
+           [java.time.format DateTimeFormatter]
+           [java.nio.file Paths]))
 
 (def dotfiles-dir (System/getenv "DOTFILES_DIR"))
-(def templates-dir (str dotfiles-dir "/files/templates"))
-(def generators-dir (str dotfiles-dir "/files/generators"))
+(def root-dir (atom ""))
+(def generators-dir (atom ""))
+(def templates-dir (atom ""))
 (def fns-dir (str dotfiles-dir "/scripts/bb/src/aljendro/gen/actions/fns"))
 
 (defn read-edn-file
@@ -20,6 +22,19 @@
       (printf "Couldn't open '%s': %s\n" source (.getMessage e)))
     (catch RuntimeException e
       (printf "Error parsing edn file '%s': %s\n" source (.getMessage e)))))
+
+(defn resolve-path
+  "If the user provides an absolute path, use that. Else it will resolve an absolute path relative to the cwd"
+  [cwd user-path]
+  (let [file (io/file user-path)]
+    (if (.isAbsolute file)
+      (.getAbsolutePath file)
+      (.getAbsolutePath (io/file cwd user-path)))))
+
+(defn make-relative [directory absolute-path]
+  (let [dir-path (Paths/get directory (into-array String []))
+        abs-path (Paths/get absolute-path (into-array String []))]
+    (str (.relativize dir-path abs-path))))
 
 (defn error-msg [errors]
   (str "The following errors occurred while parsing your command:\n\n"

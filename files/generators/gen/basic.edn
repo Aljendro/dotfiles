@@ -4,7 +4,7 @@
           :missing "You must provide a name for the generator with -n or --name"]
          ["-d" "--description NAME" "Description of generator"
           :missing "You must provide a description for the generator to add with -d or --description"]
-         ["-h" "--help" "Show help"]]
+         ["-s" "--spec" "Show spec"]]
  :steps
  [{:fn :create-file
    :input {:file-name "{{input.name}}.edn"
