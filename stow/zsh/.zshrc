@@ -3,13 +3,14 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DIR="$HOME/.fzf"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgrep"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
+export PNPM_HOME="$HOME/Library/pnpm"
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
 # VM specific variables
 source ~/.zshrc_vm_local
 
-export -U PATH="$DOTFILES_DIR/bin:$NVM_DIR/versions/node/v24.5.0/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:$HOME/.local/bin"
+export -U PATH="$DOTFILES_DIR/bin:$PNPM_HOME:$NVM_DIR/versions/node/v24.5.0/bin:$FZF_DIR/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:$HOME/.local/bin"
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
