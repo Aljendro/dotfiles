@@ -4,6 +4,7 @@ export FZF_DIR="$HOME/.fzf"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgrep"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
 export PNPM_HOME="$HOME/Library/pnpm"
+export TMPDIR="$HOME/tempfiles/"
 
 # Some local env variables and secrets must live locally (away from VCS)
 source ~/.zshrc_local
