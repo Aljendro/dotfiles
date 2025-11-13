@@ -22,7 +22,6 @@ cd dotfiles
 ## Development Installations
 
 - [AWS CLI](https://aws.amazon.com/cli/)
-- [Clojure](https://clojure.org/)
 - [Docker](https://www.docker.com/)
 - [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm)
 - [Neovim](https://neovim.io/)
