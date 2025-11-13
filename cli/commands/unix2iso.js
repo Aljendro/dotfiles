@@ -1,9 +1,9 @@
-import { createInterface } from 'readline';
-
 export default {
-  command: 'unix2iso8601',
+  command: 'unix2iso',
   describe: 'Converts 13-digit Unix timestamps in stdin to ISO 8601 format and outputs the result.',
-  handler: () => {
+  handler: async () => {
+    const { createInterface } = await import('readline');
+
     const rl = createInterface({
       input: process.stdin,
       output: process.stdout,
