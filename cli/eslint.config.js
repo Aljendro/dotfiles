@@ -1,4 +1,3 @@
-import eslintPluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
@@ -15,16 +14,14 @@ export default [
         process: 'readonly',
       },
     },
-    plugins: {
-      prettier: eslintPluginPrettier,
-    },
     rules: {
       ...eslintConfigPrettier.rules,
-      'prettier/prettier': 'error',
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': 'off',
       'prefer-const': 'error',
       'no-var': 'error',
+      'eol-last': 'off',
     },
   },
 ];
+
