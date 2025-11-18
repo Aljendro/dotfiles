@@ -16,7 +16,7 @@ export async function handler(argv) {
    */
   await handlebarsUtilities.renderAt(generatorCommandTemplate, {
     toFilepath: `${DOTFILES_DIR}/cli/commands/gen/${argv.name}.command.js`,
-    data: pick(argv, ['name']),
+    data: argv,
   });
 
   /*
@@ -24,6 +24,6 @@ export async function handler(argv) {
    */
   await handlebarsUtilities.renderAt(genratorHandlerTemplate, {
     toFilepath: `${DOTFILES_DIR}/cli/commands/gen/${argv.name}.js`,
-    data: pick(argv, ['name']),
+    data: argv,
   });
 }

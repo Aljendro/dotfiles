@@ -12,14 +12,12 @@ export async function handler(argv) {
   const startProjectTemplate = path.join(DOTFILES_DIR, '/files/templates/general/start_project.txt');
   const ignoreTemplate = path.join(DOTFILES_DIR, '/files/templates/general/ignore.txt');
 
-  const data = pick(argv, ['name']);
-
   /*
    * Ignore File
    */
   await handlebarsUtilities.renderAt(ignoreTemplate, {
     toFilepath: `${process.cwd()}/.ignore`,
-    data,
+    data: argv,
   });
 
   /*
@@ -28,7 +26,7 @@ export async function handler(argv) {
   const startProjectTemplateToFilepath = `${process.cwd()}/start_project.local.sh`;
   await handlebarsUtilities.renderAt(startProjectTemplate, {
     toFilepath: startProjectTemplateToFilepath,
-    data,
+    data: argv,
   });
   await fs.chmod(startProjectTemplateToFilepath, '700');
 }
