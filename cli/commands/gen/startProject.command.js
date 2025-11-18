@@ -5,6 +5,7 @@ export default {
     name: {
       type: 'string',
       desc: 'The name of the project identifier',
+      demand: true,
     },
   },
   handler: async (argv) => {
