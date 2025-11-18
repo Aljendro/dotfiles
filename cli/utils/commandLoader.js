@@ -14,7 +14,9 @@ export async function loadCommands() {
   const topLevelCommandsDir = join(__dirname, '../commands');
   const filepaths = await loadFilepaths(topLevelCommandsDir, suffix);
 
-  const commands = [];
+  // Group commands by their parent directory
+  const commandsByParent = new Map();
+
   for (const filepath of filepaths) {
     const commandModule = await import(`file://${filepath}`);
     const command = commandModule.default;
@@ -27,17 +29,52 @@ export async function loadCommands() {
         .split('/')
         .filter((part) => part !== '.');
 
-      // If nested, prefix the command with the directory path
-      if (pathParts.length > 1) {
-        const prefix = pathParts.slice(0, -1).join(' ');
-        const originalCommand = command.command;
-
-        // Modify the command to include the directory prefix
-        command.command = `${prefix} ${originalCommand}`;
+      // Determine if this is a top-level or nested command
+      if (pathParts.length === 1) {
+        // Top-level command - add directly
+        if (!commandsByParent.has('_root')) {
+          commandsByParent.set('_root', []);
+        }
+        commandsByParent.get('_root').push(command);
+      } else {
+        // Nested command - group by parent directory
+        const parentKey = pathParts.slice(0, -1).join('/');
+        if (!commandsByParent.has(parentKey)) {
+          commandsByParent.set(parentKey, []);
+        }
+        commandsByParent.get(parentKey).push(command);
       }
-
-      commands.push(command);
     }
+  }
+
+  // Build the final command list
+  const commands = [];
+
+  // Add top-level commands
+  if (commandsByParent.has('_root')) {
+    commands.push(...commandsByParent.get('_root'));
+  }
+
+  // Create parent commands for nested subcommands
+  for (const [parentKey, subcommands] of commandsByParent.entries()) {
+    if (parentKey === '_root') continue;
+
+    const parentCommandName = parentKey.split('/').join(' ');
+    const parentCommand = {
+      command: `${parentCommandName} <subcommand>`,
+      describe: `${parentCommandName} commands`,
+      builder: (yargs) => {
+        for (const subcommand of subcommands) {
+          yargs.command(subcommand);
+        }
+        return yargs;
+      },
+      handler: () => {
+        // This will be handled by subcommands
+      },
+    };
+
+    commands.push(parentCommand);
   }
 
   return commands;
