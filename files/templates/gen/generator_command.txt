@@ -1,0 +1,10 @@
+export default {
+  command: '{{ name }}',
+  describe: '{{ description }}',
+  builder: {
+    // Add inputs here
+  },
+  handler: async (argv) => {
+    (await import('./{{ name }}.js')).handler(argv);
+  },
+};
