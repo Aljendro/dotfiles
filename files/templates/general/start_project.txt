@@ -1,6 +1,6 @@
 #!/bin/bash
 
-session="{{input.name}}"
+session="{{name}}"
 tmux has-session -t $session 2>/dev/null
 
 if [ $? != 0 ]; then
