@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs/promises';
-import pick from 'lodash/pick.js';
 import * as handlebarsUtilities from '../../utils/handlebars.js';
 
 const { DOTFILES_DIR } = process.env;

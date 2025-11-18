@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs/promises';
-import pick from 'lodash/pick.js';
 import * as handlebarsUtilities from '../../utils/handlebars.js';
 
 const { DOTFILES_DIR } = process.env;
@@ -11,15 +10,13 @@ const { DOTFILES_DIR } = process.env;
 export async function handler(argv) {
   const template = path.join(DOTFILES_DIR, '/some/template/path.txt');
 
-  const data = pick(argv, []);
-
   /*
    * template
    */
   const startProjectTemplateToFilepath = `${process.cwd()}/some/output/path`;
   await handlebarsUtilities.renderAt(template, {
     toFilepath: startProjectTemplateToFilepath,
-    data,
+    data: argv,
   });
   await fs.chmod(startProjectTemplateToFilepath, '700');
 }
