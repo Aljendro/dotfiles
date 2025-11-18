@@ -9,6 +9,6 @@ export default {
     },
   },
   handler: async (argv) => {
-    (await import('./startProject.js')).handler(argv);
+    (await import('./start_project.js')).handler(argv);
   },
 };
