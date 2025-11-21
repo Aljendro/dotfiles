@@ -1,3 +1,9 @@
+import path from 'path';
+import fs from 'fs/promises';
+import * as handlebarsUtilities from '../../utils/handlebars.js';
+
+const { DOTFILES_DIR } = process.env;
+
 export default {
   command: 'start_project',
   describe: 'Create a startup project file',
@@ -9,6 +15,25 @@ export default {
     },
   },
   handler: async (argv) => {
-    (await import('./start_project.js')).handler(argv);
+    const startProjectTemplate = path.join(DOTFILES_DIR, '/files/templates/general/start_project.txt');
+    const ignoreTemplate = path.join(DOTFILES_DIR, '/files/templates/general/ignore.txt');
+
+    /*
+     * Ignore File
+     */
+    await handlebarsUtilities.renderAt(ignoreTemplate, {
+      toFilepath: `${process.cwd()}/.ignore`,
+      data: argv,
+    });
+
+    /*
+     * Start project template
+     */
+    const startProjectTemplateToFilepath = `${process.cwd()}/start_project.local.sh`;
+    await handlebarsUtilities.renderAt(startProjectTemplate, {
+      toFilepath: startProjectTemplateToFilepath,
+      data: argv,
+    });
+    await fs.chmod(startProjectTemplateToFilepath, '700');
   },
 };
