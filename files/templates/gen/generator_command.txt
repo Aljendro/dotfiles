@@ -1,3 +1,9 @@
+import path from 'path';
+import fs from 'fs/promises';
+import * as handlebarsUtilities from '../../utils/handlebars.js';
+
+const { DOTFILES_DIR } = process.env;
+
 export default {
   command: '{{ name }}',
   describe: '{{ description }}',
@@ -5,6 +11,15 @@ export default {
     // Add inputs here
   },
   handler: async (argv) => {
-    (await import('./{{ name }}.js')).handler(argv);
+    const template = path.join(DOTFILES_DIR, '/some/template/path.txt');
+
+    /*
+    * template
+    */
+    const startProjectTemplateToFilepath = `${process.cwd()}/some/output/path`;
+    await handlebarsUtilities.renderAt(template, {
+      toFilepath: startProjectTemplateToFilepath,
+      data: argv,
+    });
   },
 };
