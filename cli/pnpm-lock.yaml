@@ -20,9 +20,6 @@ importers:
       '@smithy/shared-ini-file-loader':
         specifier: ^4.4.0
         version: 4.4.0
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
     devDependencies:
       eslint:
         specifier: ^9.39.1
@@ -932,6 +929,7 @@ snapshots:
     dependencies:
       handlebars: 4.7.8
       lodash: 4.17.21
+      yargs: 17.7.2
 
   '@aws-crypto/sha256-browser@5.2.0':
     dependencies:

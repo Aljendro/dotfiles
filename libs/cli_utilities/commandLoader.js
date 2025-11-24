@@ -1,5 +1,30 @@
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 import { readdir, stat } from 'fs/promises';
 import { join, relative } from 'path';
+
+/**
+ * Initializes the CLI application by loading commands and configuring yargs
+ *
+ * @param {string} commandsDir The directory containing command files
+ */
+export async function initialize(commandsDir) {
+  const commands = await loadCommands(commandsDir);
+  const yargsInstance = yargs(hideBin(process.argv));
+
+  // Register each command
+  for (const command of commands) {
+    yargsInstance.command(command);
+  }
+
+  // Configure yargs
+  yargsInstance
+    .demandCommand(1, 'You need at least one command before moving on')
+    .strict()
+    .help()
+    .alias('help', 'h')
+    .parse();
+}
 
 /**
  * Loads all commands from the commands directory
