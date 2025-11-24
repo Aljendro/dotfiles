@@ -1,5 +1,5 @@
 import path from 'path';
-import { renderAt } from '@aljendro/cli_utilities';
+import { renderAt } from '@aljendro/cli_utilities/handlebars';
 
 const { DOTFILES_DIR } = process.env;
 
@@ -19,13 +19,10 @@ export default {
     },
   },
   handler: async (argv) => {
-    const generatorCommandTemplate = path.join(DOTFILES_DIR, '/files/templates/gen/generator_command.txt');
-    /*
-     * generatorCommandTemplate
-     */
-    await renderAt(generatorCommandTemplate, {
-      toFilepath: `${DOTFILES_DIR}/cli/commands/gen/${argv.name}.command.js`,
-      data: argv,
-    });
+    await renderAt(
+      path.join(DOTFILES_DIR, '/files/templates/gen/generator_command.txt'),
+      path.join(DOTFILES_DIR, `/cli/commands/gen/${argv.name}.command.js`),
+      argv,
+    );
   },
 };

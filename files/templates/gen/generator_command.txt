@@ -1,5 +1,5 @@
 import path from 'path';
-import { renderAt } from '@aljendro/cli_utilities';
+import { renderAt } from '@aljendro/cli_utilities/handlebars';
 
 const { DOTFILES_DIR } = process.env;
 
@@ -10,15 +10,6 @@ export default {
     // Add inputs here
   },
   handler: async (argv) => {
-    const template = path.join(DOTFILES_DIR, '/some/template/path.txt');
-
-    /*
-     * template
-     */
-    const startProjectTemplateToFilepath = `${process.cwd()}/some/output/path`;
-    await renderAt(template, {
-      toFilepath: startProjectTemplateToFilepath,
-      data: argv,
-    });
+    await renderAt(path.join(DOTFILES_DIR, '/some/template/path.txt'), `${process.cwd()}/some/output/path`, argv);
   },
 };

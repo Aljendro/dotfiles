@@ -3,12 +3,25 @@ import has from 'lodash/has.js';
 import Handlebars from 'handlebars';
 
 /**
+ * Renders a set of handlebars templates
+ *
+ * @param {{fromFilepath:string, toFilepath:string}[]} Array of objects specifying the templates location and rendered path
+ * @param {object} data The data that is used by the templating engine
+ */
+export async function renderAll(specifications, data = {}) {
+  for (const s of specifications) {
+    await renderAt(s.fromFilepath, s.toFilepath, data);
+  }
+}
+
+/**
  * Renders a handlebars template
  *
  * @param {string} fromFilepath The filepath to the handlebars template
- * @param {{toFilepath:string, data:object}} [options] Optional parameters
+ * @param {string} toFilepath The generated filepath after the render
+ * @param {object} data The data that is used by the templating engine
  */
-export async function renderAt(fromFilepath, { toFilepath = '', data = {} }) {
+export async function renderAt(fromFilepath, toFilepath,  data = {} ) {
   try {
     await validateData(fromFilepath, data);
     const templateContent = await readFile(fromFilepath, 'utf8');
