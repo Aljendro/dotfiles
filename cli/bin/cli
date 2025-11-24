@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { hideBin } from 'yargs/helpers';
-import { loadCommands } from '../utils/commandLoader.js';
+import { loadCommands } from '@aljendro/cli_utilities';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const commandsDir = join(__dirname, '../commands');
 
 // Load and register all commands dynamically
-const commands = await loadCommands();
+const commands = await loadCommands(commandsDir);
 const yargsInstance = yargs(hideBin(process.argv));
 
 // Register each command

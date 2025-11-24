@@ -1,5 +1,5 @@
 import path from 'path';
-import * as handlebarsUtilities from '../../utils/handlebars.js';
+import { renderAt } from '@aljendro/cli_utilities';
 
 const { DOTFILES_DIR } = process.env;
 
@@ -23,7 +23,7 @@ export default {
     /*
      * generatorCommandTemplate
      */
-    await handlebarsUtilities.renderAt(generatorCommandTemplate, {
+    await renderAt(generatorCommandTemplate, {
       toFilepath: `${DOTFILES_DIR}/cli/commands/gen/${argv.name}.command.js`,
       data: argv,
     });

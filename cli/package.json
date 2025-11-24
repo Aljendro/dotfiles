@@ -22,11 +22,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@aljendro/cli_utilities": "file:../libs/cli_utilities",
     "@aws-sdk/client-sts": "^3.936.0",
     "@inquirer/prompts": "^7.10.1",
     "@smithy/shared-ini-file-loader": "^4.4.0",
-    "handlebars": "^4.7.8",
-    "lodash": "^4.17.21",
     "yargs": "^17.7.2"
   },
   "devDependencies": {

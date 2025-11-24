@@ -1,18 +1,14 @@
-import { fileURLToPath } from 'url';
-import { dirname, join, relative } from 'path';
-import { loadFilepaths } from './filesystem.js';
+import { readdir, stat } from 'fs/promises';
+import { join, relative } from 'path';
 
 /**
  * Loads all commands from the commands directory
+ * @param {string} commandsDir The directory containing command files
+ * @param {string} [suffix='.command.js'] The suffix for command files
  * @returns {Promise<Array>} Array of command objects
  */
-export async function loadCommands() {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const suffix = '.command.js';
-
-  const topLevelCommandsDir = join(__dirname, '../commands');
-  const filepaths = await loadFilepaths(topLevelCommandsDir, suffix);
+export async function loadCommands(commandsDir, suffix = '.command.js') {
+  const filepaths = await loadFilepaths(commandsDir, suffix);
 
   // Group commands by their parent directory
   const commandsByParent = new Map();
@@ -23,7 +19,7 @@ export async function loadCommands() {
 
     if (command && typeof command === 'object') {
       // Calculate the command path from directory structure
-      const relativePath = relative(topLevelCommandsDir, filepath);
+      const relativePath = relative(commandsDir, filepath);
       const pathParts = relativePath
         .replace(new RegExp(`${suffix}$`), '')
         .split('/')
@@ -78,4 +74,34 @@ export async function loadCommands() {
   }
 
   return commands;
+}
+
+/**
+ * Recursively loads all filenames from a directory
+ * @param {string} dir Directory to scan for commands
+ * @param {string} [suffix=''] The file suffix that we want to filter with
+ * @returns {Promise<Array>} Array of command objects with their metadata
+ */
+export async function loadFilepaths(dir, suffix = '') {
+  const filepaths = [];
+
+  try {
+    const entries = await readdir(dir);
+
+    for (const entry of entries) {
+      const fullPath = join(dir, entry);
+      const stats = await stat(fullPath);
+
+      if (stats.isDirectory()) {
+        const subCommands = await loadFilepaths(fullPath, suffix);
+        filepaths.push(...subCommands);
+      } else if (entry.endsWith(suffix)) {
+        filepaths.push(fullPath);
+      }
+    }
+  } catch (error) {
+    console.error(`Error loading commands from ${dir}:`, error.message);
+  }
+
+  return filepaths;
 }

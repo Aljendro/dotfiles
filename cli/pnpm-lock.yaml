@@ -8,8 +8,11 @@ importers:
 
   .:
     dependencies:
+      '@aljendro/cli_utilities':
+        specifier: file:../libs/cli_utilities
+        version: file:../libs/cli_utilities
       '@aws-sdk/client-sts':
-        specifier: ^3.699.0
+        specifier: ^3.936.0
         version: 3.936.0
       '@inquirer/prompts':
         specifier: ^7.10.1
@@ -17,12 +20,6 @@ importers:
       '@smithy/shared-ini-file-loader':
         specifier: ^4.4.0
         version: 4.4.0
-      handlebars:
-        specifier: ^4.7.8
-        version: 4.7.8
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
@@ -38,6 +35,9 @@ importers:
         version: 3.6.2
 
 packages:
+
+  '@aljendro/cli_utilities@file:../libs/cli_utilities':
+    resolution: {directory: ../libs/cli_utilities, type: directory}
 
   '@aws-crypto/sha256-browser@5.2.0':
     resolution: {integrity: sha512-AXfN/lGotSQwu6HNcEsIASo7kWXZ5HYWvfOmSNKDsEqC4OashTp8alTmaz+F7TC2L083SFv5RdB+qU3Vs1kZqw==}
@@ -549,8 +549,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  bowser@2.12.1:
-    resolution: {integrity: sha512-z4rE2Gxh7tvshQ4hluIT7XcFrgLIQaw9X3A+kTTRdovCz5PMukm/0QC/BKSYPj3omF5Qfypn9O/c5kgpmvYUCw==}
+  bowser@2.13.0:
+    resolution: {integrity: sha512-yHAbSRuT6LTeKi6k2aS40csueHqgAsFEgmrOsfRyFpJnFv5O2hl9FYmWEUZ97gZ/dG17U4IQQcTx4YAFYPuWRQ==}
 
   brace-expansion@1.1.12:
     resolution: {integrity: sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==}
@@ -928,6 +928,11 @@ packages:
 
 snapshots:
 
+  '@aljendro/cli_utilities@file:../libs/cli_utilities':
+    dependencies:
+      handlebars: 4.7.8
+      lodash: 4.17.21
+
   '@aws-crypto/sha256-browser@5.2.0':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
@@ -1276,7 +1281,7 @@ snapshots:
     dependencies:
       '@aws-sdk/types': 3.936.0
       '@smithy/types': 4.9.0
-      bowser: 2.12.1
+      bowser: 2.13.0
       tslib: 2.8.1
 
   '@aws-sdk/util-user-agent-node@3.936.0':
@@ -1750,7 +1755,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  bowser@2.12.1: {}
+  bowser@2.13.0: {}
 
   brace-expansion@1.1.12:
     dependencies:

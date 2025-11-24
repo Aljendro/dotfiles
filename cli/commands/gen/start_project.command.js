@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import * as handlebarsUtilities from '../../utils/handlebars.js';
+import { renderAt } from '@aljendro/cli_utilities';
 
 const { DOTFILES_DIR } = process.env;
 
@@ -21,7 +21,7 @@ export default {
     /*
      * Ignore File
      */
-    await handlebarsUtilities.renderAt(ignoreTemplate, {
+    await renderAt(ignoreTemplate, {
       toFilepath: `${process.cwd()}/.ignore`,
       data: argv,
     });
@@ -30,7 +30,7 @@ export default {
      * Start project template
      */
     const startProjectTemplateToFilepath = `${process.cwd()}/start_project.local.sh`;
-    await handlebarsUtilities.renderAt(startProjectTemplate, {
+    await renderAt(startProjectTemplate, {
       toFilepath: startProjectTemplateToFilepath,
       data: argv,
     });
