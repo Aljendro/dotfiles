@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { renderAt } from '@aljendro/cli_utilities/handlebars';
+import { renderAt } from '../../utils/handlebars.js';
 
 const { DOTFILES_DIR } = process.env;
 

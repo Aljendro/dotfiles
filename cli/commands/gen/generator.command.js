@@ -1,5 +1,5 @@
 import path from 'path';
-import { renderAt } from '@aljendro/cli_utilities/handlebars';
+import { renderAt } from '../../utils/handlebars.js';
 
 const { DOTFILES_DIR } = process.env;
 
