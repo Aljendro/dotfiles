@@ -1,16 +1,17 @@
-import { readFile, writeFile } from 'fs/promises';
+import { dirname } from 'path';
+import { readFile, writeFile, mkdir } from 'fs/promises';
 import has from 'lodash/has.js';
 import Handlebars from 'handlebars';
 
 /**
  * Renders a set of handlebars templates
  *
- * @param {{fromFilepath:string, toFilepath:string}[]} Array of objects specifying the templates location and rendered path
+ * @param {{fromFilepath:string, toFilepath:string}[]} renderings Array of objects specifying the templates location and rendered path
  * @param {object} data The data that is used by the templating engine
  */
-export async function renderAll(specifications, data = {}) {
-  for (const s of specifications) {
-    await renderAt(s.fromFilepath, s.toFilepath, data);
+export async function renderAll(renderings, data = {}) {
+  for (const r of renderings) {
+    await renderAt(r.fromFilepath, r.toFilepath, data);
   }
 }
 
@@ -28,6 +29,7 @@ export async function renderAt(fromFilepath, toFilepath,  data = {} ) {
     const template = Handlebars.compile(templateContent);
     const renderedData = template(data);
     try {
+      await mkdir(dirname(toFilepath), { recursive: true });
       await writeFile(toFilepath, renderedData, { flag: 'wx' });
     } catch (err) {
       if (err.code === 'EEXIST') {
