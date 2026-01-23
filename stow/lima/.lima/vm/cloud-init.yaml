@@ -133,11 +133,11 @@ final_message: |
 
   Installed tools:
   - Build: gcc, cmake, make
-  - Languages: Python 3, Lua 5.4, Node.js (via nvm), Go, Rust
+  - Languages: Python 3, Lua 5.4, Node.js (via nvm), Rust
   - Editors: Neovim
   - CLI: fzf, ripgrep, fd, bat, jq, tree, htop
-  - Git tools: git, lazygit, delta, gh
-  - Cloud: AWS CLI, doctl, OpenTofu, Ansible
+  - Git tools: git, lazygit
+  - Cloud: AWS CLI
   - Terminal: tmux, xclip
 
   Next steps:
