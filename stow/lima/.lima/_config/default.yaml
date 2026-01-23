@@ -1,0 +1,31 @@
+cpus: 8
+memory: '32GiB'
+disk: '100GiB'
+
+mounts:
+  - location: '~/vm_shared'
+    mountPoint: '{{.Home}}/Shared'
+    writable: true
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      cloud-init status --wait
+
+portForwards:
+  - guestPort: 3000
+    hostPort: 3000
+  - guestPort: 5000
+    hostPort: 5000
+  - guestPortRange: [8000, 9000]
+    hostPortRange: [8000, 9000]
+
+message: |
+  Ubuntu 24.04 LTS VM is ready!
+
+  To use dotfiles-vm:
+    cd ~/projects/dotfiles-vm && ./install.sh
+
+  SSH access:
+    limactl shell vm
