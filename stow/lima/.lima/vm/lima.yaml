@@ -13,8 +13,6 @@ ssh:
 
 # Mount home directory
 mounts:
-  - location: '~'
-    writable: true
   - location: '/tmp/lima'
     writable: true
 
@@ -41,10 +39,8 @@ portForwards:
     hostPort: 3000
   - guestPort: 5000
     hostPort: 5000
-  - guestPort: 8000
-    hostPort: 8000
-  - guestPort: 8080
-    hostPort: 8080
+  - guestPortRange: [8000, 9000]
+    hostPortRange: [8000, 9000]
 
 # Environment variables passed to VM
 env:
