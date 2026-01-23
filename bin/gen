@@ -1,7 +1,0 @@
-#!/bin/bash
-
-CURRENT_PWD="$PWD"
-
-cd "$DOTFILES_DIR/scripts/bb"
-bb -m aljendro.gen.main "$CURRENT_PWD" "$@"
-
