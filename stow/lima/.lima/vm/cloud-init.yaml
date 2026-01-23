@@ -1,0 +1,206 @@
+#cloud-config
+# Cloud-init configuration for Ubuntu 24.04 LTS development VM
+
+package_update: true
+package_upgrade: true
+
+packages:
+  # Build essentials
+  - build-essential
+  - gcc
+  - g++
+  - make
+  - cmake
+  - pkg-config
+  - autoconf
+  - automake
+  - libtool
+
+  # Version control and utilities
+  - git
+  - curl
+  - wget
+  - unzip
+  - zip
+  - tar
+  - gzip
+
+  # Dotfiles management
+  - stow
+
+  # CLI tools
+  - jq
+  - tree
+  - bat
+  - fd-find
+  - ripgrep
+  - fzf
+  - htop
+
+  # Terminal multiplexer
+  - tmux
+
+  # Clipboard support
+  - xclip
+
+  # Python
+  - python3
+  - python3-pip
+  - python3-venv
+  - python3-dev
+
+  # Lua
+  - lua5.4
+  - liblua5.4-dev
+  - luarocks
+
+  # Libraries for building tools
+  - libssl-dev
+  - libffi-dev
+  - libreadline-dev
+  - zlib1g-dev
+  - libbz2-dev
+  - libsqlite3-dev
+  - libncurses5-dev
+  - libncursesw5-dev
+  - liblzma-dev
+  - libgdbm-dev
+  - libnss3-dev
+
+  # Git credential storage
+  - libsecret-1-0
+  - libsecret-1-dev
+  - libsecret-tools
+
+  # For neovim
+  - ninja-build
+  - gettext
+
+runcmd:
+  # Set default user (Lima creates this)
+  - export DEFAULT_USER="${LIMA_CIDATA_USER:-${SUDO_USER:-ubuntu}}"
+  - export USER_HOME="/home/${DEFAULT_USER}"
+
+  # Create fd symlink (Ubuntu names it fdfind)
+  - ln -sf /usr/bin/fdfind /usr/local/bin/fd
+
+  # Create bat symlink (Ubuntu names it batcat)
+  - ln -sf /usr/bin/batcat /usr/local/bin/bat
+
+  # Build and configure git credential helper for libsecret
+  - |
+    cd /usr/share/doc/git/contrib/credential/libsecret
+    make || true
+    cp git-credential-libsecret /usr/local/bin/ || true
+
+  # Install Rust (as default user)
+  - |
+    sudo -u ${DEFAULT_USER} bash -c '
+      curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+      source "$HOME/.cargo/env"
+      rustup default stable
+    '
+
+  # Install NVM and Node.js (as default user)
+  - |
+    sudo -u ${DEFAULT_USER} bash -c '
+      export NVM_DIR="$HOME/.nvm"
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+      source "$NVM_DIR/nvm.sh"
+      nvm install --lts
+      nvm use --lts
+      npm install -g pnpm
+    '
+
+  # Install Go
+  - |
+    GO_VERSION="1.23.4"
+    curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+    rm -rf /usr/local/go
+    tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+    rm "go${GO_VERSION}.linux-amd64.tar.gz"
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile.d/go.sh
+    chmod +x /etc/profile.d/go.sh
+
+  # Install Neovim (latest stable from GitHub releases)
+  - |
+    NVIM_VERSION="v0.10.3"
+    curl -LO "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux64.tar.gz"
+    tar -C /opt -xzf nvim-linux64.tar.gz
+    ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
+    rm nvim-linux64.tar.gz
+
+  # Install lazygit
+  - |
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    install lazygit /usr/local/bin
+    rm lazygit.tar.gz lazygit
+
+  # Install git-delta
+  - |
+    DELTA_VERSION=$(curl -s "https://api.github.com/repos/dandavison/delta/releases/latest" | grep -Po '"tag_name": "\K[^"]*')
+    curl -Lo delta.tar.gz "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+    tar xf delta.tar.gz
+    install "delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu/delta" /usr/local/bin
+    rm -rf delta.tar.gz "delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu"
+
+  # Install AWS CLI v2
+  - |
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip -q awscliv2.zip
+    ./aws/install
+    rm -rf aws awscliv2.zip
+
+  # Install GitHub CLI
+  - |
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    apt update
+    apt install -y gh
+
+  # Install DigitalOcean CLI (doctl)
+  - |
+    DOCTL_VERSION=$(curl -s "https://api.github.com/repos/digitalocean/doctl/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo doctl.tar.gz "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz"
+    tar xf doctl.tar.gz
+    install doctl /usr/local/bin
+    rm doctl.tar.gz doctl
+
+  # Install OpenTofu
+  - |
+    curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+    chmod +x install-opentofu.sh
+    ./install-opentofu.sh --install-method deb
+    rm install-opentofu.sh
+
+  # Install Ansible (as default user via pip)
+  - |
+    sudo -u ${DEFAULT_USER} bash -c '
+      python3 -m pip install --user ansible ansible-lint
+    '
+
+  # Set up Go path for default user
+  - |
+    sudo -u ${DEFAULT_USER} bash -c '
+      mkdir -p "$HOME/go/bin"
+    '
+
+final_message: |
+  Cloud-init provisioning complete!
+  All development tools have been installed.
+
+  Installed tools:
+  - Build: gcc, cmake, make
+  - Languages: Python 3, Lua 5.4, Node.js (via nvm), Go, Rust
+  - Editors: Neovim
+  - CLI: fzf, ripgrep, fd, bat, jq, tree, htop
+  - Git tools: git, lazygit, delta, gh
+  - Cloud: AWS CLI, doctl, OpenTofu, Ansible
+  - Terminal: tmux, xclip
+
+  Next steps:
+  1. Clone dotfiles-vm: git clone <repo> ~/projects/dotfiles-vm
+  2. Run installer: cd ~/projects/dotfiles-vm && ./install.sh
