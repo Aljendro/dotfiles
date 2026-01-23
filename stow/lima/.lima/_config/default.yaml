@@ -8,9 +8,5 @@ mounts:
     writable: true
 
 portForwards:
-  - guestPort: 3000
-    hostPort: 3000
-  - guestPort: 5000
-    hostPort: 5000
   - guestPortRange: [8000, 9000]
     hostPortRange: [8000, 9000]
