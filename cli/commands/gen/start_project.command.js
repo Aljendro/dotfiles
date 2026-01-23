@@ -30,5 +30,15 @@ export default {
       argv,
     );
     await fs.chmod(startProjectTemplateToFilepath, '700');
+
+    /*
+     * Remove the tmp cache file rm /tmp/tmux_projects_cache
+     */
+    const tmpCacheFilepath = '/tmp/tmux_projects_cache';
+    try {
+      await fs.unlink(tmpCacheFilepath);
+    } catch {
+      // Ignore error if file does not exist
+    }
   },
 };
