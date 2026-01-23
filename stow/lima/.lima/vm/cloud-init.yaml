@@ -1,5 +1,4 @@
-#cloud-config
-# Cloud-init configuration for Ubuntu 24.04 LTS development VM
+# Cloud-init configuration
 
 package_update: true
 package_upgrade: true
