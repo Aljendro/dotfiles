@@ -10,3 +10,13 @@ mounts:
 portForwards:
   - guestPortRange: [8000, 9000]
     hostPortRange: [8000, 9000]
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      dnf up -y
+      dnf copr enable dejan/lazygit -y
+      dnf copr enable jdxcode/mise -y
+      dnf install -y git curl neovim ripgrep fzf fd-find awscli2 bat git-delta jq stow tmux mise lazygit
