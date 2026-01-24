@@ -6,10 +6,6 @@
 	path = stow/clojure/.clojure
 	url = https://github.com/Aljendro/clojure-deps-edn.git
 	shallow = true
-[submodule "stow/fzf/.fzf"]
-	path = stow/fzf/.fzf
-	url = https://github.com/junegunn/fzf.git
-	shallow = true
 [submodule "stow/zsh/.oh-my-zsh/custom/plugins/zsh-autosuggestions"]
 	path = stow/zsh/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
