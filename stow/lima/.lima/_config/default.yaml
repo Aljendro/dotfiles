@@ -19,4 +19,4 @@ provision:
       dnf up -y
       dnf copr enable dejan/lazygit -y
       dnf copr enable jdxcode/mise -y
-      dnf install -y git curl neovim ripgrep fzf fd-find awscli2 bat git-delta jq stow tmux mise lazygit
+      dnf install -y git curl neovim ripgrep fzf fd-find awscli2 bat git-delta jq tree stow tmux mise lazygit
