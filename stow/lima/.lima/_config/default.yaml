@@ -11,6 +11,9 @@ portForwards:
   - guestPortRange: [8000, 9000]
     hostPortRange: [8000, 9000]
 
+ssh:
+  forwardX11: true
+
 provision:
   - mode: system
     script: |
