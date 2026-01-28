@@ -42,4 +42,6 @@ provision:
         tmux \
         mise \
         lazygit \
-        xorg-x11-xauth
+        xorg-x11-xauth \
+        lsof \
+        xclip
