@@ -41,4 +41,5 @@ provision:
         stow \
         tmux \
         mise \
-        lazygit
+        lazygit \
+        xorg-x11-xauth
