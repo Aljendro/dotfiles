@@ -25,7 +25,6 @@ export HOMEBREW_NO_ANALYTICS=1
 
 alias n='nvim'
 alias nn='nvim -u NONE'
-alias t='tmux_switch'
 alias c='code'
 alias nf='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim $VAL'
 alias nfn='VAL=$(fzf --preview "bat --style=numbers --color=always --line-range :500 {}"); [ ! -z $VAL ] && nvim -u NONE $VAL'

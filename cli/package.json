@@ -4,7 +4,7 @@
   "description": "A simple CLI tool built with yargs",
   "main": "bin/cli",
   "bin": {
-    "cli": "./bin/cli"
+    "t": "./bin/cli"
   },
   "type": "module",
   "scripts": {
