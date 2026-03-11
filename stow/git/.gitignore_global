@@ -3,7 +3,7 @@
 *.local.*
 locals/
 .ignore
-notes
+notes/
 
 ######################## General ###########################
 
