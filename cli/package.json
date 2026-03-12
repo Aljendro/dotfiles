@@ -1,37 +1,22 @@
 {
   "name": "@aljendro/cli",
   "version": "1.0.0",
-  "description": "A simple CLI tool built with yargs",
-  "main": "bin/cli",
+  "description": "A CLI tool built with ClojureScript and shadow-cljs",
   "bin": {
-    "t": "./bin/cli"
+    "t": "./bin/t"
   },
-  "type": "module",
   "scripts": {
-    "start": "node bin/cli.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "check": "npm run lint && npm run format:check"
-  },
-  "keywords": [
-    "cli",
-    "yargs"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@aws-sdk/client-sts": "^3.940.0",
-    "@inquirer/prompts": "^7.10.1",
-    "@smithy/shared-ini-file-loader": "^4.4.0",
-    "handlebars": "^4.7.8",
-    "lodash": "^4.17.21",
-    "yargs": "^17.7.2"
+    "build": "shadow-cljs compile cli && chmod +x bin/t",
+    "watch": "shadow-cljs watch cli",
+    "release": "shadow-cljs release cli && chmod +x bin/t"
   },
   "devDependencies": {
-    "eslint": "^9.39.1",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.6.2"
+    "shadow-cljs": "^2.28.18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sts": "^3.940.0",
+    "@smithy/shared-ini-file-loader": "^4.4.0",
+    "@inquirer/prompts": "^7.10.1",
+    "handlebars": "^4.7.8"
   }
 }

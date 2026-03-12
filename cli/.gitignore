@@ -4,6 +4,10 @@ node_modules/
 # Build output
 dist/
 build/
+bin/t
+
+# shadow-cljs
+.shadow-cljs/
 
 # Coverage
 coverage/

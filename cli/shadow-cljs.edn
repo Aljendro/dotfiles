@@ -1,0 +1,9 @@
+{:source-paths ["src"]
+ :dependencies [[org.clojure/tools.cli "1.1.230"]]
+ :builds
+ {:cli
+  {:target    :node-script
+   :main      aljendro.cli.core/-main
+   :output-to "bin/t"
+   :compiler-options
+   {:optimizations :simple}}}}
