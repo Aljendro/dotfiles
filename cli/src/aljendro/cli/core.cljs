@@ -9,11 +9,11 @@
 (def ^:private commands
   {"now"
    {:desc "Prints the current ISO 8601 timestamp"
-    :run  (fn [_] (now/run))}
+    :run  now/run}
 
    "unix2iso"
    {:desc "Converts 13-digit Unix timestamps in stdin to ISO 8601 format"
-    :run  (fn [_] (unix2iso/run))}
+    :run  unix2iso/run}
 
    "mfa"
    {:desc "Authenticate using MFA device for AWS CLI access"

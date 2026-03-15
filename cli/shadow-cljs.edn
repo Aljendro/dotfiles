@@ -1,5 +1,6 @@
 {:source-paths ["src"]
- :dependencies [[org.clojure/tools.cli "1.1.230"]]
+ :dependencies [[org.clojure/tools.cli "1.1.230"]
+                [cider/cider-nrepl "0.24.0"]]
  :builds
  {:cli
   {:target    :node-script
