@@ -1,7 +1,6 @@
 (ns aljendro.cli.commands.gen.start-project
   (:require [aljendro.cli.utils.handlebars :as hbs]
-            [cljs.core.async :refer [go]]
-            [cljs.core.async.interop :refer-macros [<p!]]
+            [promesa.core :as p]
             ["path" :as path]
             ["fs/promises" :as fs]
             [clojure.tools.cli :refer [parse-opts]]))
@@ -27,17 +26,17 @@
 
       :else
       (let [dotfiles-dir (.-DOTFILES_DIR js/process.env)
-            cwd          (.cwd js/process)]
-        (go
-          (<p! (hbs/render-at
-                (.join path dotfiles-dir "/files/templates/general/ignore.txt")
-                (.join path cwd ".ignore")
-                {:name name}))
-          (let [start-project-path (.join path cwd "start_project.local.sh")]
-            (<p! (hbs/render-at
-                  (.join path dotfiles-dir "/files/templates/general/start_project.txt")
-                  start-project-path
-                  {:name name}))
-            (<p! (.chmod fs start-project-path "700"))
-            (-> (.unlink fs "/tmp/tmux_projects_cache")
-                (.catch (fn [_])))))))))
+            cwd          (.cwd js/process)
+            start-project-path (path/join cwd "start_project.local.sh")]
+        (p/do
+          (hbs/render-at
+           (path/join dotfiles-dir "/files/templates/general/ignore.txt")
+           (path/join cwd ".ignore")
+           {:name name})
+          (hbs/render-at
+           (path/join dotfiles-dir "/files/templates/general/start_project.txt")
+           start-project-path
+           {:name name})
+          (fs/chmod start-project-path "700")
+          (-> (fs/unlink "/tmp/tmux_projects_cache")
+              (.catch (fn [_]))))))))

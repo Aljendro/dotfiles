@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+import { dirname, resolve } from 'path';
+import { loadFile } from 'nbb';
+
+const moduleUrl = new URL(import.meta.url);
+const __dirname = dirname(moduleUrl.pathname);
+const cliDir = resolve(__dirname, '..');
+
+process.chdir(cliDir);
+
+const ns = await loadFile(`${cliDir}/src/aljendro/cli/core.cljs`);
+
+ns.root(...process.argv.slice(2));

@@ -25,6 +25,6 @@
 
       :else
       (let [dotfiles-dir (.-DOTFILES_DIR js/process.env)
-            from-path    (.join path dotfiles-dir "/files/templates/gen/generator_command.cljs.txt")
-            to-path      (.join path dotfiles-dir (str "/cli/src/aljendro/cli/commands/gen/" name ".cljs"))]
+            from-path    (path/join dotfiles-dir "/files/templates/gen/generator_command.cljs.txt")
+            to-path      (path/join dotfiles-dir (str "/cli/src/aljendro/cli/commands/gen/" name ".cljs"))]
         (hbs/render-at from-path to-path {:name name :description description})))))
