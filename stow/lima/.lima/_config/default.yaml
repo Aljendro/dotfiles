@@ -1,15 +1,15 @@
 cpus: 4
-memory: '8GiB'
-disk: '100GiB'
+memory: "8GiB"
+disk: "100GiB"
 
 mounts:
-  - location: '~/vm_shared'
-    mountPoint: '{{.Home}}/Shared'
+  - location: "~/vm_shared"
+    mountPoint: "{{.Home}}/Shared"
     writable: true
 
 portForwards:
-  - guestPortRange: [8000, 9000]
-    hostPortRange: [8000, 9000]
+  - guestPortRange: [8000, 8999]
+    hostPortRange: [8000, 8999]
 
 ssh:
   forwardX11: true
