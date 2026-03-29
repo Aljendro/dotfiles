@@ -1,5 +1,5 @@
 (ns aljendro.cli.utils.handlebars
-  (:require ["handlebars" :as Handlebars]
+  (:require ["handlebars$default" :as Handlebars]
             ["fs/promises" :as fs]
             ["path" :as path]
             [promesa.core :as p]))
@@ -9,7 +9,7 @@
               template          (Handlebars/compile template-content)
               rendered          (template (clj->js data))
               _                 (fs/mkdir  (path/dirname to-filepath) #js {:recursive true})]
-        (.writeFile fs to-filepath rendered #js {:flag "wx"}))
+        (fs/writeFile to-filepath rendered #js {:flag "wx"}))
       (p/catch
        (fn [err]
          (if (= (.-code err) "EEXIST")
