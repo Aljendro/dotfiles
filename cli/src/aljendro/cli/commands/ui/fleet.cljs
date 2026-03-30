@@ -81,8 +81,9 @@
 
 (defn create-worktree! [branch]
   (let [wt-path (worktree-path branch)]
-    (exec! (str "mkdir -p " (js/JSON.stringify worktree-base) " && ("
-                "git worktree add " (js/JSON.stringify wt-path)
+    (exec! (str "mkdir -p " (js/JSON.stringify worktree-base)
+                " && cd " (js/JSON.stringify tmux-session-root)
+                " && (git worktree add " (js/JSON.stringify wt-path)
                 " " (js/JSON.stringify branch)
                 " 2>/dev/null || git worktree add -b " (js/JSON.stringify branch)
                 " " (js/JSON.stringify wt-path) " HEAD)"))))
