@@ -4,6 +4,7 @@
 locals/
 .ignore
 notes/
+.worktrees
 
 ######################## General ###########################
 
