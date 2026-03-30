@@ -60,6 +60,8 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       cd "$HOME"
-      git clone https://github.com/aljendro/dotfiles-vm.git
-      cd dotfiles-vm
-      ansible-playbook install.yml
+      if [ ! -d dotfiles-vm ]; then
+        git clone https://github.com/aljendro/dotfiles-vm.git
+        cd dotfiles-vm
+        ansible-playbook install.yml
+      fi
