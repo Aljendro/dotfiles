@@ -2,14 +2,23 @@ cpus: 4
 memory: '8GiB'
 disk: '100GiB'
 
-mounts:
-  - location: '~/vm_shared'
-    mountPoint: '{{.Home}}/Shared'
-    writable: true
-
 portForwards:
-  - guestPortRange: [8000, 9000]
-    hostPortRange: [8000, 9000]
+  - guestIP: '::'
+    guestPort: 323
+    proto: udp
+    ignore: true
+  - guestIP: '::'
+    guestPort: 5353
+    proto: udp
+    ignore: true
+  - guestIP: '::'
+    guestPort: 5355
+    proto: any
+    ignore: true
+  - guestIP: '::'
+    guestPort: 6010
+    proto: any
+    ignore: true
 
 ssh:
   forwardX11: true
@@ -46,3 +55,13 @@ provision:
         wget \
         xclip \
         xorg-x11-xauth
+  - mode: user
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      cd "$HOME"
+      if [ ! -d dotfiles-vm ]; then
+        git clone https://github.com/aljendro/dotfiles-vm.git
+        cd dotfiles-vm
+        ansible-playbook install.yml
+      fi

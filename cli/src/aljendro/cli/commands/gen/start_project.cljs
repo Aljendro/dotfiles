@@ -26,7 +26,7 @@
 
       :else
       (let [dotfiles-dir (.-DOTFILES_DIR js/process.env)
-            cwd          (.cwd js/process)
+            cwd          (.-PWD js/process.env)
             start-project-path (path/join cwd "start_project.local.sh")]
         (p/do
           (hbs/render-at

@@ -18,6 +18,8 @@
     "@inquirer/prompts": "^7.10.1",
     "@smithy/shared-ini-file-loader": "^4.4.0",
     "handlebars": "^4.7.8",
-    "nbb": "^1.4.206"
+    "ink": "^6.8.0",
+    "nbb": "^1.4.206",
+    "react": "^19.2.4"
   }
 }

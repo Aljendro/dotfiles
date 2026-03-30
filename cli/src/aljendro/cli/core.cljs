@@ -1,13 +1,25 @@
 (ns aljendro.cli.core
-  (:require [aljendro.cli.commands.now :as now]
-            [aljendro.cli.commands.unix2iso :as unix2iso]
-            [aljendro.cli.commands.mfa :as mfa]
-            [aljendro.cli.commands.gen.generator :as generator]
-            [aljendro.cli.commands.gen.start-project :as start-project]
-            [clojure.tools.cli :refer [parse-opts]]))
+  (:require
+   [aljendro.cli.commands.ui.demo :as demo]
+   [aljendro.cli.commands.ui.fleet :as fleet]
+   [aljendro.cli.commands.now :as now]
+   [aljendro.cli.commands.unix2iso :as unix2iso]
+   [aljendro.cli.commands.mfa :as mfa]
+   [aljendro.cli.commands.gen.generator :as generator]
+   [aljendro.cli.commands.gen.start-project :as start-project]
+   [clojure.tools.cli :refer [parse-opts]]))
 
 (def ^:private commands
-  {"now"
+  {"ui"
+   {:desc "UI-related commands"
+    :subcommands
+    {"demo"
+     {:desc "Run the demo command"
+      :run  demo/run}
+     "fleet"
+     {:desc "Manage Claude Code instances across worktrees and environments"
+      :run  fleet/run}}}
+   "now"
    {:desc "Prints the current ISO 8601 timestamp"
     :run  now/run}
 
