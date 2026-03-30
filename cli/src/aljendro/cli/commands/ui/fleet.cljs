@@ -95,12 +95,11 @@
 
 (defn lima-start! [vm-name wt-path]
   ;; --mount-only restricts the VM to only the worktree directory with write access
-  (exec! (str "limactl start --name " (js/JSON.stringify vm-name)
-              " -y template:fedora --mount-only " (js/JSON.stringify (str wt-path ":w"))
-              " 2>/dev/null || true")))
+  (-> (exec! (str "limactl start --name='" vm-name "' --mount-only='" (str wt-path ":w") "' -y template:fedora 2>/dev/null || true"))
+      (.then #(exec! (str "limactl restart " vm-name)))))
 
 (defn lima-stop! [vm-name]
-  (exec! (str "limactl stop " (js/JSON.stringify vm-name) " 2>/dev/null || true")))
+  (exec! (str "limactl stop " vm-name " 2>/dev/null || true")))
 
 ;; Lima mounts only the worktree directory (.:w), so changes in the VM are
 ;; immediately visible on the host at the same path — no rsync needed.
@@ -141,8 +140,11 @@
         (.then (fn [_]
                  (case env
                    :local (send-keys! id (str "cd " wt-path " && claude"))
-                   :lima  (send-keys! id (str "limactl shell " lima-name
-                                              " -- bash -c 'cd " wt-path " && claude'"))
+                   :lima  (-> (send-keys! id (str "kitten ssh lima-" lima-name))
+                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 1000))))
+                              (.then #(send-keys! id "clear"))
+                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 1000))))
+                              (.then #(send-keys! id (str "cd " wt-path " && claude --dangerously-skip-permissions"))))
                    :ec2   (send-keys! id (str "ssh -t " ec2-host
                                               " 'cd " wt-path " && claude'")))))
         (.then (fn [_]
