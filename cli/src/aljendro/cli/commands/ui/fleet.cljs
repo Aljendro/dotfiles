@@ -90,9 +90,11 @@
 ;; ── Lima ──────────────────────────────────────────────────────────────────────
 
 (defn lima-start! [vm-name wt-path]
-  ;; --mount-only restricts the VM to only the worktree directory with write access
-  (-> (exec! (str "limactl start --name='" vm-name "' --mount-only='" (str wt-path ":w") "' -y template:fedora 2>/dev/null || true"))
-      (.then #(exec! (str "limactl restart " vm-name)))))
+  ;; Mount main repo read-only (so git can resolve the .git dir from the worktree's .git file)
+  ;; and the worktree itself writeable.
+  (let [mounts (str tmux-session-root "," wt-path ":w")]
+    (-> (exec! (str "limactl start --name='" vm-name "' --mount-only='" mounts "' -y template:fedora 2>/dev/null || true"))
+        (.then #(exec! (str "limactl restart " vm-name))))))
 
 (defn lima-stop! [vm-name]
   (exec! (str "limactl stop " vm-name " 2>/dev/null || true")))
@@ -544,6 +546,6 @@
   ;; Use the tmux session's root directory so worktrees stay relative to the repo
   ;; regardless of which directory the script was launched from
   (def tmux-session-root (.trim (.toString (.execSync cp "tmux display-message -p '#{session_path}'"))))
-  (def worktree-base (path/join tmux-session-root ".worktrees"))
+  (def worktree-base (path/join (path/dirname tmux-session-root) ".worktrees" (path/basename tmux-session-root)))
   (.write js/process.stdout "\u001b[?1049h\u001b[2J\u001b[H")
   (ink/render (r/as-element [root])))
