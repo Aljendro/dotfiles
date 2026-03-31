@@ -6,13 +6,8 @@
 
 ;; ── Constants ─────────────────────────────────────────────────────────────────
 
-;; Detect the tmux session this TUI is running inside; error if not in tmux
-(def tmux-session (.trim (.toString (.execSync cp "tmux display-message -p '#S'"))))
-
-;; Use the tmux session's root directory so worktrees stay relative to the repo
-;; regardless of which directory the script was launched from
-(def tmux-session-root (.trim (.toString (.execSync cp "tmux display-message -p '#{session_path}'"))))
-(def worktree-base (path/join tmux-session-root ".worktrees"))
+;; Forward declared; initialized in run after tmux check
+(declare tmux-session tmux-session-root worktree-base)
 
 ;; ── State ─────────────────────────────────────────────────────────────────────
 
@@ -544,5 +539,11 @@
   (when-not (.-TMUX js/process.env)
     (js/console.error "Error: fleet must be run inside a tmux session")
     (js/process.exit 1))
+  ;; Detect the tmux session this TUI is running inside
+  (def tmux-session (.trim (.toString (.execSync cp "tmux display-message -p '#S'"))))
+  ;; Use the tmux session's root directory so worktrees stay relative to the repo
+  ;; regardless of which directory the script was launched from
+  (def tmux-session-root (.trim (.toString (.execSync cp "tmux display-message -p '#{session_path}'"))))
+  (def worktree-base (path/join tmux-session-root ".worktrees"))
   (.write js/process.stdout "\u001b[?1049h\u001b[2J\u001b[H")
   (ink/render (r/as-element [root])))
