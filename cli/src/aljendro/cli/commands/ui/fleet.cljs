@@ -92,8 +92,12 @@
 (defn lima-start! [vm-name wt-path]
   ;; Mount main repo read-only (so git can resolve the .git dir from the worktree's .git file)
   ;; and the worktree itself writeable.
-  (let [mounts (str tmux-session-root "," wt-path ":w")]
-    (-> (exec! (str "limactl start --name='" vm-name "' --mount-only='" mounts "' -y template:fedora 2>/dev/null || true"))
+  (let [mounts   (str tmux-session-root "," wt-path ":w")
+        ca-certs (.. js/process -env -FLEET_LIMA_CA_CERTS)
+        ca-flag  (when (seq ca-certs)
+                   (str " --set '.caCerts.files += [\"" ca-certs "\"]'"))]
+    (-> (exec! (str "limactl start --name='" vm-name "' --mount-only='" mounts "'"
+                    ca-flag " -y template:fedora 2>/dev/null || true"))
         (.then #(exec! (str "limactl restart " vm-name))))))
 
 (defn lima-stop! [vm-name]
