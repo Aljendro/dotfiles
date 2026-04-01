@@ -141,14 +141,13 @@
         (.then #(new-window! id))
         (.then (fn [_]
                  (case env
-                   :local (send-keys! id (str "cd " wt-path " && claude"))
+                   :local (send-keys! id (str "cd " wt-path))
                    :lima  (-> (send-keys! id (str "kitten ssh lima-" lima-name))
-                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 1000))))
-                              (.then #(send-keys! id "clear"))
-                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 1000))))
-                              (.then #(send-keys! id (str "cd " wt-path " && claude --dangerously-skip-permissions"))))
-                   :ec2   (send-keys! id (str "ssh -t " ec2-host
-                                              " 'cd " wt-path " && claude'")))))
+                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 2000))))
+                              (.then #(send-keys! id (str "cd " wt-path)))
+                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 2000))))
+                              (.then #(send-keys! id "clear")))
+                   :ec2   (send-keys! id (str "kitten ssh -t " ec2-host)))))
         (.then (fn [_]
                  (update-agent! id #(assoc % :status :running))
                  (log! (str "Started agent " id " [" branch "] on " (name env)))))
