@@ -14,7 +14,7 @@
 (defonce app-state
   (r/atom {:agents   []
            :selected 0
-           :view     :list   ; :list :create :detail
+           :view     :list   ; :list :create :detail :confirm-delete
            :error    nil
            :log      []}))
 
@@ -343,6 +343,25 @@
      [:> ink/Box {:marginTop 1}
       [:> ink/Text {:color "gray"} "a attach  s sync  d delete  Esc back"]]]))
 
+;; ── Confirm Delete ───────────────────────────────────────────────────────
+
+(defn ConfirmDelete [agent]
+  (let [{:keys [branch env]} agent]
+    [:> ink/Box {:flexDirection "column" :borderStyle "round" :borderColor "red"
+                 :paddingX 2 :paddingY 1 :width 60}
+     [:> ink/Text {:bold true :color "red"} "Delete Agent?"]
+     [:> ink/Box {:marginTop 1 :flexDirection "column"}
+      [:> ink/Box {:flexDirection "row"}
+       [:> ink/Text {:color "gray"} "Branch: "]
+       [:> ink/Text {:color "white"} branch]]
+      [:> ink/Box {:flexDirection "row"}
+       [:> ink/Text {:color "gray"} "Env:    "]
+       [:> ink/Text {:color (env-color env)} (name env)]]]
+     [:> ink/Text {:color "gray" :marginTop 1}
+      "This will kill the tmux window and remove the worktree."]
+     [:> ink/Box {:marginTop 1}
+      [:> ink/Text {:color "gray"} "Enter confirm · Esc cancel"]]]))
+
 ;; ── App (list view) ───────────────────────────────────────────────────────────
 
 (defn App [rows cols]
@@ -394,6 +413,11 @@
        (when-let [agent (nth agents selected nil)]
          [:> ink/Box {:flexDirection "column" :flexGrow 1}
           [DetailView agent cols]])
+
+       :confirm-delete
+       (when-let [agent (nth agents selected nil)]
+         [:> ink/Box {:flexDirection "column" :flexGrow 1 :paddingX 2 :paddingTop 1}
+          [ConfirmDelete agent]])
 
        [:> ink/Text {:color "red"} "Unknown view"])]))
 
@@ -501,9 +525,8 @@
         (sync-agent! agent))
 
       (= input "d")
-      (when-let [agent (nth agents selected nil)]
-        (clear-error!)
-        (delete-agent! agent)))))
+      (when (pos? total)
+        (swap! app-state assoc :view :confirm-delete :error nil)))))
 
 (defn handle-detail-input [input key]
   (let [{:keys [agents selected]} @app-state
@@ -519,9 +542,20 @@
       (do (clear-error!) (sync-agent! agent))
 
       (and agent (= input "d"))
-      (do (clear-error!)
-          (delete-agent! agent)
-          (swap! app-state assoc :view :list)))))
+      (swap! app-state assoc :view :confirm-delete :error nil))))
+
+(defn handle-confirm-delete-input [_input key]
+  (let [{:keys [agents selected]} @app-state
+        agent (nth agents selected nil)]
+    (cond
+      (.-escape key)
+      (swap! app-state assoc :view :list)
+
+      (.-return key)
+      (when agent
+        (clear-error!)
+        (delete-agent! agent)
+        (swap! app-state assoc :view :list)))))
 
 ;; ── Root ──────────────────────────────────────────────────────────────────────
 
@@ -533,8 +567,9 @@
                 (fn [input key]
                   #_(js/console.log "Input:" input "Key:" key)
                   (case (:view @app-state)
-                    :create (handle-create-input input key)
-                    :detail (handle-detail-input input key)
+                    :create         (handle-create-input input key)
+                    :detail         (handle-detail-input input key)
+                    :confirm-delete (handle-confirm-delete-input input key)
                     (handle-list-input input key))))]
     [:f> App rows cols]))
 
