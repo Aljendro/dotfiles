@@ -72,7 +72,7 @@
 ;; ── Git Worktrees ─────────────────────────────────────────────────────────────
 
 (defn worktree-path [branch]
-  (path/join worktree-base (.. branch (replace #"/" "-"))))
+  (path/join worktree-base (.replaceAll branch "/" "-")))
 
 (defn create-worktree! [branch]
   (let [wt-path (worktree-path branch)]
@@ -84,7 +84,8 @@
                 " " (js/JSON.stringify wt-path) " HEAD)"))))
 
 (defn remove-worktree! [branch]
-  (exec! (str "git worktree remove --force "
+  (exec! (str "cd " (js/JSON.stringify tmux-session-root)
+              " && git worktree remove --force "
               (js/JSON.stringify (worktree-path branch)) " 2>/dev/null || true")))
 
 ;; ── Lima ──────────────────────────────────────────────────────────────────────
