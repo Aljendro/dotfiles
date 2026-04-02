@@ -1,7 +1,7 @@
 (ns aljendro.cli.core
   (:require
    [aljendro.cli.commands.ui.demo :as demo]
-   [aljendro.cli.commands.ui.fleet :as fleet]
+   [aljendro.cli.commands.ui.fleet.main :as fleet]
    [aljendro.cli.commands.now :as now]
    [aljendro.cli.commands.unix2iso :as unix2iso]
    [aljendro.cli.commands.mfa :as mfa]
