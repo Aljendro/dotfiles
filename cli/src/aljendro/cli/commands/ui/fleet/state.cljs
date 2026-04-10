@@ -1,5 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.state
   (:require ["child_process" :as cp]
+            ["fs" :as fs]
+            ["os" :as os]
             ["path" :as path]
             [reagent.core :as r]))
 
@@ -39,6 +41,48 @@
            :env-idx   0
            :lima-name "dev"
            :ec2-host  ""}))
+
+;; ── Persistence ──────────────────────────────────────────────────────────────
+
+(defn- state-dir []
+  (path/join (os/homedir) ".local" "state" "fleet"))
+
+(defn- state-file []
+  (path/join (state-dir) (str (tmux-session) ".json")))
+
+(defn- safe-parse [s]
+  (try (js->clj (js/JSON.parse s) :keywordize-keys true)
+       (catch :default _ nil)))
+
+(defn- coerce-agent [a]
+  (-> a
+      (update :env keyword)
+      (update :status (fn [s] (if (keyword? s) s (keyword (or s "stopped")))))))
+
+(defn load-agents! []
+  (let [f (state-file)]
+    (when (.existsSync fs f)
+      (when-let [data (safe-parse (.toString (.readFileSync fs f)))]
+        (let [agents (mapv coerce-agent (:agents data))]
+          (swap! app-state assoc :agents agents))))))
+
+(defn save-agents! []
+  (try
+    (let [dir (state-dir)]
+      (when-not (.existsSync fs dir)
+        (.mkdirSync fs dir #js {:recursive true}))
+      (.writeFileSync fs (state-file)
+                      (js/JSON.stringify
+                       (clj->js {:agents (:agents @app-state)})
+                       nil 2)))
+    (catch :default _ nil)))
+
+(defn init-persistence! []
+  (load-agents!)
+  (add-watch app-state ::persist
+             (fn [_ _ old new]
+               (when (not= (:agents old) (:agents new))
+                 (save-agents!)))))
 
 ;; ── Shell Utilities ──────────────────────────────────────────────────────────
 

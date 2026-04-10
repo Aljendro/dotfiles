@@ -30,5 +30,6 @@
     (js/console.error "Error: fleet must be run inside a tmux session")
     (js/process.exit 1))
   (state/init-runtime!)
+  (state/init-persistence!)
   (.write js/process.stdout "\u001b[?1049h\u001b[2J\u001b[H")
   (ink/render (r/as-element [root])))
