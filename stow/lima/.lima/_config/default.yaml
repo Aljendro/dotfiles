@@ -36,6 +36,6 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       cd "$HOME"
-      if [ ! -d dotfiles-vm ]; then
-        git clone https://github.com/aljendro/dotfiles-vm.git
+      if [ ! -d dotfiles ]; then
+        git clone https://github.com/aljendro/dotfiles-vm.git dotfiles
       fi
