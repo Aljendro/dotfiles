@@ -25,7 +25,7 @@
                    :digitalocean
                    (-> (remote/digitalocean-start! digitalocean-name)
                        (.then (fn [ip]
-                                (let [host (str "dev@" (.trim ip))]
+                                (let [host (str "root@" (.trim ip))]
                                   (reset! digitalocean-host-atom host)
                                   (update-agent! id #(assoc % :digitalocean-host host))
                                   (remote/rsync-to-digitalocean! host branch)))))
