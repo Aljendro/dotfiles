@@ -56,11 +56,10 @@
                     (state/set-error! (str "Sync failed: " err))))))))
 
 (defn delete-agent! [agent]
-  (let [{:keys [id branch env lima-name]} agent]
+  (let [{:keys [id env lima-name]} agent]
     (-> (tmux/kill-window! id)
         (.then (fn [_]
-                 (when (= env :lima) (remote/lima-stop! lima-name))
-                 (worktree/remove-worktree! branch)))
+                 (when (= env :lima) (remote/lima-stop! lima-name))))
         (.then (fn [_]
                  (swap! state/app-state update :agents #(filterv (fn [a] (not= (:id a) id)) %))
                  (swap! state/app-state update :selected #(max 0 (dec %)))
