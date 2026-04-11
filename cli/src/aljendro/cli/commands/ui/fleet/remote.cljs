@@ -63,9 +63,8 @@
         " --region sfo3"
         " --ssh-keys \"$(doctl compute ssh-key list --format ID --no-header | head -1)\""
         " --user-data-file \"" (.-DOTFILES_DIR js/process.env) "/files/digitalocean/cloudinit.yaml\""
-        " --enable-ipv6"
         " --wait"
-        " --format PublicIPv6"
+        " --format PublicIPv4"
         " --no-header")))
 
 (defn digitalocean-delete! [droplet-name]
