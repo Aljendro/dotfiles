@@ -29,32 +29,8 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       dnf up -y
-      dnf copr enable dejan/lazygit -y
-      dnf copr enable jdxcode/mise -y
       dnf install -y \
         ansible \
-        awscli2 \
-        bat \
-        clangd \
-        curl \
-        fd-find \
-        fzf \
-        git \
-        git-delta \
-        jq \
-        lazygit \
-        lsof \
-        mise \
-        neovim \
-        python3-pip \
-        ripgrep \
-        stow \
-        tmux \
-        tree \
-        unzip \
-        wget \
-        xclip \
-        xorg-x11-xauth
   - mode: user
     script: |
       #!/bin/bash
