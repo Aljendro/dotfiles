@@ -1,0 +1,19 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - ansible
+  - git
+  - zsh
+
+users:
+  - name: dev
+    shell: /bin/zsh
+    groups: [sudo]
+    sudo: ALL=(ALL) NOPASSWD:ALL # remove if you don't want passwordless sudo
+    lock_passwd: false
+
+runcmd:
+  - sudo -u dev git clone https://github.com/aljendro/dotfiles-vm.git /home/dev/dotfiles
