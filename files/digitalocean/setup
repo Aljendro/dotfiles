@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -eux -o pipefail
+
+sudo dnf up -y
+sudo dnf install -y ansible git zsh
+
+sudo chsh -s "$(which zsh)" "$(whoami)"
+
+cd "$HOME"
+if [ ! -d dotfiles ]; then
+  git clone https://github.com/aljendro/dotfiles-vm.git dotfiles
+fi
