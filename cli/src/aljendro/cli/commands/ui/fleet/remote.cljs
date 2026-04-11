@@ -60,9 +60,8 @@
    (str "doctl compute droplet create " (js/JSON.stringify droplet-name)
         " --image fedora-43-x64"
         " --size s-2vcpu-4gb"
-        " --region sfo2"
+        " --region sfo3"
         " --ssh-keys \"$(doctl compute ssh-key list --format ID --no-header | head -1)\""
-        " --enable-private-networking"
         " --enable-ipv6"
         " --wait"
         " --format PublicIPv6"
