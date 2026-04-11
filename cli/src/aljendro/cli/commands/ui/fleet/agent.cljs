@@ -16,7 +16,8 @@
         (.then #(worktree/create-worktree! branch))
         (.then (fn [_]
                  (case env
-                   :lima (remote/lima-start! lima-name wt-path)
+                   :lima (-> (remote/lima-start! lima-name wt-path)
+                             (.then #(remote/rsync-to-lima! lima-name branch)))
                    :ec2  (remote/rsync-to-ec2! ec2-host branch)
                    (js/Promise.resolve nil))))
         (.then #(tmux/new-window! id))
@@ -33,20 +34,21 @@
                   (state/set-error! (str "Start failed: " err)))))))
 
 (defn sync-agent! [agent]
-  (let [{:keys [id env ec2-host branch]} agent]
-    (case env
-      :local nil
-      :lima  (state/log! (remote/lima-sync-note))
-      :ec2   (do
-               (update-agent! id #(assoc % :status :syncing))
-               (-> (remote/rsync-from-ec2! ec2-host branch)
-                   (.then (fn [_]
-                            (update-agent! id #(assoc % :status :running
-                                                      :last-sync (.toISOString (js/Date.))))
-                            (state/log! (str "Synced " id " from EC2"))))
-                   (.catch (fn [err]
-                             (update-agent! id #(assoc % :status :error))
-                             (state/set-error! (str "Sync failed: " err)))))))))
+  (let [{:keys [id env ec2-host lima-name branch]} agent
+        sync-fn (case env
+                  :lima #(remote/rsync-from-lima! lima-name branch)
+                  :ec2  #(remote/rsync-from-ec2! ec2-host branch)
+                  nil)]
+    (when sync-fn
+      (update-agent! id #(assoc % :status :syncing))
+      (-> (sync-fn)
+          (.then (fn [_]
+                   (update-agent! id #(assoc % :status :running
+                                             :last-sync (.toISOString (js/Date.))))
+                   (state/log! (str "Synced " id " from " (name env)))))
+          (.catch (fn [err]
+                    (update-agent! id #(assoc % :status :error))
+                    (state/set-error! (str "Sync failed: " err))))))))
 
 (defn delete-agent! [agent]
   (let [{:keys [id branch env lima-name]} agent]

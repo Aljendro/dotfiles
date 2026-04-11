@@ -60,7 +60,7 @@
      [:> ink/Box {:marginTop 1}
       (case env
         :local [:> ink/Text {:color "gray"} "Local worktree — changes are on disk immediately."]
-        :lima  [:> ink/Text {:color "cyan"} "Lima mounts the worktree dir — no manual sync needed."]
+        :lima  [:> ink/Text {:color "cyan"} "Lima VM — press 's' to rsync changes back."]
         :ec2   [:> ink/Text {:color "magenta"} "EC2 remote — press 's' to rsync changes back."]
         nil)]
      [:> ink/Box {:marginTop 1}
