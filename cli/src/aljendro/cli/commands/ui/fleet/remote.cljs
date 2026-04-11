@@ -50,3 +50,32 @@
 
 (defn rsync-from-ec2! [ec2-host branch]
   (rsync-pull! ec2-host (worktree/worktree-path branch)))
+
+;; ── DigitalOcean ─────────────────────────────────────────────────────────────
+
+(defn digitalocean-create! [droplet-name]
+  ;; Creates a droplet and returns its public IP once active.
+  ;; Uses the first registered SSH key and sensible defaults.
+  (state/exec!
+   (str "doctl compute droplet create " (js/JSON.stringify droplet-name)
+        " --image fedora-43-x64"
+        " --size s-2vcpu-4gb"
+        " --region sfo2"
+        " --ssh-keys \"$(doctl compute ssh-key list --format ID --no-header | head -1)\""
+        " --enable-private-networking"
+        " --enable-ipv6"
+        " --wait"
+        " --format PublicIPv6"
+        " --no-header")))
+
+(defn digitalocean-delete! [droplet-name]
+  (state/exec!
+   (str "doctl compute droplet delete " (js/JSON.stringify droplet-name)
+        " --force"
+        " 2>/dev/null || true")))
+
+(defn rsync-to-digitalocean! [digitalocean-host branch]
+  (rsync-push! digitalocean-host (worktree/worktree-path branch)))
+
+(defn rsync-from-digitalocean! [digitalocean-host branch]
+  (rsync-pull! digitalocean-host (worktree/worktree-path branch)))

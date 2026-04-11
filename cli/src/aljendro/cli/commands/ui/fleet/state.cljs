@@ -35,12 +35,13 @@
            :log      []}))
 
 (defonce create-state
-  (r/atom {:step      :branch  ; :branch :env :lima-name :ec2-host :confirm
-           :branch    ""
-           :env       :local
-           :env-idx   0
-           :lima-name "dev"
-           :ec2-host  ""}))
+  (r/atom {:step             :branch  ; :branch :env :lima-name :ec2-host :digitalocean-name :confirm
+           :branch           ""
+           :env              :local
+           :env-idx          0
+           :lima-name        "dev"
+           :ec2-host         ""
+           :digitalocean-name "fleet-agent"}))
 
 ;; ── Persistence ──────────────────────────────────────────────────────────────
 
