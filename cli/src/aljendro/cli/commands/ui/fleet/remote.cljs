@@ -61,7 +61,7 @@
         " --image fedora-43-x64"
         " --size s-2vcpu-4gb"
         " --region sfo3"
-        " --ssh-keys \"$(doctl compute ssh-key list --format ID --no-header | head -1)\""
+        " --ssh-keys \"$(doctl compute ssh-key list --no-header | grep \"ephemeral\" | cut -d " " -f1)\""
         " --user-data-file \"" (.-DOTFILES_DIR js/process.env) "/files/digitalocean/cloudinit.yaml\""
         " --wait"
         " --format PublicIPv4"
