@@ -32,6 +32,11 @@
 (defn lima-stop! [vm-name]
   (state/exec! (str "limactl stop " vm-name " 2>/dev/null || true")))
 
+(defn lima-provision! [vm-name]
+  (state/exec! (str "ssh lima-" vm-name
+                    " " (js/JSON.stringify "cd ~/dotfiles && ansible-playbook install.yml")
+                    " && limactl restart " vm-name)))
+
 (defn rsync-to-lima! [vm-name branch]
   (rsync-push! (str "lima-" vm-name) (worktree/worktree-path branch)))
 

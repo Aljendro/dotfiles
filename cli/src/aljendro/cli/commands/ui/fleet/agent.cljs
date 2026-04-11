@@ -19,13 +19,18 @@
                    :lima (-> (remote/lima-start! lima-name wt-path)
                              (.then #(remote/rsync-to-lima! lima-name branch)))
                    :ec2  (remote/rsync-to-ec2! ec2-host branch)
-                   (js/Promise.resolve nil))))
+                   nil)))
+        (.then (fn [_]
+                 (case env
+                   :lima  (remote/lima-provision! lima-name)
+                   nil)))
         (.then #(tmux/new-window! id))
         (.then (fn [_]
                  (case env
                    :local (tmux/send-keys! id (str "cd " wt-path))
                    :lima  (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
-                   :ec2   (tmux/send-keys! id (str "kitten ssh -t " ec2-host)))))
+                   :ec2   (tmux/send-keys! id (str "kitten ssh -t " ec2-host))
+                   nil)))
         (.then (fn [_]
                  (update-agent! id #(assoc % :status :running))
                  (state/log! (str "Started agent " id " [" branch "] on " (name env)))))
