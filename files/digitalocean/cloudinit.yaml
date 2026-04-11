@@ -8,6 +8,9 @@ packages:
   - git
   - zsh
 
+disable_root: true
+ssh_pwauth: false
+
 users:
   - name: dev
     shell: /bin/zsh
@@ -15,5 +18,17 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL # remove if you don't want passwordless sudo
     lock_passwd: false
 
+write_files:
+  - path: /etc/ssh/sshd_config.d/99-dev-only.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      AllowUsers dev
+
 runcmd:
+  - install -d -m 700 -o dev -g dev /home/dev/.ssh
+  - cp /root/.ssh/authorized_keys /home/dev/.ssh/authorized_keys
+  - chown dev:dev /home/dev/.ssh/authorized_keys
+  - chmod 600 /home/dev/.ssh/authorized_keys
   - sudo -u dev git clone https://github.com/aljendro/dotfiles-vm.git /home/dev/dotfiles
+  - systemctl restart ssh

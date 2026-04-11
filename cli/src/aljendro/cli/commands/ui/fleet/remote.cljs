@@ -6,7 +6,7 @@
 ;; ── rsync helpers ────────────────────────────────────────────────────────────
 
 (defn- rsync-push! [ssh-host wt-path]
-  (state/exec! (str "ssh " (js/JSON.stringify ssh-host)
+  (state/exec! (str "ssh -o StrictHostKeyChecking=accept-new " (js/JSON.stringify ssh-host)
                     " " (js/JSON.stringify
                          (str "sudo mkdir -p " wt-path
                               " && sudo chown -R \"$USER\" " (path/dirname wt-path)))
@@ -53,7 +53,7 @@
 
 ;; ── DigitalOcean ─────────────────────────────────────────────────────────────
 
-(defn digitalocean-create! [droplet-name]
+(defn digitalocean-start! [droplet-name]
   ;; Creates a droplet and returns its public IP once active.
   ;; Uses the first registered SSH key and sensible defaults.
   (state/exec!

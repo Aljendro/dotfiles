@@ -23,7 +23,7 @@
                    :ec2
                    (remote/rsync-to-ec2! ec2-host branch)
                    :digitalocean
-                   (-> (remote/digitalocean-create! digitalocean-name)
+                   (-> (remote/digitalocean-start! digitalocean-name)
                        (.then (fn [ip]
                                 (let [host (str "dev@" (.trim ip))]
                                   (reset! digitalocean-host-atom host)
