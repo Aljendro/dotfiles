@@ -30,11 +30,11 @@ provision:
       set -eux -o pipefail
       dnf up -y
       dnf install -y ansible git zsh
-      chsh -s /bin/zsh "$USER"
   - mode: user
     script: |
       #!/bin/bash
       set -eux -o pipefail
+      chsh -s /bin/zsh "$USER"
       cd "$HOME"
       if [ ! -d dotfiles ]; then
         git clone https://github.com/aljendro/dotfiles-vm.git dotfiles
