@@ -29,7 +29,8 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       dnf up -y
-      dnf install -y ansible git
+      dnf install -y ansible git zsh
+      chsh -s /bin/zsh "$LIMA_CIDATA_USER"
   - mode: user
     script: |
       #!/bin/bash
