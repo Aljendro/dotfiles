@@ -25,7 +25,7 @@
     "IDLE    "))
 
 (defn env-color [env]
-  (case env :local "white" :lima "cyan" :ec2 "magenta" "gray"))
+  (case env :local "white" :lima "cyan" :ec2 "magenta" :digitalocean "blue" "gray"))
 
 (defn time-ago [iso-str]
   (when iso-str
@@ -36,7 +36,7 @@
             (< mins 60) (str mins "m ago")
             :else       (str (js/Math.floor (/ mins 60)) "h ago")))))
 
-(def envs [:local :lima :ec2])
+(def envs [:local :lima :ec2 :digitalocean])
 
 ;; ── TextInput ────────────────────────────────────────────────────────────────
 
