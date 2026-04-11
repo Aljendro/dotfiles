@@ -11,6 +11,8 @@
   name   = Alejandro Alvarado
   email  = alejandro.alvarado0650144@gmail.com
   editor = nvim
+[init]
+  defaultBranch = main
 [core]
   excludesfile = ~/.gitignore_global
   pager = delta
