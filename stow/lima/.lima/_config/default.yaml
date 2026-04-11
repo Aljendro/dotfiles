@@ -29,8 +29,7 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       dnf up -y
-      dnf install -y \
-        ansible \
+      dnf install -y ansible git
   - mode: user
     script: |
       #!/bin/bash
