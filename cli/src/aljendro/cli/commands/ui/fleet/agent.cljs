@@ -23,11 +23,7 @@
         (.then (fn [_]
                  (case env
                    :local (tmux/send-keys! id (str "cd " wt-path))
-                   :lima  (-> (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
-                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 2000))))
-                              (.then #(tmux/send-keys! id (str "cd " wt-path)))
-                              (.then #(js/Promise. (fn [resolve] (js/setTimeout resolve 2000))))
-                              (.then #(tmux/send-keys! id "clear")))
+                   :lima  (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
                    :ec2   (tmux/send-keys! id (str "kitten ssh -t " ec2-host)))))
         (.then (fn [_]
                  (update-agent! id #(assoc % :status :running))
@@ -46,7 +42,7 @@
                (-> (remote/rsync-from-ec2! ec2-host branch)
                    (.then (fn [_]
                             (update-agent! id #(assoc % :status :running
-                                                        :last-sync (.toISOString (js/Date.))))
+                                                      :last-sync (.toISOString (js/Date.))))
                             (state/log! (str "Synced " id " from EC2"))))
                    (.catch (fn [err]
                              (update-agent! id #(assoc % :status :error))
