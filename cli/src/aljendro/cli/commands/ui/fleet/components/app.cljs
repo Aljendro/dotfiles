@@ -17,7 +17,7 @@
 
       (= input "n")
       (do (reset! state/create-state {:step :branch :branch "" :env :local
-                                      :env-idx 0 :lima-name "dev" :ec2-host ""})
+                                      :env-idx 0 :lima-name "dev"})
           (swap! state/app-state assoc :view :create :error nil))
 
       (.-upArrow key)

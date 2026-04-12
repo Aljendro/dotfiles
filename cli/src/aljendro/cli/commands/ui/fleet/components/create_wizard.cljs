@@ -7,7 +7,7 @@
 ;; ── Input Handler ───────────────────────────────────────────────────────────
 
 (defn handle-input [input key]
-  (let [{:keys [step branch env env-idx lima-name ec2-host digitalocean-name]} @state/create-state]
+  (let [{:keys [step branch env env-idx lima-name digitalocean-name]} @state/create-state]
     (cond
       (.-escape key)
       (swap! state/app-state assoc :view :list :error nil)
@@ -21,7 +21,6 @@
         :env
         (case env
           :lima         (swap! state/create-state assoc :step :lima-name)
-          :ec2          (swap! state/create-state assoc :step :ec2-host)
           :digitalocean (swap! state/create-state assoc :step :digitalocean-name)
           (swap! state/create-state assoc :step :confirm))
 
@@ -29,21 +28,16 @@
         (when (seq lima-name)
           (swap! state/create-state assoc :step :confirm))
 
-        :ec2-host
-        (when (seq ec2-host)
-          (swap! state/create-state assoc :step :confirm))
-
         :digitalocean-name
         (when (seq digitalocean-name)
           (swap! state/create-state assoc :step :confirm))
 
         :confirm
-        (let [{:keys [branch env lima-name ec2-host digitalocean-name]} @state/create-state
+        (let [{:keys [branch env lima-name digitalocean-name]} @state/create-state
               new-agent {:id                (agent/gen-id)
                          :branch            branch
                          :env               env
                          :lima-name         (when (= env :lima) lima-name)
-                         :ec2-host          (when (= env :ec2) ec2-host)
                          :digitalocean-name (when (= env :digitalocean) digitalocean-name)
                          :status            :starting
                          :last-sync         nil}]
@@ -52,7 +46,7 @@
                                        (update :agents conj new-agent)
                                        (assoc :view :list :error nil))))
           (reset! state/create-state {:step :branch :branch "" :env :local
-                                      :env-idx 0 :lima-name "dev" :ec2-host ""
+                                      :env-idx 0 :lima-name "dev"
                                       :digitalocean-name "fleet-agent"})
           (agent/start-agent! new-agent))
         nil)
@@ -71,7 +65,6 @@
       (case step
         :branch            (swap! state/create-state update :branch            #(subs % 0 (max 0 (dec (count %)))))
         :lima-name         (swap! state/create-state update :lima-name         #(subs % 0 (max 0 (dec (count %)))))
-        :ec2-host          (swap! state/create-state update :ec2-host          #(subs % 0 (max 0 (dec (count %)))))
         :digitalocean-name (swap! state/create-state update :digitalocean-name #(subs % 0 (max 0 (dec (count %)))))
         nil)
 
@@ -80,14 +73,13 @@
       (case step
         :branch            (swap! state/create-state update :branch            str input)
         :lima-name         (swap! state/create-state update :lima-name         str input)
-        :ec2-host          (swap! state/create-state update :ec2-host          str input)
         :digitalocean-name (swap! state/create-state update :digitalocean-name str input)
         nil))))
 
 ;; ── Component ───────────────────────────────────────────────────────────────
 
 (defn CreateWizard []
-  (let [{:keys [step branch env lima-name ec2-host digitalocean-name]} @state/create-state]
+  (let [{:keys [step branch env lima-name digitalocean-name]} @state/create-state]
     [:> ink/Box {:flexDirection "column" :borderStyle "round" :borderColor "cyan"
                  :paddingX 2 :paddingY 1 :width 60}
      [:> ink/Text {:bold true :color "cyan"} "New Agent"]
@@ -118,14 +110,6 @@
            [common/TextInput {:value lima-name :placeholder "dev"}]
            [:> ink/Text {:color "white"} lima-name])])
 
-      ;; EC2 host (only for :ec2)
-      (when (and (= env :ec2) (not= step :branch))
-        [:> ink/Box {:flexDirection "row" :marginBottom 1}
-         [:> ink/Text {:color (if (= step :ec2-host) "cyan" "gray")} "EC2 host:    "]
-         (if (= step :ec2-host)
-           [common/TextInput {:value ec2-host :placeholder "ec2-user@1.2.3.4"}]
-           [:> ink/Text {:color "white"} ec2-host])])
-
       ;; DigitalOcean droplet name (only for :digitalocean)
       (when (and (= env :digitalocean) (not= step :branch))
         [:> ink/Box {:flexDirection "row" :marginBottom 1}
@@ -140,7 +124,6 @@
          :branch            "Type branch name · Enter to continue · Esc cancel"
          :env               "← → select env · Enter continue · Esc cancel"
          :lima-name         "Type VM name · Enter continue · Esc cancel"
-         :ec2-host          "Type host · Enter continue · Esc cancel"
          :digitalocean-name "Type droplet name · Enter continue · Esc cancel"
          :confirm           "Enter to create · Esc cancel"
          "")]]]))

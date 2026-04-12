@@ -10,7 +10,7 @@
   (swap! state/app-state update :agents (fn [agents] (mapv #(if (= (:id %) id) (f %) %) agents))))
 
 (defn start-agent! [agent]
-  (let [{:keys [id branch env lima-name ec2-host digitalocean-name]} agent
+  (let [{:keys [id branch env lima-name digitalocean-name]} agent
         wt-path (worktree/worktree-path branch)]
     (-> (tmux/ensure-session!)
         (.then #(worktree/create-worktree! branch))
@@ -18,7 +18,6 @@
                  (case env
                    :lima (-> (remote/lima-start! lima-name wt-path)
                              (.then #(remote/rsync-to-lima! lima-name branch)))
-                   :ec2 (remote/rsync-to-ec2! ec2-host branch)
                    :digitalocean (-> (remote/digitalocean-start! id digitalocean-name)
                                      (.then #(remote/rsync-to-digitalocean! digitalocean-name branch)))
                    nil)))
@@ -32,7 +31,6 @@
                  (case env
                    :local        (tmux/send-keys! id (str "cd " wt-path))
                    :lima         (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
-                   :ec2          (tmux/send-keys! id (str "kitten ssh -t " ec2-host))
                    :digitalocean (tmux/send-keys! id (str "kitten ssh -t " digitalocean-name))
                    nil)))
         (.then (fn [_]
@@ -43,10 +41,9 @@
                   (state/set-error! (str "Start failed: " err)))))))
 
 (defn push-agent! [agent]
-  (let [{:keys [id env ec2-host lima-name digitalocean-name branch]} agent
+  (let [{:keys [id env lima-name digitalocean-name branch]} agent
         push-fn (case env
                   :lima         #(remote/rsync-to-lima! lima-name branch)
-                  :ec2          #(remote/rsync-to-ec2! ec2-host branch)
                   :digitalocean #(remote/rsync-to-digitalocean! digitalocean-name branch)
                   nil)]
     (when push-fn
@@ -61,10 +58,9 @@
                     (state/set-error! (str "Push failed: " err))))))))
 
 (defn pull-agent! [agent]
-  (let [{:keys [id env ec2-host lima-name digitalocean-name branch]} agent
+  (let [{:keys [id env lima-name digitalocean-name branch]} agent
         pull-fn (case env
                   :lima         #(remote/rsync-from-lima! lima-name branch)
-                  :ec2          #(remote/rsync-from-ec2! ec2-host branch)
                   :digitalocean #(remote/rsync-from-digitalocean! digitalocean-name branch)
                   nil)]
     (when pull-fn

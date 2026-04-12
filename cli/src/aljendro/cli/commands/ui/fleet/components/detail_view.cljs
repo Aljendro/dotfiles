@@ -29,7 +29,7 @@
 ;; ── Component ───────────────────────────────────────────────────────────────
 
 (defn DetailView [agent cols]
-  (let [{:keys [branch env status last-sync lima-name ec2-host digitalocean-name]} agent
+  (let [{:keys [branch env status last-sync lima-name digitalocean-name]} agent
         sep (apply str (repeat (- cols 10) "─"))]
     [:> ink/Box {:flexDirection "column" :paddingX 1}
      [:> ink/Box {:marginBottom 1}
@@ -51,10 +51,6 @@
         [:> ink/Box {:flexDirection "row"}
          [:> ink/Text {:color "gray"} (common/pad-right "VM name" 10)]
          [:> ink/Text {:color "white"} lima-name]])
-      (when ec2-host
-        [:> ink/Box {:flexDirection "row"}
-         [:> ink/Text {:color "gray"} (common/pad-right "EC2 host" 10)]
-         [:> ink/Text {:color "white"} ec2-host]])
       (when digitalocean-name
         [:> ink/Box {:flexDirection "row"}
          [:> ink/Text {:color "gray"} (common/pad-right "Droplet" 10)]
@@ -68,7 +64,6 @@
       (case env
         :local        [:> ink/Text {:color "gray"} "Local worktree — changes are on disk immediately."]
         :lima         [:> ink/Text {:color "cyan"} "Lima VM — press 'P' to push, 'p' to pull via rsync."]
-        :ec2          [:> ink/Text {:color "magenta"} "EC2 remote — press 'P' to push, 'p' to pull via rsync."]
         :digitalocean [:> ink/Text {:color "blue"} "DigitalOcean Droplet — press 'P' to push, 'p' to pull via rsync."]
         nil)]
      [:> ink/Box {:marginTop 1}

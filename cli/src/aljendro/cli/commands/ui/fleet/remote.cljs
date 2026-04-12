@@ -79,14 +79,6 @@
 (defn rsync-from-lima! [vm-name branch]
   (rsync-pull! (str "lima-" vm-name) (worktree/worktree-path branch)))
 
-;; ── EC2 ──────────────────────────────────────────────────────────────────────
-
-(defn rsync-to-ec2! [ec2-host branch]
-  (rsync-push! ec2-host (worktree/worktree-path branch)))
-
-(defn rsync-from-ec2! [ec2-host branch]
-  (rsync-pull! ec2-host (worktree/worktree-path branch)))
-
 ;; ── DigitalOcean ─────────────────────────────────────────────────────────────
 
 (defn digitalocean-start! [agent-id droplet-name]
