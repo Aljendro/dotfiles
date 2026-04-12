@@ -36,10 +36,15 @@
         (state/clear-error!)
         (agent/attach-agent! ag))
 
-      (= input "s")
+      (= input "P")
       (when-let [ag (nth agents selected nil)]
         (state/clear-error!)
-        (agent/sync-agent! ag))
+        (agent/push-agent! ag))
+
+      (= input "p")
+      (when-let [ag (nth agents selected nil)]
+        (state/clear-error!)
+        (agent/pull-agent! ag))
 
       (= input "d")
       (when (pos? total)
@@ -87,7 +92,7 @@
         [:> ink/Spacer]
         [:> ink/Box {:borderStyle "single" :borderColor "gray" :paddingX 1}
          [:> ink/Text {:color "gray"}
-          "n new   a attach   s sync   d delete   ↑↓ navigate   Enter detail   q quit"]]]
+          "n new   a attach   P push   p pull   d delete   ↑↓ navigate   Enter detail   q quit"]]]
 
        :create
        [:> ink/Box {:flexDirection "column" :flexGrow 1 :paddingX 2 :paddingTop 1}

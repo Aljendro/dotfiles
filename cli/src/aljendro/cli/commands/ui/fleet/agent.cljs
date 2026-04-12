@@ -42,23 +42,41 @@
                   (update-agent! id #(assoc % :status :error))
                   (state/set-error! (str "Start failed: " err)))))))
 
-(defn sync-agent! [agent]
+(defn push-agent! [agent]
   (let [{:keys [id env ec2-host lima-name digitalocean-name branch]} agent
-        sync-fn (case env
+        push-fn (case env
+                  :lima         #(remote/rsync-to-lima! lima-name branch)
+                  :ec2          #(remote/rsync-to-ec2! ec2-host branch)
+                  :digitalocean #(remote/rsync-to-digitalocean! digitalocean-name branch)
+                  nil)]
+    (when push-fn
+      (update-agent! id #(assoc % :status :pushing))
+      (-> (push-fn)
+          (.then (fn [_]
+                   (update-agent! id #(assoc % :status :running
+                                             :last-sync (.toISOString (js/Date.))))
+                   (state/log! (str "Pushed " id " to " (name env)))))
+          (.catch (fn [err]
+                    (update-agent! id #(assoc % :status :error))
+                    (state/set-error! (str "Push failed: " err))))))))
+
+(defn pull-agent! [agent]
+  (let [{:keys [id env ec2-host lima-name digitalocean-name branch]} agent
+        pull-fn (case env
                   :lima         #(remote/rsync-from-lima! lima-name branch)
                   :ec2          #(remote/rsync-from-ec2! ec2-host branch)
                   :digitalocean #(remote/rsync-from-digitalocean! digitalocean-name branch)
                   nil)]
-    (when sync-fn
-      (update-agent! id #(assoc % :status :syncing))
-      (-> (sync-fn)
+    (when pull-fn
+      (update-agent! id #(assoc % :status :pulling))
+      (-> (pull-fn)
           (.then (fn [_]
                    (update-agent! id #(assoc % :status :running
                                              :last-sync (.toISOString (js/Date.))))
-                   (state/log! (str "Synced " id " from " (name env)))))
+                   (state/log! (str "Pulled " id " from " (name env)))))
           (.catch (fn [err]
                     (update-agent! id #(assoc % :status :error))
-                    (state/set-error! (str "Sync failed: " err))))))))
+                    (state/set-error! (str "Pull failed: " err))))))))
 
 (defn delete-agent! [agent]
   (let [{:keys [id env lima-name digitalocean-name]} agent]

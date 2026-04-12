@@ -17,8 +17,11 @@
       (and ag (= input "a"))
       (do (state/clear-error!) (agent/attach-agent! ag))
 
-      (and ag (= input "s"))
-      (do (state/clear-error!) (agent/sync-agent! ag))
+      (and ag (= input "P"))
+      (do (state/clear-error!) (agent/push-agent! ag))
+
+      (and ag (= input "p"))
+      (do (state/clear-error!) (agent/pull-agent! ag))
 
       (and ag (= input "d"))
       (swap! state/app-state assoc :view :confirm-delete :error nil))))
@@ -64,9 +67,9 @@
      [:> ink/Box {:marginTop 1}
       (case env
         :local        [:> ink/Text {:color "gray"} "Local worktree — changes are on disk immediately."]
-        :lima         [:> ink/Text {:color "cyan"} "Lima VM — press 's' to rsync changes back."]
-        :ec2          [:> ink/Text {:color "magenta"} "EC2 remote — press 's' to rsync changes back."]
-        :digitalocean [:> ink/Text {:color "blue"} "DigitalOcean Droplet — press 's' to rsync changes back."]
+        :lima         [:> ink/Text {:color "cyan"} "Lima VM — press 'P' to push, 'p' to pull via rsync."]
+        :ec2          [:> ink/Text {:color "magenta"} "EC2 remote — press 'P' to push, 'p' to pull via rsync."]
+        :digitalocean [:> ink/Text {:color "blue"} "DigitalOcean Droplet — press 'P' to push, 'p' to pull via rsync."]
         nil)]
      [:> ink/Box {:marginTop 1}
-      [:> ink/Text {:color "gray"} "a attach  s sync  d delete  Esc back"]]]))
+      [:> ink/Text {:color "gray"} "a attach  P push  p pull  d delete  Esc back"]]]))

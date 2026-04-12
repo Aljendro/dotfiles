@@ -12,7 +12,8 @@
   (case status
     :running  "green"
     :starting "yellow"
-    :syncing  "cyan"
+    :pushing  "cyan"
+    :pulling  "cyan"
     :error    "red"
     "gray"))
 
@@ -20,7 +21,8 @@
   (case status
     :running  "RUNNING "
     :starting "STARTING"
-    :syncing  "SYNCING "
+    :pushing  "PUSHING "
+    :pulling  "PULLING "
     :error    "ERROR   "
     "IDLE    "))
 
