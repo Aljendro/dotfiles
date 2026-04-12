@@ -1,15 +1,24 @@
-cpus: 4
-memory: "8GiB"
-disk: "100GiB"
-
-mounts:
-  - location: "~/vm_shared"
-    mountPoint: "{{.Home}}/Shared"
-    writable: true
+cpus: 2
+memory: '4GiB'
+disk: '50GiB'
 
 portForwards:
-  - guestPortRange: [8000, 8999]
-    hostPortRange: [8000, 8999]
+  - guestIP: '::'
+    guestPort: 323
+    proto: udp
+    ignore: true
+  - guestIP: '::'
+    guestPort: 5353
+    proto: udp
+    ignore: true
+  - guestIP: '::'
+    guestPort: 5355
+    proto: any
+    ignore: true
+  - guestIP: '::'
+    guestPort: 6010
+    proto: any
+    ignore: true
 
 ssh:
   forwardX11: true
@@ -20,29 +29,9 @@ provision:
       #!/bin/bash
       set -eux -o pipefail
       dnf up -y
-      dnf copr enable dejan/lazygit -y
-      dnf copr enable jdxcode/mise -y
-      dnf install -y \
-        ansible \
-        awscli2 \
-        bat \
-        clangd \
-        curl \
-        fd-find \
-        fzf \
-        git \
-        git-delta \
-        jq \
-        lazygit \
-        lsof \
-        mise \
-        neovim \
-        python3-pip \
-        ripgrep \
-        stow \
-        tmux \
-        tree \
-        unzip \
-        wget \
-        xclip \
-        xorg-x11-xauth
+      dnf install -y ansible git zsh
+  - mode: user
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      sudo chsh -s "$(which zsh)" "$(whoami)"
