@@ -11,28 +11,21 @@
 
 (defn start-agent! [agent]
   (let [{:keys [id branch env lima-name ec2-host digitalocean-name]} agent
-        wt-path (worktree/worktree-path branch)
-        digitalocean-host-atom (atom nil)]
+        wt-path (worktree/worktree-path branch)]
     (-> (tmux/ensure-session!)
         (.then #(worktree/create-worktree! branch))
         (.then (fn [_]
                  (case env
-                   :lima
-                   (-> (remote/lima-start! lima-name wt-path)
-                       (.then #(remote/rsync-to-lima! lima-name branch)))
-                   :ec2
-                   (remote/rsync-to-ec2! ec2-host branch)
-                   :digitalocean
-                   (-> (remote/digitalocean-start! digitalocean-name)
-                       (.then (fn [ip]
-                                (let [host (str "root@" (.trim ip))]
-                                  (reset! digitalocean-host-atom host)
-                                  (update-agent! id #(assoc % :digitalocean-host host))
-                                  (remote/rsync-to-digitalocean! host branch)))))
+                   :lima (-> (remote/lima-start! lima-name wt-path)
+                             (.then #(remote/rsync-to-lima! lima-name branch)))
+                   :ec2 (remote/rsync-to-ec2! ec2-host branch)
+                   :digitalocean (-> (remote/digitalocean-start! id digitalocean-name)
+                                     (.then #(remote/rsync-to-digitalocean! digitalocean-name branch)))
                    nil)))
         (.then (fn [_]
                  (case env
                    :lima  (remote/lima-provision! lima-name)
+                   :digitalocean  (remote/digitalocean-provision! digitalocean-name)
                    nil)))
         (.then #(tmux/new-window! id))
         (.then (fn [_]
@@ -40,7 +33,7 @@
                    :local        (tmux/send-keys! id (str "cd " wt-path))
                    :lima         (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
                    :ec2          (tmux/send-keys! id (str "kitten ssh -t " ec2-host))
-                   :digitalocean (tmux/send-keys! id (str "kitten ssh -t " @digitalocean-host-atom))
+                   :digitalocean (tmux/send-keys! id (str "kitten ssh -t " digitalocean-name))
                    nil)))
         (.then (fn [_]
                  (update-agent! id #(assoc % :status :running))
@@ -50,11 +43,11 @@
                   (state/set-error! (str "Start failed: " err)))))))
 
 (defn sync-agent! [agent]
-  (let [{:keys [id env ec2-host lima-name digitalocean-host branch]} agent
+  (let [{:keys [id env ec2-host lima-name digitalocean-name branch]} agent
         sync-fn (case env
                   :lima         #(remote/rsync-from-lima! lima-name branch)
                   :ec2          #(remote/rsync-from-ec2! ec2-host branch)
-                  :digitalocean #(remote/rsync-from-digitalocean! digitalocean-host branch)
+                  :digitalocean #(remote/rsync-from-digitalocean! digitalocean-name branch)
                   nil)]
     (when sync-fn
       (update-agent! id #(assoc % :status :syncing))
@@ -73,7 +66,8 @@
         (.then (fn [_]
                  (case env
                    :lima         (remote/lima-stop! lima-name)
-                   :digitalocean (remote/digitalocean-delete! digitalocean-name)
+                   :digitalocean (do (remote/delete-ssh-config! id)
+                                     (remote/digitalocean-delete! digitalocean-name))
                    nil)))
         (.then (fn [_]
                  (swap! state/app-state update :agents #(filterv (fn [a] (not= (:id a) id)) %))

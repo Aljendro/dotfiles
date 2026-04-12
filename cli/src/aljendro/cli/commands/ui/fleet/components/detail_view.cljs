@@ -26,8 +26,7 @@
 ;; ── Component ───────────────────────────────────────────────────────────────
 
 (defn DetailView [agent cols]
-  (let [{:keys [branch env status last-sync lima-name ec2-host
-                digitalocean-name digitalocean-host]} agent
+  (let [{:keys [branch env status last-sync lima-name ec2-host digitalocean-name]} agent
         sep (apply str (repeat (- cols 10) "─"))]
     [:> ink/Box {:flexDirection "column" :paddingX 1}
      [:> ink/Box {:marginBottom 1}
@@ -57,10 +56,6 @@
         [:> ink/Box {:flexDirection "row"}
          [:> ink/Text {:color "gray"} (common/pad-right "Droplet" 10)]
          [:> ink/Text {:color "white"} digitalocean-name]])
-      (when digitalocean-host
-        [:> ink/Box {:flexDirection "row"}
-         [:> ink/Text {:color "gray"} (common/pad-right "DO host" 10)]
-         [:> ink/Text {:color "white"} digitalocean-host]])
       [:> ink/Box {:flexDirection "row"}
        [:> ink/Text {:color "gray"} (common/pad-right "Synced" 10)]
        [:> ink/Text {:color "white"} (or (common/time-ago last-sync) "never")]]]
