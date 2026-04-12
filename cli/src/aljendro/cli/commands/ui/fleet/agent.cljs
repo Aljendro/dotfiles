@@ -83,7 +83,7 @@
     (-> (tmux/kill-window! id)
         (.then (fn [_]
                  (case env
-                   :lima         (remote/lima-stop! lima-name)
+                   :lima         (remote/lima-delete! lima-name)
                    :digitalocean (do (remote/delete-ssh-config! id)
                                      (remote/digitalocean-delete! digitalocean-name))
                    nil)))

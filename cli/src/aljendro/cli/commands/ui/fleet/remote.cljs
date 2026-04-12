@@ -69,8 +69,9 @@
                     " " dotfiles-install-str
                     " && limactl restart " vm-name)))
 
-(defn lima-stop! [vm-name]
-  (state/exec! (str "limactl stop " vm-name " 2>/dev/null || true")))
+(defn lima-delete! [vm-name]
+  (-> (state/exec! (str "limactl stop " vm-name " 2>/dev/null || true"))
+      (.then #(state/exec! (str "limactl delete " vm-name " 2>/dev/null || true")))))
 
 (defn rsync-to-lima! [vm-name branch]
   (rsync-push! (str "lima-" vm-name) (worktree/worktree-path branch)))
