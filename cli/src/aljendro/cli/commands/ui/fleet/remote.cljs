@@ -5,9 +5,10 @@
             [aljendro.cli.commands.ui.fleet.state :as state]
             [aljendro.cli.commands.ui.fleet.worktree :as worktree]))
 
-(def dotfiles-install-str (js/JSON.stringify
-                           "cd ~ && git clone https://github.com/aljendro/dotfiles-vm.git dotfiles &&"
-                           " cd ~/dotfiles && ansible-playbook install.yml"))
+(def dotfiles-install-str
+  (js/JSON.stringify
+   (str "cd ~ && git clone https://github.com/aljendro/dotfiles-vm.git dotfiles && "
+        "cd ~/dotfiles && ansible-playbook install.yml")))
 
 ;; ── SSH config helpers ───────────────────────────────────────────────────────
 ;; The user's ~/.ssh/config includes `Include ~/.fleet/*/ssh.config`, so each
