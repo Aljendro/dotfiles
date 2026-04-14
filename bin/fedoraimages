@@ -1,0 +1,12 @@
+#!/bin/bash
+
+aws ec2 describe-images --profile aljendro | jq -c '
+  .Images[] |
+  { Description, ImageId, Architecture, ImageType, Name, DeprecationTime } |
+  select(
+    ((.Architecture // "") == "arm64") and
+    ((.Description // "") | ascii_downcase | contains("fedora")) and
+    ((.Description // "") | ascii_downcase | contains("coreos") | not) and
+    ((.Description // "") | ascii_downcase | contains("prerelease") | not)
+  )
+' | grep -Eiv "\.202(4|5|6)\d{4}\." | sort -r
