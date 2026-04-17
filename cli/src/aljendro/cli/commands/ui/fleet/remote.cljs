@@ -2,6 +2,7 @@
   (:require ["fs" :as fs]
             ["os" :as os]
             ["path" :as path]
+            [clojure.string :as str]
             [aljendro.cli.commands.ui.fleet.state :as state]
             [aljendro.cli.commands.ui.fleet.worktree :as worktree]))
 
@@ -65,9 +66,22 @@
                       ca-flag " -y template:fedora 2>/dev/null || true"))))
 
 (defn lima-provision! [vm-name]
-  (state/exec! (str "ssh lima-" vm-name
-                    " " dotfiles-install-str
-                    " && limactl restart " vm-name)))
+  (let [copy-dirs-files (.. js/process -env -FLEET_COPY_DIRS_FILES)
+        home            (os/homedir)
+        ssh-host        (str "lima-" vm-name)
+        scp-cmds        (when (seq copy-dirs-files)
+                          (->> (.split copy-dirs-files ":")
+                               (map (fn [p]
+                                      (let [rel (.replace p (str home "/") "")]
+                                        (str "ssh " ssh-host
+                                             " 'mkdir -p $(dirname ~/" rel ")'"
+                                             " && scp -r " (js/JSON.stringify p)
+                                             " " ssh-host ":~/" rel))))
+                               (str/join " && ")))]
+    (state/exec! (str (when scp-cmds (str scp-cmds " && "))
+                      "ssh " ssh-host
+                      " " dotfiles-install-str
+                      " && limactl restart " vm-name))))
 
 (defn lima-delete! [vm-name]
   (-> (state/exec! (str "limactl stop " vm-name " 2>/dev/null || true"))
