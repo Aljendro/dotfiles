@@ -20,7 +20,7 @@
 (defn init-runtime! []
   (let [session (.trim (.toString (.execSync cp "tmux display-message -p '#S'")))
         root    (.trim (.toString (.execSync cp "tmux display-message -p '#{session_path}'")))
-        wt-base (path/join (path/dirname root) ".worktrees" (path/basename root))]
+        wt-base (path/join root ".worktrees")]
     (reset! runtime {:tmux-session      session
                      :tmux-session-root root
                      :worktree-base     wt-base})))
