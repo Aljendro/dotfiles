@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf ~/.ssh/ephemeral.pub ~/.ssh/ephemeral
+ssh-keygen -t ed25519 -f ~/.ssh/ephemeral -V +1d
+cat ~/.ssh/ephemeral.pub | pbcopy
