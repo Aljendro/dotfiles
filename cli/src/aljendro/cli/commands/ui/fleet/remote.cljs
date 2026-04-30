@@ -13,17 +13,17 @@
 
 ;; ── SSH config helpers ───────────────────────────────────────────────────────
 ;; The user's ~/.ssh/config includes `Include ~/.fleet/*/ssh.config`, so each
-;; agent gets its own directory under ~/.fleet with a single ssh.config entry
+;; remote gets its own directory under ~/.fleet with a single ssh.config entry
 ;; pointing at the ephemeral key.
 
-(defn- fleet-dir [agent-id]
-  (path/join (os/homedir) ".fleet" agent-id))
+(defn- fleet-dir [remote-id]
+  (path/join (os/homedir) ".fleet" remote-id))
 
-(defn- ssh-config-path [agent-id]
-  (path/join (fleet-dir agent-id) "ssh.config"))
+(defn- ssh-config-path [remote-id]
+  (path/join (fleet-dir remote-id) "ssh.config"))
 
-(defn write-ssh-config! [agent-id host-alias hostname user]
-  (let [dir     (fleet-dir agent-id)
+(defn write-ssh-config! [remote-id host-alias hostname user]
+  (let [dir     (fleet-dir remote-id)
         key     (path/join (os/homedir) ".ssh" "ephemeral")
         entry   (str "Host " host-alias "\n"
                      "  HostName " hostname "\n"
@@ -33,10 +33,10 @@
                      "  StrictHostKeyChecking accept-new\n"
                      "  UserKnownHostsFile " (path/join dir "known_hosts") "\n")]
     (.mkdirSync fs dir #js {:recursive true})
-    (.writeFileSync fs (ssh-config-path agent-id) entry)))
+    (.writeFileSync fs (ssh-config-path remote-id) entry)))
 
-(defn delete-ssh-config! [agent-id]
-  (let [dir (fleet-dir agent-id)]
+(defn delete-ssh-config! [remote-id]
+  (let [dir (fleet-dir remote-id)]
     (when (.existsSync fs dir)
       (.rmSync fs dir #js {:recursive true :force true}))))
 
@@ -95,7 +95,7 @@
 
 ;; ── DigitalOcean ─────────────────────────────────────────────────────────────
 
-(defn digitalocean-start! [agent-id droplet-name]
+(defn digitalocean-start! [remote-id droplet-name]
   ;; Creates a droplet and returns its public IP once active.
   ;; Uses the first registered SSH key and sensible defaults.
   (let [droplet-id (atom nil)
@@ -114,9 +114,11 @@
                  (let [[id-str ipv4] (-> out .trim (.split #"\s+"))]
                    (reset! droplet-id id-str)
                    (reset! droplet-ipv4 ipv4))))
-        (.then #(write-ssh-config! agent-id droplet-name @droplet-ipv4 "root"))
+        (.then #(write-ssh-config! remote-id droplet-name @droplet-ipv4 "root"))
         (.then #(state/exec! (str "ssh " droplet-name " " (js/JSON.stringify "cloud-init status --wait")
-                                  " && doctl compute droplet-action reboot " @droplet-id " --wait"))))))
+                                  " && doctl compute droplet-action reboot " @droplet-id " --wait")
+                             {:retries  1
+                              :delay-ms 1000})))))
 
 (defn digitalocean-provision! [droplet-name]
   (-> (state/exec! (str "ssh " droplet-name " " dotfiles-install-str))

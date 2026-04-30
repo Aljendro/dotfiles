@@ -17,7 +17,7 @@
      {:desc "Run the demo command"
       :run  demo/run}
      "fleet"
-     {:desc "Manage Claude Code instances across worktrees and environments"
+     {:desc "Manage remote instances across worktrees"
       :run  fleet/run}}}
    "now"
    {:desc "Prints the current ISO 8601 timestamp"

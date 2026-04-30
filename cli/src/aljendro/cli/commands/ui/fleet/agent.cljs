@@ -6,89 +6,89 @@
 
 (defn gen-id [] (str "a" (mod (.now js/Date) 99999)))
 
-(defn update-agent! [id f]
-  (swap! state/app-state update :agents (fn [agents] (mapv #(if (= (:id %) id) (f %) %) agents))))
+(defn update-remote! [id f]
+  (swap! state/app-state update :remotes (fn [remotes] (mapv #(if (= (:id %) id) (f %) %) remotes))))
 
-(defn start-agent! [agent]
-  (let [{:keys [id branch env lima-name digitalocean-name]} agent
+(defn start-remote! [remote]
+  (let [{:keys [id branch remote-type lima-name digitalocean-name]} remote
         wt-path (worktree/worktree-path branch)]
     (-> (tmux/ensure-session!)
         (.then #(worktree/create-worktree! branch))
         (.then (fn [_]
-                 (case env
+                 (case remote-type
                    :lima (-> (remote/lima-start! lima-name wt-path)
                              (.then #(remote/rsync-to-lima! lima-name branch)))
                    :digitalocean (-> (remote/digitalocean-start! id digitalocean-name)
                                      (.then #(remote/rsync-to-digitalocean! digitalocean-name branch)))
                    nil)))
         (.then (fn [_]
-                 (case env
+                 (case remote-type
                    :lima  (remote/lima-provision! lima-name)
                    :digitalocean  (remote/digitalocean-provision! digitalocean-name)
                    nil)))
         (.then #(tmux/new-window! id))
         (.then (fn [_]
-                 (case env
+                 (case remote-type
                    :local        (tmux/send-keys! id (str "cd " wt-path))
                    :lima         (tmux/send-keys! id (str "kitten ssh lima-" lima-name))
                    :digitalocean (tmux/send-keys! id (str "kitten ssh -t " digitalocean-name))
                    nil)))
         (.then (fn [_]
-                 (update-agent! id #(assoc % :status :running))
-                 (state/log! (str "Started agent " id " [" branch "] on " (name env)))))
+                 (update-remote! id #(assoc % :status :running))
+                 (state/log! (str "Started remote " id " [" branch "] on " (name remote-type)))))
         (.catch (fn [err]
-                  (update-agent! id #(assoc % :status :error))
+                  (update-remote! id #(assoc % :status :error))
                   (state/set-error! (str "Start failed: " err)))))))
 
-(defn push-agent! [agent]
-  (let [{:keys [id env lima-name digitalocean-name branch]} agent
-        push-fn (case env
+(defn push-remote! [remote]
+  (let [{:keys [id remote-type lima-name digitalocean-name branch]} remote
+        push-fn (case remote-type
                   :lima         #(remote/rsync-to-lima! lima-name branch)
                   :digitalocean #(remote/rsync-to-digitalocean! digitalocean-name branch)
                   nil)]
     (when push-fn
-      (update-agent! id #(assoc % :status :pushing))
+      (update-remote! id #(assoc % :status :pushing))
       (-> (push-fn)
           (.then (fn [_]
-                   (update-agent! id #(assoc % :status :running
-                                             :last-sync (.toISOString (js/Date.))))
-                   (state/log! (str "Pushed " id " to " (name env)))))
+                   (update-remote! id #(assoc % :status :running
+                                              :last-sync (.toISOString (js/Date.))))
+                   (state/log! (str "Pushed " id " to " (name remote-type)))))
           (.catch (fn [err]
-                    (update-agent! id #(assoc % :status :error))
+                    (update-remote! id #(assoc % :status :error))
                     (state/set-error! (str "Push failed: " err))))))))
 
-(defn pull-agent! [agent]
-  (let [{:keys [id env lima-name digitalocean-name branch]} agent
-        pull-fn (case env
+(defn pull-remote! [remote]
+  (let [{:keys [id remote-type lima-name digitalocean-name branch]} remote
+        pull-fn (case remote-type
                   :lima         #(remote/rsync-from-lima! lima-name branch)
                   :digitalocean #(remote/rsync-from-digitalocean! digitalocean-name branch)
                   nil)]
     (when pull-fn
-      (update-agent! id #(assoc % :status :pulling))
+      (update-remote! id #(assoc % :status :pulling))
       (-> (pull-fn)
           (.then (fn [_]
-                   (update-agent! id #(assoc % :status :running
-                                             :last-sync (.toISOString (js/Date.))))
-                   (state/log! (str "Pulled " id " from " (name env)))))
+                   (update-remote! id #(assoc % :status :running
+                                              :last-sync (.toISOString (js/Date.))))
+                   (state/log! (str "Pulled " id " from " (name remote-type)))))
           (.catch (fn [err]
-                    (update-agent! id #(assoc % :status :error))
+                    (update-remote! id #(assoc % :status :error))
                     (state/set-error! (str "Pull failed: " err))))))))
 
-(defn delete-agent! [agent]
-  (let [{:keys [id env lima-name digitalocean-name]} agent]
+(defn delete-remote! [remote]
+  (let [{:keys [id remote-type lima-name digitalocean-name]} remote]
     (-> (tmux/kill-window! id)
         (.then (fn [_]
-                 (case env
+                 (case remote-type
                    :lima         (remote/lima-delete! lima-name)
                    :digitalocean (do (remote/delete-ssh-config! id)
                                      (remote/digitalocean-delete! digitalocean-name))
                    nil)))
         (.then (fn [_]
-                 (swap! state/app-state update :agents #(filterv (fn [a] (not= (:id a) id)) %))
+                 (swap! state/app-state update :remotes #(filterv (fn [a] (not= (:id a) id)) %))
                  (swap! state/app-state update :selected #(max 0 (dec %)))
-                 (state/log! (str "Deleted agent " id))))
+                 (state/log! (str "Deleted remote " id))))
         (.catch (fn [err] (state/set-error! (str "Delete failed: " err)))))))
 
-(defn attach-agent! [agent]
-  (-> (tmux/switch-to-window! (:id agent))
+(defn attach-remote! [remote]
+  (-> (tmux/switch-to-window! (:id remote))
       (.catch (fn [err] (state/set-error! (str "Attach failed: " err))))))

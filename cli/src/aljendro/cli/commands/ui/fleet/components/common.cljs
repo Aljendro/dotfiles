@@ -26,8 +26,8 @@
     :error    "ERROR   "
     "IDLE    "))
 
-(defn env-color [env]
-  (case env :local "white" :lima "cyan" :digitalocean "blue" "gray"))
+(defn remote-type-color [remote-type]
+  (case remote-type :local "white" :lima "cyan" :digitalocean "blue" "gray"))
 
 (defn time-ago [iso-str]
   (when iso-str
@@ -38,7 +38,7 @@
             (< mins 60) (str mins "m ago")
             :else       (str (js/Math.floor (/ mins 60)) "h ago")))))
 
-(def envs [:local :lima :digitalocean])
+(def remote-types [:local :lima :digitalocean])
 
 ;; ── TextInput ────────────────────────────────────────────────────────────────
 
@@ -47,17 +47,17 @@
     [:> ink/Text {:color "white"} (str value "\u258c")]
     [:> ink/Text {:color "gray"} (str (or placeholder "") "\u258c")]))
 
-;; ── AgentRow ─────────────────────────────────────────────────────────────────
+;; ── RemoteRow ─────────────────────────────────────────────────────────────────
 
-(defn AgentRow [agent selected?]
-  (let [{:keys [branch env status last-sync]} agent]
+(defn RemoteRow [remote selected?]
+  (let [{:keys [branch remote-type status last-sync]} remote]
     [:> ink/Box {:flexDirection "row"}
      [:> ink/Text {:color (if selected? "cyan" "gray")}
       (if selected? "▶ " "  ")]
      [:> ink/Text {:color "white"}
       (pad-right branch 22)]
-     [:> ink/Text {:color (env-color env)}
-      (pad-right (str " " (name env)) 8)]
+     [:> ink/Text {:color (remote-type-color remote-type)}
+      (pad-right (str " " (name remote-type)) 8)]
      [:> ink/Text {:color (status-color status) :bold selected?}
       (str " " (status-label status) " ")]
      [:> ink/Text {:color "gray"}
