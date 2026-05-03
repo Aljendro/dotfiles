@@ -1,7 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.components.detail-view
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
+            [aljendro.cli.commands.ui.fleet.remote :as remote]
             [aljendro.cli.commands.ui.fleet.worktree :as worktree]
             [aljendro.cli.commands.ui.fleet.components.common :as common]))
 
@@ -15,13 +15,13 @@
       (swap! state/app-state assoc :view :list)
 
       (and ag (= input "a"))
-      (do (state/clear-error!) (agent/attach-remote! ag))
+      (do (state/clear-error!) (remote/attach-remote! ag))
 
       (and ag (= input "P"))
-      (do (state/clear-error!) (agent/push-remote! ag))
+      (do (state/clear-error!) (remote/push-remote! ag))
 
       (and ag (= input "p"))
-      (do (state/clear-error!) (agent/pull-remote! ag))
+      (do (state/clear-error!) (remote/pull-remote! ag))
 
       (and ag (= input "d"))
       (swap! state/app-state assoc :view :confirm-delete :error nil))))

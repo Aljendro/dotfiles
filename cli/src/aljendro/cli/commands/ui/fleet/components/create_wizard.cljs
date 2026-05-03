@@ -2,7 +2,6 @@
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.remote :as remote]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
             [aljendro.cli.commands.ui.fleet.components.common :as common]))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
@@ -29,7 +28,7 @@
 
         :confirm
         (let [{:keys [branch remote-type remote-name]} @state/create-state
-              new-remote (remote/create-remote {:id          (agent/gen-id)
+              new-remote (remote/create-remote {:id          (remote/gen-id)
                                                 :branch      branch
                                                 :remote-type remote-type
                                                 :remote-name remote-name
@@ -41,7 +40,7 @@
                                        (assoc :view :list :error nil))))
           (reset! state/create-state {:step :branch :branch "" :remote-type :local
                                       :remote-type-idx 0 :remote-name "dev"})
-          (agent/start-remote! new-remote))
+          (remote/start-remote! new-remote))
         nil)
 
       ;; Remote type selection with arrows

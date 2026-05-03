@@ -1,7 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.components.app
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
+            [aljendro.cli.commands.ui.fleet.remote :as remote]
             [aljendro.cli.commands.ui.fleet.components.common :as common]
             [aljendro.cli.commands.ui.fleet.components.create-wizard :as create-wizard]
             [aljendro.cli.commands.ui.fleet.components.detail-view :as detail-view]
@@ -34,17 +34,17 @@
       (= input "a")
       (when-let [ag (nth remotes selected nil)]
         (state/clear-error!)
-        (agent/attach-remote! ag))
+        (remote/attach-remote! ag))
 
       (= input "P")
       (when-let [ag (nth remotes selected nil)]
         (state/clear-error!)
-        (agent/push-remote! ag))
+        (remote/push-remote! ag))
 
       (= input "p")
       (when-let [ag (nth remotes selected nil)]
         (state/clear-error!)
-        (agent/pull-remote! ag))
+        (remote/pull-remote! ag))
 
       (= input "d")
       (when (pos? total)

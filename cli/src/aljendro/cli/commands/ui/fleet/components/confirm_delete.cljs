@@ -1,7 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.components.confirm-delete
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
+            [aljendro.cli.commands.ui.fleet.remote :as remote]
             [aljendro.cli.commands.ui.fleet.components.common :as common]))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
@@ -16,7 +16,7 @@
       (.-return key)
       (when ag
         (state/clear-error!)
-        (agent/delete-remote! ag)
+        (remote/delete-remote! ag)
         (swap! state/app-state assoc :view :list)))))
 
 ;; ── Component ───────────────────────────────────────────────────────────────
