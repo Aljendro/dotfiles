@@ -1,7 +1,9 @@
 (ns aljendro.cli.commands.ui.fleet.tmux
   (:require
+   [aljendro.cli.commands.ui.fleet.common :as common]
    [aljendro.cli.commands.ui.fleet.state :as state]
-   [aljendro.cli.commands.ui.fleet.common :as common]))
+   ;
+   ))
 
 (defn ensure-session! []
   (common/exec! (str "tmux has-session -t " (state/tmux-session)

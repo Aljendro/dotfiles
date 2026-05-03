@@ -1,8 +1,10 @@
 (ns aljendro.cli.commands.ui.fleet.remotes.local
   (:require
+   [aljendro.cli.commands.ui.fleet.protocols.remote :as protocols-remote]
    [aljendro.cli.commands.ui.fleet.tmux :as tmux]
    [aljendro.cli.commands.ui.fleet.worktree :as worktree]
-   [aljendro.cli.commands.ui.fleet.protocols.remote :as protocols-remote]))
+   ;
+   ))
 
 (defrecord LocalRemote [id branch remote-type remote-name status last-sync]
   protocols-remote/Remote

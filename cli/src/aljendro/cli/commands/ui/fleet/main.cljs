@@ -1,14 +1,15 @@
 (ns aljendro.cli.commands.ui.fleet.main
-  (:require ["ink" :as ink]
-            [reagent.core :as r]
-            [aljendro.cli.commands.ui.fleet.remote :as remote]
-            [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.components.app :as app]
-            [aljendro.cli.commands.ui.fleet.components.confirm-delete :as confirm-delete]
-            [aljendro.cli.commands.ui.fleet.components.create-wizard :as create-wizard]
-            [aljendro.cli.commands.ui.fleet.components.detail-view :as detail-view]))
-
-;; ── Root ─────────────────────────────────────────────────────────────────────
+  (:require
+   ["ink" :as ink]
+   [aljendro.cli.commands.ui.fleet.components.app :as components-app]
+   [aljendro.cli.commands.ui.fleet.components.confirm-delete :as components-confirm-delete]
+   [aljendro.cli.commands.ui.fleet.components.create-wizard :as components-create-wizard]
+   [aljendro.cli.commands.ui.fleet.components.detail-view :as components-detail-view]
+   [aljendro.cli.commands.ui.fleet.remote :as remote]
+   [aljendro.cli.commands.ui.fleet.state :as state]
+   [reagent.core :as r]
+   ;
+   ))
 
 (defn Base []
   (let [stdout (.-stdout (ink/useStdout))
@@ -17,11 +18,11 @@
         _      (ink/useInput
                 (fn [input key]
                   (case (:view @state/app-state)
-                    :create         (create-wizard/handle-input input key)
-                    :detail         (detail-view/handle-input input key)
-                    :confirm-delete (confirm-delete/handle-input input key)
-                    (app/handle-input input key))))]
-    [:f> app/App rows cols]))
+                    :create         (components-create-wizard/handle-input input key)
+                    :detail         (components-detail-view/handle-input input key)
+                    :confirm-delete (components-confirm-delete/handle-input input key)
+                    (components-app/handle-input input key))))]
+    [:f> components-app/App rows cols]))
 
 (defn root []
   [:f> Base])

@@ -1,12 +1,14 @@
 (ns aljendro.cli.commands.ui.fleet.remotes.lima
   (:require
    ["os" :as os]
-   [clojure.string :as str]
-   [aljendro.cli.commands.ui.fleet.tmux :as tmux]
    [aljendro.cli.commands.ui.fleet.common :as common]
+   [aljendro.cli.commands.ui.fleet.protocols.remote :as protocols-remote]
    [aljendro.cli.commands.ui.fleet.remotes.common :as remotes-common]
+   [aljendro.cli.commands.ui.fleet.tmux :as tmux]
    [aljendro.cli.commands.ui.fleet.worktree :as worktree]
-   [aljendro.cli.commands.ui.fleet.protocols.remote :as protocols-remote]))
+   [clojure.string :as str]
+   ;
+   ))
 
 (defrecord LimaRemote [id branch remote-type remote-name status last-sync]
   protocols-remote/Remote

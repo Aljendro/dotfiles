@@ -1,21 +1,23 @@
 (ns aljendro.cli.commands.ui.fleet.remote
   (:require
-   [aljendro.cli.commands.ui.fleet.remotes.local :as local-remote]
-   [aljendro.cli.commands.ui.fleet.remotes.lima :as lima-remote]
-   [aljendro.cli.commands.ui.fleet.remotes.digitalocean :as digitalocean-remote]
    [aljendro.cli.commands.ui.fleet.protocols.remote :as protocols-remote]
+   [aljendro.cli.commands.ui.fleet.remotes.digitalocean :as remotes-digitalocean]
+   [aljendro.cli.commands.ui.fleet.remotes.lima :as remotes-lima]
+   [aljendro.cli.commands.ui.fleet.remotes.local :as remotes-local]
    [aljendro.cli.commands.ui.fleet.state :as state]
    [aljendro.cli.commands.ui.fleet.tmux :as tmux]
-   [aljendro.cli.commands.ui.fleet.worktree :as worktree]))
+   [aljendro.cli.commands.ui.fleet.worktree :as worktree]
+   ;
+   ))
 
 (defn create-remote [remote-map]
   (let [{:keys [id branch remote-type remote-name status last-sync]} remote-map
         remote-type (keyword remote-type)
         status (if (keyword? status) status (keyword (or status "stopped")))]
     (case remote-type
-      :local        (local-remote/->LocalRemote id branch remote-type remote-name status last-sync)
-      :lima         (lima-remote/->LimaRemote id branch remote-type remote-name status last-sync)
-      :digitalocean (digitalocean-remote/->DigitalOceanRemote id branch remote-type remote-name status last-sync)
+      :local        (remotes-local/->LocalRemote id branch remote-type remote-name status last-sync)
+      :lima         (remotes-lima/->LimaRemote id branch remote-type remote-name status last-sync)
+      :digitalocean (remotes-digitalocean/->DigitalOceanRemote id branch remote-type remote-name status last-sync)
       nil)))
 
 (defn gen-id [] (str "a" (mod (.now js/Date) 99999)))

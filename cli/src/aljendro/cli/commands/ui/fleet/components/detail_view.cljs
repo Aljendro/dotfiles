@@ -1,9 +1,12 @@
 (ns aljendro.cli.commands.ui.fleet.components.detail-view
-  (:require ["ink" :as ink]
-            [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.remote :as remote]
-            [aljendro.cli.commands.ui.fleet.worktree :as worktree]
-            [aljendro.cli.commands.ui.fleet.components.common :as common]))
+  (:require
+   ["ink" :as ink]
+   [aljendro.cli.commands.ui.fleet.components.common :as components-common]
+   [aljendro.cli.commands.ui.fleet.remote :as remote]
+   [aljendro.cli.commands.ui.fleet.state :as state]
+   [aljendro.cli.commands.ui.fleet.worktree :as worktree]
+   ;
+   ))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
 
@@ -36,28 +39,28 @@
       [:> ink/Text {:bold true :color "cyan"} "Remote Detail"]]
      [:> ink/Box {:flexDirection "column" :marginBottom 1}
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Branch"  10)]
+       [:> ink/Text {:color "gray"} (components-common/pad-right "Branch"  10)]
        [:> ink/Text {:color "white"} branch]]
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Type"     10)]
-       [:> ink/Text {:color (common/remote-type-color remote-type)} (name remote-type)]]
+       [:> ink/Text {:color "gray"} (components-common/pad-right "Type"     10)]
+       [:> ink/Text {:color (components-common/remote-type-color remote-type)} (name remote-type)]]
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Status"  10)]
-       [:> ink/Text {:color (common/status-color status)} (name status)]]
+       [:> ink/Text {:color "gray"} (components-common/pad-right "Status"  10)]
+       [:> ink/Text {:color (components-common/status-color status)} (name status)]]
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Worktree" 10)]
+       [:> ink/Text {:color "gray"} (components-common/pad-right "Worktree" 10)]
        [:> ink/Text {:color "gray"} (worktree/worktree-path branch)]]
       (when lima-name
         [:> ink/Box {:flexDirection "row"}
-         [:> ink/Text {:color "gray"} (common/pad-right "VM name" 10)]
+         [:> ink/Text {:color "gray"} (components-common/pad-right "VM name" 10)]
          [:> ink/Text {:color "white"} lima-name]])
       (when digitalocean-name
         [:> ink/Box {:flexDirection "row"}
-         [:> ink/Text {:color "gray"} (common/pad-right "Droplet" 10)]
+         [:> ink/Text {:color "gray"} (components-common/pad-right "Droplet" 10)]
          [:> ink/Text {:color "white"} digitalocean-name]])
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Synced" 10)]
-       [:> ink/Text {:color "white"} (or (common/time-ago last-sync) "never")]]]
+       [:> ink/Text {:color "gray"} (components-common/pad-right "Synced" 10)]
+       [:> ink/Text {:color "white"} (or (components-common/time-ago last-sync) "never")]]]
      [:> ink/Box {}
       [:> ink/Text {:color "gray"} sep]]
      [:> ink/Box {:marginTop 1}

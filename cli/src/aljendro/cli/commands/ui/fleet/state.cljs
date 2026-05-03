@@ -1,9 +1,12 @@
 (ns aljendro.cli.commands.ui.fleet.state
-  (:require ["child_process" :as cp]
-            ["fs" :as fs]
-            ["os" :as os]
-            ["path" :as path]
-            [reagent.core :as r]))
+  (:require
+   ["child_process" :as child-process]
+   ["fs" :as fs]
+   ["os" :as os]
+   ["path" :as path]
+   [reagent.core :as r]
+   ;
+   ))
 
 ;; ── Runtime Constants ────────────────────────────────────────────────────────
 
@@ -18,8 +21,8 @@
 (defn worktree-base []     (:worktree-base @runtime))
 
 (defn init-runtime! []
-  (let [session (.trim (.toString (.execSync cp "tmux display-message -p '#S'")))
-        root    (.trim (.toString (.execSync cp "tmux display-message -p '#{session_path}'")))
+  (let [session (.trim (.toString (.execSync child-process "tmux display-message -p '#S'")))
+        root    (.trim (.toString (.execSync child-process "tmux display-message -p '#{session_path}'")))
         wt-base (path/join root ".worktrees")]
     (reset! runtime {:tmux-session      session
                      :tmux-session-root root

@@ -1,8 +1,11 @@
 (ns aljendro.cli.commands.ui.fleet.components.confirm-delete
-  (:require ["ink" :as ink]
-            [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.remote :as remote]
-            [aljendro.cli.commands.ui.fleet.components.common :as common]))
+  (:require
+   ["ink" :as ink]
+   [aljendro.cli.commands.ui.fleet.components.common :as components-common]
+   [aljendro.cli.commands.ui.fleet.remote :as remote]
+   [aljendro.cli.commands.ui.fleet.state :as state]
+   ;
+   ))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
 
@@ -32,7 +35,7 @@
        [:> ink/Text {:color "white"} branch]]
       [:> ink/Box {:flexDirection "row"}
        [:> ink/Text {:color "gray"} "Type:    "]
-       [:> ink/Text {:color (common/remote-type-color remote-type)} (name remote-type)]]]
+       [:> ink/Text {:color (components-common/remote-type-color remote-type)} (name remote-type)]]]
      [:> ink/Text {:color "gray" :marginTop 1}
       "This will kill the tmux window and remove the worktree."]
      [:> ink/Box {:marginTop 1}

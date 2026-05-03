@@ -1,8 +1,11 @@
 (ns aljendro.cli.commands.ui.fleet.components.create-wizard
-  (:require ["ink" :as ink]
-            [aljendro.cli.commands.ui.fleet.remote :as remote]
-            [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.components.common :as common]))
+  (:require
+   ["ink" :as ink]
+   [aljendro.cli.commands.ui.fleet.components.common :as components-common]
+   [aljendro.cli.commands.ui.fleet.remote :as remote]
+   [aljendro.cli.commands.ui.fleet.state :as state]
+   ;
+   ))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
 
@@ -45,12 +48,12 @@
 
       ;; Remote type selection with arrows
       (and (= step :remote-type) (.-leftArrow key))
-      (let [i (mod (dec remote-type-idx) (count common/remote-types))]
-        (swap! state/create-state assoc :remote-type (nth common/remote-types i) :remote-type-idx i))
+      (let [i (mod (dec remote-type-idx) (count components-common/remote-types))]
+        (swap! state/create-state assoc :remote-type (nth components-common/remote-types i) :remote-type-idx i))
 
       (and (= step :remote-type) (.-rightArrow key))
-      (let [i (mod (inc remote-type-idx) (count common/remote-types))]
-        (swap! state/create-state assoc :remote-type (nth common/remote-types i) :remote-type-idx i))
+      (let [i (mod (inc remote-type-idx) (count components-common/remote-types))]
+        (swap! state/create-state assoc :remote-type (nth components-common/remote-types i) :remote-type-idx i))
 
       ;; Backspace
       (or (.-backspace key) (.-delete key))
@@ -79,7 +82,7 @@
       [:> ink/Box {:flexDirection "row" :marginBottom 1}
        [:> ink/Text {:color (if (= step :branch) "cyan" "gray")} "Branch:      "]
        (if (= step :branch)
-         [common/TextInput {:value branch :placeholder "feature/my-branch"}]
+         [components-common/TextInput {:value branch :placeholder "feature/my-branch"}]
          [:> ink/Text {:color "white"} branch])]
 
       ;; Remote Type
@@ -88,15 +91,15 @@
        (into [:> ink/Box {:flexDirection "row"}]
              (map (fn [e]
                     [:> ink/Box {:key (name e) :marginRight 2}
-                     [:> ink/Text {:color (if (= e remote-type) (common/remote-type-color e) "gray")}
+                     [:> ink/Text {:color (if (= e remote-type) (components-common/remote-type-color e) "gray")}
                       (str (if (= e remote-type) "◉ " "○ ") (name e))]])
-                  common/remote-types))]
+                  components-common/remote-types))]
 
       (when (not= step :branch)
         [:> ink/Box {:flexDirection "row" :marginBottom 1}
          [:> ink/Text {:color (if (= step :remote-name) "cyan" "gray")} "Name:     "]
          (if (= step :remote-name)
-           [common/TextInput {:value remote-name :placeholder "dev"}]
+           [components-common/TextInput {:value remote-name :placeholder "dev"}]
            [:> ink/Text {:color "white"} remote-name])])]
 
      [:> ink/Box {:marginTop 1}

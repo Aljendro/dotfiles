@@ -1,11 +1,14 @@
 (ns aljendro.cli.commands.ui.fleet.components.app
-  (:require ["ink" :as ink]
-            [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.remote :as remote]
-            [aljendro.cli.commands.ui.fleet.components.common :as common]
-            [aljendro.cli.commands.ui.fleet.components.create-wizard :as create-wizard]
-            [aljendro.cli.commands.ui.fleet.components.detail-view :as detail-view]
-            [aljendro.cli.commands.ui.fleet.components.confirm-delete :as confirm-delete]))
+  (:require
+   ["ink" :as ink]
+   [aljendro.cli.commands.ui.fleet.components.common :as components-common]
+   [aljendro.cli.commands.ui.fleet.components.confirm-delete :as components-confirm-delete]
+   [aljendro.cli.commands.ui.fleet.components.create-wizard :as components-create-wizard]
+   [aljendro.cli.commands.ui.fleet.components.detail-view :as components-detail-view]
+   [aljendro.cli.commands.ui.fleet.remote :as remote]
+   [aljendro.cli.commands.ui.fleet.state :as state]
+   ;
+   ))
 
 ;; ── Input Handler ───────────────────────────────────────────────────────────
 
@@ -78,7 +81,7 @@
        [:> ink/Box {:flexDirection "column" :flexGrow 1}
         [:> ink/Box {:paddingX 1}
          [:> ink/Text {:bold true :color "gray"}
-          (str "  " (common/pad-right "BRANCH" 22) (common/pad-right " REMOTE TYPE" 8)
+          (str "  " (components-common/pad-right "BRANCH" 22) (components-common/pad-right " REMOTE TYPE" 8)
                " STATUS     LAST SYNC")]]
         [:> ink/Box {}
          [:> ink/Text {:color "gray"} sep]]
@@ -87,7 +90,7 @@
            [:> ink/Text {:color "gray"} "No remotes. Press 'n' to create one."]]
           (into [:> ink/Box {:flexDirection "column"}]
                 (map-indexed
-                 (fn [i a] ^{:key (:id a)} [common/RemoteRow a (= i selected)])
+                 (fn [i a] ^{:key (:id a)} [components-common/RemoteRow a (= i selected)])
                  remotes)))
         [:> ink/Spacer]
         [:> ink/Box {:borderStyle "single" :borderColor "gray" :paddingX 1}
@@ -96,16 +99,16 @@
 
        :create
        [:> ink/Box {:flexDirection "column" :flexGrow 1 :paddingX 2 :paddingTop 1}
-        [create-wizard/CreateWizard]]
+        [components-create-wizard/CreateWizard]]
 
        :detail
        (when-let [remote (nth remotes selected nil)]
          [:> ink/Box {:flexDirection "column" :flexGrow 1}
-          [detail-view/DetailView remote cols]])
+          [components-detail-view/DetailView remote cols]])
 
        :confirm-delete
        (when-let [remote (nth remotes selected nil)]
          [:> ink/Box {:flexDirection "column" :flexGrow 1 :paddingX 2 :paddingTop 1}
-          [confirm-delete/ConfirmDelete remote]])
+          [components-confirm-delete/ConfirmDelete remote]])
 
        [:> ink/Text {:color "red"} "Unknown view"])]))
