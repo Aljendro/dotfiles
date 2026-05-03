@@ -33,12 +33,8 @@
       (.then #(protocols-remote/provision! remote))
       (.then #(tmux/new-window! (:id remote)))
       (.then #(protocols-remote/enter! remote))
-      (.then (fn [_]
-               (update-remote! (:id remote) #(assoc % :status :running))
-               (state/log! (str "Started remote "
-                                (:id remote)
-                                " [" (:id remote) "] on "
-                                (name (:remote-type remote))))))
+      (.then #(update-remote! (:id remote) (fn [r] (assoc r :status :running))))
+      (.then #(state/log! (str "Started remote " (:id remote) " on " (name (:remote-type remote)))))
       (.catch (fn [err]
                 (update-remote! (:id remote) #(assoc % :status :error))
                 (state/set-error! (str "Start failed: " err))))))
@@ -47,10 +43,8 @@
   (let [id (:id remote)]
     (update-remote! id #(assoc % :status :pushing))
     (-> (protocols-remote/rsync-to! remote)
-        (.then (fn [_]
-                 (update-remote! id #(assoc % :status :running
-                                            :last-sync (.toISOString (js/Date.))))
-                 (state/log! (str "Pushed " id " from " (name (:remote-type remote))))))
+        (.then #(update-remote! id (fn [r] (assoc r :status :running :last-sync (.toISOString (js/Date.))))))
+        (.then #(state/log! (str "Pushed from " id " to " (:remote-name remote))))
         (.catch (fn [err]
                   (update-remote! id #(assoc % :status :error))
                   (state/set-error! (str "Push failed: " err)))))))
@@ -59,10 +53,8 @@
   (let [id (:id remote)]
     (update-remote! id #(assoc % :status :pulling))
     (-> (protocols-remote/rsync-from! remote)
-        (.then (fn [_]
-                 (update-remote! id #(assoc % :status :running
-                                            :last-sync (.toISOString (js/Date.))))
-                 (state/log! (str "Pulled " id " from " (name (:remote-type remote))))))
+        (.then #(update-remote! id (fn [r] (assoc r :status :running :last-sync (.toISOString (js/Date.))))))
+        (.then #(state/log! (str "Pulled to " id " from " (:remote-name remote))))
         (.catch (fn [err]
                   (update-remote! id #(assoc % :status :error))
                   (state/set-error! (str "Pull failed: " err)))))))
@@ -73,8 +65,8 @@
         (.then #(protocols-remote/delete! remote))
         (.then (fn [_]
                  (swap! state/app-state update :remotes #(filterv (fn [r] (not= (:id r) id)) %))
-                 (swap! state/app-state update :selected #(max 0 (dec %)))
-                 (state/log! (str "Deleted remote " id))))
+                 (swap! state/app-state update :selected #(max 0 (dec %)))))
+        (.then #(state/log! (str "Deleted remote " id)))
         (.catch (fn [err] (state/set-error! (str "Delete failed: " err)))))))
 
 (defn attach-remote! [remote]
