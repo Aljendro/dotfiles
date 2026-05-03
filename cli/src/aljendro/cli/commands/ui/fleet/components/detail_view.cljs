@@ -1,7 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.components.detail-view
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent :as agent]
+            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
             [aljendro.cli.commands.ui.fleet.worktree :as worktree]
             [aljendro.cli.commands.ui.fleet.components.common :as common]))
 
@@ -39,7 +39,7 @@
        [:> ink/Text {:color "gray"} (common/pad-right "Branch"  10)]
        [:> ink/Text {:color "white"} branch]]
       [:> ink/Box {:flexDirection "row"}
-       [:> ink/Text {:color "gray"} (common/pad-right "Remote Type"     10)]
+       [:> ink/Text {:color "gray"} (common/pad-right "Type"     10)]
        [:> ink/Text {:color (common/remote-type-color remote-type)} (name remote-type)]]
       [:> ink/Box {:flexDirection "row"}
        [:> ink/Text {:color "gray"} (common/pad-right "Status"  10)]
