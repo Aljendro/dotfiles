@@ -10,50 +10,9 @@
    ;
    ))
 
-;; ── Input Handler ───────────────────────────────────────────────────────────
-
-(defn handle-input [input key]
-  (let [{:keys [remotes selected]} @state/app-state
-        total (count remotes)]
-    (cond
-      (= input "q") (js/process.exit 0)
-
-      (= input "n")
-      (do (reset! state/create-state {:step :branch :branch "" :remote-type :local
-                                      :remote-type-idx 0 :remote-name "dev"})
-          (swap! state/app-state assoc :view :create :error nil))
-
-      (.-upArrow key)
-      (swap! state/app-state update :selected #(max 0 (dec %)))
-
-      (.-downArrow key)
-      (when (pos? total)
-        (swap! state/app-state update :selected #(min (dec total) (inc %))))
-
-      (.-return key)
-      (when (pos? total)
-        (swap! state/app-state assoc :view :detail))
-
-      (= input "a")
-      (when-let [ag (nth remotes selected nil)]
-        (state/clear-error!)
-        (remote/attach-remote! ag))
-
-      (= input "P")
-      (when-let [ag (nth remotes selected nil)]
-        (state/clear-error!)
-        (remote/push-remote! ag))
-
-      (= input "p")
-      (when-let [ag (nth remotes selected nil)]
-        (state/clear-error!)
-        (remote/pull-remote! ag))
-
-      (= input "d")
-      (when (pos? total)
-        (swap! state/app-state assoc :view :confirm-delete :error nil)))))
-
-;; ── Component ───────────────────────────────────────────────────────────────
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Component ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn App [rows cols]
   (let [{:keys [remotes selected view error]} @state/app-state
@@ -112,3 +71,49 @@
           [components-confirm-delete/ConfirmDelete remote]])
 
        [:> ink/Text {:color "red"} "Unknown view"])]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;; Input Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn handle-input [input key]
+  (let [{:keys [remotes selected]} @state/app-state
+        total (count remotes)]
+    (cond
+      (= input "q") (js/process.exit 0)
+
+      (= input "n")
+      (do (reset! state/create-state {:step :branch :branch "" :remote-type :local
+                                      :remote-type-idx 0 :remote-name "dev"})
+          (swap! state/app-state assoc :view :create :error nil))
+
+      (.-upArrow key)
+      (swap! state/app-state update :selected #(max 0 (dec %)))
+
+      (.-downArrow key)
+      (when (pos? total)
+        (swap! state/app-state update :selected #(min (dec total) (inc %))))
+
+      (.-return key)
+      (when (pos? total)
+        (swap! state/app-state assoc :view :detail))
+
+      (= input "a")
+      (when-let [ag (nth remotes selected nil)]
+        (state/clear-error!)
+        (remote/attach-remote! ag))
+
+      (= input "P")
+      (when-let [ag (nth remotes selected nil)]
+        (state/clear-error!)
+        (remote/push-remote! ag))
+
+      (= input "p")
+      (when-let [ag (nth remotes selected nil)]
+        (state/clear-error!)
+        (remote/pull-remote! ag))
+
+      (= input "d")
+      (when (pos? total)
+        (swap! state/app-state assoc :view :confirm-delete :error nil)))))
+

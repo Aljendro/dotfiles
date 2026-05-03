@@ -22,3 +22,4 @@
   (common/exec! (str "cd " (js/JSON.stringify (state/tmux-session-root))
                      " && git worktree remove --force "
                      (js/JSON.stringify (worktree-path branch)) " 2>/dev/null || true")))
+

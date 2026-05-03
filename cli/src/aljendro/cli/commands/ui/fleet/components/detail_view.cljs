@@ -8,28 +8,9 @@
    ;
    ))
 
-;; ── Input Handler ───────────────────────────────────────────────────────────
-
-(defn handle-input [input key]
-  (let [{:keys [remotes selected]} @state/app-state
-        ag (nth remotes selected nil)]
-    (cond
-      (or (.-escape key) (= input "q"))
-      (swap! state/app-state assoc :view :list)
-
-      (and ag (= input "a"))
-      (do (state/clear-error!) (remote/attach-remote! ag))
-
-      (and ag (= input "P"))
-      (do (state/clear-error!) (remote/push-remote! ag))
-
-      (and ag (= input "p"))
-      (do (state/clear-error!) (remote/pull-remote! ag))
-
-      (and ag (= input "d"))
-      (swap! state/app-state assoc :view :confirm-delete :error nil))))
-
-;; ── Component ───────────────────────────────────────────────────────────────
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Component ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn DetailView [remote cols]
   (let [{:keys [branch remote-type status last-sync lima-name digitalocean-name]} remote
@@ -71,3 +52,27 @@
         nil)]
      [:> ink/Box {:marginTop 1}
       [:> ink/Text {:color "gray"} "a attach  P push  p pull  d delete  Esc back"]]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;; Input Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn handle-input [input key]
+  (let [{:keys [remotes selected]} @state/app-state
+        ag (nth remotes selected nil)]
+    (cond
+      (or (.-escape key) (= input "q"))
+      (swap! state/app-state assoc :view :list)
+
+      (and ag (= input "a"))
+      (do (state/clear-error!) (remote/attach-remote! ag))
+
+      (and ag (= input "P"))
+      (do (state/clear-error!) (remote/push-remote! ag))
+
+      (and ag (= input "p"))
+      (do (state/clear-error!) (remote/pull-remote! ag))
+
+      (and ag (= input "d"))
+      (swap! state/app-state assoc :view :confirm-delete :error nil))))
+

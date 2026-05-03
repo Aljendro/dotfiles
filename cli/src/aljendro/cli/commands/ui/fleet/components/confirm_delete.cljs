@@ -7,22 +7,9 @@
    ;
    ))
 
-;; ── Input Handler ───────────────────────────────────────────────────────────
-
-(defn handle-input [_input key]
-  (let [{:keys [remotes selected]} @state/app-state
-        ag (nth remotes selected nil)]
-    (cond
-      (.-escape key)
-      (swap! state/app-state assoc :view :list)
-
-      (.-return key)
-      (when ag
-        (state/clear-error!)
-        (remote/delete-remote! ag)
-        (swap! state/app-state assoc :view :list)))))
-
-;; ── Component ───────────────────────────────────────────────────────────────
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Component ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn ConfirmDelete [remote]
   (let [{:keys [branch remote-type]} remote]
@@ -40,3 +27,21 @@
       "This will kill the tmux window and remove the worktree."]
      [:> ink/Box {:marginTop 1}
       [:> ink/Text {:color "gray"} "Enter confirm · Esc cancel"]]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;; Input Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn handle-input [_input key]
+  (let [{:keys [remotes selected]} @state/app-state
+        ag (nth remotes selected nil)]
+    (cond
+      (.-escape key)
+      (swap! state/app-state assoc :view :list)
+
+      (.-return key)
+      (when ag
+        (state/clear-error!)
+        (remote/delete-remote! ag)
+        (swap! state/app-state assoc :view :list)))))
+

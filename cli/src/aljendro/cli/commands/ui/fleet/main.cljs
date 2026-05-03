@@ -35,3 +35,4 @@
   (state/init-persistence! remote/create-remote)
   (.write js/process.stdout "\u001b[?1049h\u001b[2J\u001b[H")
   (ink/render (r/as-element [root])))
+

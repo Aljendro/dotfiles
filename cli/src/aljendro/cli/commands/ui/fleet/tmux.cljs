@@ -25,3 +25,4 @@
   (common/exec! (str "tmux switch-client -t " (state/tmux-session) ":" (js/JSON.stringify window-name)
                      " 2>/dev/null || tmux attach-session -t " (state/tmux-session)
                      " -t " (js/JSON.stringify window-name))))
+

@@ -11,8 +11,11 @@
    ;
    ))
 
-(declare write-ssh-config!)
-(declare delete-ssh-config!)
+(declare write-ssh-config! delete-ssh-config!)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;; Record ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrecord DigitalOceanRemote [id branch remote-type remote-name status last-sync]
   protocols-remote/Remote

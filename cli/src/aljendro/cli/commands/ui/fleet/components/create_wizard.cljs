@@ -7,7 +7,53 @@
    ;
    ))
 
-;; ── Input Handler ───────────────────────────────────────────────────────────
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Component ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn CreateWizard []
+  (let [{:keys [step branch remote-type remote-name]} @state/create-state]
+    [:> ink/Box {:flexDirection "column" :borderStyle "round" :borderColor "cyan"
+                 :paddingX 2 :paddingY 1 :width 60}
+     [:> ink/Text {:bold true :color "cyan"} "New Remote"]
+
+     [:> ink/Box {:marginTop 1 :flexDirection "column"}
+      ;; Branch
+      [:> ink/Box {:flexDirection "row" :marginBottom 1}
+       [:> ink/Text {:color (if (= step :branch) "cyan" "gray")} "Branch:      "]
+       (if (= step :branch)
+         [components-common/TextInput {:value branch :placeholder "feature/my-branch"}]
+         [:> ink/Text {:color "white"} branch])]
+
+      ;; Remote Type
+      [:> ink/Box {:flexDirection "row" :marginBottom 1}
+       [:> ink/Text {:color (if (= step :env) "cyan" "gray")} "Type: "]
+       (into [:> ink/Box {:flexDirection "row"}]
+             (map (fn [e]
+                    [:> ink/Box {:key (name e) :marginRight 2}
+                     [:> ink/Text {:color (if (= e remote-type) (components-common/remote-type-color e) "gray")}
+                      (str (if (= e remote-type) "◉ " "○ ") (name e))]])
+                  components-common/remote-types))]
+
+      (when (not= step :branch)
+        [:> ink/Box {:flexDirection "row" :marginBottom 1}
+         [:> ink/Text {:color (if (= step :remote-name) "cyan" "gray")} "Name:     "]
+         (if (= step :remote-name)
+           [components-common/TextInput {:value remote-name :placeholder "dev"}]
+           [:> ink/Text {:color "white"} remote-name])])]
+
+     [:> ink/Box {:marginTop 1}
+      [:> ink/Text {:color "gray"}
+       (case step
+         :branch      "Type branch name · Enter to continue · Esc cancel"
+         :remote-type "← → select env · Enter continue · Esc cancel"
+         :remote-name "Type name · Enter continue · Esc cancel"
+         :confirm     "Enter to create · Esc cancel"
+         "")]]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;; Input Handler ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn handle-input [input key]
   (let [{:keys [step branch remote-type remote-type-idx remote-name]} @state/create-state]
@@ -69,44 +115,3 @@
         :remote-name (swap! state/create-state update :remote-name str input)
         nil))))
 
-;; ── Component ───────────────────────────────────────────────────────────────
-
-(defn CreateWizard []
-  (let [{:keys [step branch remote-type remote-name]} @state/create-state]
-    [:> ink/Box {:flexDirection "column" :borderStyle "round" :borderColor "cyan"
-                 :paddingX 2 :paddingY 1 :width 60}
-     [:> ink/Text {:bold true :color "cyan"} "New Remote"]
-
-     [:> ink/Box {:marginTop 1 :flexDirection "column"}
-      ;; Branch
-      [:> ink/Box {:flexDirection "row" :marginBottom 1}
-       [:> ink/Text {:color (if (= step :branch) "cyan" "gray")} "Branch:      "]
-       (if (= step :branch)
-         [components-common/TextInput {:value branch :placeholder "feature/my-branch"}]
-         [:> ink/Text {:color "white"} branch])]
-
-      ;; Remote Type
-      [:> ink/Box {:flexDirection "row" :marginBottom 1}
-       [:> ink/Text {:color (if (= step :env) "cyan" "gray")} "Type: "]
-       (into [:> ink/Box {:flexDirection "row"}]
-             (map (fn [e]
-                    [:> ink/Box {:key (name e) :marginRight 2}
-                     [:> ink/Text {:color (if (= e remote-type) (components-common/remote-type-color e) "gray")}
-                      (str (if (= e remote-type) "◉ " "○ ") (name e))]])
-                  components-common/remote-types))]
-
-      (when (not= step :branch)
-        [:> ink/Box {:flexDirection "row" :marginBottom 1}
-         [:> ink/Text {:color (if (= step :remote-name) "cyan" "gray")} "Name:     "]
-         (if (= step :remote-name)
-           [components-common/TextInput {:value remote-name :placeholder "dev"}]
-           [:> ink/Text {:color "white"} remote-name])])]
-
-     [:> ink/Box {:marginTop 1}
-      [:> ink/Text {:color "gray"}
-       (case step
-         :branch      "Type branch name · Enter to continue · Esc cancel"
-         :remote-type "← → select env · Enter continue · Esc cancel"
-         :remote-name "Type name · Enter continue · Esc cancel"
-         :confirm     "Enter to create · Esc cancel"
-         "")]]]))

@@ -8,3 +8,4 @@
   (delete! [this])
   (rsync-to! [this])
   (rsync-from! [this]))
+

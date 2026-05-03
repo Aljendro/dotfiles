@@ -6,6 +6,10 @@
    ;
    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;; Record ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defrecord LocalRemote [id branch remote-type remote-name status last-sync]
   protocols-remote/Remote
   (start!         [_this] (js/Promise.resolve))
@@ -14,5 +18,4 @@
   (delete!        [_this] (js/Promise.resolve))
   (rsync-to!      [_this] (js/Promise.resolve))
   (rsync-from!    [_this] (js/Promise.resolve)))
-
 

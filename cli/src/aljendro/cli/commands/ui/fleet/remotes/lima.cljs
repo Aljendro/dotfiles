@@ -10,6 +10,10 @@
    ;
    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;; Record ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defrecord LimaRemote [id branch remote-type remote-name status last-sync]
   protocols-remote/Remote
   (start! [_this]
@@ -44,3 +48,4 @@
     (remotes-common/rsync-push! (str "lima-" remote-name) (worktree/worktree-path branch)))
   (rsync-from! [_this]
     (remotes-common/rsync-pull! (str "lima-" remote-name) (worktree/worktree-path branch))))
+

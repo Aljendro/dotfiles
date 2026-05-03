@@ -80,3 +80,4 @@
 (defn attach-remote! [remote]
   (-> (tmux/switch-to-window! (:id remote))
       (.catch (fn [err] (state/set-error! (str "Attach failed: " err))))))
+

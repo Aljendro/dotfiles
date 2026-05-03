@@ -4,7 +4,34 @@
    ;
    ))
 
-;; ── UI Helpers ───────────────────────────────────────────────────────────────
+(declare pad-right remote-type-color status-color status-label time-ago)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Components ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn TextInput [{:keys [value placeholder]}]
+  (if (seq value)
+    [:> ink/Text {:color "white"} (str value "\u258c")]
+    [:> ink/Text {:color "gray"} (str (or placeholder "") "\u258c")]))
+
+(defn RemoteRow [remote selected?]
+  (let [{:keys [branch remote-type status last-sync]} remote]
+    [:> ink/Box {:flexDirection "row"}
+     [:> ink/Text {:color (if selected? "cyan" "gray")}
+      (if selected? "▶ " "  ")]
+     [:> ink/Text {:color "white"}
+      (pad-right branch 22)]
+     [:> ink/Text {:color (remote-type-color remote-type)}
+      (pad-right (str " " (name remote-type)) 8)]
+     [:> ink/Text {:color (status-color status) :bold selected?}
+      (str " " (status-label status) " ")]
+     [:> ink/Text {:color "gray"}
+      (str "  " (or (time-ago last-sync) "—"))]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; UI Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn pad-right [s n]
   (let [s   (str s)
@@ -43,25 +70,3 @@
 
 (def remote-types [:local :lima :digitalocean])
 
-;; ── TextInput ────────────────────────────────────────────────────────────────
-
-(defn TextInput [{:keys [value placeholder]}]
-  (if (seq value)
-    [:> ink/Text {:color "white"} (str value "\u258c")]
-    [:> ink/Text {:color "gray"} (str (or placeholder "") "\u258c")]))
-
-;; ── RemoteRow ─────────────────────────────────────────────────────────────────
-
-(defn RemoteRow [remote selected?]
-  (let [{:keys [branch remote-type status last-sync]} remote]
-    [:> ink/Box {:flexDirection "row"}
-     [:> ink/Text {:color (if selected? "cyan" "gray")}
-      (if selected? "▶ " "  ")]
-     [:> ink/Text {:color "white"}
-      (pad-right branch 22)]
-     [:> ink/Text {:color (remote-type-color remote-type)}
-      (pad-right (str " " (name remote-type)) 8)]
-     [:> ink/Text {:color (status-color status) :bold selected?}
-      (str " " (status-label status) " ")]
-     [:> ink/Text {:color "gray"}
-      (str "  " (or (time-ago last-sync) "—"))]]))
