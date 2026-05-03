@@ -1,7 +1,7 @@
 (ns aljendro.cli.commands.ui.fleet.components.app
   (:require ["ink" :as ink]
             [aljendro.cli.commands.ui.fleet.state :as state]
-            [aljendro.cli.commands.ui.fleet.agent :as agent]
+            [aljendro.cli.commands.ui.fleet.agent-refactor :as agent]
             [aljendro.cli.commands.ui.fleet.components.common :as common]
             [aljendro.cli.commands.ui.fleet.components.create-wizard :as create-wizard]
             [aljendro.cli.commands.ui.fleet.components.detail-view :as detail-view]
@@ -17,7 +17,7 @@
 
       (= input "n")
       (do (reset! state/create-state {:step :branch :branch "" :remote-type :local
-                                      :remote-type-idx 0 :lima-name "dev" :digitalocean-name "dev"})
+                                      :remote-type-idx 0 :remote-name "dev"})
           (swap! state/app-state assoc :view :create :error nil))
 
       (.-upArrow key)
