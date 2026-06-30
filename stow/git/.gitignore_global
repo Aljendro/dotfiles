@@ -194,3 +194,4 @@ CLAUDE.md
 ##################### clojure ##############################
 
 .nrepl-port
+.shadow-cljs
