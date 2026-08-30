@@ -1,0 +1,93 @@
+#!/bin/bash
+
+display_usage() {
+  echo -e "Usage: tmux_autoenter [on|off|toggle|status] [interval_seconds] [target_pane]"
+}
+
+display_summary() {
+  echo -e "Presses Enter in a tmux pane every interval_seconds (default 10).\n"
+  echo -e "State lives in the window option @autoenter (holds the driven pane id),\n"
+  echo -e "so the window bar can show an indicator while it is active.\n"
+}
+
+INTERVAL_DEFAULT=10
+
+autoenter_state() {
+  tmux show-options -wqv -t "$1" @autoenter 2>/dev/null
+}
+
+autoenter_stop() {
+  local pane=$1
+  tmux set-option -wqu -t "$pane" @autoenter
+  tmux refresh-client -S 2>/dev/null
+}
+
+autoenter_start() {
+  local pane=$1 interval=$2
+  tmux set-option -wq -t "$pane" @autoenter "$pane"
+  tmux refresh-client -S 2>/dev/null
+  tmux run-shell -b "'$0' loop '$interval' '$pane'"
+}
+
+# Background driver: sends Enter until the window option stops naming this pane
+autoenter_loop() {
+  local pane=$1 interval=$2 i
+  while :; do
+    for ((i = 0; i < interval; i++)); do
+      sleep 1
+      [ "$(autoenter_state "$pane")" = "$pane" ] || return 0
+    done
+    if ! tmux send-keys -t "$pane" Enter 2>/dev/null; then
+      # Pane is gone, clear the indicator if it is still ours
+      [ "$(autoenter_state "$pane")" = "$pane" ] && autoenter_stop "$pane"
+      return 0
+    fi
+  done
+}
+
+if [ $# -le 3 ]; then
+  ACTION=${1:-toggle}
+  INTERVAL=${2:-$INTERVAL_DEFAULT}
+  PANE=${3:-$(tmux display-message -p '#{pane_id}' 2>/dev/null)}
+
+  if [ -z "$PANE" ]; then
+    echo "Not inside tmux and no target pane given"
+    exit 1
+  fi
+
+  case "$ACTION" in
+    loop)
+      # Internal: interval and pane are passed positionally by autoenter_start
+      autoenter_loop "$PANE" "$INTERVAL"
+      ;;
+    on)
+      autoenter_start "$PANE" "$INTERVAL"
+      tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
+      ;;
+    off)
+      autoenter_stop "$PANE"
+      tmux display-message "Auto-Enter OFF"
+      ;;
+    toggle)
+      if [ -n "$(autoenter_state "$PANE")" ]; then
+        autoenter_stop "$PANE"
+        tmux display-message "Auto-Enter OFF"
+      else
+        autoenter_start "$PANE" "$INTERVAL"
+        tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
+      fi
+      ;;
+    status)
+      STATE=$(autoenter_state "$PANE")
+      [ -n "$STATE" ] && echo "on $STATE" || echo "off"
+      ;;
+    *)
+      display_summary
+      display_usage
+      exit 1
+      ;;
+  esac
+else
+  display_summary
+  display_usage
+fi

@@ -5,7 +5,8 @@
 *.swp
 tags
 
-# Nvim
+# Stow
+!stow/claude/.claude
 stow/nvim/.config/nvim/sessions
 stow/zsh/.oh-my-zsh
 stow/fzf/.fzf
