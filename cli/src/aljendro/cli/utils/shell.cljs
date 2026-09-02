@@ -1,11 +1,11 @@
-(ns aljendro.cli.commands.ui.fleet.common
+(ns aljendro.cli.utils.shell
   (:require
    ["child_process" :as child-process]
    ["util" :as util]
    ;
    ))
 
-(def exec-promise (.promisify util (.-exec child-process)))
+(def ^:private exec-promise (.promisify util (.-exec child-process)))
 
 (defn- sleep [ms]
   (js/Promise. (fn [resolve] (js/setTimeout resolve ms))))
