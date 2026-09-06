@@ -11,9 +11,7 @@
    ["node:fs/promises" :as fs]
    [clojure.string :as str]
    [aljendro.cli.utils.shell :as shell]
-   [aljendro.cli.utils.filesystem :as cljsfs]
-   ;
-   ))
+   [aljendro.cli.utils.filesystem :as cljsfs]))
 
 (def ^:private CACHE_FILE "/tmp/tmux_identifiers_cache")
 
@@ -29,7 +27,7 @@
  find-all-initialized-projects
  has-active-session?)
 
-(defn- ^:async initialize
+(defn ^:async initialize
   "Initalize the project"
   [project-initializer]
   (let [filepath (:filepath project-initializer)]
@@ -122,9 +120,7 @@
 
   ((^:async fn [] (def m1 (await (extract-session-identifier identifier1)))))
   ((^:async fn [] (def m2 (await (has-active-session? identifier1)))))
-  ((^:async fn [] (def m3 (await (has-active-session? identifier2)))))
-  ;
-  )
+  ((^:async fn [] (def m3 (await (has-active-session? identifier2))))))
 
 
 

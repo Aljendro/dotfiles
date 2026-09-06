@@ -3,9 +3,7 @@
    [clojure.string :as str]
    [aljendro.cli.utils.shell :as shell]
    [aljendro.cli.commands.enter.ProjectInitializer :as projectinit]
-   [clojure.tools.cli :refer [parse-opts]]
-   ;
-   ))
+   [clojure.tools.cli :refer [parse-opts]]))
 
 (def ^:private options
   [["-a" "--active-only" "Only show the active sessions"
