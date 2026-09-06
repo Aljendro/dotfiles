@@ -110,12 +110,12 @@
 
 (comment
   ; METHODS
-  (def identifier1 (->ProjectInitializer "/Users/alejandroalvarado/dotfiles/start_project.local.sh"))
-  (def identifier2 (->ProjectInitializer "/Users/alejandroalvarado/Documents/Projects/todoisp/start_project.local.sh"))
+  (def project-initializer1 (->ProjectInitializer "/Users/alejandroalvarado/dotfiles/start_project.local.sh"))
+  (def project-initializer2 (->ProjectInitializer "/Users/alejandroalvarado/Documents/Projects/todoisp/start_project.local.sh"))
 
-  ((^:async fn [] (def m1 (await (extract-session-identifier identifier1)))))
-  ((^:async fn [] (def m2 (await (has-active-session? identifier1)))))
-  ((^:async fn [] (def m3 (await (has-active-session? identifier2)))))
+  ((^:async fn [] (def m1 (await (extract-session-identifier project-initializer1)))))
+  ((^:async fn [] (def m2 (await (has-active-session? project-initializer1)))))
+  ((^:async fn [] (def m3 (await (has-active-session? project-initializer2)))))
 
   ; PUBLIC UTILITIES
   ((^:async fn [] (def p1 (await (find-all-project-initializers)))))
