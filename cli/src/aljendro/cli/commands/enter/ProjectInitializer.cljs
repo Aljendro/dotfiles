@@ -29,25 +29,25 @@
 
 (defn ^:async initialize
   "Initalize the project"
-  [project-initializer]
-  (let [filepath (:filepath project-initializer)]
+  [self]
+  (let [filepath (:filepath self)]
     (shell/exec! (str "cd " (path/dirname filepath) "; bash " filepath))))
 
 (defn ^:async enter
   "Enters the project"
-  [project-initializer]
-  (let [active? (await (has-active-session? project-initializer))]
+  [self]
+  (let [active? (await (has-active-session? self))]
     (when (not active?)
-      (await (initialize project-initializer)))
-    (let [session-identifier (await (extract-session-identifier project-initializer))]
+      (await (initialize self)))
+    (let [session-identifier (await (extract-session-identifier self))]
       (if js/process.env.TMUX
         (shell/exec! (str "tmux switch-client -t " session-identifier))
         (shell/exec-interactive! (str "tmux attach -t " session-identifier))))))
 
 (defn ^:async extract-session-identifier
   "Extracts the session identifier that the user uses to select which project to initialize"
-  [project-initializer]
-  (->> (fs/readFile (:filepath project-initializer) "utf8")
+  [self]
+  (->> (fs/readFile (:filepath self) "utf8")
        await
        str/split-lines
        (some #(when (str/starts-with? % "session=") %))
@@ -55,18 +55,18 @@
 
 (defn ^:async has-active-session?
   "Checks if a project has been initialized and active"
-  [project-initializer]
+  [self]
   (let [[all-active-sessions session-identifier]
         (await (js/Promise.all [(find-all-initialized-projects)
-                                (extract-session-identifier project-initializer)]))]
+                                (extract-session-identifier self)]))]
 
     (boolean (some #(str/starts-with? % session-identifier) all-active-sessions))))
 
 (defn ^:async generate-identifier-project-filepath-pair
   "Generates a vector where the first element is the identifier
   and the second element is the proejct initializer filepath"
-  [project-initializer]
-  [(await (extract-session-identifier project-initializer)) project-initializer])
+  [self]
+  [(await (extract-session-identifier self)) self])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
