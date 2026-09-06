@@ -17,8 +17,8 @@
   (fn display-item [selection]
     (if (some (fn [item] (str/starts-with? item selection)) initialized-projects)
       ; Adding additional chars to show which project is already active (ref: additional_selection_chars)
-      (str "O " selection)
-      (when (not active-only) (str "- " selection)))))
+      (str "● " selection)
+      (when (not active-only) (str "  " selection)))))
 
 (defn- ^:async display-project-sessions "Display all projects by their (active or inactive) session names"
   [selections initialized-projects options]
@@ -27,7 +27,7 @@
                          (map (get-display-item-fn initialized-projects options))
                          (filter identity)
                          (str/join "\n"))
-                    "\" | fzf --ansi --header=\"O = Active Session\"")))
+                    "\" | fzf --ansi --header=\"● = Active Session\"")))
 
 (defn ^:async run [args]
   (let [{:keys [options errors]} (parse-opts args options)
@@ -46,7 +46,7 @@
                                     (projectinit/find-all-initialized-projects)]))
             chosen-identifier (await (display-project-sessions (keys identifier->ProjectInitializer) initialized-projects options))
             ; Remove the extra characters we added (ref: additional_selection_chars)
-            final-chosen-identifier (subs chosen-identifier 2)]
+            final-chosen-identifier (str/replace-first chosen-identifier "● " "")]
         (await (projectinit/enter (get identifier->ProjectInitializer final-chosen-identifier)))))))
 
 
