@@ -12,17 +12,21 @@
     :default false]
    ["-h" "--help" "Show help"]])
 
-(defn- display-item
-  [initialized-projects active-only selection]
-  (if (some (fn [item] (str/starts-with? item selection)) initialized-projects)
-    ; Adding additional chars to show which project is already active (ref: additional_selection_chars)
-    (str "O " selection)
-    (when (not active-only) (str "- " selection))))
+(defn- get-display-item-fn
+  [initialized-projects & {:keys [active-only] :or {active-only false}}]
+  (fn display-item [selection]
+    (if (some (fn [item] (str/starts-with? item selection)) initialized-projects)
+      ; Adding additional chars to show which project is already active (ref: additional_selection_chars)
+      (str "O " selection)
+      (when (not active-only) (str "- " selection)))))
 
 (defn- ^:async display-project-sessions "Display all projects by their (active or inactive) session names"
-  [selections initialized-projects {:keys [active-only]}]
+  [selections initialized-projects options]
   (shell/exec! (str "echo \""
-                    (str/join "\n" (filter #(when % %) (map (partial display-item initialized-projects active-only) selections)))
+                    (->> selections
+                         (map (get-display-item-fn initialized-projects options))
+                         (filter identity)
+                         (str/join "\n"))
                     "\" | fzf --ansi --header=\"O = Active Session\"")))
 
 (defn ^:async run [args]
