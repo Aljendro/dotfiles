@@ -2,6 +2,7 @@
   (:require
    [aljendro.cli.commands.ui.demo :as demo]
    [aljendro.cli.commands.ui.fleet.main :as fleet]
+   [aljendro.cli.commands.enter.main :as enter]
    [aljendro.cli.commands.now :as now]
    [aljendro.cli.commands.unix2iso :as unix2iso]
    [aljendro.cli.commands.mfa :as mfa]
@@ -19,6 +20,21 @@
      "fleet"
      {:desc "Manage remote instances across worktrees"
       :run  fleet/run}}}
+
+   "gen"
+   {:desc "Generator subcommands"
+    :subcommands
+    {"generator"
+     {:desc "Create a new generator"
+      :run  generator/run}
+     "start_project"
+     {:desc "Create a startup project file"
+      :run  start-project/run}}}
+
+   "enter"
+   {:desc "Enter tmux project picker, starts a the tmux session after selection"
+    :run  enter/run}
+
    "now"
    {:desc "Prints the current ISO 8601 timestamp"
     :run  now/run}
@@ -29,17 +45,7 @@
 
    "mfa"
    {:desc "Authenticate using MFA device for AWS CLI access"
-    :run  mfa/run}
-
-   "gen"
-   {:desc "Generator subcommands"
-    :subcommands
-    {"generator"
-     {:desc "Create a new generator"
-      :run  generator/run}
-     "start_project"
-     {:desc "Create a startup project file"
-      :run  start-project/run}}}})
+    :run  mfa/run}})
 
 (defn- print-usage []
   (println "Usage: t <command> [options]\n")

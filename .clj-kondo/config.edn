@@ -1,6 +1,8 @@
 {:lint-as {promesa.core/let clojure.core/let
            reagent.core/with-let clojure.core/let}
  :linters {:inline-def {:level :off}
+           :unresolved-symbol
+           {:exclude [await]}
            :clojure-lsp/unused-public-var {:level :off}
            ;;
            }}
