@@ -69,12 +69,10 @@
   [(await (extract-session-identifier self)) self])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PUBLIC UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PUBLIC ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn ^:async find-all-project-initializers
+(defn ^:async find-all-project-initializers "Find all projects startup_project.local.sh initialization scripts"
   []
   (->> (if (await (cljsfs/file-exists? CACHE_FILE))
          (await (fs/readFile CACHE_FILE "utf8"))
@@ -89,14 +87,16 @@
                             (mapv generate-identifier-project-filepath-pair initializers)))]
     (into {} identifiers)))
 
-(defn ^:async find-all-initialized-projects
+(defn ^:async find-all-initialized-projects "Lists all active sessions in TMUX"
   []
   (->> "tmux list-sessions -F '#{session_name}' 2>/dev/null || echo \"\""
        shell/exec!
        await
        str/split-lines))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- extract-session-name
   "Extract the session name from a line starting with session="
@@ -109,18 +109,20 @@
         (str/replace #"^\"|\"$" ""))))
 
 (comment
-  ; PUBLIC UTILITIES
-  ((^:async fn [] (def p1 (await (find-all-project-initializers)))))
-  ((^:async fn [] (def p2 (await (find-all-initialized-projects)))))
-  ((^:async fn [] (def p3 (await (get-identifier->ProjectInitializer)))))
-
   ; METHODS
   (def identifier1 (->ProjectInitializer "/Users/alejandroalvarado/dotfiles/start_project.local.sh"))
   (def identifier2 (->ProjectInitializer "/Users/alejandroalvarado/Documents/Projects/todoisp/start_project.local.sh"))
 
   ((^:async fn [] (def m1 (await (extract-session-identifier identifier1)))))
   ((^:async fn [] (def m2 (await (has-active-session? identifier1)))))
-  ((^:async fn [] (def m3 (await (has-active-session? identifier2))))))
+  ((^:async fn [] (def m3 (await (has-active-session? identifier2)))))
+
+  ; PUBLIC UTILITIES
+  ((^:async fn [] (def p1 (await (find-all-project-initializers)))))
+  ((^:async fn [] (def p2 (await (find-all-initialized-projects)))))
+  ((^:async fn [] (def p3 (await (get-identifier->ProjectInitializer)))))
+  ;
+  )
 
 
 
