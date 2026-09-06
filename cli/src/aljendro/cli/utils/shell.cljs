@@ -28,3 +28,7 @@
                     (str (or (.-message err) "") " "
                          (or (.-stderr err) "")))))))))
 
+(defn exec-interactive!
+  "Run a command handing it the real terminal. Blocks until it exits."
+  [cmd]
+  (child-process/spawnSync "bash" #js ["-c" cmd] #js {:stdio "inherit"}))

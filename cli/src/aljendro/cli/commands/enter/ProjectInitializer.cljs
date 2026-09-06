@@ -41,12 +41,10 @@
   (let [active? (await (has-active-session? project-initializer))]
     (when (not active?)
       (await (initialize project-initializer)))
-    (->> project-initializer
-         extract-session-identifier
-         await
-         (str "tmux " (if js/process.env.TMUX "switch-client" "attach") " -t")
-         shell/exec!
-         await)))
+    (let [session-identifier (await (extract-session-identifier project-initializer))]
+      (if js/process.env.TMUX
+        (shell/exec! (str "tmux switch-client -t " session-identifier))
+        (shell/exec-interactive! (str "tmux attach -t " session-identifier))))))
 
 (defn ^:async extract-session-identifier
   "Extracts the session identifier that the user uses to select which project to initialize"

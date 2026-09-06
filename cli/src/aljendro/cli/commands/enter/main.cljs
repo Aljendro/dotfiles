@@ -23,5 +23,5 @@
         chosen-identifier (await (display-project-sessions (keys identifier->ProjectInitializer) initialized-projects))
         ; Remove the extra characters we added (ref: additional_selection_chars)
         final-chosen-identifier (subs chosen-identifier 2)]
-    (projectinit/enter (get identifier->ProjectInitializer final-chosen-identifier))))
+    (await (projectinit/enter (get identifier->ProjectInitializer final-chosen-identifier)))))
 
