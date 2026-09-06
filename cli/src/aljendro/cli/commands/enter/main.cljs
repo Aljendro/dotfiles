@@ -41,7 +41,7 @@
             (await (js/Promise.all [(projectinit/get-identifier->ProjectInitializer)
                                     (projectinit/find-all-initialized-projects)]))
             chosen-identifier (await (display-project-sessions (keys identifier->ProjectInitializer) initialized-projects options))
-        ; Remove the extra characters we added (ref: additional_selection_chars)
+            ; Remove the extra characters we added (ref: additional_selection_chars)
             final-chosen-identifier (subs chosen-identifier 2)]
         (await (projectinit/enter (get identifier->ProjectInitializer final-chosen-identifier)))))))
 
