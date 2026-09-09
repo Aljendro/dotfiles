@@ -5,10 +5,11 @@
    ;
    ))
 
-(def ^:private exec-promise (.promisify util (.-exec child-process)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PUBLIC UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- sleep [ms]
-  (js/Promise. (fn [resolve] (js/setTimeout resolve ms))))
+(declare sleep-promise sleep-sync exec-sync exec-promise)
 
 (defn exec!
   ([cmd] (exec! cmd nil))
@@ -20,7 +21,7 @@
                  (if (pos? retries)
                    (do
                      (when on-retry (on-retry err retries))
-                     (-> (sleep delay-ms)
+                     (-> (sleep-promise delay-ms)
                          (.then #(exec! cmd {:retries  (dec retries)
                                              :delay-ms delay-ms
                                              :on-retry on-retry}))))
@@ -28,7 +29,45 @@
                     (str (or (.-message err) "") " "
                          (or (.-stderr err) "")))))))))
 
+(defn exec-sync!
+  ([cmd] (exec-sync! cmd nil))
+  ([cmd {:keys [retries delay-ms on-retry]
+         :or   {retries 0 delay-ms 0}}]
+   (loop [n retries]
+     (let [[tag result]
+           (try
+             [::ok (-> cmd
+                       (exec-sync #js {:encoding "utf8" :stdio #js ["pipe" "pipe" "pipe"]})
+                       str
+                       .trim)]
+             (catch :default err
+               [::err err]))]
+       (if (= ::ok tag)
+         result
+         (if (pos? n)
+           (do
+             (when on-retry (on-retry result n))
+             (sleep-sync delay-ms)
+             (recur (dec n)))
+           (throw (js/Error. (str (or (.-message result) "") " "
+                                  (or (.-stderr result) ""))))))))))
+
 (defn exec-interactive!
   "Run a command handing it the real terminal. Blocks until it exits."
   [cmd]
   (child-process/spawnSync "bash" #js ["-c" cmd] #js {:stdio "inherit"}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private exec-sync (.-execSync child-process))
+
+(def ^:private exec-promise (.promisify util (.-exec child-process)))
+
+(defn- sleep-promise [ms]
+  (js/Promise. (fn [resolve] (js/setTimeout resolve ms))))
+
+(defn- sleep-sync [ms]
+  (when (pos? ms)
+    (.wait js/Atomics (js/Int32Array. (js/SharedArrayBuffer. 4)) 0 0 ms)))

@@ -1,26 +1,22 @@
 (ns aljendro.cli.core
   (:require
-   [aljendro.cli.commands.ui.demo :as demo]
-   [aljendro.cli.commands.ui.fleet.main :as fleet]
+   [clojure.tools.cli :refer [parse-opts]]
    [aljendro.cli.commands.enter.main :as enter]
-   [aljendro.cli.commands.now :as now]
-   [aljendro.cli.commands.unix2iso :as unix2iso]
-   [aljendro.cli.commands.mfa :as mfa]
    [aljendro.cli.commands.gen.generator :as generator]
    [aljendro.cli.commands.gen.start-project :as start-project]
-   [clojure.tools.cli :refer [parse-opts]]))
+   [aljendro.cli.commands.recipe.main :as recipe]
+   [aljendro.cli.commands.ui.demo :as demo]
+   [aljendro.cli.commands.ui.fleet.main :as fleet]
+   [aljendro.cli.commands.mfa :as mfa]
+   [aljendro.cli.commands.now :as now]
+   [aljendro.cli.commands.unix2iso :as unix2iso]
+   ;
+   ))
 
 (def ^:private commands
-  {"ui"
-   {:desc "UI-related commands"
-    :subcommands
-    {"demo"
-     {:desc "Run the demo command"
-      :run  demo/run}
-     "fleet"
-     {:desc "Manage remote instances across worktrees"
-      :run  fleet/run}}}
-
+  {"enter"
+   {:desc "Enter tmux project picker, starts a the tmux session after selection"
+    :run  enter/run}
    "gen"
    {:desc "Generator subcommands"
     :subcommands
@@ -30,10 +26,22 @@
      "start_project"
      {:desc "Create a startup project file"
       :run  start-project/run}}}
+   "recipe"
+   {:desc "Execute a recipe automation"
+    :run  recipe/run}
+   "ui"
+   {:desc "UI-related commands"
+    :subcommands
+    {"demo"
+     {:desc "Run the demo command"
+      :run  demo/run}
+     "fleet"
+     {:desc "Manage remote instances across worktrees"
+      :run  fleet/run}}}
 
-   "enter"
-   {:desc "Enter tmux project picker, starts a the tmux session after selection"
-    :run  enter/run}
+   "mfa"
+   {:desc "Authenticate using MFA device for AWS CLI access"
+    :run  mfa/run}
 
    "now"
    {:desc "Prints the current ISO 8601 timestamp"
@@ -41,11 +49,7 @@
 
    "unix2iso"
    {:desc "Converts 13-digit Unix timestamps in stdin to ISO 8601 format"
-    :run  unix2iso/run}
-
-   "mfa"
-   {:desc "Authenticate using MFA device for AWS CLI access"
-    :run  mfa/run}})
+    :run  unix2iso/run}})
 
 (defn- print-usage []
   (println "Usage: t <command> [options]\n")
