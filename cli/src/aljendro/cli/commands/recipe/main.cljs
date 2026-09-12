@@ -4,9 +4,7 @@
    [clojure.set :as set]
    [clojure.tools.cli :refer [parse-opts]]
    [aljendro.cli.utils.shell :as shell]
-   [aljendro.cli.commands.recipe.Recipe :as recipe]
-   ;
-   ))
+   [aljendro.cli.commands.recipe.Recipe :as recipe]))
 
 (def ^:private options
   [["-h" "--help" "Show help"]

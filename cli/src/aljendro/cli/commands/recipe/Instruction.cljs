@@ -8,9 +8,7 @@
    [aljendro.cli.utils.enum :as enum]
    [aljendro.cli.utils.shell :as shell]
    [aljendro.cli.commands.recipe.InstructionAction :refer [InstructionAction]]
-   [aljendro.cli.commands.recipe.common :refer [TEMPLATE_DIRECTORY]]
-   ;
-   ))
+   [aljendro.cli.commands.recipe.common :refer [TEMPLATE_DIRECTORY]]))
 
 (defrecord Instruction [action inputs])
 

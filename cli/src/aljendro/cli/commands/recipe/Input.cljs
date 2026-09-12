@@ -2,9 +2,7 @@
   (:require
    [aljendro.cli.utils.shell :as shell]
    [aljendro.cli.utils.enum :as enum]
-   [aljendro.cli.commands.recipe.InputAction :refer [InputAction]]
-   ;
-   ))
+   [aljendro.cli.commands.recipe.InputAction :refer [InputAction]]))
 
 (defrecord Input [action inputs])
 

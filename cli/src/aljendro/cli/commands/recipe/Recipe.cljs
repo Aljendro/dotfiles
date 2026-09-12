@@ -7,9 +7,7 @@
    [aljendro.cli.commands.recipe.common :refer [RECIPE_DIRECTORY
                                                 RECIPE_FILE_SUFFIX]]
    [aljendro.cli.commands.recipe.Instruction :as instruction]
-   [aljendro.cli.commands.recipe.Input :as input_ns]
-   ;
-   ))
+   [aljendro.cli.commands.recipe.Input :as input_ns]))
 
 (defrecord Recipe [title description inputs instructions])
 
