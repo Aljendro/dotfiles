@@ -3,4 +3,4 @@
    [aljendro.cli.utils.enum :as enum]))
 
 (enum/defenum InputAction
-  [USER SET])
+  [USER SET AWS_SECRET])

@@ -2,7 +2,8 @@
         :description "A sample recipe that shows all current features"
         :inputs #inputs[[:inputaction/user {:var "name" :default "default"}]
                         [:inputaction/set {:var "set-value" :with "Value"}]
-                        [:inputaction/set {:var "name2" :from "name"}]]
+                        [:inputaction/set {:var "name2" :from "name"}]
+                        #_[:inputaction/aws_secret {:var "shhh" :name "sample" :profile "<profile>"}]]
         :instructions #instructions[[:instructionaction/create {:filepath "./sample-output.txt" :template "<t>/sample.template"}]
                                     [:instructionaction/update {:filepath "./sample-output.txt" :template "<t>/update.template" :target "<< TARGET >>"}]
                                     [:instructionaction/nvim {:filepath "./sample-output.txt" :commands "norm! GoHello from NVIM"}]]}

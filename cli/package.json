@@ -6,7 +6,9 @@
     "t": "./bin/t"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1131.0",
     "@aws-sdk/client-sts": "^3.1021.0",
+    "@aws-sdk/credential-providers": "^3.1131.0",
     "@inquirer/prompts": "^7.10.1",
     "@smithy/shared-ini-file-loader": "^4.4.7",
     "handlebars": "^4.7.9",

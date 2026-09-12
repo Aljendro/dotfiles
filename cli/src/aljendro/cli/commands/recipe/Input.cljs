@@ -1,5 +1,7 @@
 (ns aljendro.cli.commands.recipe.Input
   (:require
+   ["@aws-sdk/client-secrets-manager" :as secrets]
+   ["@aws-sdk/credential-providers" :as ini]
    [aljendro.cli.utils.shell :as shell]
    [aljendro.cli.utils.enum :as enum]
    [aljendro.cli.commands.recipe.InputAction :refer [InputAction]]))
@@ -49,15 +51,17 @@
 
       :else "noop")))
 
+(defn ^:async aws-secret "Get a secret from aws secrets manager"
+  [global-state-atom inputs]
+  (let [var-keyword (keyword (:var inputs))
+        client (secrets/SecretsManagerClient. #js {:region (get-in inputs [:client :region] "us-west-1")
+                                                   :credentials (ini/fromIni #js {:profile (:profile inputs)})})
+        command (secrets/GetSecretValueCommand. #js {:SecretId (:name inputs)})
+        secret (js->clj (await (.send client command)) :keywordize-keys true)]
+    (swap! global-state-atom assoc var-keyword (:SecretString secret))))
+
 (def ^:private InputAction->action-fn
   {(enum/of InputAction USER) user-input
-   (enum/of InputAction SET) set-input})
+   (enum/of InputAction SET) set-input
+   (enum/of InputAction AWS_SECRET) aws-secret})
 
-(comment
-  ; METHODS
-
-  ; PUBLIC UTILITIES
-
-  ; PRIVATE UTILITIES
-  ;
-  )
