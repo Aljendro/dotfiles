@@ -1,6 +1,8 @@
 (ns aljendro.cli.utils.shell
   (:require
    ["child_process" :as child-process]
+   ["node:process" :as process]
+   ["node:readline/promises" :as readline]
    ["util" :as util]
    ;
    ))
@@ -56,6 +58,17 @@
   "Run a command handing it the real terminal. Blocks until it exits."
   [cmd]
   (child-process/spawnSync "bash" #js ["-c" cmd] #js {:stdio "inherit"}))
+
+(defn ^:async get-user-input
+  "Get input from the user in the terminal"
+  [prompt]
+  (let [rl (readline/createInterface
+            #js {:input process/stdin
+                 :output process/stdout})]
+    (try
+      (await (.question rl prompt))
+      (finally
+        (.close rl)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

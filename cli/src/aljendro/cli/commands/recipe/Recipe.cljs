@@ -4,10 +4,10 @@
    ["node:process" :as path]
    [clojure.string :as str]
    [clojure.edn :as edn]
-   [aljendro.cli.utils.walk :refer [async-prewalk]]
    [aljendro.cli.commands.recipe.common :refer [RECIPE_DIRECTORY
                                                 RECIPE_FILE_SUFFIX]]
    [aljendro.cli.commands.recipe.Instruction :as instruction]
+   [aljendro.cli.commands.recipe.Input :as input_ns]
    ;
    ))
 
@@ -17,12 +17,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; METHODS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(declare generate-execute-step-fn)
+(declare generate-instruction-step-fn)
 
 (defn ^:async follow "Follow the recipe"
   [self]
-  (let [execute-step (generate-execute-step-fn (atom {}))]
-    (async-prewalk execute-step (:instructions self))))
+  (let [state-atom (atom {})]
+    (doseq [i (:inputs self)]
+      (when (input_ns/is-input? i)
+        (await (input_ns/execute i state-atom))))
+    (doseq [i (:instructions self)]
+      (when (instruction/is-instruction? i)
+        (await (instruction/execute i state-atom))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PUBLIC UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,7 +46,8 @@
 
 (def ^:private readers
   {:readers {'recipe map->Recipe
-             'instructions (fn [n] (map #(apply instruction/->Instruction %) n))}})
+             'instructions (fn [n] (map #(apply instruction/->Instruction %) n))
+             'inputs (fn [n] (map #(apply input_ns/->Input %) n))}})
 
 (defn ^:async read-recipe "Read a recipe from the filesystem"
   [filepath]
@@ -52,13 +58,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- generate-execute-step-fn "Creates a function that will executes a single step of the recipe traversal"
-  [state-atom]
-  (fn execute-step [step]
-    (cond
-      (instruction/is-instruction? step) (instruction/execute step state-atom)
-      :else step)))
 
 (comment
   ; METHODS

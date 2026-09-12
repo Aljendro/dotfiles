@@ -1,5 +1,0 @@
-#recipe{:title "Title"
-        :description "Description"
-        :inputs [:a :b :c]
-        :instructions #instructions[[:create-file {:filepath "./afile.txt" :template "<t>/hello.template"}]
-                                    [:create-file {:filepath "./bfile.txt" :template "<t>/hello.template"}]]}
