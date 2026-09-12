@@ -1,3 +1,4 @@
 hello {{ name }}
 hello2 {{ name2 }}
 set-value {{ set-value }}
+<< TARGET >>

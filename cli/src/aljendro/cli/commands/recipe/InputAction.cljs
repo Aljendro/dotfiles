@@ -1,4 +1,6 @@
-(ns aljendro.cli.commands.recipe.InputAction)
+(ns aljendro.cli.commands.recipe.InputAction
+  (:require
+   [aljendro.cli.utils.enum :as enum]))
 
-(def USER :user)
-(def SET :set)
+(enum/defenum InputAction
+  [USER SET])

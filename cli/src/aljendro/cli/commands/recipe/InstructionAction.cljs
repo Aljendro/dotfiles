@@ -1,9 +1,6 @@
-(ns aljendro.cli.commands.recipe.InstructionAction)
+(ns aljendro.cli.commands.recipe.InstructionAction
+  (:require
+   [aljendro.cli.utils.enum :as enum]))
 
-(def CREATE_FILE :create)
-(def UPDATE_TARGET :update)
-(def UPDATE_NVIM :nvim)
-
-(defn is-instruction-action? [in]
-  (boolean (#{CREATE_FILE UPDATE_TARGET UPDATE_NVIM} in)))
-
+(enum/defenum InstructionAction
+  [CREATE UPDATE NVIM])

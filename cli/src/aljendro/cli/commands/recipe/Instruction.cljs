@@ -3,10 +3,11 @@
    ["node:fs/promises" :as fs]
    ["node:path" :as path]
    ["node:os" :as os]
-   [aljendro.cli.commands.recipe.InstructionAction :as InstructionAction]
-   [aljendro.cli.utils.templating :as templating]
-   [aljendro.cli.utils.shell :as shell]
    [clojure.string :as str]
+   [aljendro.cli.utils.templating :as templating]
+   [aljendro.cli.utils.enum :as enum]
+   [aljendro.cli.utils.shell :as shell]
+   [aljendro.cli.commands.recipe.InstructionAction :refer [InstructionAction]]
    [aljendro.cli.commands.recipe.common :refer [TEMPLATE_DIRECTORY]]
    ;
    ))
@@ -66,9 +67,9 @@
     (shell/exec! nvim-command)))
 
 (def ^:private InstructionAction->action-fn
-  {InstructionAction/CREATE_FILE create-file
-   InstructionAction/UPDATE_TARGET update-target
-   InstructionAction/UPDATE_NVIM update-nvim})
+  {(enum/of InstructionAction CREATE) create-file
+   (enum/of InstructionAction UPDATE) update-target
+   (enum/of InstructionAction NVIM) update-nvim})
 
 (comment
   ; METHODS
@@ -77,7 +78,7 @@
   ((^:async fn [] (def m1
                     (await (execute
                             (->Instruction
-                             InstructionAction/CREATE_FILE
+                             (enum/of InstructionAction CREATE)
                              {:filepath "./somefile.local.txt"
                               :template "<t>/hello.template"})
                             a1)))))
@@ -85,7 +86,7 @@
   ((^:async fn [] (def m2
                     (await (execute
                             (->Instruction
-                             InstructionAction/UPDATE_TARGET
+                             (enum/of InstructionAction UPDATE)
                              {:filepath "./somefile.local.txt"
                               :template "<t>/hello.template"
                               :target "<< TARGET >>"})
@@ -93,7 +94,7 @@
 
   ((^:async fn [] (def m3 (await (execute
                                   (->Instruction
-                                   InstructionAction/UPDATE_NVIM
+                                   (enum/of InstructionAction NVIM)
                                    {:filepath "./somefile.local.txt"
                                     :commands "norm! /TARGET
 oHELLO FROM THE VIM COMMAND"})

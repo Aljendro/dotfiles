@@ -1,6 +1,8 @@
 #recipe{:title "Sample"
         :description "A sample recipe that shows all current features"
-        :inputs #inputs[[:user {:var "name" :default "default"}]
-                        [:set {:var "set-value" :with "Value"}]
-                        [:set {:var "name2" :from "name"}]]
-        :instructions #instructions[[:create {:filepath "./sample-output.txt" :template "<t>/sample.template"}]]}
+        :inputs #inputs[[:inputaction/user {:var "name" :default "default"}]
+                        [:inputaction/set {:var "set-value" :with "Value"}]
+                        [:inputaction/set {:var "name2" :from "name"}]]
+        :instructions #instructions[[:instructionaction/create {:filepath "./sample-output.txt" :template "<t>/sample.template"}]
+                                    [:instructionaction/update {:filepath "./sample-output.txt" :template "<t>/update.template" :target "<< TARGET >>"}]
+                                    [:instructionaction/nvim {:filepath "./sample-output.txt" :commands "norm! GoHello from NVIM"}]]}

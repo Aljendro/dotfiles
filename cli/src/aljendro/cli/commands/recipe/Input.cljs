@@ -1,7 +1,8 @@
 (ns aljendro.cli.commands.recipe.Input
   (:require
    [aljendro.cli.utils.shell :as shell]
-   [aljendro.cli.commands.recipe.InputAction :as InputAction]
+   [aljendro.cli.utils.enum :as enum]
+   [aljendro.cli.commands.recipe.InputAction :refer [InputAction]]
    ;
    ))
 
@@ -51,8 +52,8 @@
       :else "noop")))
 
 (def ^:private InputAction->action-fn
-  {InputAction/USER user-input
-   InputAction/SET set-input})
+  {(enum/of InputAction USER) user-input
+   (enum/of InputAction SET) set-input})
 
 (comment
   ; METHODS
