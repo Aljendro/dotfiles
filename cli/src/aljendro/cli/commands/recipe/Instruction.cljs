@@ -44,12 +44,22 @@
       path/resolve))
 
 (defn- ^:async create-file "Create the file"
-  [global-state-atom {:keys [filepath template]}]
+  [global-state-atom {:keys [filepath template options]}]
   (let [template-content (await (fs/readFile (resolve-filepath template) "utf8"))
         content (templating/render template-content @global-state-atom "<< MISSING >>")
         final-filepath (templating/render filepath @global-state-atom "default")]
     (await (fs/mkdir (path/dirname final-filepath) #js {:recursive true}))
-    (fs/writeFile final-filepath content #js {:encoding "utf8" :flush true})))
+    (fs/writeFile final-filepath content (clj->js (merge {:encoding "utf8" :flush true} options)))))
+
+(defn- ^:async delete-file "Create the file"
+  [global-state-atom {:keys [filepath]}]
+  (let [final-filepath (templating/render filepath @global-state-atom "default")
+        user-input (try
+                     (await (shell/get-user-input (str "Delete (" final-filepath ") (y/n): ")))
+                     (catch js/Error _e "n"))]
+    (when (= "y" (-> user-input str/trim str/lower-case))
+      (fs/rm final-filepath {:force true :recursive true :maxRetries 3})
+      (println (str "Deleted (" final-filepath ")")))))
 
 (defn- ^:async update-target "Targetted update within file using a template"
   [global-state-atom {:keys [filepath template target]}]
@@ -69,5 +79,6 @@
 
 (def ^:private InstructionAction->action-fn
   {(enum/of InstructionAction CREATE) create-file
+   (enum/of InstructionAction DELETE) delete-file
    (enum/of InstructionAction UPDATE) update-target
    (enum/of InstructionAction NVIM) update-nvim})
