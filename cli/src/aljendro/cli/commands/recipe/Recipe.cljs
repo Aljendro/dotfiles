@@ -54,25 +54,3 @@
   (->> (fs/readFile filepath "utf8")
        await
        (edn/read-string readers)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(comment
-  ; METHODS
-  (def steps [:a :b :c {:create-fn "hello"}])
-  (def recipe1 (->Recipe "sample" "description" [] steps))
-
-  (follow recipe1 (atom {}))
-
-  ; PUBLIC UTILITIES
-  ((^:async fn [] (def p1 (await (extract-recipes)))))
-  ((^:async fn [] (def p2 (await (extract-recipes {:global? true})))))
-
-  ((^:async fn [] (def p3 (await (read-recipe "/Users/alejandroalvarado/dotfiles/cli/recipes/hello.recipe.edn")))))
-
-  ; PRIVATE UTILITIES
-  ;
-  )
-
