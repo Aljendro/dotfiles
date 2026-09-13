@@ -10,7 +10,7 @@
    [aljendro.cli.commands.mfa :as mfa]
    [aljendro.cli.commands.now :as now]
    [aljendro.cli.commands.unix2iso :as unix2iso]
-   ;
+   ; COMMAND_LIST_REQUIRE_TARGET
    ))
 
 (def ^:private commands
@@ -49,7 +49,10 @@
 
    "unix2iso"
    {:desc "Converts 13-digit Unix timestamps in stdin to ISO 8601 format"
-    :run  unix2iso/run}})
+    :run  unix2iso/run}
+
+   ; COMMAND_LIST_TARGET
+   })
 
 (defn- print-usage []
   (println "Usage: t <command> [options]\n")

@@ -1,0 +1,15 @@
+#recipe{:title "Cli Command"
+        :description "Add an additional cli command."
+        :inputs #inputs[[:inputaction/user {:var "name" :default "default"}]
+                        [:inputaction/user {:var "description" :default "default"}]]
+        :instructions #instructions[[:instructionaction/create
+                                     {:filepath "./src/aljendro/cli/commands/{{ name }}/main.cljs"
+                                      :template "<t>/command/main.template"}]
+                                    [:instructionaction/update
+                                     {:filepath "./src/aljendro/cli/core.cljs"
+                                      :template "<t>/command/cli_command_require.template"
+                                      :target "COMMAND_LIST_REQUIRE_TARGET"}]
+                                    [:instructionaction/update
+                                     {:filepath "./src/aljendro/cli/core.cljs"
+                                      :template "<t>/command/cli_command_list.template"
+                                      :target "COMMAND_LIST_TARGET"}]]}
