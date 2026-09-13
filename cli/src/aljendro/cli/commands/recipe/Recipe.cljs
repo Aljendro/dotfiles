@@ -18,14 +18,16 @@
 (declare generate-instruction-step-fn)
 
 (defn ^:async follow "Follow the recipe"
-  [self]
-  (let [state-atom (atom {})]
+  [self global-state-atom]
+  ; Not redundant, do block required for some reason
+  #_:clj-kondo/ignore
+  (do
     (doseq [i (:inputs self)]
       (when (input_ns/is-input? i)
-        (await (input_ns/execute i state-atom))))
+        (await (input_ns/execute i global-state-atom))))
     (doseq [i (:instructions self)]
       (when (instruction/is-instruction? i)
-        (await (instruction/execute i state-atom))))))
+        (await (instruction/execute i global-state-atom))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PUBLIC UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -62,7 +64,7 @@
   (def steps [:a :b :c {:create-fn "hello"}])
   (def recipe1 (->Recipe "sample" "description" [] steps))
 
-  (follow recipe1)
+  (follow recipe1 (atom {}))
 
   ; PUBLIC UTILITIES
   ((^:async fn [] (def p1 (await (extract-recipes)))))

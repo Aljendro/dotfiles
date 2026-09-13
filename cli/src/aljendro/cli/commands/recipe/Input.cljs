@@ -32,12 +32,13 @@
 
 (defn ^:async user-input "Get the user's input"
   [global-state-atom inputs]
-  (let [var-keyword (keyword (:var inputs))
-        user-input (try
-                     (await (shell/get-user-input (str "Set " var-keyword " : ")))
-                     (catch js/Error _e
-                       (or (:default inputs) "")))]
-    (swap! global-state-atom assoc var-keyword user-input)))
+  (let [var-keyword (keyword (:var inputs))]
+    (when (not (contains? @global-state-atom var-keyword))
+      (let [user-input (try
+                         (await (shell/get-user-input (str "Set " var-keyword " : ")))
+                         (catch js/Error _e
+                           (or (:default inputs) "")))]
+        (swap! global-state-atom assoc var-keyword user-input)))))
 
 (defn ^:async set-input "Set the input directly"
   [global-state-atom inputs]
