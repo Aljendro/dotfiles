@@ -46,8 +46,10 @@
 (defn- ^:async create-file "Create the file"
   [global-state-atom {:keys [filepath template]}]
   (let [template-content (await (fs/readFile (resolve-filepath template) "utf8"))
-        content (templating/render template-content @global-state-atom "<< MISSING >>")]
-    (fs/writeFile filepath content #js {:encoding "utf8" :flush true})))
+        content (templating/render template-content @global-state-atom "<< MISSING >>")
+        final-filepath (templating/render filepath @global-state-atom "default")]
+    (await (fs/mkdir (path/dirname final-filepath) #js {:recursive true}))
+    (fs/writeFile final-filepath content #js {:encoding "utf8" :flush true})))
 
 (defn- ^:async update-target "Targetted update within file using a template"
   [global-state-atom {:keys [filepath template target]}]
@@ -60,8 +62,9 @@
         (await (fs/rm temp-filepath #js {:force true}))))))
 
 (defn- ^:async update-nvim "Update a file with arbitrary nvim dsl"
-  [_global-state-atom {:keys [filepath commands]}]
-  (let [nvim-command (str nvim-command-str "'+" commands "' '+x' " filepath)]
+  [global-state-atom {:keys [filepath commands]}]
+  (let [final-filepath (templating/render filepath @global-state-atom "default")
+        nvim-command (str nvim-command-str "'+" commands "' '+x' " final-filepath)]
     (shell/exec! nvim-command)))
 
 (def ^:private InstructionAction->action-fn
