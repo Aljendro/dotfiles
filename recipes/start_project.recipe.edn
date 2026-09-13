@@ -1,0 +1,9 @@
+#recipe{:title "Startup Project File"
+        :description "Adds a startup_project.local.txt file for project discovery"
+        :inputs #inputs[[:inputaction/user {:var "name" :default "default"}]]
+        :instructions #instructions[[:instructionaction/create
+                                     {:filepath "./start_project.local.sh"
+                                      :template "<gt>/start_project.template"
+                                      :options {:mode 0700}}]
+                                    [:instructionaction/delete
+                                     {:filepath "/tmp/tmux_identifiers_cache"}]]}
