@@ -51,6 +51,11 @@
     (await (fs/mkdir (path/dirname final-filepath) #js {:recursive true}))
     (fs/writeFile final-filepath content (clj->js (merge {:encoding "utf8" :flush true} options)))))
 
+(defn- ^:async create-directory "Create the directory"
+  [global-state-atom {:keys [filepath]}]
+  (let [final-filepath (templating/render filepath @global-state-atom "default")]
+    (fs/mkdir (path/dirname final-filepath) #js {:recursive true})))
+
 (defn- ^:async delete-file "Create the file"
   [global-state-atom {:keys [filepath]}]
   (let [final-filepath (templating/render filepath @global-state-atom "default")
@@ -79,6 +84,7 @@
 
 (def ^:private InstructionAction->action-fn
   {(enum/of InstructionAction CREATE) create-file
+   (enum/of InstructionAction DIR) create-directory
    (enum/of InstructionAction DELETE) delete-file
    (enum/of InstructionAction UPDATE) update-target
    (enum/of InstructionAction NVIM) update-nvim})

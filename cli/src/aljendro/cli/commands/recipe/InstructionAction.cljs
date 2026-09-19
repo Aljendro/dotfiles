@@ -3,4 +3,4 @@
    [aljendro.cli.utils.enum :as enum]))
 
 (enum/defenum InstructionAction
-  [CREATE DELETE UPDATE NVIM])
+  [CREATE DIR DELETE UPDATE NVIM])
