@@ -7,6 +7,8 @@
    [aljendro.cli.commands.recipe.common :refer [RECIPE_DIRECTORY
                                                 RECIPE_FILE_SUFFIX]]
    [aljendro.cli.commands.recipe.Instruction :as instruction]
+   [aljendro.cli.commands.recipe.InstructionAction :refer [InstructionAction]]
+   [aljendro.cli.commands.recipe.InputAction :refer [InputAction]]
    [aljendro.cli.commands.recipe.Input :as input_ns]))
 
 (defrecord Recipe [title description inputs instructions])
@@ -15,7 +17,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; METHODS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(declare generate-instruction-step-fn)
+(declare generate-instruction-step-fn update-action)
 
 (defn ^:async follow "Follow the recipe"
   [self global-state-atom]
@@ -46,11 +48,18 @@
 
 (def ^:private readers
   {:readers {'recipe map->Recipe
-             'instructions (fn [n] (map #(apply instruction/->Instruction %) n))
-             'inputs (fn [n] (map #(apply input_ns/->Input %) n))}})
+             'instructions (fn [n] (map #(apply instruction/->Instruction (update-action (:enum/ns InstructionAction) %)) n))
+             'inputs (fn [n] (map #(apply input_ns/->Input (update-action (:enum/ns InputAction) %)) n))}})
 
 (defn ^:async read-recipe "Read a recipe from the filesystem"
   [filepath]
   (->> (fs/readFile filepath "utf8")
        await
        (edn/read-string readers)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; PRIVATE UTILITIES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn update-action [custom-namespace v]
+  (if (seq v) (update v 0 #(keyword custom-namespace %)) v))

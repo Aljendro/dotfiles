@@ -18,6 +18,7 @@
                    members)]
     `(def ~enum-name
        {:enum/name    '~enum-name
+        :enum/ns      ~base
         :enum/members ~m
         :enum/values  ~(set (vals m))})))
 
