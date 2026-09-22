@@ -9,10 +9,13 @@
 tags
 
 # Stow
-!stow/claude/.claude
+!stow/clojure/.clojure
 stow/nvim/.config/nvim/sessions
 stow/zsh/.oh-my-zsh
 stow/fzf/.fzf
-stow/clojure/.clojure
+stow/clojure/.clojure/.clj-kondo
+stow/clojure/.clojure/.cpcache
+stow/clojure/.clojure/.lsp
+stow/clojure/.clojure/tools/tools.edn
 stow/tmux/.tmux-themepack
 stow/nvim/.config/nvim/lua/dotfiles/

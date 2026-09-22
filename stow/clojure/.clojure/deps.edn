@@ -1,0 +1,53 @@
+;; ~/.clojure/deps.edn
+;; (or $XDG_CONFIG_HOME/clojure/deps.edn, or $CLJ_CONFIG/deps.edn)
+;;
+;; Keep versions fresh with:  clojure -M:outdated --directory ~/.clojure --upgrade
+
+{:mvn/repos
+ {"central" {:url "https://repo1.maven.org/maven2/"}
+  "clojars" {:url "https://repo.clojars.org/"}}
+
+ :aliases
+ {;; ---------------------------------------------------------------- REPLs
+
+  ;; nREPL + CIDER middleware (works with CIDER, Calva, Conjure, Cursive)
+  ;;   clj -M:repl/nrepl
+  ;;   clj -M:dev:dev/portal:repl/nrepl     ; stack aliases, REPL last
+  :repl/nrepl
+  {:extra-deps {nrepl/nrepl       {:mvn/version "1.7.0"}
+                cider/cider-nrepl {:mvn/version "0.62.2"}}
+   :main-opts  ["-m" "nrepl.cmdline"
+                "--middleware" "[cider.nrepl/cider-middleware]"
+                "--interactive"]}
+
+  ;; ---------------------------------------------------------------- Dev
+
+  ;; Portal data inspector. In the REPL:
+  ;;   (require '[portal.api :as p]) (p/open) (add-tap #'p/submit) (tap> {:hi 1})
+  :dev/portal
+  {:extra-deps {djblue/portal {:mvn/version "0.67.2"}}}
+
+  ;; ---------------------------------------------------------------- Quality
+
+  ;; Lint with clj-kondo
+  ;;   clj -M:lint
+  :lint
+  {:deps      {clj-kondo/clj-kondo {:mvn/version "2026.08.04"}}
+   :main-opts ["-m" "clj-kondo.main" "--lint" "src" "test"]}
+
+  ;; Formatting with cljfmt
+  ;;   clj -M:format/check    |    clj -M:format/fix
+  :format/check
+  {:deps      {dev.weavejester/cljfmt {:mvn/version "0.16.5"}}
+   :main-opts ["-m" "cljfmt.main" "check"]}
+
+  :format/fix
+  {:deps      {dev.weavejester/cljfmt {:mvn/version "0.16.5"}}
+   :main-opts ["-m" "cljfmt.main" "fix"]}
+
+  ;; Find outdated deps (project or this file)
+  ;;   clj -M:outdated
+  ;;   clj -M:outdated --upgrade
+  :outdated
+  {:deps      {com.github.liquidz/antq {:mvn/version "2.11.1276"}}
+   :main-opts ["-m" "antq.core"]}}}
