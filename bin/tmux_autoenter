@@ -56,36 +56,36 @@ if [ $# -le 3 ]; then
   fi
 
   case "$ACTION" in
-    loop)
-      # Internal: interval and pane are passed positionally by autoenter_start
-      autoenter_loop "$PANE" "$INTERVAL"
-      ;;
-    on)
-      autoenter_start "$PANE" "$INTERVAL"
-      tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
-      ;;
-    off)
+  loop)
+    # Internal: interval and pane are passed positionally by autoenter_start
+    autoenter_loop "$PANE" "$INTERVAL"
+    ;;
+  on)
+    autoenter_start "$PANE" "$INTERVAL"
+    tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
+    ;;
+  off)
+    autoenter_stop "$PANE"
+    tmux display-message "Auto-Enter OFF"
+    ;;
+  toggle)
+    if [ -n "$(autoenter_state "$PANE")" ]; then
       autoenter_stop "$PANE"
       tmux display-message "Auto-Enter OFF"
-      ;;
-    toggle)
-      if [ -n "$(autoenter_state "$PANE")" ]; then
-        autoenter_stop "$PANE"
-        tmux display-message "Auto-Enter OFF"
-      else
-        autoenter_start "$PANE" "$INTERVAL"
-        tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
-      fi
-      ;;
-    status)
-      STATE=$(autoenter_state "$PANE")
-      [ -n "$STATE" ] && echo "on $STATE" || echo "off"
-      ;;
-    *)
-      display_summary
-      display_usage
-      exit 1
-      ;;
+    else
+      autoenter_start "$PANE" "$INTERVAL"
+      tmux display-message "Auto-Enter ON (${INTERVAL}s) for $PANE"
+    fi
+    ;;
+  status)
+    STATE=$(autoenter_state "$PANE")
+    [ -n "$STATE" ] && echo "on $STATE" || echo "off"
+    ;;
+  *)
+    display_summary
+    display_usage
+    exit 1
+    ;;
   esac
 else
   display_summary
