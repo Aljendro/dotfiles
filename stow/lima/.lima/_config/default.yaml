@@ -1,6 +1,6 @@
-cpus: 2
+cpus: 1
 memory: '4GiB'
-disk: '50GiB'
+disk: '20GiB'
 
 portForwards:
   - guestIP: '::'
