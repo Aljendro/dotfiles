@@ -1,0 +1,173 @@
+flowchart TB
+    %% The style guide for our process DSL, written in the DSL itself
+
+    classDef cmd fill:none,stroke:none,font-family:monospace
+    classDef warn fill:red,color:white
+
+    %% Node type examples with their shapes
+    subgraph node_types["NODE TYPES AND SHAPES"]
+        %% Questions are diamonds
+        nt_question{"Is this a question?"}
+
+        %% Actions are boxes (default)
+        nt_action["Take an action"]
+
+        %% Commands are plaintext (cmd class: no border, monospace)
+        nt_command["git commit -m 'msg'"]:::cmd
+
+        %% States are stadiums
+        nt_state(["Current state"])
+
+        %% Warnings are red hexagons (mermaid has no octagon)
+        nt_warning{{"STOP: Critical warning"}}:::warn
+
+        %% Entry/exit are double circles
+        nt_start((("Process starts")))
+        nt_end((("Process complete")))
+
+        %% Examples of each
+        nt_ex_question{"Is test passing?"}
+        nt_ex_action["Write test first"]
+        nt_ex_command["npm test"]:::cmd
+        nt_ex_state(["I am stuck"])
+        nt_ex_warning{{"NEVER use git add -A"}}:::warn
+    end
+
+    %% Edge naming conventions
+    subgraph edge_types["EDGE LABELS"]
+        binary{"Binary decision?"}
+        yes_path["Yes path"]
+        no_path["No path"]
+
+        binary -->|yes| yes_path
+        binary -->|no| no_path
+
+        multi{"Multiple choice?"}
+        option_a["Option A"]
+        option_b["Option B"]
+        option_c["Option C"]
+
+        multi -->|condition A| option_a
+        multi -->|condition B| option_b
+        multi -->|otherwise| option_c
+
+        a_done((("Process A done")))
+        b_starts((("Process B starts")))
+
+        a_done -.->|triggers| b_starts
+    end
+
+    %% Naming patterns
+    subgraph naming_patterns["NAMING PATTERNS"]
+        %% Questions end with ?
+        np_q1["Should I do X?"]
+        np_q2["Can this be Y?"]
+        np_q3["Is Z true?"]
+        np_q4["Have I done W?"]
+
+        %% Actions start with verb
+        np_a1["Write the test"]
+        np_a2["Search for patterns"]
+        np_a3["Commit changes"]
+        np_a4["Ask for help"]
+
+        %% Commands are literal
+        np_c1["grep -r 'pattern' ."]
+        np_c2["git status"]
+        np_c3["npm run build"]
+
+        %% States describe situation
+        np_s1["Test is failing"]
+        np_s2["Build complete"]
+        np_s3["Stuck on error"]
+    end
+
+    %% Process structure template
+    subgraph structure["PROCESS STRUCTURE TEMPLATE"]
+        trigger(["Trigger: Something happens"])
+        initial{"Initial check?"}
+        main_action["Main action"]
+        status["git status"]:::cmd
+        another{"Another check?"}
+        alternative["Alternative action"]
+        dont{{"STOP: Don't do this"}}:::warn
+        complete((("Process complete")))
+
+        trigger --> initial
+        initial -->|yes| main_action
+        initial -->|no| alternative
+        main_action --> status
+        status --> another
+        another -->|ok| complete
+        another -->|problem| dont
+        alternative --> complete
+    end
+
+    %% When to use which shape
+    subgraph shape_rules["WHEN TO USE EACH SHAPE"]
+        choosing(["Choosing a shape"])
+
+        is_decision{"Is it a decision?"}
+        use_diamond{"Use diamond"}
+
+        is_command{"Is it a command?"}
+        use_plaintext["Use plaintext"]:::cmd
+
+        is_warning{"Is it a warning?"}
+        use_hexagon{{"Use hexagon"}}
+
+        is_entry{"Is it entry/exit?"}
+        use_doublecircle((("Use double circle")))
+
+        is_state{"Is it a state?"}
+        use_stadium(["Use stadium"])
+
+        use_box["Default: use box"]
+
+        choosing --> is_decision
+        is_decision -->|yes| use_diamond
+        is_decision -->|no| is_command
+        is_command -->|yes| use_plaintext
+        is_command -->|no| is_warning
+        is_warning -->|yes| use_hexagon
+        is_warning -->|no| is_entry
+        is_entry -->|yes| use_doublecircle
+        is_entry -->|no| is_state
+        is_state -->|yes| use_stadium
+        is_state -->|no| use_box
+
+        style use_diamond fill:lightblue
+        style use_plaintext fill:lightgray
+        style use_hexagon fill:pink
+        style use_doublecircle fill:lightgreen
+        style use_stadium fill:lightyellow
+        style use_box fill:lightcyan
+    end
+
+    %% Good vs bad examples
+    subgraph examples["GOOD VS BAD EXAMPLES"]
+        %% Good: specific and shaped correctly
+        test_failed(["Test failed"])
+        read_error["Read error message"]
+        can_reproduce{"Can reproduce?"}
+        git_diff["git diff HEAD~1"]:::cmd
+        never_ignore{{"NEVER ignore errors"}}:::warn
+
+        test_failed --> read_error
+        read_error --> can_reproduce
+        can_reproduce -->|yes| git_diff
+
+        %% Bad: vague and wrong shapes
+        %% Should be stadium (state)
+        bad_1["Something wrong"]
+        %% Too vague
+        bad_2["Fix it"]
+        %% Should be diamond
+        bad_3["Check"]
+        %% Should be plaintext with actual command
+        bad_4["Run command"]
+
+        bad_1 --> bad_2
+        bad_2 --> bad_3
+        bad_3 --> bad_4
+    end
