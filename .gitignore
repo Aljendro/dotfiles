@@ -9,13 +9,17 @@
 tags
 
 # Stow
+!stow/claude/*
+!stow/claude_superpowers/*
+stow/claude/.claude/settings.json
+stow/claude/.claude/skills/*/local.md
 !stow/clojure/.clojure
-stow/nvim/.config/nvim/sessions
-stow/zsh/.oh-my-zsh
-stow/fzf/.fzf
 stow/clojure/.clojure/.clj-kondo
 stow/clojure/.clojure/.cpcache
 stow/clojure/.clojure/.lsp
 stow/clojure/.clojure/tools/tools.edn
-stow/tmux/.tmux-themepack
+stow/fzf/.fzf
 stow/nvim/.config/nvim/lua/dotfiles/
+stow/nvim/.config/nvim/sessions
+stow/tmux/.tmux-themepack
+stow/zsh/.oh-my-zsh

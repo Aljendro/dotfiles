@@ -1,0 +1,246 @@
+#!/bin/bash
+
+display_usage() {
+  echo -e "Usage: tmux_agent [set <working|waiting|done>|clear|list|pick|next|new [name] [dir]]"
+}
+
+display_summary() {
+  echo -e "Tracks coding agents (Claude Code) running in tmux panes.\n"
+  echo -e "Agent hooks call 'set'/'clear' to store state in the pane option @agent_state,"
+  echo -e "and the most urgent state in a window is mirrored to the window option @agent"
+  echo -e "so the window bar can show an indicator.\n"
+  echo -e "  set <state>  Mark \$TMUX_PANE as working, waiting (needs input) or done"
+  echo -e "  clear        Stop tracking \$TMUX_PANE"
+  echo -e "  list         Print every tracked agent"
+  echo -e "  pick         Fuzzy pick an agent (with live preview) and switch to it"
+  echo -e "  next         Switch to the next agent waiting on input (or done)"
+  echo -e "  new          Open a new window running claude (prompts when no args given)\n"
+}
+
+AGENT_CMD=${TMUX_AGENT_CMD:-claude}
+REFRESH_SECS=${TMUX_AGENT_REFRESH:-10}
+SEP=$'\t'
+
+# Most urgent first; used to roll pane states up into the window indicator
+state_rank() {
+  case "$1" in
+  waiting) echo 3 ;;
+  working) echo 2 ;;
+  done) echo 1 ;;
+  *) echo 0 ;;
+  esac
+}
+
+state_icon() {
+  case "$1" in
+  waiting) echo "!" ;;
+  working) echo "●" ;;
+  done) echo "✓" ;;
+  esac
+}
+
+state_color() {
+  case "$1" in
+  waiting) echo $'\e[31m' ;;
+  working) echo $'\e[33m' ;;
+  done) echo $'\e[32m' ;;
+  esac
+}
+
+format_age() {
+  local secs=$(($(date +%s) - ${1:-$(date +%s)}))
+  if ((secs < 60)); then
+    echo "${secs}s"
+  elif ((secs < 3600)); then
+    echo "$((secs / 60))m"
+  else
+    echo "$((secs / 3600))h"
+  fi
+}
+
+# Recompute the window option @agent from the states of all panes in the window
+agent_sync_window() {
+  local pane=$1 state best="" best_rank=0 rank
+  while read -r state; do
+    rank=$(state_rank "$state")
+    if ((rank > best_rank)); then
+      best=$state
+      best_rank=$rank
+    fi
+  done < <(tmux list-panes -t "$pane" -F '#{@agent_state}' 2>/dev/null)
+
+  if [ -n "$best" ]; then
+    tmux set-option -wq -t "$pane" @agent "$(state_icon "$best")"
+  else
+    tmux set-option -wqu -t "$pane" @agent
+  fi
+  tmux refresh-client -S 2>/dev/null
+}
+
+agent_set() {
+  local pane=$1 state=$2
+  # Only bump the timestamp on transitions so the age reads "in this state for"
+  if [ "$(tmux show-options -pqv -t "$pane" @agent_state)" != "$state" ]; then
+    tmux set-option -pq -t "$pane" @agent_since "$(date +%s)"
+  fi
+  tmux set-option -pq -t "$pane" @agent_state "$state"
+  agent_sync_window "$pane"
+}
+
+agent_clear() {
+  local pane=$1
+  tmux set-option -pqu -t "$pane" @agent_state
+  tmux set-option -pqu -t "$pane" @agent_since
+  agent_sync_window "$pane"
+}
+
+# One line per tracked pane: pane_id, state, since, location, path
+agent_rows() {
+  tmux list-panes -a -F "#{pane_id}${SEP}#{@agent_state}${SEP}#{@agent_since}${SEP}#{session_name}:#{window_index}.#{pane_index} #{window_name}${SEP}#{pane_current_path}" |
+    awk -F "$SEP" '$2 != ""'
+}
+
+agent_list() {
+  local reset=$'\e[0m' pane state since loc path
+  while IFS=$SEP read -r pane state since loc path; do
+    printf "%s${SEP}%s${SEP}%s%s %-7s%s${SEP}%4s${SEP}%s${SEP}%s\n" \
+      "$(state_rank "$state")" "$pane" "$(state_color "$state")" "$(state_icon "$state")" "$state" "$reset" \
+      "$(format_age "$since")" "$loc" "${path/#$HOME/~}"
+  done < <(agent_rows) | sort -s -t "$SEP" -k1,1nr | cut -f2-
+}
+
+agent_switch() {
+  local pane=$1
+  tmux switch-client -t "$pane" \; select-window -t "$pane" \; select-pane -t "$pane"
+}
+
+agent_pick() {
+  local rows choice
+  rows=$(agent_list)
+  if [ -z "$rows" ]; then
+    echo "No agents running"
+    sleep 1
+    return 0
+  fi
+  # A background loop drives refreshes through fzf's --listen server; sleeping
+  # inside reload-sync instead would block keyboard input until it finished.
+  # Tracking by pane id keeps the cursor on the same agent
+  choice=$(echo "$rows" | fzf --ansi --delimiter "$SEP" --with-nth 2.. \
+    --track --id-nth 1 --listen \
+    --header "enter: switch  ctrl-r: refresh  (auto every ${REFRESH_SECS}s)" \
+    --bind "start:execute-silent('$0' refresh-loop >/dev/null 2>&1 &)" \
+    --bind "ctrl-r:reload-sync('$0' list)" \
+    --bind "load:refresh-preview" \
+    --preview 'tmux capture-pane -ep -t {1} | tail -n "$FZF_PREVIEW_LINES"' \
+    --preview-window 'down,70%')
+  [ -n "$choice" ] && agent_switch "${choice%%"$SEP"*}"
+}
+
+# Runs in the background of agent_pick; FZF_PORT is exported by fzf --listen.
+# Exits once fzf is gone and the request fails
+agent_refresh_loop() {
+  while sleep "$REFRESH_SECS"; do
+    curl -fs -XPOST "localhost:$FZF_PORT" -d "reload-sync('$0' list)" >/dev/null || break
+  done
+}
+
+# Cycle through agents that need attention, waiting before done
+agent_next() {
+  local current=$1 panes next
+  panes=$(agent_rows | awk -F "$SEP" '$2 == "waiting"' | cut -f1)
+  [ -z "$panes" ] && panes=$(agent_rows | awk -F "$SEP" '$2 == "done"' | cut -f1)
+  if [ -z "$panes" ]; then
+    tmux display-message "No agents need attention"
+    return 0
+  fi
+  # Take the first pane after the current one, wrapping around
+  next=$(echo "$panes" | awk -v cur="$current" '
+    NR == 1 { first = $0 }
+    found { print; picked = 1; exit }
+    $0 == cur { found = 1 }
+    END { if (!picked) print first }')
+  agent_switch "$next"
+}
+
+agent_new() {
+  local name=${1:-agent} dir=${2:-$(tmux display-message -p '#{pane_current_path}')}
+  tmux new-window -n "$name" -c "$dir" "$AGENT_CMD"
+}
+
+# Interactive form for agent_new, meant to run inside a popup started in the
+# directory of the pane it was opened from
+agent_new_prompt() {
+  local bold=$'\e[1m' dim=$'\e[2m' reset=$'\e[0m' dir name
+
+  echo "${bold}New agent${reset}"
+  echo
+  echo "Opens a new tmux window in this session running: ${bold}${AGENT_CMD}${reset}"
+  echo
+  echo "  ${dim}Enter${reset}   accept the [default] shown"
+  echo "  ${dim}Tab${reset}     complete directory paths"
+  echo "  ${dim}Ctrl-C${reset}  cancel"
+  echo
+
+  while :; do
+    echo "${bold}1. Directory${reset} the agent works in"
+    read -e -r -p "   [${PWD/#$HOME/~}] " dir || return 0
+    dir=${dir:-$PWD}
+    dir=${dir/#\~/$HOME}
+    [ -d "$dir" ] && break
+    echo "   ${dim}Not a directory: $dir${reset}"
+    echo
+  done
+  dir=$(cd "$dir" && pwd)
+
+  echo
+  echo "${bold}2. Name${reset} shown in the window bar and agent list"
+  read -r -p "   [$(basename "$dir")] " name || return 0
+  name=${name:-$(basename "$dir")}
+
+  agent_new "$name" "$dir"
+}
+
+ACTION=${1:-pick}
+PANE=${TMUX_PANE:-$(tmux display-message -p '#{pane_id}' 2>/dev/null)}
+
+case "$ACTION" in
+set)
+  # Hooks run outside tmux too; silently ignore those
+  [ -z "$TMUX_PANE" ] && exit 0
+  case "$2" in
+  working | waiting | done) agent_set "$TMUX_PANE" "$2" ;;
+  *)
+    display_usage
+    exit 1
+    ;;
+  esac
+  ;;
+clear)
+  [ -z "$TMUX_PANE" ] && exit 0
+  agent_clear "$TMUX_PANE"
+  ;;
+list)
+  agent_list
+  ;;
+pick)
+  agent_pick
+  ;;
+refresh-loop)
+  agent_refresh_loop
+  ;;
+next)
+  agent_next "$PANE"
+  ;;
+new)
+  if [ $# -le 1 ]; then
+    agent_new_prompt
+  else
+    agent_new "$2" "$3"
+  fi
+  ;;
+*)
+  display_summary
+  display_usage
+  exit 1
+  ;;
+esac
